@@ -1,0 +1,791 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>คู่มืออบรม: AI สำหรับฝ่ายไร่</title>
+<style>
+        :root {
+            --primary-color: #00568c;
+            --secondary-color: #007bff;
+            --accent-color: #f0f8ff;
+            --text-color: #333;
+            --header-color: #2c3e50;
+            --border-color: #dee2e6;
+            --table-header-bg: #f2f2f2;
+            --prompt-bg: #e9ecef;
+            --prompt-border: #ced4da;
+            --code-bg: #f8f9fa;
+            --danger-color: #dc3545;
+            --success-color: #28a745;
+        }
+
+        body {
+            font-family: 'Tahoma', 'Leelawadee UI', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: #fdfdfd;
+            margin: 0;
+            padding: 0;
+        }
+
+        .manual-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 30px 40px;
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+
+        h1, h2, h3, h4, h5 {
+            color: var(--header-color);
+            font-weight: 600;
+            margin-top: 1.5em;
+            margin-bottom: 0.8em;
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            color: var(--primary-color);
+            text-align: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 10px;
+        }
+        
+        h1 + p {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            color: var(--header-color);
+        }
+
+        ul, ol {
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: var(--primary-color);
+        }
+
+        .prompt-box, .checklist, .example-output {
+            background-color: var(--accent-color);
+            border-left: 5px solid var(--secondary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .prompt-box h5, .checklist h5, .example-output h5 {
+            margin-top: 0;
+            color: var(--secondary-color);
+            font-size: 1.1rem;
+        }
+
+        .prompt-box pre, .prompt-box code {
+            background-color: transparent;
+            padding: 0;
+            margin: 0;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .prompt-box.danger {
+            border-left-color: var(--danger-color);
+        }
+        .prompt-box.danger h5 {
+            color: var(--danger-color);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--table-header-bg);
+            font-weight: 600;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .doc-footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.9rem;
+            color: #777;
+        }
+        
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ffeeba;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+    </style>
+
+</head><body>
+<div class="manual-container" data-cid="wV293q">
+<header data-cid="grUTug">
+<h1 id="section-1" data-cid="GrqP4D">คู่มืออบรม: AI สำหรับฝ่ายไร่</h1>
+<p data-cid="zkf6rn">ภายใต้แนวคิด <strong data-cid="aPxSDt">“ให้ AI เป็นผู้ช่วยมือโปร”</strong></p>
+<p style="font-style: italic;" data-cid="xMrxT9">(ผสาน “การใช้ AI ช่วยตัดสินใจงานบำรุงอ้อยจากข้อมูลจริง” เป็นแกนหลัก)</p>
+<p style="font-size: 0.9em; color: #666;" data-cid="eXU6kW">วันที่จัดทำ: 25 กุมภาพันธ์ 2569</p>
+</header>
+<section id="overview" data-cid="nsktld">
+<h2 id="section-1" data-cid="tihrd9">ภาพรวมหลักสูตร</h2>
+<h3 id="section-1-1" data-cid="al1nOD">แนวคิดหลัก</h3>
+<ul data-cid="Pz2Z-Z">
+<li data-cid="_dCxs5"><strong data-cid="e4TdtQ">ให้ AI เป็น “ผู้ช่วยมือโปร” ของฝ่ายไร่:</strong> ช่วยคิด, ช่วยร่าง, ช่วยสรุป, ช่วยตรวจ, ช่วยวิเคราะห์, และช่วยทำสื่อ</li>
+<li data-cid="q5PuTa"><strong data-cid="jHJAjA">คนยังเป็นผู้ตัดสินใจและรับผิดชอบผลลัพธ์:</strong> AI ไม่ได้ทำหน้าที่ตัดสินใจแทนมนุษย์</li>
+<li data-cid="9n1hPD"><strong data-cid="P9ZT_j">ใช้งานจริง:</strong> เน้นการประยุกต์ใช้ AI ในการทำงานจริง ไม่ลงลึกเชิงเทคนิค หรือสอน Machine Learning</li>
+<li data-cid="Syx1pO"><strong data-cid="vIQvkA">ใช้ข้อมูลจริง:</strong> ใช้ข้อมูลจากระบบสารสนเทศ (สท.) ที่มีอยู่ โดยเฉพาะ “ข้อมูลบำรุงอ้อย”</li>
+<li data-cid="Dzh_Co"><strong data-cid="ikNdGh">รูปแบบข้อมูลมาตรฐาน:</strong> ยึดหลัก 1 แปลง / 1 ฤดู = 1 แถว เพื่อให้ AI วิเคราะห์ได้อย่างมีประสิทธิภาพสูงสุด</li>
+</ul>
+<h3 id="section-1-2" data-cid="nTW7MQ">ขอบเขตหลักสูตร</h3>
+<p data-cid="AwKPeR">หลักสูตรนี้เน้น <strong data-cid="Pz2g_c">“การบำรุงอ้อย”</strong> เป็นแกนหลัก (Data-driven decision making) และเสริมทักษะการใช้ AI ในฐานะผู้ช่วยมือโปรในงานฝ่ายไร่ 5 ด้าน:</p>
+<ol data-cid="eDK_QY">
+<li data-cid="dJkio7"><strong data-cid="m7VUK0">เพื่อนคู่คิด (Generative AI):</strong> ช่วยระดมสมองและวางแผน</li>
+<li data-cid="JiSpYT"><strong data-cid="BTx5jN">ผู้ช่วยเอกสาร (Document Assistant):</strong> ช่วยสรุปและร่างเอกสาร</li>
+<li data-cid="0yAEj1"><strong data-cid="Tpxk7O">วิเคราะห์ข้อมูลเพื่อช่วยตัดสินใจ (Excel + AI):</strong> แปลงข้อมูลเป็นข้อเสนอแนะ</li>
+<li data-cid="FfNL28"><strong data-cid="QdMLde">สร้างสรรค์สื่อ (Creative Content):</strong> ช่วยออกแบบสื่อรณรงค์และนำเสนอ</li>
+<li data-cid="XTpbik"><strong data-cid="saUG_v">ข้อควรระวัง/จริยธรรม/ความถูกต้อง (Ethics &amp; Accuracy):</strong> ใช้ AI อย่างปลอดภัยและรับผิดชอบ</li>
+</ol>
+<h3 id="section-1-3" data-cid="SSDs3X">ระยะเวลาอบรม</h3>
+<p data-cid="esujPW">3 – 4 ชั่วโมง</p>
+<h3 id="section-1-4" data-cid="hQNSFd">กลุ่มเป้าหมาย</h3>
+<ul data-cid="wqaobY">
+<li data-cid="VgPtBb">เจ้าหน้าที่ฝ่ายไร่</li>
+<li data-cid="PjsQgO">หัวหน้างานฝ่ายไร่ / ผู้ช่วยหัวหน้างานฝ่ายไร่</li>
+<li data-cid="fUQbyE">ผู้ใช้/เข้าถึงข้อมูลสารสนเทศในการทำงาน</li>
+</ul>
+<h3 id="section-1-5" data-cid="OTuZjI">สิ่งที่ผู้เรียนจะได้ (Learning Outcomes)</h3>
+<ul data-cid="iVvwHo">
+<li data-cid="xPbgMP">ชุด Prompt มาตรฐานกว่า 20 ชุด ที่พร้อมใช้งานจริงในงานไร่</li>
+<li data-cid="IdFUO_">วิธีจัดข้อมูลบำรุงอ้อยจากระบบ สท. ให้อยู่ในรูปแบบที่ AI วิเคราะห์ได้</li>
+<li data-cid="o9F0Pr">วิธีใช้ AI สรุป, ร่าง, และตรวจเอกสาร เพื่อลดเวลางานเอกสาร</li>
+<li data-cid="XZGkrC">วิธีสั่งให้ AI ช่วยคิดเป็น “แผนงาน + เหตุผล + งานต้องทำ” ไม่ใช่แค่การตอบแบบลอยๆ</li>
+<li data-cid="0p42Tk">กติกาการตรวจสอบความถูกต้องและความปลอดภัย เพื่อลดความเสี่ยงจากข้อมูลที่ AI อาจสร้างขึ้นเอง</li>
+</ul>
+<h3 id="section-1-6" data-cid="T3lLII">อุปกรณ์/การเตรียมตัว</h3>
+<ul data-cid="BgNRXL">
+<li data-cid="wRRWg2">คอมพิวเตอร์ 1 เครื่อง ต่อ 1 คน (หรือต่อคู่)</li>
+<li data-cid="xem1VU">โปรแกรม Microsoft Excel ที่ใช้งานได้</li>
+<li data-cid="5a5Y1X">ตัวอย่างข้อมูลจากระบบ สท. (อย่างน้อย 20 แถว) หรือใช้ข้อมูลตัวอย่างที่ให้ในภาคผนวก</li>
+</ul>
+</section>
+<section id="agenda" data-cid="sBm8Gg">
+<h2 id="section-2" data-cid="D8LqSx">วาระการประชุม (Agenda)</h2>
+<div class="table-container" data-cid="yIBU8v">
+<table data-cid="MXBlwF">
+<thead data-cid="-TnPBX">
+<tr data-cid="bCmcut">
+<th data-cid="7VCqFz">เวลา (นาที)</th>
+<th data-cid="giL5mB">หัวข้อการอบรม</th>
+</tr>
+</thead>
+<tbody data-cid="v2pPHS">
+<tr data-cid="dnxttc">
+<td data-cid="K9Rflf">10</td>
+<td data-cid="_dZtNM">เปิดคลาส และ กติกาการใช้งาน AI</td>
+</tr>
+<tr data-cid="HngRBX">
+<td data-cid="hnnQTn">55</td>
+<td data-cid="s6R9Cy"><strong data-cid="DZXZro">Module 1:</strong> AI เป็นเพื่อนคู่คิด (Generative AI)</td>
+</tr>
+<tr data-cid="9lwojK">
+<td data-cid="zWNsej">40</td>
+<td data-cid="sBUWXr"><strong data-cid="oh6RZ9">Module 2:</strong> AI ผู้ช่วยงานเอกสาร (Document Assistant)</td>
+</tr>
+<tr data-cid="t2pRXe">
+<td data-cid="gN5d7X">65</td>
+<td data-cid="7fW7xb"><strong data-cid="j9sVFV">Module 3:</strong> AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ (Data-driven) <strong data-cid="dz-ak3">**แกนหลัก**</strong></td>
+</tr>
+<tr data-cid="dcZKjr">
+<td data-cid="sCTa5E">30</td>
+<td data-cid="vSQJmr"><strong data-cid="3U6wF1">Module 4:</strong> AI สร้างสรรค์สื่อ (Creative Content)</td>
+</tr>
+<tr data-cid="jNUi2F">
+<td data-cid="KtvUqy">20</td>
+<td data-cid="rNKXaz"><strong data-cid="0l4UnR">Module 5:</strong> ข้อควรระวัง (Ethics &amp; Accuracy) และ สรุปปิดคลาส</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="section0" data-cid="gzltKP">
+<h2 id="section-3" data-cid="AxwLqc">SECTION 0: กติกาเปิดคลาส (Must say)</h2>
+<p data-cid="U_BZq4">ก่อนเริ่มใช้งาน เราต้องเข้าใจกฎพื้นฐานของการทำงานร่วมกับ AI เพื่อให้ได้ผลลัพธ์ที่ดีที่สุดและปลอดภัยที่สุด:</p>
+<ul data-cid="vTWFPw">
+<li data-cid="M9sck1"><strong data-cid="aUgxA4">AI ไม่รู้หน้างานจริง:</strong> AI รู้เฉพาะข้อมูลที่เราป้อนให้เท่านั้น</li>
+<li data-cid="NXYq6z"><strong data-cid="tsLNbW">ข้อมูลผิด = AI ผิด:</strong> คุณภาพของคำตอบขึ้นอยู่กับคุณภาพของข้อมูลที่ป้อนเข้าไป (Garbage In, Garbage Out)</li>
+<li data-cid="5Zl_pl"><strong data-cid="YE8Yq-">AI ห้ามตัดสินใจแทนคน:</strong> AI เป็นเพียงผู้ช่วยเสนอทางเลือก คนยังคงเป็นผู้ตัดสินใจสุดท้าย</li>
+<li data-cid="tuFDTE"><strong data-cid="3BFPvZ">ใช้ AI เพื่อ “ช่วยคิด” เท่านั้น:</strong> ใช้เป็นเครื่องมือขยายความคิดและวิเคราะห์ ไม่ใช่เครื่องมือสั่งการ</li>
+<li data-cid="2L3jUX"><strong data-cid="f91nHQ">คำตอบ AI ต้องมี “เหตุผลจากข้อมูล” เสมอ:</strong> ต้องฝึกให้ AI อ้างอิงข้อมูลที่ให้ไปเสมอ</li>
+<li data-cid="ndrdGT"><strong data-cid="7pSoE6">ถ้าข้อมูลไม่พอ ต้องให้ AI “ถามกลับ”:</strong> อย่าปล่อยให้ AI คาดเดา ให้สั่งให้มันถามหาข้อมูลเพิ่มเติม</li>
+</ul>
+<div class="prompt-box" data-cid="yOHlVY">
+<h5 data-cid="JOd48F">Prompt เปิดคลาส (ให้ผู้เรียนเห็นภาพทันที)</h5>
+<pre data-cid="sEz3Pd"><code data-cid="nMMi7O">“วันนี้คุณเป็นผู้ช่วยหัวหน้าไร่ ฉันจะให้ข้อมูลบำรุงอ้อยและงานเอกสาร
+คุณต้องช่วยฉัน: (1) สรุป (2) เสนอทางเลือก (3) ทำเช็กลิสต์หน้างาน
+แต่ห้ามฟันธงแทนคน และต้องบอกสิ่งที่ต้องตรวจเพิ่มเสมอ”</code></pre>
+</div>
+</section>
+<section id="section1" data-cid="rCeQCM">
+<h2 id="section-4" data-cid="GbWJlG">SECTION 1: การบำรุงอ้อย คืออะไรในมุม AI</h2>
+<p data-cid="gRfp6n">ในมุมมองของ AI, <strong data-cid="q4Yryv">การบำรุงอ้อย คือ การตัดสินใจซ้ำ ๆ ทุกฤดู</strong> โดยอาศัยข้อมูลที่มีอยู่ AI ถูกนำมาใช้เพื่อช่วยตอบคำถามสำคัญ 4 ข้อจากข้อมูลจริง:</p>
+<ol data-cid="IkQENg">
+<li data-cid="PSrCUW">บำรุง <strong data-cid="YthMTd">“ทันเวลา”</strong> หรือไม่?</li>
+<li data-cid="gnw9l0">บำรุง <strong data-cid="ZY56ni">“พอหรือขาด”</strong>?</li>
+<li data-cid="qRIJWo">บำรุง <strong data-cid="cjgo2O">“ถูกจังหวะหรือผิดจังหวะ”</strong>?</li>
+<li data-cid="42RfDe">ยัง <strong data-cid="TYiEFa">“ควรลงทุนบำรุงต่อหรือไม่”</strong>?</li>
+</ol>
+<p class="highlight" data-cid="CiQlHq">AI ไม่ได้ช่วยใส่ปุ๋ย แต่ช่วย “คิดจากข้อมูลบำรุงที่มีอยู่”</p>
+<h4 data-cid="F64qe1">แบบฝึกสั้น (5 นาที)</h4>
+<p data-cid="11Nidp">ให้ผู้เรียนดูข้อมูล 1 แปลง (1 แถว) แล้วลองตอบคำถาม 4 ข้อข้างต้น &#34;ด้วยเหตุผล&#34; หากตอบไม่ได้เพราะข้อมูลไม่เพียงพอ ให้ระบุว่าขาดข้อมูลอะไร</p>
+</section>
+<section id="section2" data-cid="M0A-L4">
+<h2 id="section-5" data-cid="nI3qWT">SECTION 2: บทบาท Excel – AI – คน</h2>
+<div class="table-container" data-cid="KMQk7z">
+<table data-cid="P5biLV">
+<thead data-cid="Lgw7Jh">
+<tr data-cid="PE4Usa">
+<th data-cid="rOU8KR">เครื่องมือ</th>
+<th data-cid="ZSnCaq">ทำอะไร?</th>
+</tr>
+</thead>
+<tbody data-cid="7sR0wd">
+<tr data-cid="gqEuci">
+<td data-cid="RDt9Oi"><strong data-cid="aFp0jU">Excel</strong></td>
+<td data-cid="aZODwN">รวมข้อมูล, คำนวณ, จัดลำดับ</td>
+</tr>
+<tr data-cid="Cz3QqT">
+<td data-cid="dshFP3"><strong data-cid="WrXUqR">AI</strong></td>
+<td data-cid="cGo7od">เชื่อมโยงข้อมูลหลายด้านพร้อมกัน, อธิบายเหตุผล, เสนอแนวทางจัดการ</td>
+</tr>
+<tr data-cid="T26tcI">
+<td data-cid="Ww5hGG"><strong data-cid="4aVYO4">คน</strong></td>
+<td data-cid="PGkl-m">ตรวจหน้างานจริง, ตัดสินใจสุดท้าย, รับผิดชอบผลลัพธ์</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="highlight" data-cid="9fiJmI">
+                สรุปจำง่าย: Excel = เห็นตัวเลข | AI = คิดจากตัวเลข | คน = ตัดสินใจและลงมือทำ
+            </div>
+<h4 data-cid="hSgOEL">กิจกรรม (3 นาที)</h4>
+<p data-cid="ixYXBU">ให้ผู้เรียนพูดตามให้ได้: “Excel เห็นตัวเลข / AI คิดจากตัวเลข / คนตัดสินใจและลงมือทำ”</p>
+</section>
+<section id="module1" data-cid="BRWtjZ">
+<h2 id="section-6" data-cid="OMcu2K">MODULE 1: AI เป็นเพื่อนคู่คิด (Generative AI) [55 นาที]</h2>
+<h3 id="section-6-1" data-cid="EHv5N8">เป้าหมายโมดูล</h3>
+<ul data-cid="KHnbNF">
+<li data-cid="xHLVeI">ใช้ AI ช่วยงานพื้นฐานที่ฝ่ายไร่ทำจริง: ร่างโครงการ, สรุป, จัดลำดับงาน</li>
+<li data-cid="wCGGnQ">ใช้ AI สวมบทบาทเพื่อฝึกทีม: การโน้มน้าวใจ, การตอบโต้, การสื่อสารกับผู้มีส่วนได้ส่วนเสีย</li>
+</ul>
+<h3 id="section-6-2" data-cid="9Z-XBr">1.1 งานพื้นฐานที่ AI ช่วยได้ดี (Work Basics)</h3>
+<h4 data-cid="X_AYSZ">A) ร่างโครงการ/แผนงาน (Draft Project)</h4>
+<p data-cid="Kr6_aw"><strong data-cid="ilh3M5">ตัวอย่างงานฝ่ายไร่:</strong> โครงการกำจัดวัชพืช, แผนควบคุมศัตรูพืช, แผนบำรุงหลังตัด, แผนตรวจแปลงเชิงรุก</p>
+<div class="prompt-box" data-cid="VsOHiC">
+<h5 data-cid="7jH8Ve">Prompt มาตรฐาน (ร่างโครงการแบบมือโปร)</h5>
+<pre data-cid="wBN1pT"><code data-cid="J-lUDq">“ช่วยร่างโครงการเรื่อง: &lt;ชื่อโครงการ&gt;
+เงื่อนไข:
+- หน่วยงาน: ฝ่ายไร่
+- รูปแบบต้องมีหัวข้อ:
+  1) ที่มาและปัญหา (ใช้ภาษาชัด ไม่เยิ่นเย้อ)
+  2) วัตถุประสงค์ (วัดผลได้)
+  3) ขอบเขตพื้นที่/กลุ่มเป้าหมาย
+  4) แผนกิจกรรม (เป็นขั้นตอน)
+  5) Timeline (สั้น ๆ)
+  6) ทรัพยากรที่ใช้ (คน/อุปกรณ์/งบประมาณแบบกรอบ)
+  7) ความเสี่ยง + วิธีลดความเสี่ยง
+  8) ตัวชี้วัดความสำเร็จ (KPI)
+- ขอแบบกระชับ เน้นเอาไปเสนอหัวหน้าได้”</code></pre>
+</div>
+<div class="checklist" data-cid="KAWRtZ">
+<h5 data-cid="aIJ8lm">Checklist การตรวจคุณภาพร่างโครงการ</h5>
+<ul data-cid="dWr3GB">
+<li data-cid="xcIcJT">วัตถุประสงค์วัดได้หรือไม่? (เช่น ลด % วัชพืช, ลดการระบาด)</li>
+<li data-cid="ef_w31">กิจกรรมเป็นขั้นตอนที่ปฏิบัติได้จริงหรือไม่?</li>
+<li data-cid="QM7ZRG">ความเสี่ยงที่อาจเกิดขึ้นมีอะไรบ้าง? (เช่น ฝน, แล้ง, เครื่องจักร, คนไม่พอ)</li>
+</ul>
+</div>
+<h4 data-cid="EJi4mI">B) สรุปหัวข้อสำคัญ/สรุปประชุม (Summarize)</h4>
+<div class="prompt-box" data-cid="MwDjs8">
+<h5 data-cid="wr-A7n">Prompt มาตรฐาน (สรุปให้ “สั่งงานได้”)</h5>
+<pre data-cid="8rZoVj"><code data-cid="49nu_C">“สรุปข้อความด้านล่างให้เป็น:
+1) ประเด็นสำคัญ 7 ข้อ
+2) งานต้องทำ (Action items) 5 ข้อ โดยระบุ ‘ใคร’ ‘ทำอะไร’ ‘เมื่อไหร่’
+3) ความเสี่ยง/ข้อควรระวัง 3 ข้อ
+ข้อกำหนด: ใช้ bullet สั้น ๆ หลีกเลี่ยงภาษากว้าง”</code></pre>
+</div>
+<h4 data-cid="KFU3gJ">C) จัดลำดับความสำคัญงาน (Prioritization)</h4>
+<div class="prompt-box" data-cid="E97Kw9">
+<h5 data-cid="qciwIz">Prompt มาตรฐาน (เรียงงานแบบมือโปร)</h5>
+<pre data-cid="akTReV"><code data-cid="OswZHp">“จากรายการงานต่อไปนี้ ช่วยจัดลำดับความสำคัญ
+โดยให้คะแนน 1–5 ใน 2 มิติ:
+- ความเร่งด่วน
+- ผลกระทบต่อผลลัพธ์/ต้นทุน
+แล้วสรุป 3 งานแรกที่ควรทำทันที พร้อมเหตุผล”</code></pre>
+</div>
+<h3 id="section-6-3" data-cid="NLVfSE">1.2 การสวมบทบาท (Role-play) เพื่อฝึกทีม</h3>
+<p data-cid="j8DXYO"><strong data-cid="LCZEM5">สถานการณ์ฝึกที่แนะนำ (เลือก 1–2 สถานการณ์):</strong></p>
+<ul data-cid="wR0Htv">
+<li data-cid="Q41XAy"><strong data-cid="CJMkR7">S1:</strong> คุยกับชาวไร่ที่ “ไม่อยากลงทุนเพิ่ม” เพราะแล้ง</li>
+<li data-cid="6rvn0Y"><strong data-cid="daY8iz">S2:</strong> คุยกับหัวหน้าเรื่อง “ขอทีม/งบ” เพื่อคุมศัตรูพืชก่อนใส่ปุ๋ย</li>
+<li data-cid="NWjVCh"><strong data-cid="TTmzzP">S3:</strong> คุยกับทีมงานเรื่อง “ต้องทำให้ทันเวลา” และแบ่งงาน</li>
+</ul>
+<div class="prompt-box" data-cid="OjGlop">
+<h5 data-cid="3QYhGk">Prompt มาตรฐาน (AI เป็นคู่สนทนาฝึกโน้มน้าวใจ)</h5>
+<pre data-cid="VwTWEn"><code data-cid="rM4XO5">“ช่วยสวมบทบาทเป็น &lt;ชาวไร่/หัวหน้าไร่/ผู้จัดการพื้นที่&gt;
+บุคลิก: &lt;ดื้อ/กังวลงบ/ชอบถามหลักฐาน/ชอบสั้น ๆ&gt;
+สถานการณ์: &lt;อธิบายสถานการณ์ 3 บรรทัด&gt;
+คุณต้อง:
+- โต้แย้ง 5 ข้อ
+- ถามคำถามยาก 3 ข้อ
+แล้วให้ฉันตอบกลับ จากนั้นคุณประเมินคำตอบฉัน:
+1) ความชัดเจน
+2) ความน่าเชื่อถือจากข้อมูล
+3) ความสุภาพและความร่วมมือ
+พร้อมเสนอประโยคที่ควรปรับ 5 ประโยค”</code></pre>
+</div>
+<h4 data-cid="GdEDbZ">กิจกรรมในห้อง (10 นาที)</h4>
+<p data-cid="yKrQXp">ให้ผู้เรียนพิมพ์บทสนทนา 6–8 บรรทัดกับ AI แล้วให้ AI ช่วยโค้ช &#34;ประโยคที่ควรพูด&#34; เพื่อให้การสื่อสารสุภาพ, ชัดเจน, และโน้มน้าวใจได้ดีขึ้น</p>
+</section>
+<section id="module2" data-cid="xVR2wj">
+<h2 id="section-7" data-cid="Wqmd9t">MODULE 2: AI ผู้ช่วยจัดงานด้านเอกสาร (Document Assistant) [40 นาที]</h2>
+<h3 id="section-7-1" data-cid="8I6ExB">เป้าหมายโมดูล</h3>
+<ul data-cid="6ltynf">
+<li data-cid="mOXP_o">เปลี่ยนรายงานยาวให้เป็นสรุปสำหรับผู้บริหารเพื่อการตัดสินใจ</li>
+<li data-cid="yKo8a4">เปลี่ยนเสียงเป็นข้อความ แล้วสรุปเป็นบันทึกการทำงาน</li>
+<li data-cid="Gndzt0">ตรวจความสอดคล้องและความถูกต้องในเอกสาร</li>
+</ul>
+<h3 id="section-7-2" data-cid="3oFkLZ">2.1 เปลี่ยนรายงานให้เป็นสรุป (Report -&gt; Summary)</h3>
+<p data-cid="8FHXoB"><strong data-cid="QC9icI">รูปแบบสรุปที่แนะนำ:</strong></p>
+<ul data-cid="7oUQfb">
+<li data-cid="9xcNSR"><strong data-cid="Krcqkc">TL;DR 5 บรรทัด:</strong> สรุปสั้นๆ สำหรับคนไม่มีเวลาอ่าน (Too Long; Didn’t Read)</li>
+<li data-cid="HSWRaP"><strong data-cid="OWlZiN">สรุปแบบหัวหน้า:</strong> ปัญหา &gt; หลักฐาน &gt; ทางเลือก &gt; ข้อเสนอ</li>
+<li data-cid="kgGSWt"><strong data-cid="x-Cn7a">สรุปแบบสั่งงาน:</strong> Action / Owner / Due date</li>
+</ul>
+<div class="prompt-box" data-cid="wn4_El">
+<h5 data-cid="jkacQV">Prompt มาตรฐาน (สรุปแบบหัวหน้าอ่าน)</h5>
+<pre data-cid="F0cdFf"><code data-cid="hfoF55">“สรุปเอกสารด้านล่างให้เป็น:
+- TL;DR 5 บรรทัด
+- ประเด็นสำคัญ 7 bullet
+- ข้อเสนอ 3 ทางเลือก (ทำ/ไม่ทำ/ทำบางส่วน) พร้อมข้อดีข้อเสีย
+ข้อกำหนด: ห้ามเพิ่มข้อมูลนอกเอกสาร ถ้าไม่แน่ใจให้บอกว่าต้องตรวจเพิ่ม”</code></pre>
+</div>
+<h3 id="section-7-3" data-cid="ydjShi">2.2 เปลี่ยนเสียงเป็นข้อความ (Voice -&gt; Text) แล้วสรุปต่อ</h3>
+<p data-cid="S_7Bsy"><strong data-cid="s4pGzK">แนวทางใช้งานจริง:</strong> อัดเสียงรายงานหน้างาน 1-2 นาที, ถอดเป็นข้อความ, แล้วให้ AI สรุปเป็นบันทึกตรวจแปลง หรืออัดเสียงประชุมเพื่อสรุปงานรายวัน</p>
+<div class="prompt-box" data-cid="3Gi-Gu">
+<h5 data-cid="QOVcAT">Prompt มาตรฐาน (หลังได้ข้อความจากเสียงแล้ว)</h5>
+<pre data-cid="4yP5RH"><code data-cid="sbTNfO">“นี่คือข้อความถอดเสียงจากหน้างาน
+ช่วยทำเป็น ‘บันทึกตรวจแปลง’ โดยมี:
+- วันที่/พื้นที่/ผู้รายงาน (ถ้ามีในข้อความ)
+- สภาพแปลง
+- ปัญหาที่พบ
+- งานที่ต้องทำภายใน 3 วัน
+- สิ่งที่ต้องตรวจซ้ำ
+และระบุประโยคที่คุณไม่มั่นใจ (อาจถอดเสียงผิด) ให้ฉันตรวจทาน”</code></pre>
+</div>
+<h3 id="section-7-4" data-cid="K7Te-S">2.3 ตรวจสอบความถูกต้อง (Proof + Consistency)</h3>
+<p data-cid="HEt6V8"><strong data-cid="v6gbub">สิ่งที่ AI ตรวจได้ดี:</strong> คำผิด/คำซ้ำ, ความสอดคล้องของหน่วย (ไร่, กก./ไร่), รูปแบบวันที่, ชื่อ/รหัสแปลง, และตัวเลขที่ดูผิดปกติ (outliers)</p>
+<div class="prompt-box" data-cid="oqqryp">
+<h5 data-cid="i7qyo_">Prompt มาตรฐาน (ตรวจความสอดคล้อง)</h5>
+<pre data-cid="2Dnip2"><code data-cid="ZFme0y">“ช่วยตรวจเอกสาร/ตารางนี้ในมุม ‘ความสอดคล้อง’:
+1) หน่วย
+2) วันที่และรูปแบบวัน
+3) ชื่อแปลง/รหัสแปลง
+4) ตัวเลขที่ดูผิดปกติ (outliers)
+สรุปเป็นรายการสิ่งที่ต้องแก้/ต้องเช็คเพิ่ม”</code></pre>
+</div>
+</section>
+<section id="module3" data-cid="hWQSc0">
+<h2 id="section-8" data-cid="5lB7sS">MODULE 3: AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ (Data driven decision making) [65 นาที]</h2>
+<h3 id="section-8-1" data-cid="sEnUYC">SECTION 3: ข้อมูลการบำรุงอ้อยที่ต้องดึงจากระบบ</h3>
+<p class="highlight" data-cid="Rj4iEB">หลักคิด: ไม่ดึงทั้งระบบ ดึงเฉพาะข้อมูลที่ใช้ “ตัดสินใจบำรุง” โดยยึดหลัก 1 แปลง / 1 ฤดู = 1 แถว</p>
+<ul data-cid="q-OJjR">
+<li data-cid="KWnwha"><strong data-cid="HIcUCO">จาก สท.01 (ตัวตนแปลง):</strong> รหัสแปลง, พื้นที่ (ไร่), ประเภทอ้อย (ปลูกใหม่/อ้อยตอ)</li>
+<li data-cid="omog5p"><strong data-cid="KQSVO7">จาก สท.03 (บำรุงหลังตัด/หลังปลูก):</strong> วันใส่ปุ๋ยครั้งแรกหลังตัด, ปริมาณปุ๋ยต่อไร่, การให้น้ำหลังตัด (มี/ไม่มี)</li>
+<li data-cid="XFezCk"><strong data-cid="4pkYRF">จาก สท.04 (บำรุงกลางฤดู):</strong> ใส่ปุ๋ยเสริมหรือไม่, กำจัดวัชพืชหรือไม่, สภาพดิน (ถ้ามี)</li>
+<li data-cid="A61KL5"><strong data-cid="0_0qsP">จาก สท.05 (โรคและแมลง):</strong> ศัตรูพืชที่พบ, ความรุนแรง (%)</li>
+<li data-cid="IgH-Or"><strong data-cid="ZyCTxz">จาก สท.07 (บำรุงผ่านแล้ง):</strong> ช่วงแล้ง (วัน), ให้น้ำช่วงแล้ง (มี/ไม่มี), ใส่ปุ๋ยช่วงแล้ง (มี/ไม่มี)</li>
+</ul>
+<p data-cid="bLsWjF"><strong data-cid="yWIWOO">หมายเหตุ:</strong> ไม่ใช้ Yield (จาก สท.06) ในการ “ตัดสินใจบำรุง” แต่ใช้เพื่อ “ประเมินย้อนหลัง” เท่านั้น</p>
+<h3 id="section-8-2" data-cid="nxFteI">SECTION 4: ตารางข้อมูลบำรุงอ้อย (ภาษาไทย)</h3>
+<p data-cid="r0v5Lw">รูปแบบตารางที่ AI ใช้คิดได้ดีที่สุด (1 แปลง/1 ฤดู = 1 แถว):</p>
+<div class="table-container" data-cid="tLIpGk">
+<table data-cid="wrAH3f">
+<thead data-cid="oYxcKV">
+<tr data-cid="pcSTqn">
+<th data-cid="o-j_t4">รหัสแปลง</th>
+<th data-cid="el3Vux">พื้นที่(ไร่)</th>
+<th data-cid="C6-FBN">ประเภทอ้อย</th>
+<th data-cid="ME979B">วันใส่ปุ๋ยหลังตัด</th>
+<th data-cid="OPE6cL">ปริมาณปุ๋ย(กก./ไร่)</th>
+<th data-cid="dxmPth">ให้น้ำ</th>
+<th data-cid="cB0EzK">กำจัดวัชพืช</th>
+<th data-cid="9pVe-q">ศัตรูพืช</th>
+<th data-cid="rSSKdX">ความรุนแรง(%)</th>
+<th data-cid="pXtbpA">ช่วงแล้ง(วัน)</th>
+</tr>
+</thead>
+<tbody data-cid="073Yqz">
+<tr data-cid="kAxPHd">
+<td data-cid="YM9-8f">0145808</td>
+<td data-cid="RwPpoG">10</td>
+<td data-cid="c7L4-I">อ้อยตอ</td>
+<td data-cid="YqzfMm">35</td>
+<td data-cid="Tkc4WI">50</td>
+<td data-cid="oI7wZ1">มี</td>
+<td data-cid="tCq3cw">มี</td>
+<td data-cid="z_zBvM">เพลี้ย</td>
+<td data-cid="EosxnQ">50</td>
+<td data-cid="o8UNxJ">45</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="section-8-3" data-cid="5YtSxW">3.1 งานวิเคราะห์ที่ AI ควรทำให้ฝ่ายไร่ (ใช้จริง)</h3>
+<p data-cid="Q6MWqo">AI ควรช่วยตอบคำถามหลักและเพิ่มมุมมอง &#34;ผู้ช่วยมือโปร&#34; เพื่อให้ได้คำตอบที่พร้อมใช้งาน:</p>
+<ul data-cid="gD2aYR">
+<li data-cid="-eS1zS"><strong data-cid="SAvEQk">การประเมินพื้นฐาน:</strong> การบำรุง &#34;ทันเวลาไหม&#34;? ปุ๋ยที่ใส่มีโอกาส &#34;ถูกใช้จริงหรือสูญเสีย&#34;? ปัจจัยใดทำให้ &#34;การบำรุงไม่ได้ผล&#34;?</li>
+<li data-cid="xRlKd7"><strong data-cid="UVH1gf">ข้อเสนอแนะเชิงปฏิบัติ:</strong> ควร &#34;เร่งบำรุง&#34;, &#34;บำรุงตามแผน&#34;, หรือ &#34;หยุดเพื่อลดต้นทุน&#34;?</li>
+<li data-cid="HCauIF"><strong data-cid="dwC0Hh">มุมมองผู้ช่วยมือโปร:</strong> จัดกลุ่มแปลง (Triaging), สร้าง &#34;รายการงานต้องทำ&#34; ตามความเร่งด่วน, และสร้าง &#34;Checklist หน้างาน&#34; แบบเฉพาะเคส</li>
+</ul>
+<h3 id="section-8-4" data-cid="suwnGg">3.2 วิธีให้ AI วิเคราะห์ผ่าน Excel (ขั้นตอนสอน)</h3>
+<ol data-cid="_FwxPr">
+<li data-cid="Rrb_l1"><strong data-cid="cZaC34">เตรียม Excel:</strong> จัดข้อมูลให้อยู่ในรูปแบบตารางตาม Section 4</li>
+<li data-cid="nrfa73"><strong data-cid="UY1gbj">ตรวจคุณภาพข้อมูล:</strong> ตรวจสอบความถูกต้องของหน่วย (กก./ไร่, วัน), การสะกดคำ (มี/ไม่มี), และช่องว่างที่สำคัญ</li>
+<li data-cid="EEUwHG"><strong data-cid="gcOGWw">ส่งข้อมูลให้ AI:</strong> คัดลอกตารางข้อมูล (ทีละแปลงหรือหลายแปลง) ไปวางในหน้าต่างแชท</li>
+<li data-cid="FX6_dF"><strong data-cid="5MNbd1">สั่งงาน AI ตามโครงสร้าง:</strong> ใช้ Prompt ที่กำหนดไว้เพื่อให้ AI ตอบตามโครง (ทันเวลา/พอ-ขาด/ปัจจัย/ข้อเสนอ)</li>
+<li data-cid="7UshIa"><strong data-cid="bj593_">คนลงพื้นที่ยืนยัน:</strong> นำข้อเสนอแนะจาก AI ไปตรวจสอบกับสถานการณ์หน้างานจริง และตัดสินใจสุดท้าย</li>
+</ol>
+<h3 id="section-8-5" data-cid="ybtKMR">3.3 Prompt มาตรฐาน + เวอร์ชันละเอียดแบบมือโปร</h3>
+<h4 data-cid="aV4ub2">PROMPT 1: ประเมินคุณภาพการบำรุง</h4>
+<div class="prompt-box" data-cid="fozAB1">
+<h5 data-cid="0hbMUq">เวอร์ชันมาตรฐาน</h5>
+<pre data-cid="7zhmeU"><code data-cid="3dq2X3">จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ ช่วยประเมินว่า
+- การบำรุงทันเวลา หรือช้า
+- ปริมาณการบำรุงเพียงพอ หรือขาด
+- มีปัจจัยใดทำให้การบำรุงได้ผลลดลง
+สรุปเป็นข้อ ๆ</code></pre>
+</div>
+<div class="prompt-box" data-cid="Z5KrIP">
+<h5 data-cid="8iynyD">เวอร์ชัน “ผู้ช่วยมือโปร” (ควบคุมคำตอบ)</h5>
+<pre data-cid="v0kkPI"><code data-cid="OS77ov">“จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ (1 แถว = 1 แปลง/ฤดู)
+ช่วยประเมินเป็นหัวข้อดังนี้ โดยอ้างอิงจากข้อมูลที่ให้เท่านั้น:
+A) ทันเวลาไหม: (เร็ว/พอดี/ช้า) + เหตุผล
+B) ปริมาณปุ๋ย: (พอ/เสี่ยงขาด/เสี่ยงสูญเสีย) + เหตุผล
+C) ปัจจัยลดประสิทธิภาพ: เรียงจาก ‘กระทบมาก -&gt; น้อย’
+D) สิ่งที่ต้องตรวจหน้างานเพิ่ม 3 ข้อ
+รูปแบบคำตอบ: bullet สั้น ๆ ไม่เกิน 12 บรรทัด/แปลง”</code></pre>
+</div>
+<h4 data-cid="VPu2XF">PROMPT 2: ควรทำอะไรต่อ</h4>
+<div class="prompt-box" data-cid="XC76o9">
+<h5 data-cid="rIZAlS">เวอร์ชันมาตรฐาน</h5>
+<pre data-cid="6HA6Vr"><code data-cid="WMojKB">จากสถานการณ์การบำรุงปัจจุบัน ช่วยแนะนำแนวทางจัดการต่อไป
+แยกเป็น
+- ควรเร่งทำ
+- ทำตามแผนเดิม
+- ไม่ควรลงทุนเพิ่ม
+พร้อมเหตุผล</code></pre>
+</div>
+<div class="prompt-box" data-cid="tQAzJy">
+<h5 data-cid="SjG02A">เวอร์ชัน “ผู้ช่วยมือโปร” (ให้เป็นแผนสั่งงานได้)</h5>
+<pre data-cid="g1ICJO"><code data-cid="eNaU5V">“จากข้อมูลแปลงต่อไปนี้ ช่วยเสนอ ‘แผนทำต่อ 14 วัน’
+โดยแยกเป็น 3 กลุ่ม:
+1) ควรเร่งทำ (ภายใน 3 วัน) -&gt; งาน/เหตุผล/ความเสี่ยง
+2) ทำตามแผนเดิม -&gt; งาน/เหตุผล/เงื่อนไขที่ต้องเฝ้าดู
+3) ไม่ควรลงทุนเพิ่มตอนนี้ -&gt; เพราะอะไร/ควรรออะไร
+
+สุดท้าย: สรุป 1 บรรทัดว่า ‘หัวหน้าควรตัดสินใจแบบไหน’ (แต่ห้ามฟันธงแทนคน)”</code></pre>
+</div>
+<h4 data-cid="RCYuw5">PROMPT 3: Checklist หน้างาน</h4>
+<div class="prompt-box" data-cid="FRwN5C">
+<h5 data-cid="FJ0oBC">เวอร์ชันมาตรฐาน</h5>
+<pre data-cid="H3rah6"><code data-cid="XoRL1p">ช่วยสร้าง Checklist การตรวจหน้างาน เพื่อยืนยันว่าการบำรุงที่ทำไปได้ผลจริงหรือไม่</code></pre>
+</div>
+<div class="prompt-box" data-cid="5mPZCh">
+<h5 data-cid="Hkocpo">เวอร์ชัน “ผู้ช่วยมือโปร” (เฉพาะเคส)</h5>
+<pre data-cid="PAF4bD"><code data-cid="upeDG0">“ช่วยสร้าง Checklist ตรวจหน้างานสำหรับแปลงนี้ แบ่งเป็น:
+- ต้องดูทันทีเมื่อถึงแปลง (5 ข้อ)
+- ต้องวัด/ถ่ายรูป/บันทึก (5 ข้อ)
+- สัญญาณอันตรายที่ต้องรายงานหัวหน้าทันที (3 ข้อ)
+- คำถามที่ต้องถามคนงาน/ชาวไร่ (3 ข้อ)
+ให้ Checklist ‘สั้น ชัด ตรวจได้จริง’”</code></pre>
+</div>
+<h3 id="section-8-6" data-cid="u93-l3">3.4 ตัวอย่าง Output ที่ใช้ได้จริง</h3>
+<div class="example-output" data-cid="5IEx5T">
+<h5 data-cid="GBFSw1">ผลการวิเคราะห์แปลง 0145808</h5>
+<ul data-cid="6Q3Yph">
+<li data-cid="BkdqJd"><strong data-cid="KVDEzM">การบำรุง:</strong> ใส่ปุ๋ยล่าช้า (35 วัน) อาจส่งผลให้แตกกอช้า</li>
+<li data-cid="Nx5rCN"><strong data-cid="S1Hdxv">ปัจจัยเสี่ยง:</strong> พบเพลี้ยระดับสูง (50%) ทำให้การใช้ปุ๋ยอาจไม่มีประสิทธิภาพ</li>
+<li data-cid="fxojTl"><strong data-cid="hmtdSq">สภาพแวดล้อม:</strong> ช่วงแล้งยาว 45 วัน การใส่ปุ๋ยเพิ่มมีความเสี่ยงสูญเสียสูง</li>
+</ul>
+<h5 data-cid="ljTiaz">ข้อแนะนำ:</h5>
+<ul data-cid="-5kpYQ">
+<li data-cid="PIkKwY"><strong data-cid="CphwqF">เร่งด่วน:</strong> ควบคุมศัตรูพืช (เพลี้ย) ก่อนเป็นอันดับแรก</li>
+<li data-cid="aq_JH6"><strong data-cid="GZXpzl">ชะลอ:</strong> ชะลอการใส่ปุ๋ยเพิ่มจนกว่าจะควบคุมเพลี้ยและมีฝน</li>
+<li data-cid="QaUInA"><strong data-cid="FJMpP0">ประเมินซ้ำ:</strong> ประเมินความคุ้มค่าในการลงทุนอีกครั้งเมื่อสถานการณ์ดีขึ้น</li>
+</ul>
+</div>
+<h3 id="section-8-7" data-cid="TFqyC2">3.5 Workshop (ทำจริง 20–25 นาที)</h3>
+<p data-cid="emFT1-"><strong data-cid="tnpJiC">โจทย์:</strong> ให้ผู้เรียนนำข้อมูล 5 แปลง (5 แถว) ที่มีเคสแตกต่างกัน แล้วให้ AI วิเคราะห์โดยใช้ Prompt 1, 2, และ 3 จากนั้นให้ผู้เรียนสรุป &#34;คำตัดสินใจ 1 บรรทัด&#34; และ &#34;สิ่งที่ต้องตรวจหน้างาน&#34;</p>
+<p data-cid="ATf3bY"><strong data-cid="jBx9UN">แนะนำชุดเคส:</strong></p>
+<ul data-cid="xsP9uI">
+<li data-cid="DcxwKN"><strong data-cid="qdSKj4">เคส A:</strong> ใส่ปุ๋ยเร็ว แต่ไม่มีน้ำ + แล้งยาว</li>
+<li data-cid="x1LKjz"><strong data-cid="zsYb4J">เคส B:</strong> ใส่ปุ๋ยช้า + วัชพืชสูง (กำจัดวัชพืช = ไม่มี)</li>
+<li data-cid="HFHPvX"><strong data-cid="lGESEs">เคส C:</strong> ปุ๋ยพอ + ให้น้ำ แต่ศัตรูพืชรุนแรงสูง</li>
+<li data-cid="x6ZnDo"><strong data-cid="4PxbB1">เคส D:</strong> ใส่ปุ๋ยเสริมกลางฤดู + ดินแย่ (ถ้ามีข้อมูล)</li>
+<li data-cid="sevxDT"><strong data-cid="FG4B4P">เคส E:</strong> แล้งสั้น + บำรุงตามแผน (เคสดี)</li>
+</ul>
+</section>
+<section id="module4" data-cid="MKhnKH">
+<h2 id="section-9" data-cid="jvQ2lg">MODULE 4: AI สร้างสรรค์ (Creative Content Creation) [30 นาที]</h2>
+<h3 id="section-9-1" data-cid="cHhaeG">เป้าหมายโมดูล</h3>
+<ul data-cid="vOZGHG">
+<li data-cid="wwX6Yv">ให้ AI ช่วยทำสื่อที่ฝ่ายไร่ใช้จริง: ภาพรณรงค์, อินโฟกราฟิก, ภาพประกอบการนำเสนอ</li>
+<li data-cid="0uVEq9">ให้ AI ช่วยออกแบบโครงสร้างสไลด์นำเสนอ (Presentation)</li>
+</ul>
+<h3 id="section-9-2" data-cid="zR8gMr">4.1 สร้างภาพโปรโมท/ภาพรณรงค์</h3>
+<p data-cid="uAF3Re"><strong data-cid="YO2MBt">งานที่เหมาะ:</strong> รณรงค์กำจัดวัชพืช, แจ้งเตือนศัตรูพืชระบาด, อินโฟกราฟิก “บำรุงหลังตัด: ทำอะไรเมื่อไหร่”</p>
+<div class="prompt-box" data-cid="eMowDw">
+<h5 data-cid="TXrCPa">Prompt มาตรฐาน (เขียน brief ให้ AI สร้างภาพ)</h5>
+<pre data-cid="VgOfIx"><code data-cid="rvZ0nD">“ช่วยเขียนคำสั่งสร้างภาพ (image prompt) สำหรับ:
+- เป้าหมาย: &lt;เช่น รณรงค์กำจัดวัชพืช&gt;
+- กลุ่มเป้าหมาย: คนงาน/ชาวไร่
+- ข้อความบนภาพ (ไทย): &lt;เช่น ‘กำจัดวัชพืชให้ทัน 7 วันหลังตัด’&gt;
+- สไตล์: ชัด อ่านง่าย แบบโปสเตอร์
+- ต้องมี: ไอคอนอ้อย/แปลง/เครื่องมือ
+ขอ 3 แบบ: โทนจริงจัง/โทนเป็นมิตร/โทนผู้บริหาร”</code></pre>
+</div>
+<h3 id="section-9-3" data-cid="-Fm-fL">4.2 ออกแบบ Presentation</h3>
+<div class="prompt-box" data-cid="FBBPjW">
+<h5 data-cid="iGLULZ">Prompt มาตรฐาน: ออกแบบ Presentation โครงสไลด์ 10 หน้า</h5>
+<pre data-cid="Fp4qvw"><code data-cid="UeTIlM">ช่วยทำโครงสไลด์ 10 หน้า เรื่อง: &lt;หัวข้อ&gt;
+กลุ่มผู้ฟัง: &lt;หัวหน้าไร่/ผู้บริหาร/ทีมงาน&gt;
+เป้าหมายของพรีเซนต์: &lt;ขออนุมัติงบ/ตัดสินใจเลือกทาง/แจ้งแผน/แก้ปัญหาเร่งด่วน&gt;
+บริบท/หน่วยงาน/พื้นที่: &lt;เช่น ไร่ A โซน 3 / โรงงาน / ฝ่าย...&gt;
+ช่วงเวลา/ข้อมูลอ้างอิง: &lt;เช่น Q1/2026 หรือ ม.ค.–ก.พ. 2026&gt;
+รูปแบบเนื้อหา (ต้องเรียงตามนี้):
+1) ปัญหา
+2) ข้อมูลจริงที่มี
+3) สิ่งที่วิเคราะห์ได้
+4) ทางเลือก 3 ทาง
+5) ข้อเสนอ
+
+ข้อกำหนดผลลัพธ์:
+- ทำเป็นสไลด์ 10 หน้า
+- แต่ละสไลด์ต้องมี: ชื่อสไลด์ + bullet 3–5 บรรทัด
+- Bullet ต้องสั้น ชัด วัดได้/อ้างอิงข้อมูล (ถ้ามีตัวเลขให้ใส่)
+- สไลด์ท้าย ๆ ต้องช่วยให้ผู้ฟัง “ตัดสินใจได้” (มีข้อเสนอ + ขั้นตอนถัดไป)
+- ให้จัดโครงสไลด์เป็นรายการ 1–10 พร้อมเนื้อหาแต่ละสไลด์</code></pre>
+</div>
+<div class="checklist" data-cid="0cmg7D">
+<h5 data-cid="1hqwTr">แม่แบบโครง 10 สไลด์ (แนะนำ)</h5>
+<ol data-cid="fPBaRu">
+<li data-cid="U2nfdu"><strong data-cid="qJqQ7j">Title:</strong> ชื่อเรื่อง และเป้าหมายการนำเสนอ</li>
+<li data-cid="3HjA6M"><strong data-cid="h_oOLY">Executive Summary:</strong> สรุปสำหรับผู้บริหาร</li>
+<li data-cid="HQBKfG"><strong data-cid="HThzub">ปัญหา:</strong> สถานการณ์ปัจจุบัน และผลกระทบ</li>
+<li data-cid="c2kR8J"><strong data-cid="7TtFji">สาเหตุ:</strong> สาเหตุที่คาดว่าเกี่ยวข้อง (เบื้องต้น)</li>
+<li data-cid="clUZuQ"><strong data-cid="cWXl4l">ข้อมูลจริง (1):</strong> ตัวเลข, หลักฐาน, ข้อจำกัดข้อมูล</li>
+<li data-cid="FyVzTl"><strong data-cid="vGIFe7">ข้อมูลจริง (2):</strong> แนวโน้ม, การเปรียบเทียบ, จุดผิดปกติ</li>
+<li data-cid="rDr_IN"><strong data-cid="vGkz04">สิ่งที่วิเคราะห์ได้ (Insight):</strong> Insight หลัก 3–5 ข้อ</li>
+<li data-cid="grsLnn"><strong data-cid="W2GTYx">ทางเลือก 3 ทาง:</strong> เปรียบเทียบ (ต้นทุน/เวลา/ความเสี่ยง/ผลลัพธ์)</li>
+<li data-cid="O-_gMi"><strong data-cid="rVmoJC">ข้อเสนอแนะ (Recommendation):</strong> เลือกทางไหน + เหตุผล</li>
+<li data-cid="S3GYZ5"><strong data-cid="tc1LRO">แผนดำเนินการ:</strong> สิ่งที่ต้องอนุมัติ และ Next Steps</li>
+</ol>
+</div>
+<h4 data-cid="5DnJ1I">แนะนำ AI สำหรับทำ Presentation</h4>
+<ul data-cid="pUZleh">
+<li data-cid="kkUMdn"><strong data-cid="dtLEVr">ChatGPT:</strong> เก่งเรื่องโครงเรื่อง, เหตุผล, สรุปให้ผู้บริหาร, ทำ bullet ให้คม</li>
+<li data-cid="7gQfba"><strong data-cid="zv1q9H">Microsoft PowerPoint Copilot:</strong> เหมาะสำหรับทำสไลด์จริงจากโครง (ถ้าใช้ M365)</li>
+<li data-cid="O_rJi7"><strong data-cid="6o11ye">Canva:</strong> เทมเพลตสวยงาม ทำให้สไลด์ดูดีได้รวดเร็ว</li>
+<li data-cid="GHTWK3"><strong data-cid="AHp79x">Gamma / Tome / Beautiful.ai:</strong> สร้างสไลด์ทั้งชุดได้เร็ว เหมาะสำหรับทำ draft รอบแรก</li>
+</ul>
+</section>
+<section id="module5" data-cid="7iTy1K">
+<h2 id="section-10" data-cid="vq_f7Y">MODULE 5: ข้อควรระวังในการใช้ AI (AI Ethics &amp; Accuracy) [20 นาที]</h2>
+<h3 id="section-10-1" data-cid="_cXZ9D">เป้าหมายโมดูล</h3>
+<ul data-cid="DmwOxR">
+<li data-cid="jSbqUB">ลดความเสี่ยงจาก “AI มั่ว” (Hallucination)</li>
+<li data-cid="Vh-mE5">ให้ผู้เรียนรู้วิธีสั่ง AI ให้ยอมรับข้อจำกัดและถามกลับเมื่อข้อมูลไม่พอ</li>
+<li data-cid="IID3AS">ย้ำเรื่องจริยธรรมและความปลอดภัยในการใช้ข้อมูล</li>
+</ul>
+<div class="checklist" data-cid="tSMvj5">
+<h5 data-cid="M-_-vB">กฎ 5 ข้อ (จำให้ได้)</h5>
+<ol data-cid="SOOHPF">
+<li data-cid="9N-o7D"><strong data-cid="it-IP6">ข้อมูลผิด = AI ผิด:</strong> คุณภาพของข้อมูลเข้า กำหนดคุณภาพของผลลัพธ์</li>
+<li data-cid="Bn0UPl"><strong data-cid="zMZmTI">AI อาจตอบมั่นใจทั้งที่ผิด:</strong> ต้องสั่งให้ AI ให้เหตุผลและหลักฐานจากข้อมูลเสมอ</li>
+<li data-cid="cksOWL"><strong data-cid="zp0Lkb">หน้างานต้องตรวจจริง:</strong> ห้ามสั่งการใดๆ โดยอิงจากคำตอบ AI เพียงอย่างเดียวโดยไม่ตรวจสอบ</li>
+<li data-cid="1a15aB"><strong data-cid="Coa5aw">ไม่ใส่ข้อมูลอ่อนไหว:</strong> ห้ามใส่ข้อมูลส่วนบุคคลหรือข้อมูลที่เป็นความลับของบริษัทโดยไม่จำเป็น</li>
+<li data-cid="38S-Hm"><strong data-cid="BFVMFI">คนต้องอนุมัติ:</strong> เรื่องงบประมาณและความปลอดภัย AI เป็นเพียงผู้ช่วยคิด คนต้องเป็นผู้อนุมัติสุดท้าย</li>
+</ol>
+</div>
+<div class="prompt-box danger" data-cid="7B6825">
+<h5 data-cid="JZ4IXH">Prompt กันพลาด (ใช้เป็นมาตรฐานทุกครั้ง)</h5>
+<pre data-cid="o6AT9y"><code data-cid="v6PRMa">“ขอให้ตอบโดยแยกเป็น 3 ส่วน:
+(1) สิ่งที่สรุปได้จากข้อมูลที่ให้ (อ้างอิงช่องข้อมูล)
+(2) สิ่งที่ยังไม่รู้/ข้อมูลไม่พอ (ห้ามเดา)
+(3) คำถามที่ต้องตรวจหน้างาน/ต้องขอข้อมูลเพิ่ม 5 ข้อ”</code></pre>
+</div>
+<div class="prompt-box danger" data-cid="V6C4Oc">
+<h5 data-cid="s_XGKI">Prompt ตรวจความน่าเชื่อถือ</h5>
+<pre data-cid="8HFjoT"><code data-cid="YRE1S4">“ช่วยตรวจคำตอบของคุณเอง:
+- มีข้อไหนที่อาจเป็นการคาดเดา?
+- มีข้อไหนที่ควรมีข้อมูลเพิ่มก่อนสรุป?
+- ถ้าจะลดความเสี่ยงการตัดสินใจผิด ต้องตรวจอะไรเป็นอันดับแรก?”</code></pre>
+</div>
+</section>
+<section id="conclusion" data-cid="BQLI9E">
+<h2 id="section-11" data-cid="X7atY0">SECTION 9: สรุปส่งท้าย</h2>
+<div class="highlight" data-cid="2Pxu52">
+                AI ไม่ได้ทำให้ใส่ปุ๋ยเก่งขึ้น<br data-cid="DrvzeZ"/>
+                แต่ทำให้รู้ว่า “ใส่ปุ๋ยไปแล้ว ควรทำอะไรต่อ และอะไรไม่คุ้มที่จะทำ”
+            </div>
+</section>
+<section id="appendix" data-cid="gpCa-l">
+<h2 id="section-12" data-cid="Ts30Zd">APPENDIX A: ชุดข้อมูลตัวอย่าง</h2>
+<p data-cid="LEFYYr">สามารถคัดลอกตารางนี้ไปทดลองใช้กับ Prompt ต่างๆ ได้ทันที</p>
+<div class="table-container" data-cid="Onugfw">
+<table data-cid="jVDm0W">
+<thead data-cid="AJzOWJ">
+<tr data-cid="71KP2A">
+<th data-cid="SOXR1U">รหัสแปลง</th>
+<th data-cid="n0_U4u">พื้นที่(ไร่)</th>
+<th data-cid="53pFfu">ประเภทอ้อย</th>
+<th data-cid="gJ2ipo">วันใส่ปุ๋ยหลังตัด</th>
+<th data-cid="LdGDrh">ปริมาณปุ๋ย(กก./ไร่)</th>
+<th data-cid="DW5Avz">ให้น้ำ</th>
+<th data-cid="7PHs_y">กำจัดวัชพืช</th>
+<th data-cid="NNox_V">ศัตรูพืช</th>
+<th data-cid="eSEUQE">ความรุนแรง(%)</th>
+<th data-cid="oHW8wU">ช่วงแล้ง(วัน)</th>
+</tr>
+</thead>
+<tbody data-cid="nl-A8Q">
+<tr data-cid="HZDmBp">
+<td data-cid="KcTCLD">0145808</td>
+<td data-cid="88vrs4">10</td>
+<td data-cid="g8s4du">อ้อยตอ</td>
+<td data-cid="xoCWtz">35</td>
+<td data-cid="yaFrf7">50</td>
+<td data-cid="dqsdwo">มี</td>
+<td data-cid="g3IEHv">มี</td>
+<td data-cid="YnXcZq">เพลี้ย</td>
+<td data-cid="HyEEks">50</td>
+<td data-cid="JP2ZIi">45</td>
+</tr>
+<tr data-cid="hBvMi4">
+<td data-cid="SFjJRJ">0145810</td>
+<td data-cid="PuhuTr">12</td>
+<td data-cid="qhocgl">อ้อยตอ</td>
+<td data-cid="nGT6LF">10</td>
+<td data-cid="Tq-jC6">60</td>
+<td data-cid="5Mv1Ww">ไม่มี</td>
+<td data-cid="waQEhN">มี</td>
+<td data-cid="UK5JEk">ไม่พบ</td>
+<td data-cid="1lX0lR">0</td>
+<td data-cid="KcHHLx">50</td>
+</tr>
+<tr data-cid="HON5qw">
+<td data-cid="0A-4pl">0145812</td>
+<td data-cid="2OvNmH">8</td>
+<td data-cid="-aFAC5">ปลูกใหม่</td>
+<td data-cid="g01zGX">7</td>
+<td data-cid="I_V8vG">40</td>
+<td data-cid="HXBuy7">มี</td>
+<td data-cid="ohE2PL">ไม่มี</td>
+<td data-cid="oULBqL">หนอนกอ</td>
+<td data-cid="wyRO_i">30</td>
+<td data-cid="8_mrq9">20</td>
+</tr>
+<tr data-cid="94_7jr">
+<td data-cid="bAbW-c">0145815</td>
+<td data-cid="otdWF2">15</td>
+<td data-cid="12XWeQ">อ้อยตอ</td>
+<td data-cid="0NS8Jv">25</td>
+<td data-cid="ZzL3vq">30</td>
+<td data-cid="-QanxO">ไม่มี</td>
+<td data-cid="8Q7mje">ไม่มี</td>
+<td data-cid="8A3Sj0">เพลี้ยไฟ</td>
+<td data-cid="fryxR7">60</td>
+<td data-cid="RRfyb3">35</td>
+</tr>
+<tr data-cid="aihFmz">
+<td data-cid="zy6lJv">0145820</td>
+<td data-cid="on4Pqc">9</td>
+<td data-cid="cP-rkx">ปลูกใหม่</td>
+<td data-cid="5mHz7k">14</td>
+<td data-cid="J2oVyU">55</td>
+<td data-cid="m0NX3U">มี</td>
+<td data-cid="DBgyfz">มี</td>
+<td data-cid="9Ya57q">ไม่พบ</td>
+<td data-cid="D-FDh-">0</td>
+<td data-cid="xuRDmg">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="prompt-box" data-cid="MdVNlF">
+<h5 data-cid="-WUMlo">ตัวอย่างคำสั่งให้ AI วิเคราะห์ “หลายแปลงพร้อมกัน”</h5>
+<pre data-cid="-F_rqg"><code data-cid="3JeJTg">“จากตารางข้อมูลบำรุงอ้อย 5 แปลงนี้ ช่วย:
+1) จัดกลุ่มแปลงเป็น เร่งทำ/ตามแผน/ไม่ควรลงทุนเพิ่ม
+2) ให้เหตุผลแยกแต่ละแปลง (สั้น ๆ)
+3) สร้าง checklist หน้างานสำหรับแปลงที่เสี่ยงสูงสุด 1 แปลง
+4) ถ้าข้อมูลไม่พอให้ถามกลับ”</code></pre>
+</div>
+</section>
+<footer class="doc-footer" data-cid="RMckc0">
+<p data-cid="IyAlBc">END OF MANUAL (AI ผู้ช่วยมือโปร + บำรุงอ้อย)</p>
+</footer>
+</div>
+
+</body></html>
