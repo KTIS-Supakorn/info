@@ -1,340 +1,378 @@
-<!DOCTYPE html><html><head>
+<!DOCTYPE html>
+<html lang="th">
+<head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>คู่มืออบรม: AI สำหรับฝ่ายไร่</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-        :root {
-            --primary-color: #00568c;
-            --secondary-color: #007bff;
-            --accent-color: #f0f8ff;
-            --text-color: #333;
-            --header-color: #2c3e50;
-            --border-color: #dee2e6;
-            --table-header-bg: #f2f2f2;
-            --prompt-bg: #e9ecef;
-            --prompt-border: #ced4da;
-            --code-bg: #f8f9fa;
-            --danger-color: #dc3545;
-            --success-color: #28a745;
-        }
+:root {
+  --emerald: #10b981;
+  --emerald-soft: #34d399;
+  --emerald-dim: #6ee7b7;
+  --emerald-pale: #ecfdf5;
+  --emerald-mid: #059669;
+  --teal: #0d9488;
+  --sky: #0ea5e9;
+  --amber: #f59e0b;
+  --rose: #f43f5e;
+  --violet: #8b5cf6;
+  --text: #0f172a;
+  --text-2: #334155;
+  --text-3: #64748b;
+  --text-4: #94a3b8;
+  --border: #e2e8f0;
+  --border-soft: #f1f5f9;
+  --surface: #ffffff;
+  --bg: #f8fafc;
+  --shadow-sm: 0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow: 0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.05);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;-webkit-font-smoothing:antialiased;font-size:15px;}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
 
-        body {
-            font-family: 'Tahoma', 'Leelawadee UI', sans-serif;
-            line-height: 1.8;
-            color: var(--text-color);
-            background-color: #fdfdfd;
-            margin: 0;
-            padding: 0;
-        }
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(226,232,240,0.8);padding:0 24px;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.nav::-webkit-scrollbar{display:none}
+.nav-brand{font-size:0.875rem;font-weight:800;color:var(--emerald-mid);white-space:nowrap;padding:13px 0;letter-spacing:-0.03em;flex-shrink:0;display:flex;align-items:center;gap:7px;}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--emerald),var(--teal));flex-shrink:0;animation:pulse 2.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.nav-sep{width:1px;height:18px;background:var(--border);flex-shrink:0;margin:0 8px}
+.nav-link{font-size:0.74rem;font-weight:600;color:var(--text-3);text-decoration:none;white-space:nowrap;padding:5px 9px;border-radius:7px;transition:all 0.15s;flex-shrink:0;}
+.nav-link:hover{color:var(--emerald-mid);background:var(--emerald-pale)}
 
-        .manual-container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 30px 40px;
-            background-color: #ffffff;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-radius: 8px;
-        }
+/* HERO */
+.hero{background:#fff;padding:68px 24px 76px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;}
+.orb-a{width:600px;height:280px;background:radial-gradient(ellipse,rgba(16,185,129,0.1) 0%,transparent 70%);top:-80px;left:50%;transform:translateX(-50%);}
+.orb-b{width:280px;height:280px;background:radial-gradient(ellipse,rgba(14,165,233,0.07) 0%,transparent 70%);top:0;right:5%;}
+.orb-c{width:240px;height:240px;background:radial-gradient(ellipse,rgba(139,92,246,0.07) 0%,transparent 70%);top:0;left:5%;}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--emerald-pale);border:1px solid rgba(16,185,129,0.2);color:var(--emerald-mid);font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:22px;position:relative;}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--emerald);}
+.hero h1{font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;color:var(--text);line-height:1.08;letter-spacing:-0.045em;margin-bottom:16px;position:relative;}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--emerald-mid) 0%,var(--teal) 50%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:1rem;color:var(--text-3);max-width:460px;margin:0 auto 6px;position:relative;}
+.hero-sub strong{color:var(--text-2)}
+.hero-meta{font-size:0.78rem;color:var(--text-4);position:relative;font-style:italic;}
+.chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:34px;position:relative;}
+.chip{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:11px 18px;box-shadow:var(--shadow-sm);transition:transform 0.15s,box-shadow 0.15s;}
+.chip:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.chip-v{font-size:1.3rem;font-weight:800;color:var(--text);letter-spacing:-0.04em;line-height:1}
+.chip-l{font-size:0.68rem;color:var(--text-3);font-weight:600;line-height:1.35;text-align:left}
 
-        h1, h2, h3, h4, h5 {
-            color: var(--header-color);
-            font-weight: 600;
-            margin-top: 1.5em;
-            margin-bottom: 0.8em;
-            line-height: 1.3;
-        }
+/* CONTAINER */
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
 
-        h1 {
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 10px;
-        }
-        
-        h1 + p {
-            text-align: center;
-            font-size: 1.1rem;
-            color: #555;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
+/* SECTION */
+section{padding:52px 0;border-bottom:1px solid var(--border-soft)}
+section:last-child{border:none}
 
-        h2 {
-            font-size: 1.8rem;
-            color: var(--primary-color);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-top: 40px;
-        }
+/* LABELS & HEADINGS */
+.label{display:inline-flex;align-items:center;gap:5px;font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--emerald-mid);background:var(--emerald-pale);padding:3px 10px;border-radius:6px;margin-bottom:10px;}
+h2{font-size:clamp(1.3rem,3.5vw,1.8rem);font-weight:800;color:var(--text);letter-spacing:-0.04em;line-height:1.18;margin-bottom:6px;}
+.sub{font-size:0.88rem;color:var(--text-3);margin-bottom:28px}
+h3{font-size:0.97rem;font-weight:700;color:var(--text-2);margin:30px 0 12px;display:flex;align-items:center;gap:8px;letter-spacing:-0.01em;}
+h3::before{content:'';width:3px;height:15px;background:linear-gradient(180deg,var(--emerald),var(--teal));border-radius:2px;flex-shrink:0;}
+h4{font-size:0.85rem;font-weight:700;color:var(--text);margin:14px 0 7px}
+p{font-size:0.91rem;color:var(--text-2);margin-bottom:12px}
+p:last-child{margin-bottom:0}
+ul,ol{padding-left:18px;margin-bottom:12px}
+li{font-size:0.91rem;margin-bottom:6px;color:var(--text-2)}
+li strong{color:var(--text)}
 
-        h3 {
-            font-size: 1.5rem;
-            color: var(--secondary-color);
-        }
+/* CARD */
+.card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow-sm);margin-bottom:14px;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-bottom:14px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.mc{background:#fff;border:1px solid var(--border);border-radius:13px;padding:16px;transition:border-color 0.15s,box-shadow 0.15s;}
+.mc:hover{border-color:var(--emerald-dim);box-shadow:var(--shadow)}
+.mc-i{font-size:1.35rem;margin-bottom:7px}
+.mc-t{font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.mc-d{font-size:0.79rem;color:var(--text-3);line-height:1.5}
 
-        h4 {
-            font-size: 1.2rem;
-            color: var(--header-color);
-        }
+/* PROMPT */
+.pb{background:#0f172a;border-radius:14px;overflow:hidden;margin:14px 0;box-shadow:0 6px 20px rgba(15,23,42,0.14);}
+.pb-bar{display:flex;align-items:center;justify-content:space-between;padding:9px 15px;background:rgba(255,255,255,0.04);border-bottom:1px solid rgba(255,255,255,0.07);}
+.pt{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+.pt.s{color:#6ee7b7}.pt.p{color:#93c5fd}.pt.d{color:#fca5a5}
+.pt-d{width:5px;height:5px;border-radius:50%;flex-shrink:0;}
+.pt.s .pt-d{background:#6ee7b7}.pt.p .pt-d{background:#93c5fd}.pt.d .pt-d{background:#fca5a5}
+.pb-dots{display:flex;gap:5px}
+.pb-dots span{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.1)}
+.pb-code{padding:15px 17px;font-family:'DM Mono',monospace;font-size:0.79rem;line-height:1.8;white-space:pre-wrap;word-break:break-word;color:#cbd5e1}
+.pb.pro{background:#0a1929}.pb.pro .pb-code{color:#bfdbfe}
+.pb.danger{background:#12060a}.pb.danger .pb-code{color:#fecaca}
 
-        ul, ol {
-            padding-left: 25px;
-        }
+/* CHECKLIST */
+.cl{background:#fff;border:1px solid var(--border);border-radius:14px;padding:19px 21px;margin:14px 0;position:relative;overflow:hidden;}
+.cl::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--emerald),var(--teal));}
+.cl-h{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--emerald-mid);margin-bottom:11px;display:flex;align-items:center;gap:5px;}
+.cl ol,.cl ul{padding-left:17px;margin:0}
+.cl li{font-size:0.87rem;color:var(--text-2);margin-bottom:6px}
+.cl li strong{color:var(--text)}
 
-        li {
-            margin-bottom: 10px;
-        }
+/* HIGHLIGHT */
+.hl{border-radius:14px;padding:18px 22px;margin:16px 0;text-align:center}
+.hl.g{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid rgba(16,185,129,0.18)}
+.hl.a{background:linear-gradient(135deg,#fffbeb,#fef9ee);border:1px solid rgba(245,158,11,0.2)}
+.hl-t{font-size:0.97rem;font-weight:700;line-height:1.65}
+.hl.g .hl-t{color:#065f46}.hl.a .hl-t{color:#78350f}
 
-        strong {
-            color: var(--primary-color);
-        }
+/* MODULE BAND */
+.mband{border-radius:16px;padding:20px 22px;display:flex;align-items:center;gap:15px;margin-bottom:28px;overflow:hidden;position:relative;}
+.mband.m1{background:linear-gradient(135deg,#f0fdf4,#ecfdf5);border:1px solid rgba(16,185,129,0.16)}
+.mband.m2{background:linear-gradient(135deg,#eff6ff,#f0f9ff);border:1px solid rgba(14,165,233,0.16)}
+.mband.m3{background:linear-gradient(135deg,#f0fdf4,#f0fdfa);border:1px solid rgba(13,148,136,0.16)}
+.mband.m4{background:linear-gradient(135deg,#fdf4ff,#faf5ff);border:1px solid rgba(139,92,246,0.16)}
+.mband.m5{background:linear-gradient(135deg,#fff7ed,#fffbf5);border:1px solid rgba(245,158,11,0.18)}
+.mband-icon{font-size:1.9rem;flex-shrink:0}
+.mband-k{font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-4);margin-bottom:2px}
+.mband-t{font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;margin-bottom:3px;line-height:1.2}
+.mband-tm{font-size:0.77rem;color:var(--text-3);font-weight:500}
 
-        .prompt-box, .checklist, .example-output {
-            background-color: var(--accent-color);
-            border-left: 5px solid var(--secondary-color);
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 0 5px 5px 0;
-        }
-        
-        .prompt-box h5, .checklist h5, .example-output h5 {
-            margin-top: 0;
-            color: var(--secondary-color);
-            font-size: 1.1rem;
-        }
+/* AGENDA */
+.agenda{border:1px solid var(--border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:var(--shadow-sm)}
+.ag{display:grid;grid-template-columns:80px 1fr;border-bottom:1px solid var(--border-soft);}
+.ag:last-child{border:none}
+.ag:hover{background:#f8fafc}
+.ag-t{padding:13px 14px;font-family:'DM Mono',monospace;font-size:0.73rem;font-weight:500;color:var(--text-3);background:var(--bg);border-right:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;white-space:nowrap;}
+.ag-c{padding:13px 17px;display:flex;align-items:center;gap:9px;font-size:0.89rem;color:var(--text-2)}
+.ag-c strong{color:var(--text)}
+.badge{display:inline-flex;align-items:center;gap:3px;font-size:0.63rem;font-weight:700;letter-spacing:0.05em;background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;padding:2px 8px;border-radius:6px;border:1px solid rgba(245,158,11,0.2);white-space:nowrap;}
 
-        .prompt-box pre, .prompt-box code {
-            background-color: transparent;
-            padding: 0;
-            margin: 0;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.95rem;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        
-        .prompt-box.danger {
-            border-left-color: var(--danger-color);
-        }
-        .prompt-box.danger h5 {
-            color: var(--danger-color);
-        }
+/* ROLES */
+.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.role{background:#fff;border:1px solid var(--border);border-radius:15px;padding:18px 15px;text-align:center;transition:transform 0.15s,box-shadow 0.15s;}
+.role:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.role-i{font-size:1.8rem;margin-bottom:8px}
+.role-t{font-size:0.83rem;font-weight:800;color:var(--text);margin-bottom:5px}
+.role-b{font-size:0.79rem;color:var(--text-3);line-height:1.5}
+.role-k{font-size:0.7rem;font-weight:700;margin-top:8px;display:inline-block;padding:2px 9px;border-radius:6px;}
+.role.ex .role-k{background:#dbeafe;color:#1e40af}
+.role.ai .role-k{background:#d1fae5;color:#065f46}
+.role.hu .role-k{background:#fef3c7;color:#92400e}
 
-        .table-container {
-            overflow-x: auto;
-            margin: 20px 0;
-        }
+/* RULE GRID */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0}
+.rc{background:#fff;border:1px solid var(--border);border-radius:13px;padding:15px;transition:border-color 0.15s;}
+.rc:hover{border-color:var(--emerald-dim)}
+.rc-n{font-family:'DM Mono',monospace;font-size:0.67rem;color:var(--text-4);margin-bottom:5px}
+.rc-t{font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:4px}
+.rc-d{font-size:0.79rem;color:var(--text-3);line-height:1.5}
+.rgrid.danger .rc{border-top:2px solid #fecaca}
+.rgrid.danger .rc-t{color:#9f1239}
+.rgrid.danger .rc-n{color:#fca5a5}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-        }
+/* TABLE */
+.tscroll{overflow-x:auto;border-radius:14px;margin:14px 0;border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;font-size:0.84rem}
+thead{background:var(--bg)}
+thead th{color:var(--text-3);font-size:0.69rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:11px 13px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{transition:background 0.1s}
+tbody tr:hover{background:#f8fafc}
+tbody tr:last-child td{border-bottom:none}
+td{padding:10px 13px;border-bottom:1px solid var(--border-soft);color:var(--text-2)}
+td:first-child{font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--emerald-mid);font-weight:500}
 
-        th, td {
-            border: 1px solid var(--border-color);
-            padding: 12px 15px;
-            text-align: left;
-        }
+/* STEPS */
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:13px;margin-bottom:13px;align-items:flex-start;}
+.steps li::before{content:counter(s);min-width:25px;height:25px;background:linear-gradient(135deg,var(--emerald),var(--teal));color:#fff;font-size:0.7rem;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.steps li span{font-size:0.9rem;color:var(--text-2)}
+.steps li strong{color:var(--text)}
 
-        th {
-            background-color: var(--table-header-bg);
-            font-weight: 600;
-        }
+/* CASES */
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:9px;margin:12px 0}
+.cc{background:#fff;border:1px solid var(--border);border-radius:13px;padding:13px;transition:all 0.15s;}
+.cc:hover{border-color:var(--emerald-dim);background:var(--emerald-pale)}
+.cc-l{font-weight:800;color:var(--text);font-size:0.83rem;margin-bottom:4px}
+.cc-d{font-size:0.78rem;color:var(--text-3);line-height:1.5}
 
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        
-        .doc-footer {
-            text-align: center;
-            margin-top: 50px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border-color);
-            font-size: 0.9rem;
-            color: #777;
-        }
-        
-        .highlight {
-            background-color: #fff3cd;
-            padding: 15px;
-            border-radius: 5px;
-            border: 1px solid #ffeeba;
-            text-align: center;
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-    </style>
+/* OUTPUT */
+.out{background:linear-gradient(135deg,#f8fafc,#fff);border:1px solid var(--border);border-radius:14px;padding:22px;margin:13px 0;position:relative;overflow:hidden;}
+.out::before{content:'OUTPUT';position:absolute;top:-1px;left:18px;background:linear-gradient(90deg,var(--emerald),var(--teal));color:#fff;font-size:0.58rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:0 0 7px 7px;}
+.out h5{font-size:0.86rem;font-weight:700;color:var(--text);margin:8px 0 9px}
+.out ul{padding-left:17px;margin:0}
+.out li{font-size:0.87rem;color:var(--text-2);margin-bottom:5px}
 
-</head><body>
-<div class="manual-container" data-cid="wV293q">
-<header data-cid="grUTug">
-<h1 id="section-1" data-cid="GrqP4D">คู่มืออบรม: AI สำหรับฝ่ายไร่</h1>
-<p data-cid="zkf6rn">ภายใต้แนวคิด <strong data-cid="aPxSDt">“ให้ AI เป็นผู้ช่วยมือโปร”</strong></p>
-<p style="font-style: italic;" data-cid="xMrxT9">(ผสาน “การใช้ AI ช่วยตัดสินใจงานบำรุงอ้อยจากข้อมูลจริง” เป็นแกนหลัก)</p>
-<p style="font-size: 0.9em; color: #666;" data-cid="eXU6kW">วันที่จัดทำ: 25 กุมภาพันธ์ 2569</p>
-</header>
-<section id="overview" data-cid="nsktld">
-<h2 id="section-1" data-cid="tihrd9">ภาพรวมหลักสูตร</h2>
-<h3 id="section-1-1" data-cid="al1nOD">แนวคิดหลัก</h3>
-<ul data-cid="Pz2Z-Z">
-<li data-cid="_dCxs5"><strong data-cid="e4TdtQ">ให้ AI เป็น “ผู้ช่วยมือโปร” ของฝ่ายไร่:</strong> ช่วยคิด, ช่วยร่าง, ช่วยสรุป, ช่วยตรวจ, ช่วยวิเคราะห์, และช่วยทำสื่อ</li>
-<li data-cid="q5PuTa"><strong data-cid="jHJAjA">คนยังเป็นผู้ตัดสินใจและรับผิดชอบผลลัพธ์:</strong> AI ไม่ได้ทำหน้าที่ตัดสินใจแทนมนุษย์</li>
-<li data-cid="9n1hPD"><strong data-cid="P9ZT_j">ใช้งานจริง:</strong> เน้นการประยุกต์ใช้ AI ในการทำงานจริง ไม่ลงลึกเชิงเทคนิค หรือสอน Machine Learning</li>
-<li data-cid="Syx1pO"><strong data-cid="vIQvkA">ใช้ข้อมูลจริง:</strong> ใช้ข้อมูลจากระบบสารสนเทศ (สท.) ที่มีอยู่ โดยเฉพาะ “ข้อมูลบำรุงอ้อย”</li>
-<li data-cid="Dzh_Co"><strong data-cid="ikNdGh">รูปแบบข้อมูลมาตรฐาน:</strong> ยึดหลัก 1 แปลง / 1 ฤดู = 1 แถว เพื่อให้ AI วิเคราะห์ได้อย่างมีประสิทธิภาพสูงสุด</li>
-</ul>
-<h3 id="section-1-2" data-cid="nTW7MQ">ขอบเขตหลักสูตร</h3>
-<p data-cid="AwKPeR">หลักสูตรนี้เน้น <strong data-cid="Pz2g_c">“การบำรุงอ้อย”</strong> เป็นแกนหลัก (Data-driven decision making) และเสริมทักษะการใช้ AI ในฐานะผู้ช่วยมือโปรในงานฝ่ายไร่ 5 ด้าน:</p>
-<ol data-cid="eDK_QY">
-<li data-cid="dJkio7"><strong data-cid="m7VUK0">เพื่อนคู่คิด (Generative AI):</strong> ช่วยระดมสมองและวางแผน</li>
-<li data-cid="JiSpYT"><strong data-cid="BTx5jN">ผู้ช่วยเอกสาร (Document Assistant):</strong> ช่วยสรุปและร่างเอกสาร</li>
-<li data-cid="0yAEj1"><strong data-cid="Tpxk7O">วิเคราะห์ข้อมูลเพื่อช่วยตัดสินใจ (Excel + AI):</strong> แปลงข้อมูลเป็นข้อเสนอแนะ</li>
-<li data-cid="FfNL28"><strong data-cid="QdMLde">สร้างสรรค์สื่อ (Creative Content):</strong> ช่วยออกแบบสื่อรณรงค์และนำเสนอ</li>
-<li data-cid="XTpbik"><strong data-cid="saUG_v">ข้อควรระวัง/จริยธรรม/ความถูกต้อง (Ethics &amp; Accuracy):</strong> ใช้ AI อย่างปลอดภัยและรับผิดชอบ</li>
-</ol>
-<h3 id="section-1-3" data-cid="SSDs3X">ระยะเวลาอบรม</h3>
-<p data-cid="esujPW">3 – 4 ชั่วโมง</p>
-<h3 id="section-1-4" data-cid="hQNSFd">กลุ่มเป้าหมาย</h3>
-<ul data-cid="wqaobY">
-<li data-cid="VgPtBb">เจ้าหน้าที่ฝ่ายไร่</li>
-<li data-cid="PjsQgO">หัวหน้างานฝ่ายไร่ / ผู้ช่วยหัวหน้างานฝ่ายไร่</li>
-<li data-cid="fUQbyE">ผู้ใช้/เข้าถึงข้อมูลสารสนเทศในการทำงาน</li>
-</ul>
-<h3 id="section-1-5" data-cid="OTuZjI">สิ่งที่ผู้เรียนจะได้ (Learning Outcomes)</h3>
-<ul data-cid="iVvwHo">
-<li data-cid="xPbgMP">ชุด Prompt มาตรฐานกว่า 20 ชุด ที่พร้อมใช้งานจริงในงานไร่</li>
-<li data-cid="IdFUO_">วิธีจัดข้อมูลบำรุงอ้อยจากระบบ สท. ให้อยู่ในรูปแบบที่ AI วิเคราะห์ได้</li>
-<li data-cid="o9F0Pr">วิธีใช้ AI สรุป, ร่าง, และตรวจเอกสาร เพื่อลดเวลางานเอกสาร</li>
-<li data-cid="XZGkrC">วิธีสั่งให้ AI ช่วยคิดเป็น “แผนงาน + เหตุผล + งานต้องทำ” ไม่ใช่แค่การตอบแบบลอยๆ</li>
-<li data-cid="0p42Tk">กติกาการตรวจสอบความถูกต้องและความปลอดภัย เพื่อลดความเสี่ยงจากข้อมูลที่ AI อาจสร้างขึ้นเอง</li>
-</ul>
-<h3 id="section-1-6" data-cid="T3lLII">อุปกรณ์/การเตรียมตัว</h3>
-<ul data-cid="BgNRXL">
-<li data-cid="wRRWg2">คอมพิวเตอร์ 1 เครื่อง ต่อ 1 คน (หรือต่อคู่)</li>
-<li data-cid="xem1VU">โปรแกรม Microsoft Excel ที่ใช้งานได้</li>
-<li data-cid="5a5Y1X">ตัวอย่างข้อมูลจากระบบ สท. (อย่างน้อย 20 แถว) หรือใช้ข้อมูลตัวอย่างที่ให้ในภาคผนวก</li>
-</ul>
-</section>
-<section id="agenda" data-cid="sBm8Gg">
-<h2 id="section-2" data-cid="D8LqSx">วาระการประชุม (Agenda)</h2>
-<div class="table-container" data-cid="yIBU8v">
-<table data-cid="MXBlwF">
-<thead data-cid="-TnPBX">
-<tr data-cid="bCmcut">
-<th data-cid="7VCqFz">เวลา (นาที)</th>
-<th data-cid="giL5mB">หัวข้อการอบรม</th>
-</tr>
-</thead>
-<tbody data-cid="v2pPHS">
-<tr data-cid="dnxttc">
-<td data-cid="K9Rflf">10</td>
-<td data-cid="_dZtNM">เปิดคลาส และ กติกาการใช้งาน AI</td>
-</tr>
-<tr data-cid="HngRBX">
-<td data-cid="hnnQTn">55</td>
-<td data-cid="s6R9Cy"><strong data-cid="DZXZro">Module 1:</strong> AI เป็นเพื่อนคู่คิด (Generative AI)</td>
-</tr>
-<tr data-cid="9lwojK">
-<td data-cid="zWNsej">40</td>
-<td data-cid="sBUWXr"><strong data-cid="oh6RZ9">Module 2:</strong> AI ผู้ช่วยงานเอกสาร (Document Assistant)</td>
-</tr>
-<tr data-cid="t2pRXe">
-<td data-cid="gN5d7X">65</td>
-<td data-cid="7fW7xb"><strong data-cid="j9sVFV">Module 3:</strong> AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ (Data-driven) <strong data-cid="dz-ak3">**แกนหลัก**</strong></td>
-</tr>
-<tr data-cid="dcZKjr">
-<td data-cid="sCTa5E">30</td>
-<td data-cid="vSQJmr"><strong data-cid="3U6wF1">Module 4:</strong> AI สร้างสรรค์สื่อ (Creative Content)</td>
-</tr>
-<tr data-cid="jNUi2F">
-<td data-cid="KtvUqy">20</td>
-<td data-cid="rNKXaz"><strong data-cid="0l4UnR">Module 5:</strong> ข้อควรระวัง (Ethics &amp; Accuracy) และ สรุปปิดคลาส</td>
-</tr>
-</tbody>
-</table>
+/* TAGS */
+.tag{display:inline-flex;align-items:center;gap:3px;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:6px;}
+.tag.g{background:#d1fae5;color:#065f46}.tag.a{background:#fef3c7;color:#92400e}.tag.r{background:#fee2e2;color:#9f1239}
+
+/* TOOLS */
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:9px;margin:12px 0}
+.tc{background:#fff;border:1px solid var(--border);border-radius:13px;padding:14px 15px;display:flex;gap:9px;align-items:flex-start;transition:all 0.15s;}
+.tc:hover{border-color:var(--sky);background:#f0f9ff}
+.tc-i{font-size:1.15rem;flex-shrink:0}
+.tc-n{font-size:0.83rem;font-weight:700;color:var(--text);margin-bottom:3px}
+.tc-d{font-size:0.77rem;color:var(--text-3);line-height:1.4}
+
+/* SLIDES */
+.slist{list-style:none;padding:0;display:grid;gap:7px}
+.si{display:flex;gap:11px;align-items:flex-start;background:#fff;border:1px solid var(--border);border-radius:11px;padding:11px 15px;font-size:0.87rem;color:var(--text-2);transition:all 0.15s;}
+.si:hover{border-color:var(--violet);background:#faf5ff}
+.sn{min-width:21px;height:21px;background:#f1f5f9;color:var(--text-3);font-family:'DM Mono',monospace;font-size:0.67rem;font-weight:700;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.si strong{color:var(--text)}
+
+/* FOOTER */
+footer{background:var(--text);color:#64748b;text-align:center;padding:26px 20px;font-size:0.79rem;}
+footer strong{color:#94a3b8}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  .g2,.g3,.g4,.roles,.rgrid{grid-template-columns:1fr}
+  .hero{padding:44px 16px 52px}
+  .wrap{padding:0 14px}
+  .nav{padding:0 14px}
+  .mband{flex-direction:column;align-items:flex-start;gap:8px;padding:15px 17px}
+  h2{font-size:1.3rem}
+  .pb-code{font-size:0.75rem}
+  .ag{grid-template-columns:66px 1fr}
+  .ag-t{font-size:0.68rem;padding:11px 9px}
+  .chips{gap:6px}
+  .chip{padding:9px 13px}
+}
+@media(min-width:641px) and (max-width:800px){
+  .g4{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-brand"><div class="nav-dot"></div>AI ฝ่ายไร่</div>
+  <div class="nav-sep"></div>
+  <a class="nav-link" href="#overview">ภาพรวม</a>
+  <a class="nav-link" href="#agenda">Agenda</a>
+  <a class="nav-link" href="#section0">กติกา</a>
+  <a class="nav-link" href="#module1">M1</a>
+  <a class="nav-link" href="#module2">M2</a>
+  <a class="nav-link" href="#module3">M3</a>
+  <a class="nav-link" href="#module4">M4</a>
+  <a class="nav-link" href="#module5">M5</a>
+  <a class="nav-link" href="#appendix">Appendix</a>
+</nav>
+
+<div class="hero">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="eyebrow"><div class="eyebrow-dot"></div>คู่มืออบรม · ฝ่ายไร่</div>
+  <h1>AI สำหรับ<br/><em>ฝ่ายไร่</em></h1>
+  <p class="hero-sub">ภายใต้แนวคิด <strong>"ให้ AI เป็นผู้ช่วยมือโปร"</strong></p>
+  <p class="hero-meta">ผสาน "การใช้ AI ช่วยตัดสินใจงานบำรุงอ้อยจากข้อมูลจริง" เป็นแกนหลัก</p>
+  <div class="chips">
+    <div class="chip"><div class="chip-v">3–4</div><div class="chip-l">ชั่วโมง<br/>อบรม</div></div>
+    <div class="chip"><div class="chip-v">5</div><div class="chip-l">โมดูล<br/>หลัก</div></div>
+    <div class="chip"><div class="chip-v">20+</div><div class="chip-l">Prompt<br/>พร้อมใช้</div></div>
+    <div class="chip"><div class="chip-v">25 ก.พ.</div><div class="chip-l">วันที่<br/>จัดทำ</div></div>
+  </div>
 </div>
+
+<div class="wrap">
+
+<section id="overview">
+  <div class="label">📋 ภาพรวม</div>
+  <h2>ภาพรวมหลักสูตร</h2>
+  <p class="sub">หลักการ ขอบเขต และสิ่งที่ผู้เรียนจะได้รับ</p>
+
+  <h3>แนวคิดหลัก</h3>
+  <div class="g4">
+    <div class="mc"><div class="mc-i">🤖</div><div class="mc-t">AI เป็นผู้ช่วย</div><div class="mc-d">ช่วยคิด, ร่าง, สรุป, ตรวจ ไม่ใช่ผู้ตัดสินใจ</div></div>
+    <div class="mc"><div class="mc-i">👤</div><div class="mc-t">คนตัดสินใจ</div><div class="mc-d">AI เสนอทางเลือก คนรับผิดชอบผลลัพธ์</div></div>
+    <div class="mc"><div class="mc-i">📊</div><div class="mc-t">ใช้ข้อมูลจริง</div><div class="mc-d">ใช้ข้อมูลจากระบบ สท. เฉพาะ "บำรุงอ้อย"</div></div>
+    <div class="mc"><div class="mc-i">📋</div><div class="mc-t">รูปแบบมาตรฐาน</div><div class="mc-d">1 แปลง / 1 ฤดู = 1 แถว</div></div>
+  </div>
+
+  <h3>5 ด้านที่ AI ช่วยงานได้</h3>
+  <div class="card">
+    <ol style="padding-left:18px;margin:0">
+      <li><strong>เพื่อนคู่คิด (Generative AI):</strong> ช่วยระดมสมองและวางแผน</li>
+      <li><strong>ผู้ช่วยเอกสาร (Document Assistant):</strong> ช่วยสรุปและร่างเอกสาร</li>
+      <li><strong>วิเคราะห์ข้อมูล (Excel + AI):</strong> แปลงข้อมูลเป็นข้อเสนอแนะ</li>
+      <li><strong>สร้างสรรค์สื่อ (Creative Content):</strong> ออกแบบสื่อรณรงค์และนำเสนอ</li>
+      <li><strong>จริยธรรม/ความถูกต้อง (Ethics & Accuracy):</strong> ใช้ AI อย่างปลอดภัย</li>
+    </ol>
+  </div>
+
+  <h3>สิ่งที่ผู้เรียนจะได้รับ</h3>
+  <div class="card">
+    <ul style="margin:0">
+      <li>ชุด Prompt มาตรฐานกว่า <strong>20 ชุด</strong> พร้อมใช้งานจริง</li>
+      <li>วิธีจัดข้อมูลบำรุงอ้อยจากระบบ สท. ให้ AI วิเคราะห์ได้</li>
+      <li>วิธีใช้ AI สรุป, ร่าง, และตรวจเอกสาร ลดเวลางานเอกสาร</li>
+      <li>วิธีสั่งให้ AI คิดเป็น "แผนงาน + เหตุผล + งานต้องทำ"</li>
+      <li>กติกาตรวจสอบความถูกต้องเพื่อลดความเสี่ยงจาก AI</li>
+    </ul>
+  </div>
+
+  <h3>บทบาท Excel – AI – คน</h3>
+  <div class="roles">
+    <div class="role ex"><div class="role-i">📊</div><div class="role-t">Excel</div><div class="role-b">รวมข้อมูล, คำนวณ, จัดลำดับ</div><div class="role-k">เห็นตัวเลข</div></div>
+    <div class="role ai"><div class="role-i">🤖</div><div class="role-t">AI</div><div class="role-b">เชื่อมโยงข้อมูล, อธิบายเหตุผล</div><div class="role-k">คิดจากตัวเลข</div></div>
+    <div class="role hu"><div class="role-i">👨‍🌾</div><div class="role-t">คน</div><div class="role-b">ตรวจหน้างาน, ตัดสินใจ</div><div class="role-k">ลงมือทำ</div></div>
+  </div>
+  <div class="hl g"><div class="hl-t">Excel = เห็นตัวเลข &nbsp;·&nbsp; AI = คิดจากตัวเลข &nbsp;·&nbsp; คน = ตัดสินใจและลงมือทำ</div></div>
 </section>
-<section id="section0" data-cid="gzltKP">
-<h2 id="section-3" data-cid="AxwLqc">SECTION 0: กติกาเปิดคลาส (Must say)</h2>
-<p data-cid="U_BZq4">ก่อนเริ่มใช้งาน เราต้องเข้าใจกฎพื้นฐานของการทำงานร่วมกับ AI เพื่อให้ได้ผลลัพธ์ที่ดีที่สุดและปลอดภัยที่สุด:</p>
-<ul data-cid="vTWFPw">
-<li data-cid="M9sck1"><strong data-cid="aUgxA4">AI ไม่รู้หน้างานจริง:</strong> AI รู้เฉพาะข้อมูลที่เราป้อนให้เท่านั้น</li>
-<li data-cid="NXYq6z"><strong data-cid="tsLNbW">ข้อมูลผิด = AI ผิด:</strong> คุณภาพของคำตอบขึ้นอยู่กับคุณภาพของข้อมูลที่ป้อนเข้าไป (Garbage In, Garbage Out)</li>
-<li data-cid="5Zl_pl"><strong data-cid="YE8Yq-">AI ห้ามตัดสินใจแทนคน:</strong> AI เป็นเพียงผู้ช่วยเสนอทางเลือก คนยังคงเป็นผู้ตัดสินใจสุดท้าย</li>
-<li data-cid="tuFDTE"><strong data-cid="3BFPvZ">ใช้ AI เพื่อ “ช่วยคิด” เท่านั้น:</strong> ใช้เป็นเครื่องมือขยายความคิดและวิเคราะห์ ไม่ใช่เครื่องมือสั่งการ</li>
-<li data-cid="2L3jUX"><strong data-cid="f91nHQ">คำตอบ AI ต้องมี “เหตุผลจากข้อมูล” เสมอ:</strong> ต้องฝึกให้ AI อ้างอิงข้อมูลที่ให้ไปเสมอ</li>
-<li data-cid="ndrdGT"><strong data-cid="7pSoE6">ถ้าข้อมูลไม่พอ ต้องให้ AI “ถามกลับ”:</strong> อย่าปล่อยให้ AI คาดเดา ให้สั่งให้มันถามหาข้อมูลเพิ่มเติม</li>
-</ul>
-<div class="prompt-box" data-cid="yOHlVY">
-<h5 data-cid="JOd48F">Prompt เปิดคลาส (ให้ผู้เรียนเห็นภาพทันที)</h5>
-<pre data-cid="sEz3Pd"><code data-cid="nMMi7O">“วันนี้คุณเป็นผู้ช่วยหัวหน้าไร่ ฉันจะให้ข้อมูลบำรุงอ้อยและงานเอกสาร
+
+<section id="agenda">
+  <div class="label">🗓️ Agenda</div>
+  <h2>วาระการอบรม</h2>
+  <p class="sub">รวมเวลาทั้งหมด 3–4 ชั่วโมง</p>
+  <div class="agenda">
+    <div class="ag"><div class="ag-t">10 นาที</div><div class="ag-c">เปิดคลาส และกติกาการใช้งาน AI</div></div>
+    <div class="ag"><div class="ag-t">55 นาที</div><div class="ag-c"><strong>Module 1:</strong>&nbsp;AI เป็นเพื่อนคู่คิด (Generative AI)</div></div>
+    <div class="ag"><div class="ag-t">40 นาที</div><div class="ag-c"><strong>Module 2:</strong>&nbsp;AI ผู้ช่วยงานเอกสาร (Document Assistant)</div></div>
+    <div class="ag" style="background:linear-gradient(90deg,#f0fdf4,#fff)"><div class="ag-t">65 นาที</div><div class="ag-c"><strong>Module 3:</strong>&nbsp;AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ &nbsp;<span class="badge">⭐ แกนหลัก</span></div></div>
+    <div class="ag"><div class="ag-t">30 นาที</div><div class="ag-c"><strong>Module 4:</strong>&nbsp;AI สร้างสรรค์สื่อ (Creative Content)</div></div>
+    <div class="ag"><div class="ag-t">20 นาที</div><div class="ag-c"><strong>Module 5:</strong>&nbsp;ข้อควรระวัง (Ethics & Accuracy) และสรุปปิดคลาส</div></div>
+  </div>
+</section>
+
+<section id="section0">
+  <div class="label">📌 Must Say</div>
+  <h2>กติกาเปิดคลาส</h2>
+  <p class="sub">ต้องพูดก่อนเริ่มทุกครั้ง</p>
+  <div class="rgrid">
+    <div class="rc"><div class="rc-n">/ 01</div><div class="rc-t">AI ไม่รู้หน้างานจริง</div><div class="rc-d">AI รู้เฉพาะข้อมูลที่เราป้อนให้เท่านั้น</div></div>
+    <div class="rc"><div class="rc-n">/ 02</div><div class="rc-t">ข้อมูลผิด = AI ผิด</div><div class="rc-d">คุณภาพคำตอบขึ้นอยู่กับคุณภาพข้อมูล</div></div>
+    <div class="rc"><div class="rc-n">/ 03</div><div class="rc-t">AI ห้ามตัดสินใจแทนคน</div><div class="rc-d">AI เป็นเพียงผู้ช่วยเสนอทางเลือก</div></div>
+    <div class="rc"><div class="rc-n">/ 04</div><div class="rc-t">ใช้ AI เพื่อ "ช่วยคิด"</div><div class="rc-d">ใช้เป็นเครื่องมือขยายความคิดและวิเคราะห์</div></div>
+    <div class="rc"><div class="rc-n">/ 05</div><div class="rc-t">คำตอบต้องมีเหตุผลจากข้อมูล</div><div class="rc-d">ฝึกให้ AI อ้างอิงข้อมูลที่ให้ไปเสมอ</div></div>
+    <div class="rc"><div class="rc-n">/ 06</div><div class="rc-t">ถ้าข้อมูลไม่พอ ให้ AI ถามกลับ</div><div class="rc-d">อย่าปล่อยให้ AI คาดเดาเอง</div></div>
+  </div>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt เปิดคลาส</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"วันนี้คุณเป็นผู้ช่วยหัวหน้าไร่ ฉันจะให้ข้อมูลบำรุงอ้อยและงานเอกสาร
 คุณต้องช่วยฉัน: (1) สรุป (2) เสนอทางเลือก (3) ทำเช็กลิสต์หน้างาน
-แต่ห้ามฟันธงแทนคน และต้องบอกสิ่งที่ต้องตรวจเพิ่มเสมอ”</code></pre>
-</div>
+แต่ห้ามฟันธงแทนคน และต้องบอกสิ่งที่ต้องตรวจเพิ่มเสมอ"</div>
+  </div>
+
+  <h3>การบำรุงอ้อยในมุม AI</h3>
+  <p>ในมุมมองของ AI, <strong>การบำรุงอ้อย คือ การตัดสินใจซ้ำ ๆ ทุกฤดู</strong> AI ช่วยตอบคำถามสำคัญ 4 ข้อ:</p>
+  <div class="g2">
+    <div class="mc"><div class="mc-i">⏱️</div><div class="mc-t">ทันเวลา?</div><div class="mc-d">บำรุง "ทันเวลา" หรือล่าช้า</div></div>
+    <div class="mc"><div class="mc-i">⚖️</div><div class="mc-t">พอหรือขาด?</div><div class="mc-d">ปริมาณบำรุงเพียงพอหรือไม่</div></div>
+    <div class="mc"><div class="mc-i">🎯</div><div class="mc-t">ถูกจังหวะ?</div><div class="mc-d">บำรุง "ถูกจังหวะหรือผิดจังหวะ"</div></div>
+    <div class="mc"><div class="mc-i">💰</div><div class="mc-t">คุ้มลงทุน?</div><div class="mc-d">ยัง "ควรลงทุนบำรุงต่อหรือไม่"</div></div>
+  </div>
+  <div class="hl g"><div class="hl-t">AI ไม่ได้ช่วยใส่ปุ๋ย แต่ช่วย "คิดจากข้อมูลบำรุงที่มีอยู่"</div></div>
 </section>
-<section id="section1" data-cid="rCeQCM">
-<h2 id="section-4" data-cid="GbWJlG">SECTION 1: การบำรุงอ้อย คืออะไรในมุม AI</h2>
-<p data-cid="gRfp6n">ในมุมมองของ AI, <strong data-cid="q4Yryv">การบำรุงอ้อย คือ การตัดสินใจซ้ำ ๆ ทุกฤดู</strong> โดยอาศัยข้อมูลที่มีอยู่ AI ถูกนำมาใช้เพื่อช่วยตอบคำถามสำคัญ 4 ข้อจากข้อมูลจริง:</p>
-<ol data-cid="IkQENg">
-<li data-cid="PSrCUW">บำรุง <strong data-cid="YthMTd">“ทันเวลา”</strong> หรือไม่?</li>
-<li data-cid="gnw9l0">บำรุง <strong data-cid="ZY56ni">“พอหรือขาด”</strong>?</li>
-<li data-cid="qRIJWo">บำรุง <strong data-cid="cjgo2O">“ถูกจังหวะหรือผิดจังหวะ”</strong>?</li>
-<li data-cid="42RfDe">ยัง <strong data-cid="TYiEFa">“ควรลงทุนบำรุงต่อหรือไม่”</strong>?</li>
-</ol>
-<p class="highlight" data-cid="CiQlHq">AI ไม่ได้ช่วยใส่ปุ๋ย แต่ช่วย “คิดจากข้อมูลบำรุงที่มีอยู่”</p>
-<h4 data-cid="F64qe1">แบบฝึกสั้น (5 นาที)</h4>
-<p data-cid="11Nidp">ให้ผู้เรียนดูข้อมูล 1 แปลง (1 แถว) แล้วลองตอบคำถาม 4 ข้อข้างต้น &#34;ด้วยเหตุผล&#34; หากตอบไม่ได้เพราะข้อมูลไม่เพียงพอ ให้ระบุว่าขาดข้อมูลอะไร</p>
-</section>
-<section id="section2" data-cid="M0A-L4">
-<h2 id="section-5" data-cid="nI3qWT">SECTION 2: บทบาท Excel – AI – คน</h2>
-<div class="table-container" data-cid="KMQk7z">
-<table data-cid="P5biLV">
-<thead data-cid="Lgw7Jh">
-<tr data-cid="PE4Usa">
-<th data-cid="rOU8KR">เครื่องมือ</th>
-<th data-cid="ZSnCaq">ทำอะไร?</th>
-</tr>
-</thead>
-<tbody data-cid="7sR0wd">
-<tr data-cid="gqEuci">
-<td data-cid="RDt9Oi"><strong data-cid="aFp0jU">Excel</strong></td>
-<td data-cid="aZODwN">รวมข้อมูล, คำนวณ, จัดลำดับ</td>
-</tr>
-<tr data-cid="Cz3QqT">
-<td data-cid="dshFP3"><strong data-cid="WrXUqR">AI</strong></td>
-<td data-cid="cGo7od">เชื่อมโยงข้อมูลหลายด้านพร้อมกัน, อธิบายเหตุผล, เสนอแนวทางจัดการ</td>
-</tr>
-<tr data-cid="T26tcI">
-<td data-cid="Ww5hGG"><strong data-cid="4aVYO4">คน</strong></td>
-<td data-cid="PGkl-m">ตรวจหน้างานจริง, ตัดสินใจสุดท้าย, รับผิดชอบผลลัพธ์</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="highlight" data-cid="9fiJmI">
-                สรุปจำง่าย: Excel = เห็นตัวเลข | AI = คิดจากตัวเลข | คน = ตัดสินใจและลงมือทำ
-            </div>
-<h4 data-cid="hSgOEL">กิจกรรม (3 นาที)</h4>
-<p data-cid="ixYXBU">ให้ผู้เรียนพูดตามให้ได้: “Excel เห็นตัวเลข / AI คิดจากตัวเลข / คนตัดสินใจและลงมือทำ”</p>
-</section>
-<section id="module1" data-cid="BRWtjZ">
-<h2 id="section-6" data-cid="OMcu2K">MODULE 1: AI เป็นเพื่อนคู่คิด (Generative AI) [55 นาที]</h2>
-<h3 id="section-6-1" data-cid="EHv5N8">เป้าหมายโมดูล</h3>
-<ul data-cid="KHnbNF">
-<li data-cid="xHLVeI">ใช้ AI ช่วยงานพื้นฐานที่ฝ่ายไร่ทำจริง: ร่างโครงการ, สรุป, จัดลำดับงาน</li>
-<li data-cid="wCGGnQ">ใช้ AI สวมบทบาทเพื่อฝึกทีม: การโน้มน้าวใจ, การตอบโต้, การสื่อสารกับผู้มีส่วนได้ส่วนเสีย</li>
-</ul>
-<h3 id="section-6-2" data-cid="9Z-XBr">1.1 งานพื้นฐานที่ AI ช่วยได้ดี (Work Basics)</h3>
-<h4 data-cid="X_AYSZ">A) ร่างโครงการ/แผนงาน (Draft Project)</h4>
-<p data-cid="Kr6_aw"><strong data-cid="ilh3M5">ตัวอย่างงานฝ่ายไร่:</strong> โครงการกำจัดวัชพืช, แผนควบคุมศัตรูพืช, แผนบำรุงหลังตัด, แผนตรวจแปลงเชิงรุก</p>
-<div class="prompt-box" data-cid="VsOHiC">
-<h5 data-cid="7jH8Ve">Prompt มาตรฐาน (ร่างโครงการแบบมือโปร)</h5>
-<pre data-cid="wBN1pT"><code data-cid="J-lUDq">“ช่วยร่างโครงการเรื่อง: &lt;ชื่อโครงการ&gt;
+
+<section id="module1">
+  <div class="mband m1"><div class="mband-icon">💡</div><div><div class="mband-k">Module 1</div><div class="mband-t">AI เป็นเพื่อนคู่คิด (Generative AI)</div><div class="mband-tm">⏱️ 55 นาที</div></div></div>
+
+  <h3>ร่างโครงการ / แผนงาน</h3>
+  <p><strong>ตัวอย่างงาน:</strong> โครงการกำจัดวัชพืช, แผนควบคุมศัตรูพืช, แผนบำรุงหลังตัด</p>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — ร่างโครงการ</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"ช่วยร่างโครงการเรื่อง: &lt;ชื่อโครงการ&gt;
 เงื่อนไข:
 - หน่วยงาน: ฝ่ายไร่
 - รูปแบบต้องมีหัวข้อ:
@@ -346,446 +384,261 @@
   6) ทรัพยากรที่ใช้ (คน/อุปกรณ์/งบประมาณแบบกรอบ)
   7) ความเสี่ยง + วิธีลดความเสี่ยง
   8) ตัวชี้วัดความสำเร็จ (KPI)
-- ขอแบบกระชับ เน้นเอาไปเสนอหัวหน้าได้”</code></pre>
-</div>
-<div class="checklist" data-cid="KAWRtZ">
-<h5 data-cid="aIJ8lm">Checklist การตรวจคุณภาพร่างโครงการ</h5>
-<ul data-cid="dWr3GB">
-<li data-cid="xcIcJT">วัตถุประสงค์วัดได้หรือไม่? (เช่น ลด % วัชพืช, ลดการระบาด)</li>
-<li data-cid="ef_w31">กิจกรรมเป็นขั้นตอนที่ปฏิบัติได้จริงหรือไม่?</li>
-<li data-cid="QM7ZRG">ความเสี่ยงที่อาจเกิดขึ้นมีอะไรบ้าง? (เช่น ฝน, แล้ง, เครื่องจักร, คนไม่พอ)</li>
-</ul>
-</div>
-<h4 data-cid="EJi4mI">B) สรุปหัวข้อสำคัญ/สรุปประชุม (Summarize)</h4>
-<div class="prompt-box" data-cid="MwDjs8">
-<h5 data-cid="wr-A7n">Prompt มาตรฐาน (สรุปให้ “สั่งงานได้”)</h5>
-<pre data-cid="8rZoVj"><code data-cid="49nu_C">“สรุปข้อความด้านล่างให้เป็น:
+- ขอแบบกระชับ เน้นเอาไปเสนอหัวหน้าได้"</div>
+  </div>
+  <div class="cl"><div class="cl-h">✅ Checklist ตรวจคุณภาพร่างโครงการ</div><ul><li>วัตถุประสงค์วัดได้หรือไม่? (เช่น ลด % วัชพืช, ลดการระบาด)</li><li>กิจกรรมเป็นขั้นตอนที่ปฏิบัติได้จริงหรือไม่?</li><li>ความเสี่ยงที่อาจเกิดขึ้นมีอะไรบ้าง? (เช่น ฝน, แล้ง, เครื่องจักร)</li></ul></div>
+
+  <h3>สรุปหัวข้อสำคัญ / สรุปประชุม</h3>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — สรุปให้สั่งงานได้</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"สรุปข้อความด้านล่างให้เป็น:
 1) ประเด็นสำคัญ 7 ข้อ
-2) งานต้องทำ (Action items) 5 ข้อ โดยระบุ ‘ใคร’ ‘ทำอะไร’ ‘เมื่อไหร่’
+2) งานต้องทำ (Action items) 5 ข้อ โดยระบุ 'ใคร' 'ทำอะไร' 'เมื่อไหร่'
 3) ความเสี่ยง/ข้อควรระวัง 3 ข้อ
-ข้อกำหนด: ใช้ bullet สั้น ๆ หลีกเลี่ยงภาษากว้าง”</code></pre>
-</div>
-<h4 data-cid="KFU3gJ">C) จัดลำดับความสำคัญงาน (Prioritization)</h4>
-<div class="prompt-box" data-cid="E97Kw9">
-<h5 data-cid="qciwIz">Prompt มาตรฐาน (เรียงงานแบบมือโปร)</h5>
-<pre data-cid="akTReV"><code data-cid="OswZHp">“จากรายการงานต่อไปนี้ ช่วยจัดลำดับความสำคัญ
+ข้อกำหนด: ใช้ bullet สั้น ๆ หลีกเลี่ยงภาษากว้าง"</div>
+  </div>
+
+  <h3>จัดลำดับความสำคัญงาน</h3>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — เรียงงานแบบมือโปร</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"จากรายการงานต่อไปนี้ ช่วยจัดลำดับความสำคัญ
 โดยให้คะแนน 1–5 ใน 2 มิติ:
 - ความเร่งด่วน
 - ผลกระทบต่อผลลัพธ์/ต้นทุน
-แล้วสรุป 3 งานแรกที่ควรทำทันที พร้อมเหตุผล”</code></pre>
-</div>
-<h3 id="section-6-3" data-cid="NLVfSE">1.2 การสวมบทบาท (Role-play) เพื่อฝึกทีม</h3>
-<p data-cid="j8DXYO"><strong data-cid="LCZEM5">สถานการณ์ฝึกที่แนะนำ (เลือก 1–2 สถานการณ์):</strong></p>
-<ul data-cid="wR0Htv">
-<li data-cid="Q41XAy"><strong data-cid="CJMkR7">S1:</strong> คุยกับชาวไร่ที่ “ไม่อยากลงทุนเพิ่ม” เพราะแล้ง</li>
-<li data-cid="6rvn0Y"><strong data-cid="daY8iz">S2:</strong> คุยกับหัวหน้าเรื่อง “ขอทีม/งบ” เพื่อคุมศัตรูพืชก่อนใส่ปุ๋ย</li>
-<li data-cid="NWjVCh"><strong data-cid="TTmzzP">S3:</strong> คุยกับทีมงานเรื่อง “ต้องทำให้ทันเวลา” และแบ่งงาน</li>
-</ul>
-<div class="prompt-box" data-cid="OjGlop">
-<h5 data-cid="3QYhGk">Prompt มาตรฐาน (AI เป็นคู่สนทนาฝึกโน้มน้าวใจ)</h5>
-<pre data-cid="VwTWEn"><code data-cid="rM4XO5">“ช่วยสวมบทบาทเป็น &lt;ชาวไร่/หัวหน้าไร่/ผู้จัดการพื้นที่&gt;
+แล้วสรุป 3 งานแรกที่ควรทำทันที พร้อมเหตุผล"</div>
+  </div>
+
+  <h3>Role-play เพื่อฝึกทีม</h3>
+  <div class="g3">
+    <div class="mc"><div class="mc-i">🧑‍🌾</div><div class="mc-t">S1 · ชาวไร่</div><div class="mc-d">คุยกับชาวไร่ที่ "ไม่อยากลงทุนเพิ่ม" เพราะแล้ง</div></div>
+    <div class="mc"><div class="mc-i">👔</div><div class="mc-t">S2 · หัวหน้า</div><div class="mc-d">ขอทีม/งบเพื่อคุมศัตรูพืชก่อนใส่ปุ๋ย</div></div>
+    <div class="mc"><div class="mc-i">👥</div><div class="mc-t">S3 · ทีมงาน</div><div class="mc-d">เรื่อง "ต้องทำให้ทันเวลา" และแบ่งงาน</div></div>
+  </div>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — AI เป็นคู่สนทนาฝึกโน้มน้าวใจ</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"ช่วยสวมบทบาทเป็น &lt;ชาวไร่/หัวหน้าไร่/ผู้จัดการพื้นที่&gt;
 บุคลิก: &lt;ดื้อ/กังวลงบ/ชอบถามหลักฐาน/ชอบสั้น ๆ&gt;
 สถานการณ์: &lt;อธิบายสถานการณ์ 3 บรรทัด&gt;
 คุณต้อง:
-- โต้แย้ง 5 ข้อ
-- ถามคำถามยาก 3 ข้อ
-แล้วให้ฉันตอบกลับ จากนั้นคุณประเมินคำตอบฉัน:
-1) ความชัดเจน
-2) ความน่าเชื่อถือจากข้อมูล
-3) ความสุภาพและความร่วมมือ
-พร้อมเสนอประโยคที่ควรปรับ 5 ประโยค”</code></pre>
-</div>
-<h4 data-cid="GdEDbZ">กิจกรรมในห้อง (10 นาที)</h4>
-<p data-cid="yKrQXp">ให้ผู้เรียนพิมพ์บทสนทนา 6–8 บรรทัดกับ AI แล้วให้ AI ช่วยโค้ช &#34;ประโยคที่ควรพูด&#34; เพื่อให้การสื่อสารสุภาพ, ชัดเจน, และโน้มน้าวใจได้ดีขึ้น</p>
+- โต้แย้ง 5 ข้อ  - ถามคำถามยาก 3 ข้อ
+แล้วให้ฉันตอบกลับ จากนั้นประเมินคำตอบฉัน:
+1) ความชัดเจน  2) ความน่าเชื่อถือจากข้อมูล  3) ความสุภาพ
+พร้อมเสนอประโยคที่ควรปรับ 5 ประโยค"</div>
+  </div>
 </section>
-<section id="module2" data-cid="xVR2wj">
-<h2 id="section-7" data-cid="Wqmd9t">MODULE 2: AI ผู้ช่วยจัดงานด้านเอกสาร (Document Assistant) [40 นาที]</h2>
-<h3 id="section-7-1" data-cid="8I6ExB">เป้าหมายโมดูล</h3>
-<ul data-cid="6ltynf">
-<li data-cid="mOXP_o">เปลี่ยนรายงานยาวให้เป็นสรุปสำหรับผู้บริหารเพื่อการตัดสินใจ</li>
-<li data-cid="yKo8a4">เปลี่ยนเสียงเป็นข้อความ แล้วสรุปเป็นบันทึกการทำงาน</li>
-<li data-cid="Gndzt0">ตรวจความสอดคล้องและความถูกต้องในเอกสาร</li>
-</ul>
-<h3 id="section-7-2" data-cid="3oFkLZ">2.1 เปลี่ยนรายงานให้เป็นสรุป (Report -&gt; Summary)</h3>
-<p data-cid="8FHXoB"><strong data-cid="QC9icI">รูปแบบสรุปที่แนะนำ:</strong></p>
-<ul data-cid="7oUQfb">
-<li data-cid="9xcNSR"><strong data-cid="Krcqkc">TL;DR 5 บรรทัด:</strong> สรุปสั้นๆ สำหรับคนไม่มีเวลาอ่าน (Too Long; Didn’t Read)</li>
-<li data-cid="HSWRaP"><strong data-cid="OWlZiN">สรุปแบบหัวหน้า:</strong> ปัญหา &gt; หลักฐาน &gt; ทางเลือก &gt; ข้อเสนอ</li>
-<li data-cid="kgGSWt"><strong data-cid="x-Cn7a">สรุปแบบสั่งงาน:</strong> Action / Owner / Due date</li>
-</ul>
-<div class="prompt-box" data-cid="wn4_El">
-<h5 data-cid="jkacQV">Prompt มาตรฐาน (สรุปแบบหัวหน้าอ่าน)</h5>
-<pre data-cid="F0cdFf"><code data-cid="hfoF55">“สรุปเอกสารด้านล่างให้เป็น:
+
+<section id="module2">
+  <div class="mband m2"><div class="mband-icon">📄</div><div><div class="mband-k">Module 2</div><div class="mband-t">AI ผู้ช่วยจัดการเอกสาร (Document Assistant)</div><div class="mband-tm">⏱️ 40 นาที</div></div></div>
+
+  <h3>เปลี่ยนรายงานให้เป็นสรุป</h3>
+  <div class="g3">
+    <div class="mc"><div class="mc-i">📌</div><div class="mc-t">TL;DR 5 บรรทัด</div><div class="mc-d">สรุปสั้นสำหรับคนไม่มีเวลาอ่าน</div></div>
+    <div class="mc"><div class="mc-i">👔</div><div class="mc-t">สรุปแบบหัวหน้า</div><div class="mc-d">ปัญหา → หลักฐาน → ทางเลือก → ข้อเสนอ</div></div>
+    <div class="mc"><div class="mc-i">✅</div><div class="mc-t">สรุปแบบสั่งงาน</div><div class="mc-d">Action / Owner / Due date</div></div>
+  </div>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — สรุปแบบหัวหน้าอ่าน</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"สรุปเอกสารด้านล่างให้เป็น:
 - TL;DR 5 บรรทัด
 - ประเด็นสำคัญ 7 bullet
 - ข้อเสนอ 3 ทางเลือก (ทำ/ไม่ทำ/ทำบางส่วน) พร้อมข้อดีข้อเสีย
-ข้อกำหนด: ห้ามเพิ่มข้อมูลนอกเอกสาร ถ้าไม่แน่ใจให้บอกว่าต้องตรวจเพิ่ม”</code></pre>
-</div>
-<h3 id="section-7-3" data-cid="ydjShi">2.2 เปลี่ยนเสียงเป็นข้อความ (Voice -&gt; Text) แล้วสรุปต่อ</h3>
-<p data-cid="S_7Bsy"><strong data-cid="s4pGzK">แนวทางใช้งานจริง:</strong> อัดเสียงรายงานหน้างาน 1-2 นาที, ถอดเป็นข้อความ, แล้วให้ AI สรุปเป็นบันทึกตรวจแปลง หรืออัดเสียงประชุมเพื่อสรุปงานรายวัน</p>
-<div class="prompt-box" data-cid="3Gi-Gu">
-<h5 data-cid="QOVcAT">Prompt มาตรฐาน (หลังได้ข้อความจากเสียงแล้ว)</h5>
-<pre data-cid="4yP5RH"><code data-cid="sbTNfO">“นี่คือข้อความถอดเสียงจากหน้างาน
-ช่วยทำเป็น ‘บันทึกตรวจแปลง’ โดยมี:
+ข้อกำหนด: ห้ามเพิ่มข้อมูลนอกเอกสาร ถ้าไม่แน่ใจให้บอกว่าต้องตรวจเพิ่ม"</div>
+  </div>
+
+  <h3>เปลี่ยนเสียงเป็นข้อความ แล้วสรุปต่อ</h3>
+  <p>อัดเสียงรายงานหน้างาน 1–2 นาที → ถอดเป็นข้อความ → ให้ AI สรุปเป็นบันทึกตรวจแปลง</p>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — หลังได้ข้อความจากเสียง</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"นี่คือข้อความถอดเสียงจากหน้างาน
+ช่วยทำเป็น 'บันทึกตรวจแปลง' โดยมี:
 - วันที่/พื้นที่/ผู้รายงาน (ถ้ามีในข้อความ)
-- สภาพแปลง
-- ปัญหาที่พบ
-- งานที่ต้องทำภายใน 3 วัน
-- สิ่งที่ต้องตรวจซ้ำ
-และระบุประโยคที่คุณไม่มั่นใจ (อาจถอดเสียงผิด) ให้ฉันตรวจทาน”</code></pre>
-</div>
-<h3 id="section-7-4" data-cid="K7Te-S">2.3 ตรวจสอบความถูกต้อง (Proof + Consistency)</h3>
-<p data-cid="HEt6V8"><strong data-cid="v6gbub">สิ่งที่ AI ตรวจได้ดี:</strong> คำผิด/คำซ้ำ, ความสอดคล้องของหน่วย (ไร่, กก./ไร่), รูปแบบวันที่, ชื่อ/รหัสแปลง, และตัวเลขที่ดูผิดปกติ (outliers)</p>
-<div class="prompt-box" data-cid="oqqryp">
-<h5 data-cid="i7qyo_">Prompt มาตรฐาน (ตรวจความสอดคล้อง)</h5>
-<pre data-cid="2Dnip2"><code data-cid="ZFme0y">“ช่วยตรวจเอกสาร/ตารางนี้ในมุม ‘ความสอดคล้อง’:
-1) หน่วย
-2) วันที่และรูปแบบวัน
-3) ชื่อแปลง/รหัสแปลง
-4) ตัวเลขที่ดูผิดปกติ (outliers)
-สรุปเป็นรายการสิ่งที่ต้องแก้/ต้องเช็คเพิ่ม”</code></pre>
-</div>
+- สภาพแปลง  - ปัญหาที่พบ
+- งานที่ต้องทำภายใน 3 วัน  - สิ่งที่ต้องตรวจซ้ำ
+และระบุประโยคที่คุณไม่มั่นใจ ให้ฉันตรวจทาน"</div>
+  </div>
+
+  <h3>ตรวจสอบความถูกต้อง (Proof + Consistency)</h3>
+  <div class="pb">
+    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — ตรวจความสอดคล้อง</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
+    <div class="pb-code">"ช่วยตรวจเอกสาร/ตารางนี้ในมุม 'ความสอดคล้อง':
+1) หน่วย  2) วันที่และรูปแบบวัน
+3) ชื่อแปลง/รหัสแปลง  4) ตัวเลขที่ดูผิดปกติ (outliers)
+สรุปเป็นรายการสิ่งที่ต้องแก้/ต้องเช็คเพิ่ม"</div>
+  </div>
 </section>
-<section id="module3" data-cid="hWQSc0">
-<h2 id="section-8" data-cid="5lB7sS">MODULE 3: AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ (Data driven decision making) [65 นาที]</h2>
-<h3 id="section-8-1" data-cid="sEnUYC">SECTION 3: ข้อมูลการบำรุงอ้อยที่ต้องดึงจากระบบ</h3>
-<p class="highlight" data-cid="Rj4iEB">หลักคิด: ไม่ดึงทั้งระบบ ดึงเฉพาะข้อมูลที่ใช้ “ตัดสินใจบำรุง” โดยยึดหลัก 1 แปลง / 1 ฤดู = 1 แถว</p>
-<ul data-cid="q-OJjR">
-<li data-cid="KWnwha"><strong data-cid="HIcUCO">จาก สท.01 (ตัวตนแปลง):</strong> รหัสแปลง, พื้นที่ (ไร่), ประเภทอ้อย (ปลูกใหม่/อ้อยตอ)</li>
-<li data-cid="omog5p"><strong data-cid="KQSVO7">จาก สท.03 (บำรุงหลังตัด/หลังปลูก):</strong> วันใส่ปุ๋ยครั้งแรกหลังตัด, ปริมาณปุ๋ยต่อไร่, การให้น้ำหลังตัด (มี/ไม่มี)</li>
-<li data-cid="XFezCk"><strong data-cid="4pkYRF">จาก สท.04 (บำรุงกลางฤดู):</strong> ใส่ปุ๋ยเสริมหรือไม่, กำจัดวัชพืชหรือไม่, สภาพดิน (ถ้ามี)</li>
-<li data-cid="A61KL5"><strong data-cid="0_0qsP">จาก สท.05 (โรคและแมลง):</strong> ศัตรูพืชที่พบ, ความรุนแรง (%)</li>
-<li data-cid="IgH-Or"><strong data-cid="ZyCTxz">จาก สท.07 (บำรุงผ่านแล้ง):</strong> ช่วงแล้ง (วัน), ให้น้ำช่วงแล้ง (มี/ไม่มี), ใส่ปุ๋ยช่วงแล้ง (มี/ไม่มี)</li>
-</ul>
-<p data-cid="bLsWjF"><strong data-cid="yWIWOO">หมายเหตุ:</strong> ไม่ใช้ Yield (จาก สท.06) ในการ “ตัดสินใจบำรุง” แต่ใช้เพื่อ “ประเมินย้อนหลัง” เท่านั้น</p>
-<h3 id="section-8-2" data-cid="nxFteI">SECTION 4: ตารางข้อมูลบำรุงอ้อย (ภาษาไทย)</h3>
-<p data-cid="r0v5Lw">รูปแบบตารางที่ AI ใช้คิดได้ดีที่สุด (1 แปลง/1 ฤดู = 1 แถว):</p>
-<div class="table-container" data-cid="tLIpGk">
-<table data-cid="wrAH3f">
-<thead data-cid="oYxcKV">
-<tr data-cid="pcSTqn">
-<th data-cid="o-j_t4">รหัสแปลง</th>
-<th data-cid="el3Vux">พื้นที่(ไร่)</th>
-<th data-cid="C6-FBN">ประเภทอ้อย</th>
-<th data-cid="ME979B">วันใส่ปุ๋ยหลังตัด</th>
-<th data-cid="OPE6cL">ปริมาณปุ๋ย(กก./ไร่)</th>
-<th data-cid="dxmPth">ให้น้ำ</th>
-<th data-cid="cB0EzK">กำจัดวัชพืช</th>
-<th data-cid="9pVe-q">ศัตรูพืช</th>
-<th data-cid="rSSKdX">ความรุนแรง(%)</th>
-<th data-cid="pXtbpA">ช่วงแล้ง(วัน)</th>
-</tr>
-</thead>
-<tbody data-cid="073Yqz">
-<tr data-cid="kAxPHd">
-<td data-cid="YM9-8f">0145808</td>
-<td data-cid="RwPpoG">10</td>
-<td data-cid="c7L4-I">อ้อยตอ</td>
-<td data-cid="YqzfMm">35</td>
-<td data-cid="Tkc4WI">50</td>
-<td data-cid="oI7wZ1">มี</td>
-<td data-cid="tCq3cw">มี</td>
-<td data-cid="z_zBvM">เพลี้ย</td>
-<td data-cid="EosxnQ">50</td>
-<td data-cid="o8UNxJ">45</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="section-8-3" data-cid="5YtSxW">3.1 งานวิเคราะห์ที่ AI ควรทำให้ฝ่ายไร่ (ใช้จริง)</h3>
-<p data-cid="Q6MWqo">AI ควรช่วยตอบคำถามหลักและเพิ่มมุมมอง &#34;ผู้ช่วยมือโปร&#34; เพื่อให้ได้คำตอบที่พร้อมใช้งาน:</p>
-<ul data-cid="gD2aYR">
-<li data-cid="-eS1zS"><strong data-cid="SAvEQk">การประเมินพื้นฐาน:</strong> การบำรุง &#34;ทันเวลาไหม&#34;? ปุ๋ยที่ใส่มีโอกาส &#34;ถูกใช้จริงหรือสูญเสีย&#34;? ปัจจัยใดทำให้ &#34;การบำรุงไม่ได้ผล&#34;?</li>
-<li data-cid="xRlKd7"><strong data-cid="UVH1gf">ข้อเสนอแนะเชิงปฏิบัติ:</strong> ควร &#34;เร่งบำรุง&#34;, &#34;บำรุงตามแผน&#34;, หรือ &#34;หยุดเพื่อลดต้นทุน&#34;?</li>
-<li data-cid="HCauIF"><strong data-cid="dwC0Hh">มุมมองผู้ช่วยมือโปร:</strong> จัดกลุ่มแปลง (Triaging), สร้าง &#34;รายการงานต้องทำ&#34; ตามความเร่งด่วน, และสร้าง &#34;Checklist หน้างาน&#34; แบบเฉพาะเคส</li>
-</ul>
-<h3 id="section-8-4" data-cid="suwnGg">3.2 วิธีให้ AI วิเคราะห์ผ่าน Excel (ขั้นตอนสอน)</h3>
-<ol data-cid="_FwxPr">
-<li data-cid="Rrb_l1"><strong data-cid="cZaC34">เตรียม Excel:</strong> จัดข้อมูลให้อยู่ในรูปแบบตารางตาม Section 4</li>
-<li data-cid="nrfa73"><strong data-cid="UY1gbj">ตรวจคุณภาพข้อมูล:</strong> ตรวจสอบความถูกต้องของหน่วย (กก./ไร่, วัน), การสะกดคำ (มี/ไม่มี), และช่องว่างที่สำคัญ</li>
-<li data-cid="EEUwHG"><strong data-cid="gcOGWw">ส่งข้อมูลให้ AI:</strong> คัดลอกตารางข้อมูล (ทีละแปลงหรือหลายแปลง) ไปวางในหน้าต่างแชท</li>
-<li data-cid="FX6_dF"><strong data-cid="5MNbd1">สั่งงาน AI ตามโครงสร้าง:</strong> ใช้ Prompt ที่กำหนดไว้เพื่อให้ AI ตอบตามโครง (ทันเวลา/พอ-ขาด/ปัจจัย/ข้อเสนอ)</li>
-<li data-cid="7UshIa"><strong data-cid="bj593_">คนลงพื้นที่ยืนยัน:</strong> นำข้อเสนอแนะจาก AI ไปตรวจสอบกับสถานการณ์หน้างานจริง และตัดสินใจสุดท้าย</li>
-</ol>
-<h3 id="section-8-5" data-cid="ybtKMR">3.3 Prompt มาตรฐาน + เวอร์ชันละเอียดแบบมือโปร</h3>
-<h4 data-cid="aV4ub2">PROMPT 1: ประเมินคุณภาพการบำรุง</h4>
-<div class="prompt-box" data-cid="fozAB1">
-<h5 data-cid="0hbMUq">เวอร์ชันมาตรฐาน</h5>
-<pre data-cid="7zhmeU"><code data-cid="3dq2X3">จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ ช่วยประเมินว่า
+
+<section id="module3">
+  <div class="mband m3"><div class="mband-icon">📈</div><div><div class="mband-k">Module 3 · ⭐ แกนหลัก</div><div class="mband-t">AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ</div><div class="mband-tm">⏱️ 65 นาที</div></div></div>
+  <div class="hl g"><div class="hl-t">หลักคิด: ไม่ดึงทั้งระบบ ดึงเฉพาะข้อมูลที่ใช้ "ตัดสินใจบำรุง"<br/>ยึดหลัก <strong>1 แปลง / 1 ฤดู = 1 แถว</strong></div></div>
+
+  <h3>ข้อมูลที่ต้องดึงจากระบบ</h3>
+  <div class="card">
+    <ul style="margin:0">
+      <li><strong>สท.01:</strong> รหัสแปลง, พื้นที่ (ไร่), ประเภทอ้อย</li>
+      <li><strong>สท.03:</strong> วันใส่ปุ๋ยครั้งแรกหลังตัด, ปริมาณปุ๋ยต่อไร่, การให้น้ำ</li>
+      <li><strong>สท.04:</strong> ใส่ปุ๋ยเสริมหรือไม่, กำจัดวัชพืชหรือไม่, สภาพดิน</li>
+      <li><strong>สท.05:</strong> ศัตรูพืชที่พบ, ความรุนแรง (%)</li>
+      <li><strong>สท.07:</strong> ช่วงแล้ง (วัน), ให้น้ำช่วงแล้ง, ใส่ปุ๋ยช่วงแล้ง</li>
+    </ul>
+    <p style="margin-top:10px;font-size:0.8rem;color:var(--text-4)">⚠️ ไม่ใช้ Yield (สท.06) ในการตัดสินใจบำรุง — ใช้เพื่อ "ประเมินย้อนหลัง" เท่านั้น</p>
+  </div>
+
+  <h3>รูปแบบตารางข้อมูล</h3>
+  <div class="tscroll"><table><thead><tr><th>รหัสแปลง</th><th>พื้นที่(ไร่)</th><th>ประเภทอ้อย</th><th>วันใส่ปุ๋ยหลังตัด</th><th>ปุ๋ย(กก./ไร่)</th><th>ให้น้ำ</th><th>กำจัดวัชพืช</th><th>ศัตรูพืช</th><th>รุนแรง(%)</th><th>แล้ง(วัน)</th></tr></thead><tbody><tr><td>0145808</td><td>10</td><td>อ้อยตอ</td><td>35</td><td>50</td><td>มี</td><td>มี</td><td>เพลี้ย</td><td>50</td><td>45</td></tr></tbody></table></div>
+
+  <h3>ขั้นตอนการให้ AI วิเคราะห์ผ่าน Excel</h3>
+  <ol class="steps">
+    <li><span><strong>เตรียม Excel:</strong> จัดข้อมูลให้อยู่ในรูปแบบตาราง 1 แปลง/1 ฤดู = 1 แถว</span></li>
+    <li><span><strong>ตรวจคุณภาพข้อมูล:</strong> ตรวจสอบหน่วย (กก./ไร่, วัน), การสะกด, ช่องว่างสำคัญ</span></li>
+    <li><span><strong>ส่งข้อมูลให้ AI:</strong> คัดลอกตารางข้อมูลไปวางในหน้าต่างแชท</span></li>
+    <li><span><strong>สั่งงาน AI ตามโครงสร้าง:</strong> ใช้ Prompt ที่กำหนดเพื่อให้ AI ตอบตามโครง</span></li>
+    <li><span><strong>คนลงพื้นที่ยืนยัน:</strong> นำข้อเสนอแนะจาก AI ไปตรวจสอบกับหน้างานจริง</span></li>
+  </ol>
+
+  <h3>Prompt 1 · ประเมินคุณภาพการบำรุง</h3>
+  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>เวอร์ชันมาตรฐาน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ ช่วยประเมินว่า
 - การบำรุงทันเวลา หรือช้า
 - ปริมาณการบำรุงเพียงพอ หรือขาด
 - มีปัจจัยใดทำให้การบำรุงได้ผลลดลง
-สรุปเป็นข้อ ๆ</code></pre>
-</div>
-<div class="prompt-box" data-cid="Z5KrIP">
-<h5 data-cid="8iynyD">เวอร์ชัน “ผู้ช่วยมือโปร” (ควบคุมคำตอบ)</h5>
-<pre data-cid="v0kkPI"><code data-cid="OS77ov">“จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ (1 แถว = 1 แปลง/ฤดู)
+สรุปเป็นข้อ ๆ</div></div>
+  <div class="pb pro"><div class="pb-bar"><div class="pt p"><div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — ควบคุมคำตอบ</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ (1 แถว = 1 แปลง/ฤดู)
 ช่วยประเมินเป็นหัวข้อดังนี้ โดยอ้างอิงจากข้อมูลที่ให้เท่านั้น:
 A) ทันเวลาไหม: (เร็ว/พอดี/ช้า) + เหตุผล
 B) ปริมาณปุ๋ย: (พอ/เสี่ยงขาด/เสี่ยงสูญเสีย) + เหตุผล
-C) ปัจจัยลดประสิทธิภาพ: เรียงจาก ‘กระทบมาก -&gt; น้อย’
+C) ปัจจัยลดประสิทธิภาพ: เรียงจาก 'กระทบมาก -> น้อย'
 D) สิ่งที่ต้องตรวจหน้างานเพิ่ม 3 ข้อ
-รูปแบบคำตอบ: bullet สั้น ๆ ไม่เกิน 12 บรรทัด/แปลง”</code></pre>
-</div>
-<h4 data-cid="VPu2XF">PROMPT 2: ควรทำอะไรต่อ</h4>
-<div class="prompt-box" data-cid="XC76o9">
-<h5 data-cid="rIZAlS">เวอร์ชันมาตรฐาน</h5>
-<pre data-cid="6HA6Vr"><code data-cid="WMojKB">จากสถานการณ์การบำรุงปัจจุบัน ช่วยแนะนำแนวทางจัดการต่อไป
-แยกเป็น
-- ควรเร่งทำ
-- ทำตามแผนเดิม
-- ไม่ควรลงทุนเพิ่ม
-พร้อมเหตุผล</code></pre>
-</div>
-<div class="prompt-box" data-cid="tQAzJy">
-<h5 data-cid="SjG02A">เวอร์ชัน “ผู้ช่วยมือโปร” (ให้เป็นแผนสั่งงานได้)</h5>
-<pre data-cid="g1ICJO"><code data-cid="eNaU5V">“จากข้อมูลแปลงต่อไปนี้ ช่วยเสนอ ‘แผนทำต่อ 14 วัน’
-โดยแยกเป็น 3 กลุ่ม:
-1) ควรเร่งทำ (ภายใน 3 วัน) -&gt; งาน/เหตุผล/ความเสี่ยง
-2) ทำตามแผนเดิม -&gt; งาน/เหตุผล/เงื่อนไขที่ต้องเฝ้าดู
-3) ไม่ควรลงทุนเพิ่มตอนนี้ -&gt; เพราะอะไร/ควรรออะไร
+รูปแบบ: bullet สั้น ๆ ไม่เกิน 12 บรรทัด/แปลง"</div></div>
 
-สุดท้าย: สรุป 1 บรรทัดว่า ‘หัวหน้าควรตัดสินใจแบบไหน’ (แต่ห้ามฟันธงแทนคน)”</code></pre>
-</div>
-<h4 data-cid="RCYuw5">PROMPT 3: Checklist หน้างาน</h4>
-<div class="prompt-box" data-cid="FRwN5C">
-<h5 data-cid="FJ0oBC">เวอร์ชันมาตรฐาน</h5>
-<pre data-cid="H3rah6"><code data-cid="XoRL1p">ช่วยสร้าง Checklist การตรวจหน้างาน เพื่อยืนยันว่าการบำรุงที่ทำไปได้ผลจริงหรือไม่</code></pre>
-</div>
-<div class="prompt-box" data-cid="5mPZCh">
-<h5 data-cid="Hkocpo">เวอร์ชัน “ผู้ช่วยมือโปร” (เฉพาะเคส)</h5>
-<pre data-cid="PAF4bD"><code data-cid="upeDG0">“ช่วยสร้าง Checklist ตรวจหน้างานสำหรับแปลงนี้ แบ่งเป็น:
+  <h3>Prompt 2 · ควรทำอะไรต่อ</h3>
+  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>เวอร์ชันมาตรฐาน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">จากสถานการณ์การบำรุงปัจจุบัน ช่วยแนะนำแนวทางจัดการต่อไป
+แยกเป็น - ควรเร่งทำ - ทำตามแผนเดิม - ไม่ควรลงทุนเพิ่ม
+พร้อมเหตุผล</div></div>
+  <div class="pb pro"><div class="pb-bar"><div class="pt p"><div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — แผนสั่งงานได้</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"จากข้อมูลแปลงต่อไปนี้ ช่วยเสนอ 'แผนทำต่อ 14 วัน'
+โดยแยกเป็น 3 กลุ่ม:
+1) ควรเร่งทำ (ภายใน 3 วัน) -> งาน/เหตุผล/ความเสี่ยง
+2) ทำตามแผนเดิม -> งาน/เหตุผล/เงื่อนไขที่ต้องเฝ้าดู
+3) ไม่ควรลงทุนเพิ่มตอนนี้ -> เพราะอะไร/ควรรออะไร
+สุดท้าย: สรุป 1 บรรทัดว่า 'หัวหน้าควรตัดสินใจแบบไหน' (ห้ามฟันธงแทนคน)"</div></div>
+
+  <h3>Prompt 3 · Checklist หน้างาน</h3>
+  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>เวอร์ชันมาตรฐาน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">ช่วยสร้าง Checklist การตรวจหน้างาน
+เพื่อยืนยันว่าการบำรุงที่ทำไปได้ผลจริงหรือไม่</div></div>
+  <div class="pb pro"><div class="pb-bar"><div class="pt p"><div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — เฉพาะเคส</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ช่วยสร้าง Checklist ตรวจหน้างานสำหรับแปลงนี้ แบ่งเป็น:
 - ต้องดูทันทีเมื่อถึงแปลง (5 ข้อ)
 - ต้องวัด/ถ่ายรูป/บันทึก (5 ข้อ)
 - สัญญาณอันตรายที่ต้องรายงานหัวหน้าทันที (3 ข้อ)
 - คำถามที่ต้องถามคนงาน/ชาวไร่ (3 ข้อ)
-ให้ Checklist ‘สั้น ชัด ตรวจได้จริง’”</code></pre>
-</div>
-<h3 id="section-8-6" data-cid="u93-l3">3.4 ตัวอย่าง Output ที่ใช้ได้จริง</h3>
-<div class="example-output" data-cid="5IEx5T">
-<h5 data-cid="GBFSw1">ผลการวิเคราะห์แปลง 0145808</h5>
-<ul data-cid="6Q3Yph">
-<li data-cid="BkdqJd"><strong data-cid="KVDEzM">การบำรุง:</strong> ใส่ปุ๋ยล่าช้า (35 วัน) อาจส่งผลให้แตกกอช้า</li>
-<li data-cid="Nx5rCN"><strong data-cid="S1Hdxv">ปัจจัยเสี่ยง:</strong> พบเพลี้ยระดับสูง (50%) ทำให้การใช้ปุ๋ยอาจไม่มีประสิทธิภาพ</li>
-<li data-cid="fxojTl"><strong data-cid="hmtdSq">สภาพแวดล้อม:</strong> ช่วงแล้งยาว 45 วัน การใส่ปุ๋ยเพิ่มมีความเสี่ยงสูญเสียสูง</li>
-</ul>
-<h5 data-cid="ljTiaz">ข้อแนะนำ:</h5>
-<ul data-cid="-5kpYQ">
-<li data-cid="PIkKwY"><strong data-cid="CphwqF">เร่งด่วน:</strong> ควบคุมศัตรูพืช (เพลี้ย) ก่อนเป็นอันดับแรก</li>
-<li data-cid="aq_JH6"><strong data-cid="GZXpzl">ชะลอ:</strong> ชะลอการใส่ปุ๋ยเพิ่มจนกว่าจะควบคุมเพลี้ยและมีฝน</li>
-<li data-cid="QaUInA"><strong data-cid="FJMpP0">ประเมินซ้ำ:</strong> ประเมินความคุ้มค่าในการลงทุนอีกครั้งเมื่อสถานการณ์ดีขึ้น</li>
-</ul>
-</div>
-<h3 id="section-8-7" data-cid="TFqyC2">3.5 Workshop (ทำจริง 20–25 นาที)</h3>
-<p data-cid="emFT1-"><strong data-cid="tnpJiC">โจทย์:</strong> ให้ผู้เรียนนำข้อมูล 5 แปลง (5 แถว) ที่มีเคสแตกต่างกัน แล้วให้ AI วิเคราะห์โดยใช้ Prompt 1, 2, และ 3 จากนั้นให้ผู้เรียนสรุป &#34;คำตัดสินใจ 1 บรรทัด&#34; และ &#34;สิ่งที่ต้องตรวจหน้างาน&#34;</p>
-<p data-cid="ATf3bY"><strong data-cid="jBx9UN">แนะนำชุดเคส:</strong></p>
-<ul data-cid="xsP9uI">
-<li data-cid="DcxwKN"><strong data-cid="qdSKj4">เคส A:</strong> ใส่ปุ๋ยเร็ว แต่ไม่มีน้ำ + แล้งยาว</li>
-<li data-cid="x1LKjz"><strong data-cid="zsYb4J">เคส B:</strong> ใส่ปุ๋ยช้า + วัชพืชสูง (กำจัดวัชพืช = ไม่มี)</li>
-<li data-cid="HFHPvX"><strong data-cid="lGESEs">เคส C:</strong> ปุ๋ยพอ + ให้น้ำ แต่ศัตรูพืชรุนแรงสูง</li>
-<li data-cid="x6ZnDo"><strong data-cid="4PxbB1">เคส D:</strong> ใส่ปุ๋ยเสริมกลางฤดู + ดินแย่ (ถ้ามีข้อมูล)</li>
-<li data-cid="sevxDT"><strong data-cid="FG4B4P">เคส E:</strong> แล้งสั้น + บำรุงตามแผน (เคสดี)</li>
-</ul>
+ให้ Checklist 'สั้น ชัด ตรวจได้จริง'"</div></div>
+
+  <h3>ตัวอย่าง Output ที่ใช้ได้จริง</h3>
+  <div class="out">
+    <h5>ผลการวิเคราะห์แปลง 0145808</h5>
+    <ul><li><strong>การบำรุง:</strong> ใส่ปุ๋ยล่าช้า (35 วัน) อาจส่งผลให้แตกกอช้า</li><li><strong>ปัจจัยเสี่ยง:</strong> พบเพลี้ยระดับสูง (50%) ทำให้การใช้ปุ๋ยอาจไม่มีประสิทธิภาพ</li><li><strong>สภาพแวดล้อม:</strong> ช่วงแล้งยาว 45 วัน ความเสี่ยงสูญเสียปุ๋ยสูง</li></ul>
+    <h5 style="margin-top:13px">ข้อแนะนำ:</h5>
+    <ul><li><span class="tag r">🚨 เร่งด่วน</span> ควบคุมศัตรูพืช (เพลี้ย) ก่อนเป็นอันดับแรก</li><li><span class="tag a">⏸️ ชะลอ</span> ชะลอใส่ปุ๋ยเพิ่มจนกว่าจะควบคุมเพลี้ยและมีฝน</li><li><span class="tag g">🔄 ประเมินซ้ำ</span> ประเมินความคุ้มค่าอีกครั้งเมื่อสถานการณ์ดีขึ้น</li></ul>
+  </div>
+
+  <h3>Workshop เคสแนะนำ (20–25 นาที)</h3>
+  <div class="cgrid">
+    <div class="cc"><div class="cc-l">💧 เคส A</div><div class="cc-d">ใส่ปุ๋ยเร็ว แต่ไม่มีน้ำ + แล้งยาว</div></div>
+    <div class="cc"><div class="cc-l">🌿 เคส B</div><div class="cc-d">ใส่ปุ๋ยช้า + วัชพืชสูง ไม่กำจัด</div></div>
+    <div class="cc"><div class="cc-l">🐛 เคส C</div><div class="cc-d">ปุ๋ยพอ + ให้น้ำ แต่ศัตรูพืชรุนแรง</div></div>
+    <div class="cc"><div class="cc-l">🏔️ เคส D</div><div class="cc-d">ใส่ปุ๋ยเสริมกลางฤดู + ดินแย่</div></div>
+    <div class="cc"><div class="cc-l">✅ เคส E</div><div class="cc-d">แล้งสั้น + บำรุงตามแผน (เคสดี)</div></div>
+  </div>
 </section>
-<section id="module4" data-cid="MKhnKH">
-<h2 id="section-9" data-cid="jvQ2lg">MODULE 4: AI สร้างสรรค์ (Creative Content Creation) [30 นาที]</h2>
-<h3 id="section-9-1" data-cid="cHhaeG">เป้าหมายโมดูล</h3>
-<ul data-cid="vOZGHG">
-<li data-cid="wwX6Yv">ให้ AI ช่วยทำสื่อที่ฝ่ายไร่ใช้จริง: ภาพรณรงค์, อินโฟกราฟิก, ภาพประกอบการนำเสนอ</li>
-<li data-cid="0uVEq9">ให้ AI ช่วยออกแบบโครงสร้างสไลด์นำเสนอ (Presentation)</li>
-</ul>
-<h3 id="section-9-2" data-cid="zR8gMr">4.1 สร้างภาพโปรโมท/ภาพรณรงค์</h3>
-<p data-cid="uAF3Re"><strong data-cid="YO2MBt">งานที่เหมาะ:</strong> รณรงค์กำจัดวัชพืช, แจ้งเตือนศัตรูพืชระบาด, อินโฟกราฟิก “บำรุงหลังตัด: ทำอะไรเมื่อไหร่”</p>
-<div class="prompt-box" data-cid="eMowDw">
-<h5 data-cid="TXrCPa">Prompt มาตรฐาน (เขียน brief ให้ AI สร้างภาพ)</h5>
-<pre data-cid="VgOfIx"><code data-cid="rvZ0nD">“ช่วยเขียนคำสั่งสร้างภาพ (image prompt) สำหรับ:
+
+<section id="module4">
+  <div class="mband m4"><div class="mband-icon">🎨</div><div><div class="mband-k">Module 4</div><div class="mband-t">AI สร้างสรรค์สื่อ (Creative Content)</div><div class="mband-tm">⏱️ 30 นาที</div></div></div>
+
+  <h3>สร้างภาพโปรโมท / รณรงค์</h3>
+  <p><strong>งานที่เหมาะ:</strong> รณรงค์กำจัดวัชพืช, แจ้งเตือนศัตรูพืชระบาด, อินโฟกราฟิก "บำรุงหลังตัด"</p>
+  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — เขียน brief สร้างภาพ</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ช่วยเขียนคำสั่งสร้างภาพ (image prompt) สำหรับ:
 - เป้าหมาย: &lt;เช่น รณรงค์กำจัดวัชพืช&gt;
 - กลุ่มเป้าหมาย: คนงาน/ชาวไร่
-- ข้อความบนภาพ (ไทย): &lt;เช่น ‘กำจัดวัชพืชให้ทัน 7 วันหลังตัด’&gt;
+- ข้อความบนภาพ (ไทย): &lt;เช่น 'กำจัดวัชพืชให้ทัน 7 วันหลังตัด'&gt;
 - สไตล์: ชัด อ่านง่าย แบบโปสเตอร์
 - ต้องมี: ไอคอนอ้อย/แปลง/เครื่องมือ
-ขอ 3 แบบ: โทนจริงจัง/โทนเป็นมิตร/โทนผู้บริหาร”</code></pre>
-</div>
-<h3 id="section-9-3" data-cid="-Fm-fL">4.2 ออกแบบ Presentation</h3>
-<div class="prompt-box" data-cid="FBBPjW">
-<h5 data-cid="iGLULZ">Prompt มาตรฐาน: ออกแบบ Presentation โครงสไลด์ 10 หน้า</h5>
-<pre data-cid="Fp4qvw"><code data-cid="UeTIlM">ช่วยทำโครงสไลด์ 10 หน้า เรื่อง: &lt;หัวข้อ&gt;
-กลุ่มผู้ฟัง: &lt;หัวหน้าไร่/ผู้บริหาร/ทีมงาน&gt;
-เป้าหมายของพรีเซนต์: &lt;ขออนุมัติงบ/ตัดสินใจเลือกทาง/แจ้งแผน/แก้ปัญหาเร่งด่วน&gt;
-บริบท/หน่วยงาน/พื้นที่: &lt;เช่น ไร่ A โซน 3 / โรงงาน / ฝ่าย...&gt;
-ช่วงเวลา/ข้อมูลอ้างอิง: &lt;เช่น Q1/2026 หรือ ม.ค.–ก.พ. 2026&gt;
-รูปแบบเนื้อหา (ต้องเรียงตามนี้):
-1) ปัญหา
-2) ข้อมูลจริงที่มี
-3) สิ่งที่วิเคราะห์ได้
-4) ทางเลือก 3 ทาง
-5) ข้อเสนอ
+ขอ 3 แบบ: โทนจริงจัง/โทนเป็นมิตร/โทนผู้บริหาร"</div></div>
 
-ข้อกำหนดผลลัพธ์:
-- ทำเป็นสไลด์ 10 หน้า
-- แต่ละสไลด์ต้องมี: ชื่อสไลด์ + bullet 3–5 บรรทัด
-- Bullet ต้องสั้น ชัด วัดได้/อ้างอิงข้อมูล (ถ้ามีตัวเลขให้ใส่)
-- สไลด์ท้าย ๆ ต้องช่วยให้ผู้ฟัง “ตัดสินใจได้” (มีข้อเสนอ + ขั้นตอนถัดไป)
-- ให้จัดโครงสไลด์เป็นรายการ 1–10 พร้อมเนื้อหาแต่ละสไลด์</code></pre>
-</div>
-<div class="checklist" data-cid="0cmg7D">
-<h5 data-cid="1hqwTr">แม่แบบโครง 10 สไลด์ (แนะนำ)</h5>
-<ol data-cid="fPBaRu">
-<li data-cid="U2nfdu"><strong data-cid="qJqQ7j">Title:</strong> ชื่อเรื่อง และเป้าหมายการนำเสนอ</li>
-<li data-cid="3HjA6M"><strong data-cid="h_oOLY">Executive Summary:</strong> สรุปสำหรับผู้บริหาร</li>
-<li data-cid="HQBKfG"><strong data-cid="HThzub">ปัญหา:</strong> สถานการณ์ปัจจุบัน และผลกระทบ</li>
-<li data-cid="c2kR8J"><strong data-cid="7TtFji">สาเหตุ:</strong> สาเหตุที่คาดว่าเกี่ยวข้อง (เบื้องต้น)</li>
-<li data-cid="clUZuQ"><strong data-cid="cWXl4l">ข้อมูลจริง (1):</strong> ตัวเลข, หลักฐาน, ข้อจำกัดข้อมูล</li>
-<li data-cid="FyVzTl"><strong data-cid="vGIFe7">ข้อมูลจริง (2):</strong> แนวโน้ม, การเปรียบเทียบ, จุดผิดปกติ</li>
-<li data-cid="rDr_IN"><strong data-cid="vGkz04">สิ่งที่วิเคราะห์ได้ (Insight):</strong> Insight หลัก 3–5 ข้อ</li>
-<li data-cid="grsLnn"><strong data-cid="W2GTYx">ทางเลือก 3 ทาง:</strong> เปรียบเทียบ (ต้นทุน/เวลา/ความเสี่ยง/ผลลัพธ์)</li>
-<li data-cid="O-_gMi"><strong data-cid="rVmoJC">ข้อเสนอแนะ (Recommendation):</strong> เลือกทางไหน + เหตุผล</li>
-<li data-cid="S3GYZ5"><strong data-cid="tc1LRO">แผนดำเนินการ:</strong> สิ่งที่ต้องอนุมัติ และ Next Steps</li>
-</ol>
-</div>
-<h4 data-cid="5DnJ1I">แนะนำ AI สำหรับทำ Presentation</h4>
-<ul data-cid="pUZleh">
-<li data-cid="kkUMdn"><strong data-cid="dtLEVr">ChatGPT:</strong> เก่งเรื่องโครงเรื่อง, เหตุผล, สรุปให้ผู้บริหาร, ทำ bullet ให้คม</li>
-<li data-cid="7gQfba"><strong data-cid="zv1q9H">Microsoft PowerPoint Copilot:</strong> เหมาะสำหรับทำสไลด์จริงจากโครง (ถ้าใช้ M365)</li>
-<li data-cid="O_rJi7"><strong data-cid="6o11ye">Canva:</strong> เทมเพลตสวยงาม ทำให้สไลด์ดูดีได้รวดเร็ว</li>
-<li data-cid="GHTWK3"><strong data-cid="AHp79x">Gamma / Tome / Beautiful.ai:</strong> สร้างสไลด์ทั้งชุดได้เร็ว เหมาะสำหรับทำ draft รอบแรก</li>
-</ul>
+  <h3>ออกแบบ Presentation</h3>
+  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — โครงสไลด์ 10 หน้า</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">ช่วยทำโครงสไลด์ 10 หน้า เรื่อง: &lt;หัวข้อ&gt;
+กลุ่มผู้ฟัง: &lt;หัวหน้าไร่/ผู้บริหาร/ทีมงาน&gt;
+เป้าหมาย: &lt;ขออนุมัติงบ/ตัดสินใจเลือกทาง/แจ้งแผน&gt;
+บริบท: &lt;เช่น ไร่ A โซน 3&gt; · ช่วงเวลา: &lt;เช่น Q1/2026&gt;
+รูปแบบเนื้อหา: 1) ปัญหา  2) ข้อมูลจริง  3) สิ่งที่วิเคราะห์ได้  4) ทางเลือก 3 ทาง  5) ข้อเสนอ
+ข้อกำหนด: 10 สไลด์, แต่ละสไลด์มี ชื่อ + bullet 3–5 บรรทัด สั้น ชัด วัดได้</div></div>
+
+  <div class="cl"><div class="cl-h">📐 แม่แบบโครง 10 สไลด์</div>
+    <ol class="slist" style="padding:0">
+      <li class="si"><div class="sn">01</div><div><strong>Title:</strong> ชื่อเรื่อง และเป้าหมายการนำเสนอ</div></li>
+      <li class="si"><div class="sn">02</div><div><strong>Executive Summary:</strong> สรุปสำหรับผู้บริหาร</div></li>
+      <li class="si"><div class="sn">03</div><div><strong>ปัญหา:</strong> สถานการณ์ปัจจุบัน และผลกระทบ</div></li>
+      <li class="si"><div class="sn">04</div><div><strong>สาเหตุ:</strong> สาเหตุที่คาดว่าเกี่ยวข้อง</div></li>
+      <li class="si"><div class="sn">05</div><div><strong>ข้อมูลจริง (1):</strong> ตัวเลข, หลักฐาน, ข้อจำกัดข้อมูล</div></li>
+      <li class="si"><div class="sn">06</div><div><strong>ข้อมูลจริง (2):</strong> แนวโน้ม, การเปรียบเทียบ, จุดผิดปกติ</div></li>
+      <li class="si"><div class="sn">07</div><div><strong>Insight:</strong> ข้อสรุปหลัก 3–5 ข้อ</div></li>
+      <li class="si"><div class="sn">08</div><div><strong>ทางเลือก 3 ทาง:</strong> เปรียบเทียบต้นทุน/เวลา/ความเสี่ยง</div></li>
+      <li class="si"><div class="sn">09</div><div><strong>Recommendation:</strong> เลือกทางไหน + เหตุผล</div></li>
+      <li class="si"><div class="sn">10</div><div><strong>แผนดำเนินการ:</strong> สิ่งที่ต้องอนุมัติ + Next Steps</div></li>
+    </ol>
+  </div>
+
+  <h3>เครื่องมือแนะนำ</h3>
+  <div class="tgrid">
+    <div class="tc"><div class="tc-i">💬</div><div><div class="tc-n">ChatGPT</div><div class="tc-d">เก่งเรื่องโครงเรื่อง, เหตุผล, สรุปผู้บริหาร</div></div></div>
+    <div class="tc"><div class="tc-i">📎</div><div><div class="tc-n">PowerPoint Copilot</div><div class="tc-d">ทำสไลด์จริงจากโครง (ถ้าใช้ M365)</div></div></div>
+    <div class="tc"><div class="tc-i">🎨</div><div><div class="tc-n">Canva</div><div class="tc-d">เทมเพลตสวย ทำให้สไลด์ดูดีรวดเร็ว</div></div></div>
+    <div class="tc"><div class="tc-i">⚡</div><div><div class="tc-n">Gamma / Tome</div><div class="tc-d">สร้างสไลด์ทั้งชุดได้เร็ว เหมาะ draft รอบแรก</div></div></div>
+  </div>
 </section>
-<section id="module5" data-cid="7iTy1K">
-<h2 id="section-10" data-cid="vq_f7Y">MODULE 5: ข้อควรระวังในการใช้ AI (AI Ethics &amp; Accuracy) [20 นาที]</h2>
-<h3 id="section-10-1" data-cid="_cXZ9D">เป้าหมายโมดูล</h3>
-<ul data-cid="DmwOxR">
-<li data-cid="jSbqUB">ลดความเสี่ยงจาก “AI มั่ว” (Hallucination)</li>
-<li data-cid="Vh-mE5">ให้ผู้เรียนรู้วิธีสั่ง AI ให้ยอมรับข้อจำกัดและถามกลับเมื่อข้อมูลไม่พอ</li>
-<li data-cid="IID3AS">ย้ำเรื่องจริยธรรมและความปลอดภัยในการใช้ข้อมูล</li>
-</ul>
-<div class="checklist" data-cid="tSMvj5">
-<h5 data-cid="M-_-vB">กฎ 5 ข้อ (จำให้ได้)</h5>
-<ol data-cid="SOOHPF">
-<li data-cid="9N-o7D"><strong data-cid="it-IP6">ข้อมูลผิด = AI ผิด:</strong> คุณภาพของข้อมูลเข้า กำหนดคุณภาพของผลลัพธ์</li>
-<li data-cid="Bn0UPl"><strong data-cid="zMZmTI">AI อาจตอบมั่นใจทั้งที่ผิด:</strong> ต้องสั่งให้ AI ให้เหตุผลและหลักฐานจากข้อมูลเสมอ</li>
-<li data-cid="cksOWL"><strong data-cid="zp0Lkb">หน้างานต้องตรวจจริง:</strong> ห้ามสั่งการใดๆ โดยอิงจากคำตอบ AI เพียงอย่างเดียวโดยไม่ตรวจสอบ</li>
-<li data-cid="1a15aB"><strong data-cid="Coa5aw">ไม่ใส่ข้อมูลอ่อนไหว:</strong> ห้ามใส่ข้อมูลส่วนบุคคลหรือข้อมูลที่เป็นความลับของบริษัทโดยไม่จำเป็น</li>
-<li data-cid="38S-Hm"><strong data-cid="BFVMFI">คนต้องอนุมัติ:</strong> เรื่องงบประมาณและความปลอดภัย AI เป็นเพียงผู้ช่วยคิด คนต้องเป็นผู้อนุมัติสุดท้าย</li>
-</ol>
-</div>
-<div class="prompt-box danger" data-cid="7B6825">
-<h5 data-cid="JZ4IXH">Prompt กันพลาด (ใช้เป็นมาตรฐานทุกครั้ง)</h5>
-<pre data-cid="o6AT9y"><code data-cid="v6PRMa">“ขอให้ตอบโดยแยกเป็น 3 ส่วน:
+
+<section id="module5">
+  <div class="mband m5"><div class="mband-icon">⚠️</div><div><div class="mband-k">Module 5</div><div class="mband-t">ข้อควรระวัง: AI Ethics & Accuracy</div><div class="mband-tm">⏱️ 20 นาที</div></div></div>
+
+  <h3>กฎ 5 ข้อ — จำให้ได้</h3>
+  <div class="rgrid danger">
+    <div class="rc"><div class="rc-n">/ 01</div><div class="rc-t">ข้อมูลผิด = AI ผิด</div><div class="rc-d">คุณภาพข้อมูลเข้า กำหนดคุณภาพผลลัพธ์ออก</div></div>
+    <div class="rc"><div class="rc-n">/ 02</div><div class="rc-t">AI ตอบมั่นใจทั้งที่อาจผิด</div><div class="rc-d">ต้องสั่งให้ AI ให้เหตุผลและหลักฐานจากข้อมูลเสมอ</div></div>
+    <div class="rc"><div class="rc-n">/ 03</div><div class="rc-t">หน้างานต้องตรวจจริง</div><div class="rc-d">ห้ามสั่งการโดยอิงจาก AI เพียงอย่างเดียว</div></div>
+    <div class="rc"><div class="rc-n">/ 04</div><div class="rc-t">ไม่ใส่ข้อมูลอ่อนไหว</div><div class="rc-d">ห้ามใส่ข้อมูลส่วนบุคคลหรือความลับบริษัท</div></div>
+    <div class="rc"><div class="rc-n">/ 05</div><div class="rc-t">คนต้องอนุมัติ</div><div class="rc-d">เรื่องงบประมาณและความปลอดภัย คนอนุมัติสุดท้าย</div></div>
+  </div>
+
+  <h3>Prompt กันพลาด</h3>
+  <div class="pb danger"><div class="pb-bar"><div class="pt d"><div class="pt-d"></div>ใช้เป็นมาตรฐานทุกครั้ง</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ขอให้ตอบโดยแยกเป็น 3 ส่วน:
 (1) สิ่งที่สรุปได้จากข้อมูลที่ให้ (อ้างอิงช่องข้อมูล)
 (2) สิ่งที่ยังไม่รู้/ข้อมูลไม่พอ (ห้ามเดา)
-(3) คำถามที่ต้องตรวจหน้างาน/ต้องขอข้อมูลเพิ่ม 5 ข้อ”</code></pre>
-</div>
-<div class="prompt-box danger" data-cid="V6C4Oc">
-<h5 data-cid="s_XGKI">Prompt ตรวจความน่าเชื่อถือ</h5>
-<pre data-cid="8HFjoT"><code data-cid="YRE1S4">“ช่วยตรวจคำตอบของคุณเอง:
+(3) คำถามที่ต้องตรวจหน้างาน/ต้องขอข้อมูลเพิ่ม 5 ข้อ"</div></div>
+  <div class="pb danger"><div class="pb-bar"><div class="pt d"><div class="pt-d"></div>Prompt ตรวจความน่าเชื่อถือ</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ช่วยตรวจคำตอบของคุณเอง:
 - มีข้อไหนที่อาจเป็นการคาดเดา?
 - มีข้อไหนที่ควรมีข้อมูลเพิ่มก่อนสรุป?
-- ถ้าจะลดความเสี่ยงการตัดสินใจผิด ต้องตรวจอะไรเป็นอันดับแรก?”</code></pre>
-</div>
+- ถ้าจะลดความเสี่ยงการตัดสินใจผิด ต้องตรวจอะไรเป็นอันดับแรก?"</div></div>
+
+  <div class="hl a"><div class="hl-t">AI ไม่ได้ทำให้ใส่ปุ๋ยเก่งขึ้น<br/>แต่ทำให้รู้ว่า "ใส่ปุ๋ยไปแล้ว ควรทำอะไรต่อ และอะไรไม่คุ้มที่จะทำ"</div></div>
 </section>
-<section id="conclusion" data-cid="BQLI9E">
-<h2 id="section-11" data-cid="X7atY0">SECTION 9: สรุปส่งท้าย</h2>
-<div class="highlight" data-cid="2Pxu52">
-                AI ไม่ได้ทำให้ใส่ปุ๋ยเก่งขึ้น<br data-cid="DrvzeZ"/>
-                แต่ทำให้รู้ว่า “ใส่ปุ๋ยไปแล้ว ควรทำอะไรต่อ และอะไรไม่คุ้มที่จะทำ”
-            </div>
-</section>
-<section id="appendix" data-cid="gpCa-l">
-<h2 id="section-12" data-cid="Ts30Zd">APPENDIX A: ชุดข้อมูลตัวอย่าง</h2>
-<p data-cid="LEFYYr">สามารถคัดลอกตารางนี้ไปทดลองใช้กับ Prompt ต่างๆ ได้ทันที</p>
-<div class="table-container" data-cid="Onugfw">
-<table data-cid="jVDm0W">
-<thead data-cid="AJzOWJ">
-<tr data-cid="71KP2A">
-<th data-cid="SOXR1U">รหัสแปลง</th>
-<th data-cid="n0_U4u">พื้นที่(ไร่)</th>
-<th data-cid="53pFfu">ประเภทอ้อย</th>
-<th data-cid="gJ2ipo">วันใส่ปุ๋ยหลังตัด</th>
-<th data-cid="LdGDrh">ปริมาณปุ๋ย(กก./ไร่)</th>
-<th data-cid="DW5Avz">ให้น้ำ</th>
-<th data-cid="7PHs_y">กำจัดวัชพืช</th>
-<th data-cid="NNox_V">ศัตรูพืช</th>
-<th data-cid="eSEUQE">ความรุนแรง(%)</th>
-<th data-cid="oHW8wU">ช่วงแล้ง(วัน)</th>
-</tr>
-</thead>
-<tbody data-cid="nl-A8Q">
-<tr data-cid="HZDmBp">
-<td data-cid="KcTCLD">0145808</td>
-<td data-cid="88vrs4">10</td>
-<td data-cid="g8s4du">อ้อยตอ</td>
-<td data-cid="xoCWtz">35</td>
-<td data-cid="yaFrf7">50</td>
-<td data-cid="dqsdwo">มี</td>
-<td data-cid="g3IEHv">มี</td>
-<td data-cid="YnXcZq">เพลี้ย</td>
-<td data-cid="HyEEks">50</td>
-<td data-cid="JP2ZIi">45</td>
-</tr>
-<tr data-cid="hBvMi4">
-<td data-cid="SFjJRJ">0145810</td>
-<td data-cid="PuhuTr">12</td>
-<td data-cid="qhocgl">อ้อยตอ</td>
-<td data-cid="nGT6LF">10</td>
-<td data-cid="Tq-jC6">60</td>
-<td data-cid="5Mv1Ww">ไม่มี</td>
-<td data-cid="waQEhN">มี</td>
-<td data-cid="UK5JEk">ไม่พบ</td>
-<td data-cid="1lX0lR">0</td>
-<td data-cid="KcHHLx">50</td>
-</tr>
-<tr data-cid="HON5qw">
-<td data-cid="0A-4pl">0145812</td>
-<td data-cid="2OvNmH">8</td>
-<td data-cid="-aFAC5">ปลูกใหม่</td>
-<td data-cid="g01zGX">7</td>
-<td data-cid="I_V8vG">40</td>
-<td data-cid="HXBuy7">มี</td>
-<td data-cid="ohE2PL">ไม่มี</td>
-<td data-cid="oULBqL">หนอนกอ</td>
-<td data-cid="wyRO_i">30</td>
-<td data-cid="8_mrq9">20</td>
-</tr>
-<tr data-cid="94_7jr">
-<td data-cid="bAbW-c">0145815</td>
-<td data-cid="otdWF2">15</td>
-<td data-cid="12XWeQ">อ้อยตอ</td>
-<td data-cid="0NS8Jv">25</td>
-<td data-cid="ZzL3vq">30</td>
-<td data-cid="-QanxO">ไม่มี</td>
-<td data-cid="8Q7mje">ไม่มี</td>
-<td data-cid="8A3Sj0">เพลี้ยไฟ</td>
-<td data-cid="fryxR7">60</td>
-<td data-cid="RRfyb3">35</td>
-</tr>
-<tr data-cid="aihFmz">
-<td data-cid="zy6lJv">0145820</td>
-<td data-cid="on4Pqc">9</td>
-<td data-cid="cP-rkx">ปลูกใหม่</td>
-<td data-cid="5mHz7k">14</td>
-<td data-cid="J2oVyU">55</td>
-<td data-cid="m0NX3U">มี</td>
-<td data-cid="DBgyfz">มี</td>
-<td data-cid="9Ya57q">ไม่พบ</td>
-<td data-cid="D-FDh-">0</td>
-<td data-cid="xuRDmg">10</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="prompt-box" data-cid="MdVNlF">
-<h5 data-cid="-WUMlo">ตัวอย่างคำสั่งให้ AI วิเคราะห์ “หลายแปลงพร้อมกัน”</h5>
-<pre data-cid="-F_rqg"><code data-cid="3JeJTg">“จากตารางข้อมูลบำรุงอ้อย 5 แปลงนี้ ช่วย:
+
+<section id="appendix">
+  <div class="label">📁 Appendix A</div>
+  <h2>ชุดข้อมูลตัวอย่าง</h2>
+  <p class="sub">คัดลอกตารางนี้ไปทดลองใช้กับ Prompt ต่างๆ ได้ทันที</p>
+  <div class="tscroll"><table><thead><tr><th>รหัสแปลง</th><th>พื้นที่(ไร่)</th><th>ประเภทอ้อย</th><th>วันใส่ปุ๋ยหลังตัด</th><th>ปุ๋ย(กก./ไร่)</th><th>ให้น้ำ</th><th>กำจัดวัชพืช</th><th>ศัตรูพืช</th><th>รุนแรง(%)</th><th>แล้ง(วัน)</th></tr></thead><tbody>
+    <tr><td>0145808</td><td>10</td><td>อ้อยตอ</td><td>35</td><td>50</td><td>มี</td><td>มี</td><td>เพลี้ย</td><td>50</td><td>45</td></tr>
+    <tr><td>0145810</td><td>12</td><td>อ้อยตอ</td><td>10</td><td>60</td><td>ไม่มี</td><td>มี</td><td>ไม่พบ</td><td>0</td><td>50</td></tr>
+    <tr><td>0145812</td><td>8</td><td>ปลูกใหม่</td><td>7</td><td>40</td><td>มี</td><td>ไม่มี</td><td>หนอนกอ</td><td>30</td><td>20</td></tr>
+    <tr><td>0145815</td><td>15</td><td>อ้อยตอ</td><td>25</td><td>30</td><td>ไม่มี</td><td>ไม่มี</td><td>เพลี้ยไฟ</td><td>60</td><td>35</td></tr>
+    <tr><td>0145820</td><td>9</td><td>ปลูกใหม่</td><td>14</td><td>55</td><td>มี</td><td>มี</td><td>ไม่พบ</td><td>0</td><td>10</td></tr>
+  </tbody></table></div>
+  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>ตัวอย่างคำสั่ง — วิเคราะห์หลายแปลงพร้อมกัน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"จากตารางข้อมูลบำรุงอ้อย 5 แปลงนี้ ช่วย:
 1) จัดกลุ่มแปลงเป็น เร่งทำ/ตามแผน/ไม่ควรลงทุนเพิ่ม
 2) ให้เหตุผลแยกแต่ละแปลง (สั้น ๆ)
 3) สร้าง checklist หน้างานสำหรับแปลงที่เสี่ยงสูงสุด 1 แปลง
-4) ถ้าข้อมูลไม่พอให้ถามกลับ”</code></pre>
-</div>
+4) ถ้าข้อมูลไม่พอให้ถามกลับ"</div></div>
 </section>
-<footer class="doc-footer" data-cid="RMckc0">
-<p data-cid="IyAlBc">END OF MANUAL (AI ผู้ช่วยมือโปร + บำรุงอ้อย)</p>
-</footer>
+
 </div>
 
-</body></html>
+<footer><strong>END OF MANUAL</strong> — AI ผู้ช่วยมือโปร + บำรุงอ้อย &nbsp;·&nbsp; จัดทำวันที่ 25 กุมภาพันธ์ 2569</footer>
+
+</body>
+</html>
