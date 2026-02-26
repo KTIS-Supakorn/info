@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PILOT_FILE :: ศุภกร.exe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #080C10;
+  --bg2:      #0B1017;
+  --bg3:      #0F1822;
+  --panel:    #0D1520;
+  --cyan:     #00D4FF;
+  --cyan-dim: rgba(0,212,255,0.12);
+  --cyan-glow:rgba(0,212,255,0.4);
+  --orange:   #FF6B1A;
+  --orange-dim:rgba(255,107,26,0.15);
+  --green:    #39FF8F;
+  --green-dim:rgba(57,255,143,0.1);
+  --border:   rgba(0,212,255,0.25);
+  --border2:  rgba(0,212,255,0.08);
+  --text:     #B8D4E8;
+  --text-dim: #5A7A90;
+  --text-muted:#2D4A5C;
+  --white:    #E8F4FF;
+  --warning:  #FFD700;
+}
+[data-theme="light"] {
+  --bg:       #EEF3F8;
+  --bg2:      #E4EBF2;
+  --bg3:      #D8E3ED;
+  --panel:    #F4F8FC;
+  --border:   rgba(0,100,180,0.3);
+  --border2:  rgba(0,100,180,0.1);
+  --text:     #1A3A50;
+  --text-dim: #3A6080;
+  --text-muted:#8AAABB;
+  --white:    #0A1E2E;
+  --cyan-dim: rgba(0,100,180,0.08);
+  --cyan-glow:rgba(0,100,180,0.3);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+
+body {
+  font-family: 'Share Tech Mono', monospace;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR — cat paw */
+.cursor {
+  width: 24px; height: 24px;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s;
+  font-size: 20px;
+  line-height: 1;
+}
+.cursor-trail {
+  width: 8px; height: 8px;
+  background: var(--cyan);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  opacity: 0.5;
+  transition: all 0.15s ease;
+}
+
+/* SCANLINE overlay */
+body::before {
+  content:'';
+  position:fixed;inset:0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.15) 2px,
+    rgba(0,0,0,0.15) 4px
+  );
+  pointer-events:none;
+  z-index:1000;
+  opacity:0.4;
+}
+
+/* GRID LINES background */
+body::after {
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events:none;
+  z-index:0;
+}
+
+/* BOOT SCREEN */
+.boot-screen {
+  position:fixed;inset:0;
+  background:var(--bg);
+  z-index:5000;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  font-family:'Orbitron',sans-serif;
+  animation: bootFade 0.5s ease 2.8s forwards;
+}
+@keyframes bootFade { to { opacity:0; visibility:hidden; pointer-events:none; } }
+
+.boot-logo {
+  font-size: 2rem;
+  font-weight:900;
+  color: var(--cyan);
+  text-shadow: 0 0 30px var(--cyan-glow);
+  letter-spacing:0.3em;
+  animation: glitch 0.3s step-end infinite alternate;
+}
+
+.boot-cat {
+  font-size: 3rem;
+  animation: catBounce 0.5s ease infinite alternate;
+}
+@keyframes catBounce { to { transform: translateY(-8px); } }
+
+.boot-log {
+  font-size:0.65rem;
+  color: var(--green);
+  letter-spacing:0.1em;
+  text-align:center;
+  line-height:2;
+}
+.boot-bar {
+  width: 280px;
+  height: 3px;
+  background: var(--border2);
+  border-radius: 2px;
+  overflow:hidden;
+  margin-top:0.5rem;
+}
+.boot-bar-fill {
+  height:100%;
+  background: var(--cyan);
+  box-shadow: 0 0 10px var(--cyan);
+  animation: bootLoad 2.5s ease forwards;
+  width:0%;
+}
+@keyframes bootLoad { to { width:100%; } }
+
+@keyframes glitch {
+  0%  { text-shadow: 0 0 30px var(--cyan-glow), -2px 0 var(--orange); }
+  50% { text-shadow: 0 0 30px var(--cyan-glow), 2px 0 var(--green); }
+  100%{ text-shadow: 0 0 30px var(--cyan-glow); }
+}
+
+/* THEME TOGGLE */
+.theme-toggle {
+  position:fixed;top:1rem;right:1rem;z-index:200;
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:0.4rem 0.9rem;
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  letter-spacing:0.15em;
+  color:var(--cyan);
+  cursor:pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition:all 0.3s;
+}
+.theme-toggle:hover { background:var(--cyan-dim); box-shadow:0 0 15px var(--cyan-glow); }
+
+/* PAGE */
+.page {
+  position:relative;
+  z-index:1;
+  max-width:1100px;
+  margin:0 auto;
+  padding:2rem 2rem 5rem;
+}
+
+/* TOP NAV BAR */
+.topbar {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.8rem 1rem;
+  border:1px solid var(--border);
+  background:var(--panel);
+  margin-bottom:2rem;
+  clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  position:relative;
+  overflow:hidden;
+}
+.topbar::before {
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+  animation: scanH 3s linear infinite;
+}
+@keyframes scanH { 0%{opacity:1} 50%{opacity:0.3} 100%{opacity:1} }
+
+.topbar-id {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.6rem;
+  letter-spacing:0.2em;
+  color:var(--cyan);
+}
+.topbar-status {
+  display:flex;
+  align-items:center;
+  gap:0.6rem;
+  font-size:0.6rem;
+  color:var(--green);
+}
+.status-dot {
+  width:6px;height:6px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 8px var(--green);
+  animation:pulse 1.5s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+/* HERO */
+.hero {
+  display:grid;
+  grid-template-columns:240px 1fr;
+  gap:2.5rem;
+  margin-bottom:2.5rem;
+  align-items:start;
+}
+
+/* PHOTO */
+.photo-wrapper {
+  position:relative;
+  width:220px;
+}
+.photo-frame {
+  width:220px;height:280px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  clip-path: polygon(0 0, calc(100% - 24px) 0, 100% 24px, 100% 100%, 24px 100%, 0 calc(100% - 24px));
+}
+.photo-frame::after {
+  content:'';
+  position:absolute;inset:0;
+  background: linear-gradient(180deg, transparent 60%, rgba(0,212,255,0.1));
+  pointer-events:none;
+}
+.photo-placeholder {
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:0.8rem;
+  color:var(--text-muted);cursor:pointer;
+  transition:all 0.3s;
+}
+.photo-placeholder:hover { color:var(--cyan); }
+.photo-placeholder .cat-icon { font-size:3rem; animation:catFloat 3s ease infinite; }
+@keyframes catFloat {
+  0%,100%{transform:translateY(0) rotate(-3deg);}
+  50%{transform:translateY(-8px) rotate(3deg);}
+}
+.photo-placeholder span {
+  font-size:0.6rem;letter-spacing:0.1em;
+  text-transform:uppercase;font-family:'Orbitron',sans-serif;
+}
+.photo-frame img {
+  width:100%;height:100%;object-fit:cover;object-position:top;display:none;
+}
+.photo-frame img.loaded { display:block; }
+#photoInput { display:none; }
+
+/* Corner brackets */
+.corner {width:16px;height:16px;position:absolute;border-color:var(--cyan);border-style:solid;}
+.corner.tl{top:-4px;left:-4px;border-width:2px 0 0 2px;}
+.corner.tr{top:-4px;right:-4px;border-width:2px 2px 0 0;}
+.corner.bl{bottom:-4px;left:-4px;border-width:0 0 2px 2px;}
+.corner.br{bottom:-4px;right:-4px;border-width:0 2px 2px 0;}
+
+/* Scanning line on photo */
+.photo-scan {
+  position:absolute;left:0;right:0;height:2px;
+  background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+  box-shadow:0 0 10px var(--cyan);
+  animation:scanV 3s linear infinite;
+  top:0%;
+}
+@keyframes scanV { 0%{top:0%;opacity:1} 95%{top:100%;opacity:0.5} 100%{top:0%;opacity:0} }
+
+.photo-label {
+  margin-top:0.8rem;
+  border:1px solid var(--border);
+  background:var(--panel);
+  padding:0.4rem 0.6rem;
+  font-size:0.55rem;
+  letter-spacing:0.12em;
+  color:var(--cyan);
+  text-align:center;
+  font-family:'Orbitron',sans-serif;
+  clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+}
+
+/* HERO INFO */
+.hero-info {}
+
+.hud-label {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  letter-spacing:0.25em;
+  color:var(--orange);
+  margin-bottom:0.8rem;
+  display:flex;align-items:center;gap:0.6rem;
+}
+.hud-label::before {
+  content:'▶';
+  font-size:0.5rem;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+.hero-name {
+  font-family:'Orbitron',sans-serif;
+  font-size:clamp(1.6rem,3vw,2.5rem);
+  font-weight:900;
+  color:var(--white);
+  line-height:1.1;
+  letter-spacing:0.05em;
+  margin-bottom:0.4rem;
+  text-shadow:0 0 20px rgba(0,212,255,0.3);
+}
+.hero-name .en {
+  display:block;
+  font-size:0.7em;
+  font-weight:400;
+  color:var(--cyan);
+  letter-spacing:0.3em;
+  margin-bottom:0.3rem;
+}
+
+.hero-role {
+  font-size:0.7rem;
+  color:var(--text-dim);
+  letter-spacing:0.15em;
+  margin-bottom:1.5rem;
+  border-left:2px solid var(--cyan);
+  padding-left:0.8rem;
+  line-height:2;
+}
+
+/* Specs table */
+.specs-table {
+  border:1px solid var(--border);
+  background:var(--panel);
+  margin-bottom:1.2rem;
+  font-size:0.72rem;
+}
+.spec-row {
+  display:grid;
+  grid-template-columns:130px 1fr;
+  border-bottom:1px solid var(--border2);
+}
+.spec-row:last-child{border-bottom:none;}
+.spec-key {
+  background:var(--cyan-dim);
+  padding:0.5rem 0.8rem;
+  color:var(--cyan);
+  font-size:0.6rem;
+  letter-spacing:0.1em;
+  border-right:1px solid var(--border);
+  display:flex;align-items:center;gap:0.4rem;
+}
+.spec-val {
+  padding:0.5rem 0.8rem;
+  color:var(--text);
+}
+
+/* STATS */
+.stats-bar {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  margin-bottom:2rem;
+}
+.stat-item {
+  background:var(--panel);
+  padding:1.2rem;
+  text-align:center;
+  transition:background 0.3s;
+  position:relative;
+  overflow:hidden;
+}
+.stat-item:hover { background:var(--bg3); }
+.stat-item::before {
+  content:attr(data-cat);
+  position:absolute;
+  bottom:-5px;right:5px;
+  font-size:1.5rem;
+  opacity:0;
+  transition:all 0.3s;
+  transform:rotate(20deg);
+}
+.stat-item:hover::before { opacity:0.3; transform:rotate(0deg) scale(1.2); }
+.stat-num {
+  font-family:'Orbitron',sans-serif;
+  font-size:1.8rem;
+  font-weight:900;
+  color:var(--cyan);
+  text-shadow:0 0 15px var(--cyan-glow);
+  margin-bottom:0.3rem;
+}
+.stat-label {
+  font-size:0.55rem;
+  letter-spacing:0.12em;
+  color:var(--text-muted);
+  text-transform:uppercase;
+}
+
+/* SECTION */
+.section { margin:2rem 0; }
+
+.section-header {
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.5rem;
+  padding:0.6rem 0.8rem;
+  border-left:3px solid var(--cyan);
+  background:var(--cyan-dim);
+  position:relative;
+}
+.section-header::after {
+  content:attr(data-cat);
+  position:absolute;right:1rem;
+  font-size:1.2rem;
+  opacity:0.4;
+}
+.section-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.75rem;
+  font-weight:700;
+  color:var(--cyan);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+}
+.section-num {
+  font-size:0.55rem;
+  color:var(--text-muted);
+  letter-spacing:0.1em;
+}
+
+/* EXPERIENCE */
+.exp-item {
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:0;
+  border:1px solid var(--border);
+  background:var(--panel);
+  margin-bottom:1rem;
+  transition:all 0.3s;
+  position:relative;
+  overflow:hidden;
+}
+.exp-item:hover {
+  border-color:rgba(0,212,255,0.5);
+  box-shadow:0 0 20px rgba(0,212,255,0.08);
+}
+.exp-item::before {
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg, var(--cyan), transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.exp-item:hover::before { opacity:1; }
+
+.exp-sidebar {
+  background:var(--cyan-dim);
+  border-right:1px solid var(--border);
+  padding:1.2rem 0.8rem;
+}
+.exp-period {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  letter-spacing:0.1em;
+  color:var(--cyan);
+  margin-bottom:0.6rem;
+}
+.exp-company {
+  font-size:0.65rem;
+  color:var(--text-dim);
+  line-height:1.6;
+}
+.exp-main { padding:1.2rem; }
+.exp-role {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.8rem;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:0.6rem;
+  letter-spacing:0.05em;
+}
+.exp-desc {
+  font-size:0.75rem;
+  line-height:1.9;
+  color:var(--text-dim);
+  margin-bottom:0.8rem;
+}
+.exp-tags { display:flex;flex-wrap:wrap;gap:0.35rem; }
+.tag {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.5rem;
+  letter-spacing:0.1em;
+  padding:0.2rem 0.6rem;
+  border:1px solid var(--border);
+  color:var(--cyan);
+  background:var(--cyan-dim);
+  clip-path:polygon(4px 0%,100% 0%,calc(100% - 4px) 100%,0% 100%);
+  transition:all 0.2s;cursor:default;
+}
+.tag:hover { background:rgba(0,212,255,0.25);border-color:var(--cyan); }
+.tag.orange { color:var(--orange);border-color:rgba(255,107,26,0.3);background:var(--orange-dim); }
+
+/* SKILLS */
+.skills-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.skill-group {
+  background:var(--panel);
+  padding:1.2rem;
+  transition:background 0.3s;
+}
+.skill-group:hover { background:var(--bg3); }
+.skill-group-title {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  letter-spacing:0.18em;
+  color:var(--orange);
+  margin-bottom:0.8rem;
+  padding-bottom:0.5rem;
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:0.4rem;
+}
+.skill-list {
+  font-size:0.72rem;
+  color:var(--text-dim);
+  line-height:2;
+}
+.skill-list span { color:var(--cyan); }
+
+/* PROJECTS */
+.projects-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+}
+.project-card {
+  background:var(--panel);
+  padding:1rem 1.2rem;
+  transition:all 0.3s;
+  border-left:2px solid transparent;
+  position:relative;
+}
+.project-card:hover {
+  background:var(--bg3);
+  border-left-color:var(--cyan);
+}
+.project-year {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  color:var(--orange);
+  letter-spacing:0.1em;
+  margin-bottom:0.3rem;
+}
+.project-name {
+  font-size:0.78rem;
+  color:var(--white);
+  line-height:1.5;
+  margin-bottom:0.2rem;
+}
+.project-scope {
+  font-size:0.62rem;
+  color:var(--text-muted);
+}
+
+/* CAT WIDGET */
+.cat-widget {
+  border:1px solid var(--border);
+  background:var(--panel);
+  padding:1rem 1.5rem;
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  margin:2rem 0;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));
+  position:relative;
+  overflow:hidden;
+}
+.cat-widget::before {
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg, var(--cyan-dim), transparent);
+  pointer-events:none;
+}
+.cat-big { font-size:2.5rem; animation:catFloat 4s ease infinite; }
+.cat-text { flex:1; }
+.cat-quote {
+  font-size:0.72rem;
+  color:var(--green);
+  line-height:1.8;
+  margin-bottom:0.3rem;
+}
+.cat-credit {
+  font-size:0.55rem;
+  color:var(--text-muted);
+  letter-spacing:0.1em;
+}
+
+/* EDUCATION */
+.edu-block {
+  border:1px solid var(--border);
+  background:var(--panel);
+  padding:1.2rem 1.5rem;
+  display:flex;gap:1.5rem;align-items:center;
+  margin-bottom:1rem;
+}
+.edu-icon-box {
+  width:60px;height:60px;
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.8rem;flex-shrink:0;
+  background:var(--cyan-dim);
+  clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+}
+.edu-degree {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.8rem;
+  font-weight:700;
+  color:var(--white);
+  margin-bottom:0.3rem;
+}
+.edu-school { font-size:0.72rem;color:var(--text-dim);margin-bottom:0.3rem; }
+.edu-gpa {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  color:var(--cyan);
+  letter-spacing:0.1em;
+}
+
+/* CERT TAGS */
+.cert-list { display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem; }
+.cert-tag {
+  border:1px solid rgba(57,255,143,0.3);
+  background:var(--green-dim);
+  color:var(--green);
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  letter-spacing:0.1em;
+  padding:0.3rem 0.8rem;
+  clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+}
+
+/* FOOTER */
+.footer-bar {
+  margin-top:3rem;
+  border:1px solid var(--border);
+  background:var(--panel);
+  padding:0.8rem 1.2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);
+}
+.footer-id {
+  font-family:'Orbitron',sans-serif;
+  font-size:0.55rem;
+  letter-spacing:0.15em;
+  color:var(--text-muted);
+}
+.footer-cat {
+  font-size:1.2rem;
+  animation:catFloat 2s ease infinite;
+}
+
+/* ANIMATIONS — stagger sections */
+.section {
+  opacity:0;
+  transform:translateX(-10px);
+  animation:slideIn 0.5s ease forwards;
+}
+.section:nth-child(1){animation-delay:0.2s;}
+.section:nth-child(2){animation-delay:0.35s;}
+.section:nth-child(3){animation-delay:0.5s;}
+.section:nth-child(4){animation-delay:0.65s;}
+.section:nth-child(5){animation-delay:0.8s;}
+.section:nth-child(6){animation-delay:0.95s;}
+.section:nth-child(7){animation-delay:1.1s;}
+@keyframes slideIn{ to{opacity:1;transform:translateX(0);} }
+
+/* Responsive */
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr;text-align:center;}
+  .photo-wrapper{margin:0 auto;}
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .exp-item{grid-template-columns:1fr;}
+  .exp-sidebar{border-right:none;border-bottom:1px solid var(--border);}
+  .hero-role{text-align:left;}
+  .spec-row{grid-template-columns:110px 1fr;}
+}
+
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+::-webkit-scrollbar-thumb:hover{background:var(--cyan);}
+</style>
+</head>
+<body>
+
+<!-- BOOT SCREEN -->
+<div class="boot-screen" id="bootScreen">
+  <div class="boot-cat">🐱</div>
+  <div class="boot-logo">MOBILE SUIT OS</div>
+  <div class="boot-log">
+    [OK] LOADING PILOT_DATABASE...<br>
+    [OK] CAT_MODULE ACTIVATED 🐾<br>
+    [OK] NEWTYPE DETECTED<br>
+    [BOOT] INITIALIZING PROFILE...
+  </div>
+  <div class="boot-bar"><div class="boot-bar-fill"></div></div>
+</div>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor">🐾</div>
+<div class="cursor-trail" id="trail"></div>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">◈ MODE: DARK</button>
+
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-id">PILOT_FILE :: 0001 &nbsp;|&nbsp; FEDERATION_RECORDS &nbsp;|&nbsp; CLASSIFIED</div>
+    <div class="topbar-status">
+      <div class="status-dot"></div>
+      SYSTEM ONLINE &nbsp;·&nbsp; 🐱 CAT_STATUS: SLEEPING
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero" id="heroBlock" style="opacity:0;animation:slideIn 0.6s ease 0.1s forwards;">
+    <!-- Photo -->
+    <div class="photo-wrapper">
+      <label for="photoInput">
+        <div class="photo-frame" id="photoFrame">
+          <div class="photo-placeholder" id="photoPlaceholder">
+            <div class="cat-icon">🐱</div>
+            <span>[ INSERT PILOT PHOTO ]</span>
+          </div>
+          <img id="profilePhoto" alt="ศุภกร ขำสุวรรณ">
+          <div class="photo-scan"></div>
+        </div>
+        <div class="corner tl"></div>
+        <div class="corner tr"></div>
+        <div class="corner bl"></div>
+        <div class="corner br"></div>
+      </label>
+      <input type="file" id="photoInput" accept="image/*">
+      <div class="photo-label">PILOT ID :: SUPAKORN_K</div>
+    </div>
+
+    <!-- Info -->
+    <div class="hero-info">
+      <div class="hud-label">// PILOT_DATA LOADED :: RANK: SENIOR</div>
+      <h1 class="hero-name">
+        <span class="en">SUPAKORN KHAMSUWAN</span>
+        ศุภกร ขำสุวรรณ
+      </h1>
+      <div class="hero-role">
+        IT SYSTEM DEVELOPMENT MANAGER<br>
+        SR. PHP FULL STACK DEVELOPER<br>
+        SYSTEM ANALYST :: SINCE 2009
+      </div>
+
+      <div class="specs-table">
+        <div class="spec-row">
+          <div class="spec-key">📡 PHONE</div>
+          <div class="spec-val">086-360-9069</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-key">📟 EMAIL</div>
+          <div class="spec-val">korn_monter@hotmail.com</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-key">📍 BASE</div>
+          <div class="spec-val">กรุงเทพมหานคร (ห้วยขวาง)</div>
+        </div>
+        <div class="spec-row">
+          <div class="spec-key">🐾 STATUS</div>
+          <div class="spec-val" style="color:var(--green);">AVAILABLE IN ~1 MONTH</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="section">
+    <div class="stats-bar">
+      <div class="stat-item" data-cat="🐱">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">YEARS EXP</div>
+      </div>
+      <div class="stat-item" data-cat="😺">
+        <div class="stat-num">11+</div>
+        <div class="stat-label">COMPANIES</div>
+      </div>
+      <div class="stat-item" data-cat="🐾">
+        <div class="stat-num">25+</div>
+        <div class="stat-label">PROJECTS</div>
+      </div>
+      <div class="stat-item" data-cat="😸">
+        <div class="stat-num">8</div>
+        <div class="stat-label">FACTORIES</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CAT WIDGET -->
+  <div class="cat-widget section">
+    <div class="cat-big">🐱</div>
+    <div class="cat-text">
+      <div class="cat-quote">
+        "แมวนั่งบน keyboard ระหว่าง deploy... <span style="color:var(--orange);">แต่ระบบก็ยังขึ้น production ได้</span><br>
+        เพราะ pure PHP ไม่ต้องการ framework — แค่ต้องการกาแฟ และแมวข้างๆ"
+      </div>
+      <div class="cat-credit">// PILOT_WISDOM :: v15.0 :: PHP_PURIST EDITION</div>
+    </div>
+  </div>
+
+  <!-- EXPERIENCE -->
+  <div class="section">
+    <div class="section-header" data-cat="😼">
+      <div class="section-title">▶ COMBAT_LOG</div>
+      <div class="section-num">// WORK_EXPERIENCE</div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-sidebar">
+        <div class="exp-period">2566 – NOW</div>
+        <div class="exp-company">กลุ่มบริษัท<br>อุตสาหกรรม<br>น้ำตาลครบวงจร</div>
+      </div>
+      <div class="exp-main">
+        <div class="exp-role">ผู้จัดการฝ่ายพัฒนาระบบ</div>
+        <div class="exp-desc">
+          บริหารทีมพัฒนา วางแผนกำลังคน พัฒนา Web Application ด้วย Pure PHP ไม่ใช้ Framework
+          ดูแลระบบ 11+ บริษัท ครอบคลุม Sugar / Power / Pulp / Ethanol / Fertilizer / Agri
+        </div>
+        <div class="exp-tags">
+          <span class="tag">PHP PURE</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">System Analysis</span>
+          <span class="tag">Team Lead</span>
+          <span class="tag orange">SDLC</span>
+          <span class="tag orange">11+ Corp</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-sidebar">
+        <div class="exp-period">2554 – 2566</div>
+        <div class="exp-company">Kaset Thai<br>International<br>Sugar (KTIS)</div>
+      </div>
+      <div class="exp-main">
+        <div class="exp-role">PHP Dev / System Analyst / หัวหน้าแผนก IT</div>
+        <div class="exp-desc">
+          Full Stack Developer ครบ: Web + Windows App วิเคราะห์ระบบโรงงาน DB Design ดูแล SQL Server + MySQL
+          ประเมิน Effort & Cost เสนอ Director อบรม PHP/MySQL ภายในองค์กร
+        </div>
+        <div class="exp-tags">
+          <span class="tag">PHP</span>
+          <span class="tag">ASP.NET C#</span>
+          <span class="tag">SQL Server</span>
+          <span class="tag">VB.NET</span>
+          <span class="tag">Crystal Report</span>
+          <span class="tag orange">Plesk Admin</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-sidebar">
+        <div class="exp-period">2552 – 2553</div>
+        <div class="exp-company">Indigo Corp &<br>Freelance</div>
+      </div>
+      <div class="exp-main">
+        <div class="exp-role">Programmer :: FIRST_SORTIE</div>
+        <div class="exp-desc">
+          พัฒนาโปรแกรมและเว็บไซต์ให้ลูกค้า SME ออกแบบ DB และ UI
+        </div>
+        <div class="exp-tags">
+          <span class="tag">PHP</span><span class="tag">DB Design</span><span class="tag">Web Dev</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="section">
+    <div class="section-header" data-cat="🐾">
+      <div class="section-title">▶ WEAPON_SYSTEMS</div>
+      <div class="section-num">// TECHNICAL_SKILLS</div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <div class="skill-group-title">⚡ PROGRAMMING</div>
+        <div class="skill-list">
+          <span>PHP</span> (Pure/OOP/Custom MVC)<br>
+          HTML5 · CSS3 · JavaScript<br>
+          <span>Bootstrap</span><br>
+          ASP.NET C# · VB.NET<br>
+          Windows App · Mobile XDK
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">🗄 DATABASE</div>
+        <div class="skill-list">
+          <span>MySQL</span> Admin<br>
+          <span>SQL Server</span> Admin<br>
+          Database Design<br>
+          SQL Optimization<br>
+          Crystal Report
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">🔧 ARCHITECTURE</div>
+        <div class="skill-list">
+          System Analysis<br>
+          Business Process Mapping<br>
+          <span>Custom Library</span> Design<br>
+          Security & Auth<br>
+          Enterprise / Factory IS
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">📋 PROJECT MGT</div>
+        <div class="skill-list">
+          <span>SDLC</span> Full Cycle<br>
+          Effort Estimation<br>
+          Resource Planning<br>
+          Team Management<br>
+          Unit & Integration Test
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">☁ INFRA</div>
+        <div class="skill-list">
+          Cloud <span>Plesk</span> Admin<br>
+          Health Monitoring<br>
+          Backup & Restore<br>
+          File Server Admin<br>
+          DB Administration
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-title">🎓 TRAINING</div>
+        <div class="skill-list">
+          วิทยากร <span>PHP/MySQL</span><br>
+          Web Dev Course<br>
+          ERP Training<br>
+          AI/Automation Factory<br>
+          🐾 Cat Appreciation
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECTS -->
+  <div class="section">
+    <div class="section-header" data-cat="😻">
+      <div class="section-title">▶ MISSION_RECORDS</div>
+      <div class="section-num">// SELECTED_PROJECTS</div>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-year">2566+</div>
+        <div class="project-name">ระบบบำรุงอ้อยและเกษตรส่งเสริม</div>
+        <div class="project-scope">Cane Maintenance & Farmer Subsidy</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2563</div>
+        <div class="project-name">KTIS Tracking System</div>
+        <div class="project-scope">All Factory Units</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2563</div>
+        <div class="project-name">ระบบหลักทรัพย์ออนไลน์</div>
+        <div class="project-scope">Securities — TIS, KTIS, KTIS3</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2564</div>
+        <div class="project-name">ระบบ HR Online</div>
+        <div class="project-scope">Human Resource — BKK</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2564</div>
+        <div class="project-name">Document Control Center</div>
+        <div class="project-scope">GKBI</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2562</div>
+        <div class="project-name">ระบบใบส่งอ้อยออนไลน์</div>
+        <div class="project-scope">Cane Delivery — TIS, KTIS, KTIS3</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2561</div>
+        <div class="project-name">ระบบเงินส่งเสริมออนไลน์</div>
+        <div class="project-scope">Subsidy — TIS, GKBI, KTIS, KTIS3</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2561</div>
+        <div class="project-name">ระบบรายงานผลการผลิต</div>
+        <div class="project-scope">Production Report — BKK</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2560</div>
+        <div class="project-name">TRUCK REALTIME</div>
+        <div class="project-scope">KTIS Monitoring</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2560</div>
+        <div class="project-name">ระบบตรวจสอบกรมบังคับคดี</div>
+        <div class="project-scope">Legal Data — TIS, KTIS, KTIS3</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2559</div>
+        <div class="project-name">ระบบสารสนเทศออนไลน์</div>
+        <div class="project-scope">Online IS — TIS, GKBI, KTIS, KTIS3</div>
+      </div>
+      <div class="project-card">
+        <div class="project-year">2556</div>
+        <div class="project-name">ระบบ Intranet</div>
+        <div class="project-scope">BKK, TIS, KTBP, KTIS, EPPCO</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EDUCATION -->
+  <div class="section">
+    <div class="section-header" data-cat="🎓">
+      <div class="section-title">▶ PILOT_ACADEMY</div>
+      <div class="section-num">// EDUCATION & CERTS</div>
+    </div>
+
+    <div class="edu-block">
+      <div class="edu-icon-box">🏫</div>
+      <div>
+        <div class="edu-degree">บริหารธุรกิจ :: คอมพิวเตอร์ธุรกิจ</div>
+        <div class="edu-school">มหาวิทยาลัยเจ้าพระยา</div>
+        <div class="edu-gpa">GPA :: 2.91 &nbsp;|&nbsp; BACHELOR DEGREE</div>
+      </div>
+    </div>
+
+    <div class="cert-list">
+      <span class="cert-tag">✓ ASP.NET 4.0 (C#) with SQL Server 2008</span>
+      <span class="cert-tag">✓ New Entrepreneurs Creation (NEC)</span>
+      <span class="cert-tag">✓ ผ่านการเกณฑ์ทหาร</span>
+      <span class="cert-tag">🐾 CAT CERTIFIED</span>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer-bar">
+    <div class="footer-id">PILOT_FILE v1.0 :: SUPAKORN_K :: FEDERATION_DATABASE :: 2026</div>
+    <div class="footer-cat">🐱</div>
+  </div>
+
+</div>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('trail');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  setTimeout(() => {
+    trail.style.left = e.clientX + 'px';
+    trail.style.top = e.clientY + 'px';
+  }, 80);
+});
+
+// Theme toggle
+let isDark = true;
+function toggleTheme() {
+  isDark = !isDark;
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  document.getElementById('themeBtn').textContent = isDark ? '◈ MODE: DARK' : '◈ MODE: LIGHT';
+}
+
+// Photo upload
+document.getElementById('photoInput').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const img = document.getElementById('profilePhoto');
+    img.src = ev.target.result;
+    img.classList.add('loaded');
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+});
+
+// Konami code easter egg
+let konamiCode = [];
+const code = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+document.addEventListener('keydown', e => {
+  konamiCode.push(e.key);
+  konamiCode = konamiCode.slice(-10);
+  if (JSON.stringify(konamiCode) === JSON.stringify(code)) {
+    document.body.style.setProperty('--cyan', '#FF69B4');
+    setTimeout(() => document.body.style.setProperty('--cyan', '#00D4FF'), 3000);
+    alert('🐱 NYA~ NEWTYPE AWAKENING! 🐱\n แมวเข้าควบคุมระบบแล้ว...');
+  }
+});
+</script>
+</body>
+</html>
