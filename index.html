@@ -1,1067 +1,2612 @@
 <!DOCTYPE html>
 <html lang="th" data-theme="light" data-font="md">
+
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>คู่มืออบรม: AI สำหรับฝ่ายไร่</title>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<style>
-/* ═══════════════════════════════════════════
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คู่มืออบรม: AI สำหรับฝ่ายไร่</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    /* ═══════════════════════════════════════════
    FONT SIZE SCALE  — all rem values cascade from html font-size
    ─────────────────────────────────────────── */
-html[data-font="sm"] { font-size: 13px; }
-html[data-font="md"] { font-size: 15px; }
-html[data-font="lg"] { font-size: 17px; }
-html[data-font="xl"] { font-size: 19px; }
+    html[data-font="sm"] {
+      font-size: 13px;
+    }
 
-/* ═══════════════════════════════════════════
+    html[data-font="md"] {
+      font-size: 15px;
+    }
+
+    html[data-font="lg"] {
+      font-size: 17px;
+    }
+
+    html[data-font="xl"] {
+      font-size: 19px;
+    }
+
+    /* ═══════════════════════════════════════════
    THEME TOKENS
    ─────────────────────────────────────────── */
-html[data-theme="light"] {
-  --emerald:      #10b981;
-  --emerald-dim:  #6ee7b7;
-  --emerald-pale: #ecfdf5;
-  --emerald-mid:  #059669;
-  --teal:         #0d9488;
-  --sky:          #0ea5e9;
+    html[data-theme="light"] {
+      --emerald: #10b981;
+      --emerald-dim: #6ee7b7;
+      --emerald-pale: #ecfdf5;
+      --emerald-mid: #059669;
+      --teal: #0d9488;
+      --sky: #0ea5e9;
 
-  --text:         #0f172a;
-  --text-2:       #334155;
-  --text-3:       #64748b;
-  --text-4:       #94a3b8;
-  --border:       #e2e8f0;
-  --border-soft:  #f1f5f9;
-  --surface:      #ffffff;
-  --bg:           #f8fafc;
+      --text: #0f172a;
+      --text-2: #334155;
+      --text-3: #64748b;
+      --text-4: #94a3b8;
+      --border: #e2e8f0;
+      --border-soft: #f1f5f9;
+      --surface: #ffffff;
+      --bg: #f8fafc;
 
-  --nav-bg:       rgba(255,255,255,0.88);
-  --nav-border:   rgba(226,232,240,0.8);
+      --nav-bg: rgba(255, 255, 255, 0.88);
+      --nav-border: rgba(226, 232, 240, 0.8);
 
-  --hero-bg:      #ffffff;
-  --chip-bg:      #ffffff;
-  --chip-border:  #e2e8f0;
+      --hero-bg: #ffffff;
+      --chip-bg: #ffffff;
+      --chip-border: #e2e8f0;
 
-  --card-bg:      #ffffff;
-  --mc-bg:        #ffffff;
+      --card-bg: #ffffff;
+      --mc-bg: #ffffff;
 
-  --prompt-dark:  #0f172a;
-  --prompt-pro:   #0a1929;
-  --prompt-danger:#12060a;
+      --prompt-dark: #0f172a;
+      --prompt-pro: #0a1929;
+      --prompt-danger: #12060a;
 
-  --cl-bg:        #ffffff;
-  --out-bg-from:  #f8fafc;
-  --out-bg-to:    #ffffff;
+      --cl-bg: #ffffff;
+      --out-bg-from: #f8fafc;
+      --out-bg-to: #ffffff;
 
-  --agenda-bg:    #ffffff;
-  --ag-t-bg:      #f8fafc;
+      --agenda-bg: #ffffff;
+      --ag-t-bg: #f8fafc;
 
-  --role-bg:      #ffffff;
-  --rc-bg:        #ffffff;
-  --tc-bg:        #ffffff;
-  --si-bg:        #ffffff;
-  --cc-bg:        #ffffff;
-  --slide-num-bg: #f1f5f9;
+      --role-bg: #ffffff;
+      --rc-bg: #ffffff;
+      --tc-bg: #ffffff;
+      --si-bg: #ffffff;
+      --cc-bg: #ffffff;
+      --slide-num-bg: #f1f5f9;
 
-  --shadow-sm:    0 1px 3px rgba(15,23,42,0.06),0 1px 2px rgba(15,23,42,0.04);
-  --shadow:       0 4px 16px rgba(15,23,42,0.08),0 2px 6px rgba(15,23,42,0.05);
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow: 0 4px 16px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.05);
 
-  --hl-g-from:#f0fdf4; --hl-g-to:#ecfdf5; --hl-g-border:rgba(16,185,129,0.18); --hl-g-text:#065f46;
-  --hl-a-from:#fffbeb; --hl-a-to:#fef9ee; --hl-a-border:rgba(245,158,11,0.2);  --hl-a-text:#78350f;
+      --hl-g-from: #f0fdf4;
+      --hl-g-to: #ecfdf5;
+      --hl-g-border: rgba(16, 185, 129, 0.18);
+      --hl-g-text: #065f46;
+      --hl-a-from: #fffbeb;
+      --hl-a-to: #fef9ee;
+      --hl-a-border: rgba(245, 158, 11, 0.2);
+      --hl-a-text: #78350f;
 
-  --mband-m1-from:#f0fdf4;--mband-m1-to:#ecfdf5;--mband-m1-border:rgba(16,185,129,0.16);
-  --mband-m2-from:#eff6ff;--mband-m2-to:#f0f9ff;--mband-m2-border:rgba(14,165,233,0.16);
-  --mband-m3-from:#f0fdf4;--mband-m3-to:#f0fdfa;--mband-m3-border:rgba(13,148,136,0.16);
-  --mband-m4-from:#fdf4ff;--mband-m4-to:#faf5ff;--mband-m4-border:rgba(139,92,246,0.16);
-  --mband-m5-from:#fff7ed;--mband-m5-to:#fffbf5;--mband-m5-border:rgba(245,158,11,0.18);
+      --mband-m1-from: #f0fdf4;
+      --mband-m1-to: #ecfdf5;
+      --mband-m1-border: rgba(16, 185, 129, 0.16);
+      --mband-m2-from: #eff6ff;
+      --mband-m2-to: #f0f9ff;
+      --mband-m2-border: rgba(14, 165, 233, 0.16);
+      --mband-m3-from: #f0fdf4;
+      --mband-m3-to: #f0fdfa;
+      --mband-m3-border: rgba(13, 148, 136, 0.16);
+      --mband-m4-from: #fdf4ff;
+      --mband-m4-to: #faf5ff;
+      --mband-m4-border: rgba(139, 92, 246, 0.16);
+      --mband-m5-from: #fff7ed;
+      --mband-m5-to: #fffbf5;
+      --mband-m5-border: rgba(245, 158, 11, 0.18);
 
-  --footer-bg:#0f172a; --footer-text:#64748b; --footer-strong:#94a3b8;
-  --table-head-bg:#f8fafc; --table-head-text:#64748b;
-  --tbl-hover:#f8fafc;
+      --footer-bg: #0f172a;
+      --footer-text: #64748b;
+      --footer-strong: #94a3b8;
+      --table-head-bg: #f8fafc;
+      --table-head-text: #64748b;
+      --tbl-hover: #f8fafc;
 
-  --ctrl-bg: rgba(0,0,0,0.04); --ctrl-border: rgba(0,0,0,0.1);
-  --ctrl-active-bg: var(--emerald-mid); --ctrl-active-text: #fff;
-  --ctrl-hover-bg: rgba(0,0,0,0.06);
+      --ctrl-bg: rgba(0, 0, 0, 0.04);
+      --ctrl-border: rgba(0, 0, 0, 0.1);
+      --ctrl-active-bg: var(--emerald-mid);
+      --ctrl-active-text: #fff;
+      --ctrl-hover-bg: rgba(0, 0, 0, 0.06);
 
-  --orb-a: rgba(16,185,129,0.10); --orb-b: rgba(14,165,233,0.07); --orb-c: rgba(139,92,246,0.07);
-}
+      --orb-a: rgba(16, 185, 129, 0.10);
+      --orb-b: rgba(14, 165, 233, 0.07);
+      --orb-c: rgba(139, 92, 246, 0.07);
+    }
 
-html[data-theme="dark"] {
-  --emerald:      #34d399;
-  --emerald-dim:  #6ee7b7;
-  --emerald-pale: rgba(52,211,153,0.12);
-  --emerald-mid:  #34d399;
-  --teal:         #2dd4bf;
-  --sky:          #38bdf8;
+    html[data-theme="dark"] {
+      --emerald: #34d399;
+      --emerald-dim: #6ee7b7;
+      --emerald-pale: rgba(52, 211, 153, 0.12);
+      --emerald-mid: #34d399;
+      --teal: #2dd4bf;
+      --sky: #38bdf8;
 
-  --text:         #f1f5f9;
-  --text-2:       #cbd5e1;
-  --text-3:       #94a3b8;
-  --text-4:       #64748b;
-  --border:       #1e293b;
-  --border-soft:  #172033;
-  --surface:      #0f172a;
-  --bg:           #0a1020;
+      --text: #f1f5f9;
+      --text-2: #cbd5e1;
+      --text-3: #94a3b8;
+      --text-4: #64748b;
+      --border: #1e293b;
+      --border-soft: #172033;
+      --surface: #0f172a;
+      --bg: #0a1020;
 
-  --nav-bg:       rgba(10,16,32,0.9);
-  --nav-border:   rgba(30,41,59,0.9);
+      --nav-bg: rgba(10, 16, 32, 0.9);
+      --nav-border: rgba(30, 41, 59, 0.9);
 
-  --hero-bg:      #0a1020;
-  --chip-bg:      #0f172a;
-  --chip-border:  #1e293b;
+      --hero-bg: #0a1020;
+      --chip-bg: #0f172a;
+      --chip-border: #1e293b;
 
-  --card-bg:      #0f172a;
-  --mc-bg:        #0f172a;
+      --card-bg: #0f172a;
+      --mc-bg: #0f172a;
 
-  --prompt-dark:  #060d1a;
-  --prompt-pro:   #05101f;
-  --prompt-danger:#140508;
+      --prompt-dark: #060d1a;
+      --prompt-pro: #05101f;
+      --prompt-danger: #140508;
 
-  --cl-bg:        #0f172a;
-  --out-bg-from:  #0d1424;
-  --out-bg-to:    #0f172a;
+      --cl-bg: #0f172a;
+      --out-bg-from: #0d1424;
+      --out-bg-to: #0f172a;
 
-  --agenda-bg:    #0f172a;
-  --ag-t-bg:      #080f1e;
+      --agenda-bg: #0f172a;
+      --ag-t-bg: #080f1e;
 
-  --role-bg:      #0f172a;
-  --rc-bg:        #0f172a;
-  --tc-bg:        #0f172a;
-  --si-bg:        #0f172a;
-  --cc-bg:        #0f172a;
-  --slide-num-bg: #1e293b;
+      --role-bg: #0f172a;
+      --rc-bg: #0f172a;
+      --tc-bg: #0f172a;
+      --si-bg: #0f172a;
+      --cc-bg: #0f172a;
+      --slide-num-bg: #1e293b;
 
-  --shadow-sm:    0 1px 3px rgba(0,0,0,0.3),0 1px 2px rgba(0,0,0,0.2);
-  --shadow:       0 4px 16px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+      --shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
 
-  --hl-g-from:#052e16;--hl-g-to:#064e3b;--hl-g-border:rgba(52,211,153,0.2);--hl-g-text:#6ee7b7;
-  --hl-a-from:#1c0f01;--hl-a-to:#27150a;--hl-a-border:rgba(245,158,11,0.25);--hl-a-text:#fcd34d;
+      --hl-g-from: #052e16;
+      --hl-g-to: #064e3b;
+      --hl-g-border: rgba(52, 211, 153, 0.2);
+      --hl-g-text: #6ee7b7;
+      --hl-a-from: #1c0f01;
+      --hl-a-to: #27150a;
+      --hl-a-border: rgba(245, 158, 11, 0.25);
+      --hl-a-text: #fcd34d;
 
-  --mband-m1-from:#042412;--mband-m1-to:#052e1a;--mband-m1-border:rgba(52,211,153,0.2);
-  --mband-m2-from:#021830;--mband-m2-to:#021e38;--mband-m2-border:rgba(56,189,248,0.2);
-  --mband-m3-from:#042420;--mband-m3-to:#042e28;--mband-m3-border:rgba(45,212,191,0.2);
-  --mband-m4-from:#160828;--mband-m4-to:#1a0a30;--mband-m4-border:rgba(167,139,250,0.2);
-  --mband-m5-from:#1a0d00;--mband-m5-to:#1f1005;--mband-m5-border:rgba(251,191,36,0.2);
+      --mband-m1-from: #042412;
+      --mband-m1-to: #052e1a;
+      --mband-m1-border: rgba(52, 211, 153, 0.2);
+      --mband-m2-from: #021830;
+      --mband-m2-to: #021e38;
+      --mband-m2-border: rgba(56, 189, 248, 0.2);
+      --mband-m3-from: #042420;
+      --mband-m3-to: #042e28;
+      --mband-m3-border: rgba(45, 212, 191, 0.2);
+      --mband-m4-from: #160828;
+      --mband-m4-to: #1a0a30;
+      --mband-m4-border: rgba(167, 139, 250, 0.2);
+      --mband-m5-from: #1a0d00;
+      --mband-m5-to: #1f1005;
+      --mband-m5-border: rgba(251, 191, 36, 0.2);
 
-  --footer-bg:#050c18; --footer-text:#475569; --footer-strong:#64748b;
-  --table-head-bg:#080f1e; --table-head-text:#64748b;
-  --tbl-hover:#111827;
+      --footer-bg: #050c18;
+      --footer-text: #475569;
+      --footer-strong: #64748b;
+      --table-head-bg: #080f1e;
+      --table-head-text: #64748b;
+      --tbl-hover: #111827;
 
-  --ctrl-bg: rgba(255,255,255,0.06); --ctrl-border: rgba(255,255,255,0.12);
-  --ctrl-active-bg: var(--emerald-mid); --ctrl-active-text: #030c08;
-  --ctrl-hover-bg: rgba(255,255,255,0.1);
+      --ctrl-bg: rgba(255, 255, 255, 0.06);
+      --ctrl-border: rgba(255, 255, 255, 0.12);
+      --ctrl-active-bg: var(--emerald-mid);
+      --ctrl-active-text: #030c08;
+      --ctrl-hover-bg: rgba(255, 255, 255, 0.1);
 
-  --orb-a: rgba(52,211,153,0.08); --orb-b: rgba(56,189,248,0.06); --orb-c: rgba(167,139,250,0.06);
-}
+      --orb-a: rgba(52, 211, 153, 0.08);
+      --orb-b: rgba(56, 189, 248, 0.06);
+      --orb-c: rgba(167, 139, 250, 0.06);
+    }
 
-/* ═══════════════════════════════════════════
+    /* ═══════════════════════════════════════════
    RESET & BASE
    ─────────────────────────────────────────── */
-*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; }
-body {
-  font-family:'Sarabun',sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.85;
-  -webkit-font-smoothing:antialiased;
-  transition: background 0.25s, color 0.25s;
-}
-::-webkit-scrollbar{width:5px;height:5px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--text-4);border-radius:3px}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-/* ═══════════════════════════════════════════
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 5px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-4);
+      border-radius: 3px
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.4
+      }
+    }
+
+    /* ═══════════════════════════════════════════
    NAV
    ─────────────────────────────────────────── */
-.nav {
-  position:sticky; top:0; z-index:200;
-  background:var(--nav-bg);
-  backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
-  border-bottom:1px solid var(--nav-border);
-  padding:0 16px;
-  display:flex; align-items:center; gap:2px;
-  overflow-x:auto; scrollbar-width:none;
-  transition: background 0.25s, border-color 0.25s;
-}
-.nav::-webkit-scrollbar { display:none }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--nav-border);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-.nav-brand {
-  font-size:0.875rem; font-weight:800; color:var(--emerald-mid);
-  white-space:nowrap; padding:13px 0; letter-spacing:-0.03em;
-  flex-shrink:0; display:flex; align-items:center; gap:7px; margin-right:4px;
-}
-.nav-dot {
-  width:7px; height:7px; border-radius:50%;
-  background:linear-gradient(135deg,var(--emerald),var(--teal));
-  flex-shrink:0; animation:pulse 2.5s infinite;
-}
-.nav-sep { width:1px; height:18px; background:var(--border); flex-shrink:0; margin:0 6px; }
+    .nav::-webkit-scrollbar {
+      display: none
+    }
 
-.nav-link {
-  font-size:0.73rem; font-weight:600; color:var(--text-3);
-  text-decoration:none; white-space:nowrap; padding:5px 8px;
-  border-radius:7px; transition:all 0.15s; flex-shrink:0;
-}
-.nav-link:hover { color:var(--emerald-mid); background:var(--emerald-pale); }
+    .nav-brand {
+      font-size: 0.875rem;
+      font-weight: 800;
+      color: var(--emerald-mid);
+      white-space: nowrap;
+      padding: 13px 0;
+      letter-spacing: -0.03em;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-right: 4px;
+    }
 
-/* ── Controls group ── */
-.nav-controls {
-  margin-left:auto;
-  display:flex; align-items:center; gap:6px;
-  flex-shrink:0; padding-left:10px;
-}
+    .nav-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--emerald), var(--teal));
+      flex-shrink: 0;
+      animation: pulse 2.5s infinite;
+    }
 
-/* Font size control */
-.font-ctrl {
-  display:flex; align-items:center; gap:2px;
-  background:var(--ctrl-bg);
-  border:1px solid var(--ctrl-border);
-  border-radius:9px; padding:3px;
-}
-.font-btn {
-  width:28px; height:26px;
-  border:none; cursor:pointer;
-  border-radius:6px;
-  background:transparent;
-  color:var(--text-3);
-  font-family:'DM Mono',monospace;
-  font-size:0.72rem; font-weight:700;
-  display:flex; align-items:center; justify-content:center;
-  transition:all 0.15s;
-  flex-shrink:0;
-  line-height:1;
-}
-.font-btn:hover { background:var(--ctrl-hover-bg); color:var(--text); }
-.font-btn.active { background:var(--ctrl-active-bg); color:var(--ctrl-active-text); }
+    .nav-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+      flex-shrink: 0;
+      margin: 0 6px;
+    }
 
-/* Theme toggle */
-.theme-btn {
-  width:34px; height:34px;
-  border:1px solid var(--ctrl-border);
-  border-radius:9px;
-  background:var(--ctrl-bg);
-  cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  font-size:1rem;
-  transition:all 0.15s;
-  flex-shrink:0;
-}
-.theme-btn:hover { background:var(--ctrl-hover-bg); transform:scale(1.05); }
+    .nav-link {
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: var(--text-3);
+      text-decoration: none;
+      white-space: nowrap;
+      padding: 5px 8px;
+      border-radius: 7px;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
 
-/* ═══════════════════════════════════════════
+    .nav-link:hover {
+      color: var(--emerald-mid);
+      background: var(--emerald-pale);
+    }
+
+    /* ── Controls group ── */
+    .nav-controls {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      padding-left: 10px;
+    }
+
+    /* Font size control */
+    .font-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      background: var(--ctrl-bg);
+      border: 1px solid var(--ctrl-border);
+      border-radius: 9px;
+      padding: 3px;
+    }
+
+    .font-btn {
+      width: 28px;
+      height: 26px;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text-3);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .font-btn:hover {
+      background: var(--ctrl-hover-bg);
+      color: var(--text);
+    }
+
+    .font-btn.active {
+      background: var(--ctrl-active-bg);
+      color: var(--ctrl-active-text);
+    }
+
+    /* Theme toggle */
+    .theme-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--ctrl-border);
+      border-radius: 9px;
+      background: var(--ctrl-bg);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.15s;
+      flex-shrink: 0;
+    }
+
+    .theme-btn:hover {
+      background: var(--ctrl-hover-bg);
+      transform: scale(1.05);
+    }
+
+    /* ═══════════════════════════════════════════
    HERO
    ─────────────────────────────────────────── */
-.hero {
-  background:var(--hero-bg);
-  padding:64px 24px 72px; text-align:center;
-  position:relative; overflow:hidden;
-  border-bottom:1px solid var(--border);
-  transition: background 0.25s, border-color 0.25s;
-}
-.orb { position:absolute; border-radius:50%; filter:blur(70px); pointer-events:none; }
-.orb-a { width:600px;height:280px;background:radial-gradient(ellipse,var(--orb-a) 0%,transparent 70%);top:-80px;left:50%;transform:translateX(-50%);}
-.orb-b { width:280px;height:280px;background:radial-gradient(ellipse,var(--orb-b) 0%,transparent 70%);top:0;right:5%;}
-.orb-c { width:240px;height:240px;background:radial-gradient(ellipse,var(--orb-c) 0%,transparent 70%);top:0;left:5%;}
+    .hero {
+      background: var(--hero-bg);
+      padding: 64px 24px 72px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-.eyebrow {
-  display:inline-flex;align-items:center;gap:7px;
-  background:var(--emerald-pale);
-  border:1px solid rgba(16,185,129,0.2);
-  color:var(--emerald-mid);
-  font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-  padding:5px 14px;border-radius:100px;margin-bottom:22px;position:relative;
-}
-.eyebrow-dot { width:5px;height:5px;border-radius:50%;background:var(--emerald); }
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(70px);
+      pointer-events: none;
+    }
 
-.hero h1 {
-  font-size:clamp(2rem,6vw,3.6rem);
-  font-weight:800; color:var(--text);
-  line-height:1.08; letter-spacing:-0.045em;
-  margin-bottom:16px; position:relative;
-}
-.hero h1 em {
-  font-style:normal;
-  background:linear-gradient(135deg,var(--emerald-mid) 0%,var(--teal) 50%,var(--sky) 100%);
-  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
-}
-.hero-sub { font-size:1rem;color:var(--text-3);max-width:460px;margin:0 auto 6px;position:relative; }
-.hero-sub strong { color:var(--text-2); }
-.hero-meta { font-size:0.78rem;color:var(--text-4);position:relative;font-style:italic; }
+    .orb-a {
+      width: 600px;
+      height: 280px;
+      background: radial-gradient(ellipse, var(--orb-a) 0%, transparent 70%);
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
 
-.chips { display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:32px;position:relative; }
-.chip {
-  display:flex;align-items:center;gap:10px;
-  background:var(--chip-bg);border:1px solid var(--chip-border);
-  border-radius:14px;padding:11px 18px;
-  box-shadow:var(--shadow-sm);
-  transition:transform 0.15s,box-shadow 0.15s,background 0.25s,border-color 0.25s;
-}
-.chip:hover { transform:translateY(-2px);box-shadow:var(--shadow); }
-.chip-v { font-size:1.3rem;font-weight:800;color:var(--text);letter-spacing:-0.04em;line-height:1; }
-.chip-l { font-size:0.68rem;color:var(--text-3);font-weight:600;line-height:1.35;text-align:left; }
+    .orb-b {
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(ellipse, var(--orb-b) 0%, transparent 70%);
+      top: 0;
+      right: 5%;
+    }
 
-/* ═══════════════════════════════════════════
+    .orb-c {
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(ellipse, var(--orb-c) 0%, transparent 70%);
+      top: 0;
+      left: 5%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--emerald-pale);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      color: var(--emerald-mid);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .eyebrow-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--emerald);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.6rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--emerald-mid) 0%, var(--teal) 50%, var(--sky) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--text-3);
+      max-width: 460px;
+      margin: 0 auto 6px;
+      position: relative;
+    }
+
+    .hero-sub strong {
+      color: var(--text-2);
+    }
+
+    .hero-meta {
+      font-size: 0.78rem;
+      color: var(--text-4);
+      position: relative;
+      font-style: italic;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+      position: relative;
+    }
+
+    .chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--chip-bg);
+      border: 1px solid var(--chip-border);
+      border-radius: 14px;
+      padding: 11px 18px;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.25s, border-color 0.25s;
+    }
+
+    .chip:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .chip-v {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .chip-l {
+      font-size: 0.68rem;
+      color: var(--text-3);
+      font-weight: 600;
+      line-height: 1.35;
+      text-align: left;
+    }
+
+    /* ═══════════════════════════════════════════
    LAYOUT
    ─────────────────────────────────────────── */
-.wrap { max-width:860px; margin:0 auto; padding:0 20px; }
-section { padding:52px 0; border-bottom:1px solid var(--border-soft); transition:border-color 0.25s; }
-section:last-child { border:none; }
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
 
-/* ═══════════════════════════════════════════
+    section {
+      padding: 52px 0;
+      border-bottom: 1px solid var(--border-soft);
+      transition: border-color 0.25s;
+    }
+
+    section:last-child {
+      border: none;
+    }
+
+    /* ═══════════════════════════════════════════
    TYPOGRAPHY
    ─────────────────────────────────────────── */
-.label {
-  display:inline-flex;align-items:center;gap:5px;
-  font-size:0.65rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--emerald-mid);background:var(--emerald-pale);
-  padding:3px 10px;border-radius:6px;margin-bottom:10px;
-  transition: background 0.25s;
-}
-h2 {
-  font-size:clamp(1.3rem,3.5vw,1.8rem);font-weight:800;color:var(--text);
-  letter-spacing:-0.04em;line-height:1.18;margin-bottom:6px;
-}
-.sub { font-size:0.88rem;color:var(--text-3);margin-bottom:28px; }
-h3 {
-  font-size:0.97rem;font-weight:700;color:var(--text-2);
-  margin:30px 0 12px;display:flex;align-items:center;gap:8px;letter-spacing:-0.01em;
-}
-h3::before {
-  content:'';width:3px;height:15px;
-  background:linear-gradient(180deg,var(--emerald),var(--teal));
-  border-radius:2px;flex-shrink:0;
-}
-h4 { font-size:0.85rem;font-weight:700;color:var(--text);margin:14px 0 7px; }
-p { font-size:0.91rem;color:var(--text-2);margin-bottom:12px; }
-p:last-child { margin-bottom:0; }
-ul,ol { padding-left:18px;margin-bottom:12px; }
-li { font-size:0.91rem;margin-bottom:6px;color:var(--text-2); }
-li strong { color:var(--text); }
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--emerald-mid);
+      background: var(--emerald-pale);
+      padding: 3px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+      transition: background 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    h2 {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem);
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.04em;
+      line-height: 1.18;
+      margin-bottom: 6px;
+    }
+
+    .sub {
+      font-size: 0.88rem;
+      color: var(--text-3);
+      margin-bottom: 28px;
+    }
+
+    h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--text-2);
+      margin: 30px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    h3::before {
+      content: '';
+      width: 3px;
+      height: 15px;
+      background: linear-gradient(180deg, var(--emerald), var(--teal));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 14px 0 7px;
+    }
+
+    p {
+      font-size: 0.91rem;
+      color: var(--text-2);
+      margin-bottom: 12px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 18px;
+      margin-bottom: 12px;
+    }
+
+    li {
+      font-size: 0.91rem;
+      margin-bottom: 6px;
+      color: var(--text-2);
+    }
+
+    li strong {
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
    CARDS
    ─────────────────────────────────────────── */
-.card {
-  background:var(--card-bg);border:1px solid var(--border);
-  border-radius:16px;padding:22px;box-shadow:var(--shadow-sm);margin-bottom:14px;
-  transition: background 0.25s, border-color 0.25s;
-}
-.g2 { display:grid;grid-template-columns:repeat(2,1fr);gap:11px;margin-bottom:14px; }
-.g3 { display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:14px; }
-.g4 { display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px; }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 14px;
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-.mc {
-  background:var(--mc-bg);border:1px solid var(--border);
-  border-radius:13px;padding:16px;
-  transition:border-color 0.15s,box-shadow 0.15s,background 0.25s;
-}
-.mc:hover { border-color:var(--emerald-dim);box-shadow:var(--shadow); }
-.mc-i { font-size:1.35rem;margin-bottom:7px; }
-.mc-t { font-size:0.82rem;font-weight:700;color:var(--text);margin-bottom:4px; }
-.mc-d { font-size:0.79rem;color:var(--text-3);line-height:1.5; }
+    .g2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 11px;
+      margin-bottom: 14px;
+    }
 
-/* ═══════════════════════════════════════════
+    .g3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 11px;
+      margin-bottom: 14px;
+    }
+
+    .g4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .mc {
+      background: var(--mc-bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 16px;
+      transition: border-color 0.15s, box-shadow 0.15s, background 0.25s;
+    }
+
+    .mc:hover {
+      border-color: var(--emerald-dim);
+      box-shadow: var(--shadow);
+    }
+
+    .mc-i {
+      font-size: 1.35rem;
+      margin-bottom: 7px;
+    }
+
+    .mc-t {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .mc-d {
+      font-size: 0.79rem;
+      color: var(--text-3);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════
    PROMPT BOXES
    ─────────────────────────────────────────── */
-.pb {
-  background:var(--prompt-dark);
-  border-radius:14px;overflow:hidden;margin:14px 0;
-  box-shadow:0 6px 20px rgba(0,0,0,0.18);
-  transition: background 0.25s;
-}
-.pb-bar {
-  display:flex;align-items:center;justify-content:space-between;
-  padding:9px 15px;
-  background:rgba(255,255,255,0.04);
-  border-bottom:1px solid rgba(255,255,255,0.07);
-}
-.pt { font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px; }
-.pt.s { color:#6ee7b7; } .pt.p { color:#93c5fd; } .pt.d { color:#fca5a5; }
-.pt-d { width:5px;height:5px;border-radius:50%;flex-shrink:0; }
-.pt.s .pt-d { background:#6ee7b7; } .pt.p .pt-d { background:#93c5fd; } .pt.d .pt-d { background:#fca5a5; }
-.pb-dots { display:flex;gap:5px; }
-.pb-dots span { width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.1); }
-.pb-code {
-  padding:15px 17px;
-  font-family:'DM Mono',monospace;
-  /* Code font always fixed — not affected by body font scale */
-  font-size:0.79rem;
-  line-height:1.8;white-space:pre-wrap;word-break:break-word;color:#cbd5e1;
-}
-.pb.pro { background:var(--prompt-pro); }
-.pb.pro .pb-code { color:#bfdbfe; }
-.pb.danger { background:var(--prompt-danger); }
-.pb.danger .pb-code { color:#fecaca; }
+    .pb {
+      background: var(--prompt-dark);
+      border-radius: 14px;
+      overflow: hidden;
+      margin: 14px 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+      transition: background 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    .pb-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 15px;
+      background: rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .pt {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pt.s {
+      color: #6ee7b7;
+    }
+
+    .pt.p {
+      color: #93c5fd;
+    }
+
+    .pt.d {
+      color: #fca5a5;
+    }
+
+    .pt-d {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .pt.s .pt-d {
+      background: #6ee7b7;
+    }
+
+    .pt.p .pt-d {
+      background: #93c5fd;
+    }
+
+    .pt.d .pt-d {
+      background: #fca5a5;
+    }
+
+    .pb-dots {
+      display: flex;
+      gap: 5px;
+    }
+
+    .pb-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .pb-code {
+      padding: 15px 17px;
+      font-family: 'DM Mono', monospace;
+      /* Code font always fixed — not affected by body font scale */
+      font-size: 0.79rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: #cbd5e1;
+    }
+
+    .pb.pro {
+      background: var(--prompt-pro);
+    }
+
+    .pb.pro .pb-code {
+      color: #bfdbfe;
+    }
+
+    .pb.danger {
+      background: var(--prompt-danger);
+    }
+
+    .pb.danger .pb-code {
+      color: #fecaca;
+    }
+
+    /* ═══════════════════════════════════════════
    CHECKLIST
    ─────────────────────────────────────────── */
-.cl {
-  background:var(--cl-bg);border:1px solid var(--border);
-  border-radius:14px;padding:19px 21px;margin:14px 0;
-  position:relative;overflow:hidden;
-  transition: background 0.25s, border-color 0.25s;
-}
-.cl::before {
-  content:'';position:absolute;top:0;left:0;bottom:0;width:3px;
-  background:linear-gradient(180deg,var(--emerald),var(--teal));
-}
-.cl-h { font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--emerald-mid);margin-bottom:11px;display:flex;align-items:center;gap:5px; }
-.cl ol,.cl ul { padding-left:17px;margin:0; }
-.cl li { font-size:0.87rem;color:var(--text-2);margin-bottom:6px; }
-.cl li strong { color:var(--text); }
+    .cl {
+      background: var(--cl-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 19px 21px;
+      margin: 14px 0;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    .cl::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, var(--emerald), var(--teal));
+    }
+
+    .cl-h {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--emerald-mid);
+      margin-bottom: 11px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .cl ol,
+    .cl ul {
+      padding-left: 17px;
+      margin: 0;
+    }
+
+    .cl li {
+      font-size: 0.87rem;
+      color: var(--text-2);
+      margin-bottom: 6px;
+    }
+
+    .cl li strong {
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
    HIGHLIGHT
    ─────────────────────────────────────────── */
-.hl { border-radius:14px;padding:18px 22px;margin:16px 0;text-align:center; }
-.hl.g { background:linear-gradient(135deg,var(--hl-g-from),var(--hl-g-to));border:1px solid var(--hl-g-border); }
-.hl.a { background:linear-gradient(135deg,var(--hl-a-from),var(--hl-a-to));border:1px solid var(--hl-a-border); }
-.hl-t { font-size:0.97rem;font-weight:700;line-height:1.65; }
-.hl.g .hl-t { color:var(--hl-g-text); }
-.hl.a .hl-t { color:var(--hl-a-text); }
+    .hl {
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin: 16px 0;
+      text-align: center;
+    }
 
-/* ═══════════════════════════════════════════
+    .hl.g {
+      background: linear-gradient(135deg, var(--hl-g-from), var(--hl-g-to));
+      border: 1px solid var(--hl-g-border);
+    }
+
+    .hl.a {
+      background: linear-gradient(135deg, var(--hl-a-from), var(--hl-a-to));
+      border: 1px solid var(--hl-a-border);
+    }
+
+    .hl-t {
+      font-size: 0.97rem;
+      font-weight: 700;
+      line-height: 1.65;
+    }
+
+    .hl.g .hl-t {
+      color: var(--hl-g-text);
+    }
+
+    .hl.a .hl-t {
+      color: var(--hl-a-text);
+    }
+
+    /* ═══════════════════════════════════════════
    MODULE BAND
    ─────────────────────────────────────────── */
-.mband {
-  border-radius:16px;padding:20px 22px;
-  display:flex;align-items:center;gap:15px;
-  margin-bottom:28px;overflow:hidden;position:relative;
-  transition: background 0.25s, border-color 0.25s;
-}
-.mband.m1 { background:linear-gradient(135deg,var(--mband-m1-from),var(--mband-m1-to));border:1px solid var(--mband-m1-border); }
-.mband.m2 { background:linear-gradient(135deg,var(--mband-m2-from),var(--mband-m2-to));border:1px solid var(--mband-m2-border); }
-.mband.m3 { background:linear-gradient(135deg,var(--mband-m3-from),var(--mband-m3-to));border:1px solid var(--mband-m3-border); }
-.mband.m4 { background:linear-gradient(135deg,var(--mband-m4-from),var(--mband-m4-to));border:1px solid var(--mband-m4-border); }
-.mband.m5 { background:linear-gradient(135deg,var(--mband-m5-from),var(--mband-m5-to));border:1px solid var(--mband-m5-border); }
-.mband-icon { font-size:1.9rem;flex-shrink:0; }
-.mband-k { font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-4);margin-bottom:2px; }
-.mband-t { font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-0.03em;margin-bottom:3px;line-height:1.2; }
-.mband-tm { font-size:0.77rem;color:var(--text-3);font-weight:500; }
+    .mband {
+      border-radius: 16px;
+      padding: 20px 22px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    .mband.m1 {
+      background: linear-gradient(135deg, var(--mband-m1-from), var(--mband-m1-to));
+      border: 1px solid var(--mband-m1-border);
+    }
+
+    .mband.m2 {
+      background: linear-gradient(135deg, var(--mband-m2-from), var(--mband-m2-to));
+      border: 1px solid var(--mband-m2-border);
+    }
+
+    .mband.m3 {
+      background: linear-gradient(135deg, var(--mband-m3-from), var(--mband-m3-to));
+      border: 1px solid var(--mband-m3-border);
+    }
+
+    .mband.m4 {
+      background: linear-gradient(135deg, var(--mband-m4-from), var(--mband-m4-to));
+      border: 1px solid var(--mband-m4-border);
+    }
+
+    .mband.m5 {
+      background: linear-gradient(135deg, var(--mband-m5-from), var(--mband-m5-to));
+      border: 1px solid var(--mband-m5-border);
+    }
+
+    .mband-icon {
+      font-size: 1.9rem;
+      flex-shrink: 0;
+    }
+
+    .mband-k {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-4);
+      margin-bottom: 2px;
+    }
+
+    .mband-t {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.03em;
+      margin-bottom: 3px;
+      line-height: 1.2;
+    }
+
+    .mband-tm {
+      font-size: 0.77rem;
+      color: var(--text-3);
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════
    AGENDA
    ─────────────────────────────────────────── */
-.agenda { border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--agenda-bg);box-shadow:var(--shadow-sm);transition:background 0.25s,border-color 0.25s; }
-.ag { display:grid;grid-template-columns:80px 1fr;border-bottom:1px solid var(--border-soft); }
-.ag:last-child { border:none; }
-.ag:hover { background:var(--tbl-hover); }
-.ag-t { padding:13px 14px;font-family:'DM Mono',monospace;font-size:0.73rem;font-weight:500;color:var(--text-3);background:var(--ag-t-bg);border-right:1px solid var(--border-soft);display:flex;align-items:center;justify-content:center;white-space:nowrap;transition:background 0.25s; }
-.ag-c { padding:13px 17px;display:flex;align-items:center;gap:9px;font-size:0.89rem;color:var(--text-2); }
-.ag-c strong { color:var(--text); }
-.badge { display:inline-flex;align-items:center;gap:3px;font-size:0.63rem;font-weight:700;letter-spacing:0.05em;background:linear-gradient(135deg,#fef3c7,#fde68a);color:#92400e;padding:2px 8px;border-radius:6px;border:1px solid rgba(245,158,11,0.2);white-space:nowrap; }
+    .agenda {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--agenda-bg);
+      box-shadow: var(--shadow-sm);
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    .ag {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      border-bottom: 1px solid var(--border-soft);
+    }
+
+    .ag:last-child {
+      border: none;
+    }
+
+    .ag:hover {
+      background: var(--tbl-hover);
+    }
+
+    .ag-t {
+      padding: 13px 14px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.73rem;
+      font-weight: 500;
+      color: var(--text-3);
+      background: var(--ag-t-bg);
+      border-right: 1px solid var(--border-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      white-space: nowrap;
+      transition: background 0.25s;
+    }
+
+    .ag-c {
+      padding: 13px 17px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.89rem;
+      color: var(--text-2);
+    }
+
+    .ag-c strong {
+      color: var(--text);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      color: #92400e;
+      padding: 2px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════════
    ROLES
    ─────────────────────────────────────────── */
-.roles { display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px; }
-.role { background:var(--role-bg);border:1px solid var(--border);border-radius:15px;padding:18px 15px;text-align:center;transition:transform 0.15s,box-shadow 0.15s,background 0.25s,border-color 0.25s; }
-.role:hover { transform:translateY(-2px);box-shadow:var(--shadow); }
-.role-i { font-size:1.8rem;margin-bottom:8px; }
-.role-t { font-size:0.83rem;font-weight:800;color:var(--text);margin-bottom:5px; }
-.role-b { font-size:0.79rem;color:var(--text-3);line-height:1.5; }
-.role-k { font-size:0.7rem;font-weight:700;margin-top:8px;display:inline-block;padding:2px 9px;border-radius:6px; }
-.role.ex .role-k { background:#1e3a5f;color:#93c5fd; }
-.role.ai .role-k { background:#052e16;color:#6ee7b7; }
-.role.hu .role-k { background:#3d1f00;color:#fcd34d; }
-html[data-theme="light"] .role.ex .role-k { background:#dbeafe;color:#1e40af; }
-html[data-theme="light"] .role.ai .role-k { background:#d1fae5;color:#065f46; }
-html[data-theme="light"] .role.hu .role-k { background:#fef3c7;color:#92400e; }
+    .roles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 14px;
+    }
 
-/* ═══════════════════════════════════════════
+    .role {
+      background: var(--role-bg);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 18px 15px;
+      text-align: center;
+      transition: transform 0.15s, box-shadow 0.15s, background 0.25s, border-color 0.25s;
+    }
+
+    .role:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .role-i {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .role-t {
+      font-size: 0.83rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .role-b {
+      font-size: 0.79rem;
+      color: var(--text-3);
+      line-height: 1.5;
+    }
+
+    .role-k {
+      font-size: 0.7rem;
+      font-weight: 700;
+      margin-top: 8px;
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 6px;
+    }
+
+    .role.ex .role-k {
+      background: #1e3a5f;
+      color: #93c5fd;
+    }
+
+    .role.ai .role-k {
+      background: #052e16;
+      color: #6ee7b7;
+    }
+
+    .role.hu .role-k {
+      background: #3d1f00;
+      color: #fcd34d;
+    }
+
+    html[data-theme="light"] .role.ex .role-k {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    html[data-theme="light"] .role.ai .role-k {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    html[data-theme="light"] .role.hu .role-k {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    /* ═══════════════════════════════════════════
    RULE GRID
    ─────────────────────────────────────────── */
-.rgrid { display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:14px 0; }
-.rc { background:var(--rc-bg);border:1px solid var(--border);border-radius:13px;padding:15px;transition:border-color 0.15s,background 0.25s; }
-.rc:hover { border-color:var(--emerald-dim); }
-.rc-n { font-family:'DM Mono',monospace;font-size:0.67rem;color:var(--text-4);margin-bottom:5px; }
-.rc-t { font-size:0.86rem;font-weight:700;color:var(--text);margin-bottom:4px; }
-.rc-d { font-size:0.79rem;color:var(--text-3);line-height:1.5; }
-.rgrid.danger .rc { border-top:2px solid rgba(252,165,165,0.5); }
-.rgrid.danger .rc-t { color:#f87171; }
-.rgrid.danger .rc-n { color:#ef4444; }
-html[data-theme="light"] .rgrid.danger .rc { border-top-color:#fecaca; }
-html[data-theme="light"] .rgrid.danger .rc-t { color:#9f1239; }
-html[data-theme="light"] .rgrid.danger .rc-n { color:#fca5a5; }
+    .rgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 14px 0;
+    }
 
-/* ═══════════════════════════════════════════
+    .rc {
+      background: var(--rc-bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 15px;
+      transition: border-color 0.15s, background 0.25s;
+    }
+
+    .rc:hover {
+      border-color: var(--emerald-dim);
+    }
+
+    .rc-n {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.67rem;
+      color: var(--text-4);
+      margin-bottom: 5px;
+    }
+
+    .rc-t {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .rc-d {
+      font-size: 0.79rem;
+      color: var(--text-3);
+      line-height: 1.5;
+    }
+
+    .rgrid.danger .rc {
+      border-top: 2px solid rgba(252, 165, 165, 0.5);
+    }
+
+    .rgrid.danger .rc-t {
+      color: #f87171;
+    }
+
+    .rgrid.danger .rc-n {
+      color: #ef4444;
+    }
+
+    html[data-theme="light"] .rgrid.danger .rc {
+      border-top-color: #fecaca;
+    }
+
+    html[data-theme="light"] .rgrid.danger .rc-t {
+      color: #9f1239;
+    }
+
+    html[data-theme="light"] .rgrid.danger .rc-n {
+      color: #fca5a5;
+    }
+
+    /* ═══════════════════════════════════════════
    TABLE
    ─────────────────────────────────────────── */
-.tscroll { overflow-x:auto;border-radius:14px;margin:14px 0;border:1px solid var(--border);box-shadow:var(--shadow-sm);transition:border-color 0.25s; }
-table { width:100%;border-collapse:collapse;font-size:0.84rem; }
-thead { background:var(--table-head-bg); }
-thead th { color:var(--table-head-text);font-size:0.69rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:11px 13px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;transition:background 0.25s; }
-tbody tr { transition:background 0.1s; }
-tbody tr:hover { background:var(--tbl-hover); }
-tbody tr:last-child td { border-bottom:none; }
-td { padding:10px 13px;border-bottom:1px solid var(--border-soft);color:var(--text-2);transition:border-color 0.25s; }
-td:first-child { font-family:'DM Mono',monospace;font-size:0.78rem;color:var(--emerald-mid);font-weight:500; }
+    .tscroll {
+      overflow-x: auto;
+      border-radius: 14px;
+      margin: 14px 0;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: border-color 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+    }
+
+    thead {
+      background: var(--table-head-bg);
+    }
+
+    thead th {
+      color: var(--table-head-text);
+      font-size: 0.69rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 11px 13px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      transition: background 0.25s;
+    }
+
+    tbody tr {
+      transition: background 0.1s;
+    }
+
+    tbody tr:hover {
+      background: var(--tbl-hover);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    td {
+      padding: 10px 13px;
+      border-bottom: 1px solid var(--border-soft);
+      color: var(--text-2);
+      transition: border-color 0.25s;
+    }
+
+    td:first-child {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      color: var(--emerald-mid);
+      font-weight: 500;
+    }
+
+    /* ═══════════════════════════════════════════
    STEPS
    ─────────────────────────────────────────── */
-.steps { list-style:none;padding:0;counter-reset:s; }
-.steps li { counter-increment:s;display:flex;gap:13px;margin-bottom:13px;align-items:flex-start; }
-.steps li::before { content:counter(s);min-width:25px;height:25px;background:linear-gradient(135deg,var(--emerald),var(--teal));color:#fff;font-size:0.7rem;font-weight:800;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px; }
-.steps li span { font-size:0.9rem;color:var(--text-2); }
-.steps li strong { color:var(--text); }
+    .steps {
+      list-style: none;
+      padding: 0;
+      counter-reset: s;
+    }
 
-/* ═══════════════════════════════════════════
+    .steps li {
+      counter-increment: s;
+      display: flex;
+      gap: 13px;
+      margin-bottom: 13px;
+      align-items: flex-start;
+    }
+
+    .steps li::before {
+      content: counter(s);
+      min-width: 25px;
+      height: 25px;
+      background: linear-gradient(135deg, var(--emerald), var(--teal));
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .steps li span {
+      font-size: 0.9rem;
+      color: var(--text-2);
+    }
+
+    .steps li strong {
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
    CASE GRID
    ─────────────────────────────────────────── */
-.cgrid { display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:9px;margin:12px 0; }
-.cc { background:var(--cc-bg);border:1px solid var(--border);border-radius:13px;padding:13px;transition:all 0.15s; }
-.cc:hover { border-color:var(--emerald-dim);background:var(--emerald-pale); }
-.cc-l { font-weight:800;color:var(--text);font-size:0.83rem;margin-bottom:4px; }
-.cc-d { font-size:0.78rem;color:var(--text-3);line-height:1.5; }
+    .cgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+      gap: 9px;
+      margin: 12px 0;
+    }
 
-/* ═══════════════════════════════════════════
+    .cc {
+      background: var(--cc-bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 13px;
+      transition: all 0.15s;
+    }
+
+    .cc:hover {
+      border-color: var(--emerald-dim);
+      background: var(--emerald-pale);
+    }
+
+    .cc-l {
+      font-weight: 800;
+      color: var(--text);
+      font-size: 0.83rem;
+      margin-bottom: 4px;
+    }
+
+    .cc-d {
+      font-size: 0.78rem;
+      color: var(--text-3);
+      line-height: 1.5;
+    }
+
+    /* ═══════════════════════════════════════════
    OUTPUT
    ─────────────────────────────────────────── */
-.out {
-  background:linear-gradient(135deg,var(--out-bg-from),var(--out-bg-to));
-  border:1px solid var(--border);border-radius:14px;padding:22px;margin:13px 0;
-  position:relative;overflow:hidden;
-  transition: background 0.25s, border-color 0.25s;
-}
-.out::before { content:'OUTPUT';position:absolute;top:-1px;left:18px;background:linear-gradient(90deg,var(--emerald),var(--teal));color:#fff;font-size:0.58rem;font-weight:800;letter-spacing:0.1em;padding:3px 9px;border-radius:0 0 7px 7px; }
-.out h5 { font-size:0.86rem;font-weight:700;color:var(--text);margin:8px 0 9px; }
-.out ul { padding-left:17px;margin:0; }
-.out li { font-size:0.87rem;color:var(--text-2);margin-bottom:5px; }
+    .out {
+      background: linear-gradient(135deg, var(--out-bg-from), var(--out-bg-to));
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      margin: 13px 0;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.25s, border-color 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    .out::before {
+      content: 'OUTPUT';
+      position: absolute;
+      top: -1px;
+      left: 18px;
+      background: linear-gradient(90deg, var(--emerald), var(--teal));
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 3px 9px;
+      border-radius: 0 0 7px 7px;
+    }
+
+    .out h5 {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 8px 0 9px;
+    }
+
+    .out ul {
+      padding-left: 17px;
+      margin: 0;
+    }
+
+    .out li {
+      font-size: 0.87rem;
+      color: var(--text-2);
+      margin-bottom: 5px;
+    }
+
+    /* ═══════════════════════════════════════════
    TAGS
    ─────────────────────────────────────────── */
-.tag { display:inline-flex;align-items:center;gap:3px;font-size:0.7rem;font-weight:700;padding:2px 8px;border-radius:6px; }
-.tag.g { background:#d1fae5;color:#065f46; }
-.tag.a { background:#fef3c7;color:#92400e; }
-.tag.r { background:#fee2e2;color:#9f1239; }
-html[data-theme="dark"] .tag.g { background:rgba(52,211,153,0.15);color:#6ee7b7; }
-html[data-theme="dark"] .tag.a { background:rgba(245,158,11,0.15);color:#fcd34d; }
-html[data-theme="dark"] .tag.r { background:rgba(248,113,113,0.15);color:#f87171; }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
 
-/* ═══════════════════════════════════════════
+    .tag.g {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .tag.a {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .tag.r {
+      background: #fee2e2;
+      color: #9f1239;
+    }
+
+    html[data-theme="dark"] .tag.g {
+      background: rgba(52, 211, 153, 0.15);
+      color: #6ee7b7;
+    }
+
+    html[data-theme="dark"] .tag.a {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fcd34d;
+    }
+
+    html[data-theme="dark"] .tag.r {
+      background: rgba(248, 113, 113, 0.15);
+      color: #f87171;
+    }
+
+    /* ═══════════════════════════════════════════
    TOOLS
    ─────────────────────────────────────────── */
-.tgrid { display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:9px;margin:12px 0; }
-.tc { background:var(--tc-bg);border:1px solid var(--border);border-radius:13px;padding:14px 15px;display:flex;gap:9px;align-items:flex-start;transition:all 0.15s; }
-.tc:hover { border-color:var(--sky);background:var(--tbl-hover); }
-.tc-i { font-size:1.15rem;flex-shrink:0; }
-.tc-n { font-size:0.83rem;font-weight:700;color:var(--text);margin-bottom:3px; }
-.tc-d { font-size:0.77rem;color:var(--text-3);line-height:1.4; }
+    .tgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+      gap: 9px;
+      margin: 12px 0;
+    }
 
-/* ═══════════════════════════════════════════
+    .tc {
+      background: var(--tc-bg);
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 14px 15px;
+      display: flex;
+      gap: 9px;
+      align-items: flex-start;
+      transition: all 0.15s;
+    }
+
+    .tc:hover {
+      border-color: var(--sky);
+      background: var(--tbl-hover);
+    }
+
+    .tc-i {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+    }
+
+    .tc-n {
+      font-size: 0.83rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+
+    .tc-d {
+      font-size: 0.77rem;
+      color: var(--text-3);
+      line-height: 1.4;
+    }
+
+    /* ═══════════════════════════════════════════
    SLIDE LIST
    ─────────────────────────────────────────── */
-.slist { list-style:none;padding:0;display:grid;gap:7px; }
-.si { display:flex;gap:11px;align-items:flex-start;background:var(--si-bg);border:1px solid var(--border);border-radius:11px;padding:11px 15px;font-size:0.87rem;color:var(--text-2);transition:all 0.15s; }
-.si:hover { border-color:#8b5cf6;background:var(--tbl-hover); }
-.sn { min-width:21px;height:21px;background:var(--slide-num-bg);color:var(--text-3);font-family:'DM Mono',monospace;font-size:0.67rem;font-weight:700;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
-.si strong { color:var(--text); }
+    .slist {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 7px;
+    }
 
-/* ═══════════════════════════════════════════
+    .si {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      background: var(--si-bg);
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 11px 15px;
+      font-size: 0.87rem;
+      color: var(--text-2);
+      transition: all 0.15s;
+    }
+
+    .si:hover {
+      border-color: #8b5cf6;
+      background: var(--tbl-hover);
+    }
+
+    .sn {
+      min-width: 21px;
+      height: 21px;
+      background: var(--slide-num-bg);
+      color: var(--text-3);
+      font-family: 'DM Mono', monospace;
+      font-size: 0.67rem;
+      font-weight: 700;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .si strong {
+      color: var(--text);
+    }
+
+    /* ═══════════════════════════════════════════
    FOOTER
    ─────────────────────────────────────────── */
-footer { background:var(--footer-bg);color:var(--footer-text);text-align:center;padding:26px 20px;font-size:0.79rem;transition:background 0.25s; }
-footer strong { color:var(--footer-strong); }
+    footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      text-align: center;
+      padding: 26px 20px;
+      font-size: 0.79rem;
+      transition: background 0.25s;
+    }
 
-/* ═══════════════════════════════════════════
+    footer strong {
+      color: var(--footer-strong);
+    }
+
+    /* ═══════════════════════════════════════════
    RESPONSIVE
    ─────────────────────────────────────────── */
-@media(max-width:640px){
-  .g2,.g3,.g4,.roles,.rgrid { grid-template-columns:1fr; }
-  .hero { padding:44px 16px 52px; }
-  .wrap { padding:0 14px; }
-  .nav { padding:0 12px; }
-  .mband { flex-direction:column;align-items:flex-start;gap:8px;padding:15px 17px; }
-  h2 { font-size:1.3rem; }
-  .chips { gap:6px; }
-  .chip { padding:9px 13px; }
-  .ag { grid-template-columns:58px 1fr; }
-  .ag-t { font-size:0.68rem;padding:11px 8px; }
-  .font-btn { width:24px;height:24px; }
-  .theme-btn { width:30px;height:30px; }
-  .nav-controls { gap:4px; }
-}
-@media(min-width:641px) and (max-width:800px){
-  .g4 { grid-template-columns:repeat(2,1fr); }
-  .g3 { grid-template-columns:repeat(2,1fr); }
-}
-</style>
+    @media(max-width:640px) {
+
+      .g2,
+      .g3,
+      .g4,
+      .roles,
+      .rgrid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 44px 16px 52px;
+      }
+
+      .wrap {
+        padding: 0 14px;
+      }
+
+      .nav {
+        padding: 0 12px;
+      }
+
+      .mband {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 15px 17px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+      }
+
+      .chips {
+        gap: 6px;
+      }
+
+      .chip {
+        padding: 9px 13px;
+      }
+
+      .ag {
+        grid-template-columns: 58px 1fr;
+      }
+
+      .ag-t {
+        font-size: 0.68rem;
+        padding: 11px 8px;
+      }
+
+      .font-btn {
+        width: 24px;
+        height: 24px;
+      }
+
+      .theme-btn {
+        width: 30px;
+        height: 30px;
+      }
+
+      .nav-controls {
+        gap: 4px;
+      }
+    }
+
+    @media(min-width:641px) and (max-width:800px) {
+      .g4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .g3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ════════════════════════ NAV ════════════════════════ -->
-<nav class="nav">
-  <div class="nav-brand"><div class="nav-dot"></div>AI ฝ่ายไร่</div>
-  <div class="nav-sep"></div>
-  <a class="nav-link" href="#overview">ภาพรวม</a>
-  <a class="nav-link" href="#agenda">Agenda</a>
-  <a class="nav-link" href="#section0">กติกา</a>
-  <a class="nav-link" href="#module1">M1</a>
-  <a class="nav-link" href="#module2">M2</a>
-  <a class="nav-link" href="#module3">M3</a>
-  <a class="nav-link" href="#module4">M4</a>
-  <a class="nav-link" href="#module5">M5</a>
-  <a class="nav-link" href="#appendix">Appendix</a>
-
-  <!-- Controls -->
-  <div class="nav-controls">
-    <!-- Font size -->
-    <div class="font-ctrl" title="ขนาดตัวอักษร">
-      <button class="font-btn" data-size="sm" onclick="setFont('sm')" title="เล็ก">A<sub style="font-size:0.6em">s</sub></button>
-      <button class="font-btn active" data-size="md" onclick="setFont('md')" title="ปกติ">A</button>
-      <button class="font-btn" data-size="lg" onclick="setFont('lg')" title="ใหญ่">A<sup style="font-size:0.65em">+</sup></button>
-      <button class="font-btn" data-size="xl" onclick="setFont('xl')" title="ใหญ่มาก">A<sup style="font-size:0.65em">++</sup></button>
+  <!-- ════════════════════════ NAV ════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-brand">
+      <img src="logo(Small).png" alt="KTIS More Than Sugar logo: red globe with latitude and longitude grid lines, white KTIS text overlaid on globe, tagline More Than Sugar in red script and text below" style="width:64px;height:auto;margin-right:8px;vertical-align:middle;" /><div class="nav-dot"></div>AI ฝ่ายไร่
     </div>
-    <!-- Theme -->
-    <button class="theme-btn" onclick="toggleTheme()" title="สลับโหมด" id="themeBtn">🌙</button>
-  </div>
-</nav>
+    <div class="nav-sep"></div>
+    <a class="nav-link" href="#overview">ภาพรวม</a>
+    <a class="nav-link" href="#agenda">Agenda</a>
+    <a class="nav-link" href="#section0">กติกา</a>
+    <a class="nav-link" href="#module1">M1</a>
+    <a class="nav-link" href="#module2">M2</a>
+    <a class="nav-link" href="#module3">M3</a>
+    <a class="nav-link" href="#module4">M4</a>
+    <a class="nav-link" href="#module5">M5</a>
+    <a class="nav-link" href="#appendix">Appendix</a>
 
-<!-- ════════════════════════ HERO ════════════════════════ -->
-<div class="hero">
-  <div class="orb orb-a"></div>
-  <div class="orb orb-b"></div>
-  <div class="orb orb-c"></div>
-  <div class="eyebrow"><div class="eyebrow-dot"></div>คู่มืออบรม · ฝ่ายไร่</div>
-  <h1>AI สำหรับ<br/><em>ฝ่ายไร่</em></h1>
-  <p class="hero-sub">ภายใต้แนวคิด <strong>"ให้ AI เป็นผู้ช่วยมือโปร"</strong></p>
-  <p class="hero-meta">ผสาน "การใช้ AI ช่วยตัดสินใจงานบำรุงอ้อยจากข้อมูลจริง" เป็นแกนหลัก</p>
-  <div class="chips">
-    <div class="chip"><div class="chip-v">3–4</div><div class="chip-l">ชั่วโมง<br/>อบรม</div></div>
-    <div class="chip"><div class="chip-v">5</div><div class="chip-l">โมดูล<br/>หลัก</div></div>
-    <div class="chip"><div class="chip-v">20+</div><div class="chip-l">Prompt<br/>พร้อมใช้</div></div>
-    <div class="chip"><div class="chip-v">25 ก.พ.</div><div class="chip-l">วันที่<br/>จัดทำ</div></div>
-  </div>
-</div>
+    <!-- Controls -->
+    <div class="nav-controls">
+      <!-- Font size -->
+      <div class="font-ctrl" title="ขนาดตัวอักษร">
+        <button class="font-btn" data-size="sm" onclick="setFont('sm')" title="เล็ก">A<sub
+            style="font-size:0.6em">s</sub></button>
+        <button class="font-btn active" data-size="md" onclick="setFont('md')" title="ปกติ">A</button>
+        <button class="font-btn" data-size="lg" onclick="setFont('lg')" title="ใหญ่">A<sup
+            style="font-size:0.65em">+</sup></button>
+        <button class="font-btn" data-size="xl" onclick="setFont('xl')" title="ใหญ่มาก">A<sup
+            style="font-size:0.65em">++</sup></button>
+      </div>
+      <!-- Theme -->
+      <button class="theme-btn" onclick="toggleTheme()" title="สลับโหมด" id="themeBtn">🌙</button>
+    </div>
+  </nav>
 
-<div class="wrap">
-
-<!-- ════════════════════════ OVERVIEW ════════════════════════ -->
-<section id="overview">
-  <div class="label">📋 ภาพรวม</div>
-  <h2>ภาพรวมหลักสูตร</h2>
-  <p class="sub">หลักการ ขอบเขต และสิ่งที่ผู้เรียนจะได้รับ</p>
-
-  <h3>แนวคิดหลัก</h3>
-  <div class="g4">
-    <div class="mc"><div class="mc-i">🤖</div><div class="mc-t">AI เป็นผู้ช่วย</div><div class="mc-d">ช่วยคิด, ร่าง, สรุป, ตรวจ ไม่ใช่ผู้ตัดสินใจ</div></div>
-    <div class="mc"><div class="mc-i">👤</div><div class="mc-t">คนตัดสินใจ</div><div class="mc-d">AI เสนอทางเลือก คนรับผิดชอบผลลัพธ์</div></div>
-    <div class="mc"><div class="mc-i">📊</div><div class="mc-t">ใช้ข้อมูลจริง</div><div class="mc-d">ใช้ข้อมูลจากระบบ สท. เฉพาะ "บำรุงอ้อย"</div></div>
-    <div class="mc"><div class="mc-i">📋</div><div class="mc-t">รูปแบบมาตรฐาน</div><div class="mc-d">1 แปลง / 1 ฤดู = 1 แถว</div></div>
-  </div>
-
-  <h3>5 ด้านที่ AI ช่วยงานได้</h3>
-  <div class="card">
-    <ol style="padding-left:18px;margin:0">
-      <li><strong>เพื่อนคู่คิด (Generative AI):</strong> ช่วยระดมสมองและวางแผน</li>
-      <li><strong>ผู้ช่วยเอกสาร (Document Assistant):</strong> ช่วยสรุปและร่างเอกสาร</li>
-      <li><strong>วิเคราะห์ข้อมูล (Excel + AI):</strong> แปลงข้อมูลเป็นข้อเสนอแนะ</li>
-      <li><strong>สร้างสรรค์สื่อ (Creative Content):</strong> ออกแบบสื่อรณรงค์และนำเสนอ</li>
-      <li><strong>จริยธรรม/ความถูกต้อง (Ethics & Accuracy):</strong> ใช้ AI อย่างปลอดภัย</li>
-    </ol>
-  </div>
-
-  <h3>สิ่งที่ผู้เรียนจะได้รับ</h3>
-  <div class="card">
-    <ul style="margin:0">
-      <li>ชุด Prompt มาตรฐานกว่า <strong>20 ชุด</strong> พร้อมใช้งานจริง</li>
-      <li>วิธีจัดข้อมูลบำรุงอ้อยจากระบบ สท. ให้ AI วิเคราะห์ได้</li>
-      <li>วิธีใช้ AI สรุป, ร่าง, และตรวจเอกสาร ลดเวลางานเอกสาร</li>
-      <li>วิธีสั่งให้ AI คิดเป็น "แผนงาน + เหตุผล + งานต้องทำ"</li>
-      <li>กติกาตรวจสอบความถูกต้องเพื่อลดความเสี่ยงจาก AI</li>
-    </ul>
-  </div>
-
-  <h3>บทบาท Excel – AI – คน</h3>
-  <div class="roles">
-    <div class="role ex"><div class="role-i">📊</div><div class="role-t">Excel</div><div class="role-b">รวมข้อมูล, คำนวณ, จัดลำดับ</div><div class="role-k">เห็นตัวเลข</div></div>
-    <div class="role ai"><div class="role-i">🤖</div><div class="role-t">AI</div><div class="role-b">เชื่อมโยงข้อมูล, อธิบายเหตุผล</div><div class="role-k">คิดจากตัวเลข</div></div>
-    <div class="role hu"><div class="role-i">👨‍🌾</div><div class="role-t">คน</div><div class="role-b">ตรวจหน้างาน, ตัดสินใจ</div><div class="role-k">ลงมือทำ</div></div>
-  </div>
-  <div class="hl g"><div class="hl-t">Excel = เห็นตัวเลข &nbsp;·&nbsp; AI = คิดจากตัวเลข &nbsp;·&nbsp; คน = ตัดสินใจและลงมือทำ</div></div>
-</section>
-
-<!-- ════════════════════════ AGENDA ════════════════════════ -->
-<section id="agenda">
-  <div class="label">🗓️ Agenda</div>
-  <h2>วาระการอบรม</h2>
-  <p class="sub">รวมเวลาทั้งหมด 3–4 ชั่วโมง</p>
-  <div class="agenda">
-    <div class="ag"><div class="ag-t">10 นาที</div><div class="ag-c">เปิดคลาส และกติกาการใช้งาน AI</div></div>
-    <div class="ag"><div class="ag-t">55 นาที</div><div class="ag-c"><strong>Module 1:</strong>&nbsp;AI เป็นเพื่อนคู่คิด (Generative AI)</div></div>
-    <div class="ag"><div class="ag-t">40 นาที</div><div class="ag-c"><strong>Module 2:</strong>&nbsp;AI ผู้ช่วยงานเอกสาร (Document Assistant)</div></div>
-    <div class="ag" style="background:linear-gradient(90deg,var(--mband-m3-from),var(--agenda-bg))"><div class="ag-t">65 นาที</div><div class="ag-c"><strong>Module 3:</strong>&nbsp;AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ &nbsp;<span class="badge">⭐ แกนหลัก</span></div></div>
-    <div class="ag"><div class="ag-t">30 นาที</div><div class="ag-c"><strong>Module 4:</strong>&nbsp;AI สร้างสรรค์สื่อ (Creative Content)</div></div>
-    <div class="ag"><div class="ag-t">20 นาที</div><div class="ag-c"><strong>Module 5:</strong>&nbsp;ข้อควรระวัง (Ethics & Accuracy) และสรุปปิดคลาส</div></div>
-  </div>
-</section>
-
-<!-- ════════════════════════ SECTION 0 ════════════════════════ -->
-<section id="section0">
-  <div class="label">📌 Must Say</div>
-  <h2>กติกาเปิดคลาส</h2>
-  <p class="sub">ต้องพูดก่อนเริ่มทุกครั้ง</p>
-  <div class="rgrid">
-    <div class="rc"><div class="rc-n">/ 01</div><div class="rc-t">AI ไม่รู้หน้างานจริง</div><div class="rc-d">AI รู้เฉพาะข้อมูลที่เราป้อนให้เท่านั้น</div></div>
-    <div class="rc"><div class="rc-n">/ 02</div><div class="rc-t">ข้อมูลผิด = AI ผิด</div><div class="rc-d">คุณภาพคำตอบขึ้นอยู่กับคุณภาพข้อมูล</div></div>
-    <div class="rc"><div class="rc-n">/ 03</div><div class="rc-t">AI ห้ามตัดสินใจแทนคน</div><div class="rc-d">AI เป็นเพียงผู้ช่วยเสนอทางเลือก</div></div>
-    <div class="rc"><div class="rc-n">/ 04</div><div class="rc-t">ใช้ AI เพื่อ "ช่วยคิด"</div><div class="rc-d">ใช้เป็นเครื่องมือขยายความคิดและวิเคราะห์</div></div>
-    <div class="rc"><div class="rc-n">/ 05</div><div class="rc-t">คำตอบต้องมีเหตุผลจากข้อมูล</div><div class="rc-d">ฝึกให้ AI อ้างอิงข้อมูลที่ให้ไปเสมอ</div></div>
-    <div class="rc"><div class="rc-n">/ 06</div><div class="rc-t">ถ้าข้อมูลไม่พอ ให้ AI ถามกลับ</div><div class="rc-d">อย่าปล่อยให้ AI คาดเดาเอง</div></div>
-  </div>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt เปิดคลาส</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"วันนี้คุณเป็นผู้ช่วยหัวหน้าไร่ ฉันจะให้ข้อมูลบำรุงอ้อยและงานเอกสาร
-คุณต้องช่วยฉัน: (1) สรุป (2) เสนอทางเลือก (3) ทำเช็กลิสต์หน้างาน
-แต่ห้ามฟันธงแทนคน และต้องบอกสิ่งที่ต้องตรวจเพิ่มเสมอ"</div>
+  <!-- ════════════════════════ HERO ════════════════════════ -->
+  <div class="hero">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <img src="logo(Small).png" alt="KTIS More Than Sugar logo: red globe with latitude and longitude grid lines, white KTIS text overlaid on globe, tagline More Than Sugar in red script and text below" style="width:150px;height:auto;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto;" />
+    <div class="eyebrow">
+      <div class="eyebrow-dot"></div>คู่มืออบรม · ฝ่ายไร่
+    </div>
+    <h1>AI สำหรับ  <em>ฝ่ายไร่</em></h1>
+    <p class="hero-sub">ภายใต้แนวคิด <strong>"ให้ AI เป็นผู้ช่วยมือโปร"</strong></p>
+    <p class="hero-meta">ผสาน "การใช้ AI ช่วยตัดสินใจงานบำรุงอ้อยจากข้อมูลจริง" เป็นแกนหลัก</p>
+    <div class="chips">
+      <div class="chip">
+        <div class="chip-v">3–4</div>
+        <div class="chip-l">ชั่วโมง<br />อบรม</div>
+      </div>
+      <div class="chip">
+        <div class="chip-v">5</div>
+        <div class="chip-l">โมดูล<br />หลัก</div>
+      </div>
+      <div class="chip">
+        <div class="chip-v">20+</div>
+        <div class="chip-l">Prompt<br />พร้อมใช้</div>
+      </div>
+      <div class="chip">
+        <div class="chip-v">25 ก.พ.</div>
+        <div class="chip-l">วันที่<br />จัดทำ</div>
+      </div>
+    </div>
   </div>
 
-  <h3>การบำรุงอ้อยในมุม AI</h3>
-  <p>ในมุมมองของ AI, <strong>การบำรุงอ้อย คือ การตัดสินใจซ้ำ ๆ ทุกฤดู</strong> AI ช่วยตอบคำถามสำคัญ 4 ข้อ:</p>
-  <div class="g2">
-    <div class="mc"><div class="mc-i">⏱️</div><div class="mc-t">ทันเวลา?</div><div class="mc-d">บำรุง "ทันเวลา" หรือล่าช้า</div></div>
-    <div class="mc"><div class="mc-i">⚖️</div><div class="mc-t">พอหรือขาด?</div><div class="mc-d">ปริมาณบำรุงเพียงพอหรือไม่</div></div>
-    <div class="mc"><div class="mc-i">🎯</div><div class="mc-t">ถูกจังหวะ?</div><div class="mc-d">บำรุง "ถูกจังหวะหรือผิดจังหวะ"</div></div>
-    <div class="mc"><div class="mc-i">💰</div><div class="mc-t">คุ้มลงทุน?</div><div class="mc-d">ยัง "ควรลงทุนบำรุงต่อหรือไม่"</div></div>
-  </div>
-  <div class="hl g"><div class="hl-t">AI ไม่ได้ช่วยใส่ปุ๋ย แต่ช่วย "คิดจากข้อมูลบำรุงที่มีอยู่"</div></div>
-</section>
+  <div class="wrap">
 
-<!-- ════════════════════════ MODULE 1 ════════════════════════ -->
-<section id="module1">
-  <div class="mband m1"><div class="mband-icon">💡</div><div><div class="mband-k">Module 1</div><div class="mband-t">AI เป็นเพื่อนคู่คิด (Generative AI)</div><div class="mband-tm">⏱️ 55 นาที</div></div></div>
+    <!-- ════════════════════════ OVERVIEW ════════════════════════ -->
+    <section id="overview">
+      <div class="label">📋 ภาพรวม</div>
+      <h2>ภาพรวมหลักสูตร</h2>
+      <p class="sub">หลักการ ขอบเขต และสิ่งที่ผู้เรียนจะได้รับ</p>
 
-  <h3>ร่างโครงการ / แผนงาน</h3>
-  <p><strong>ตัวอย่างงาน:</strong> โครงการกำจัดวัชพืช, แผนควบคุมศัตรูพืช, แผนบำรุงหลังตัด</p>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — ร่างโครงการ</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"ช่วยร่างโครงการเรื่อง: &lt;ชื่อโครงการ&gt;
-เงื่อนไข:
-- หน่วยงาน: ฝ่ายไร่
-- รูปแบบต้องมีหัวข้อ:
-  1) ที่มาและปัญหา (ใช้ภาษาชัด ไม่เยิ่นเย้อ)
-  2) วัตถุประสงค์ (วัดผลได้)
-  3) ขอบเขตพื้นที่/กลุ่มเป้าหมาย
-  4) แผนกิจกรรม (เป็นขั้นตอน)
-  5) Timeline (สั้น ๆ)
-  6) ทรัพยากรที่ใช้ (คน/อุปกรณ์/งบประมาณแบบกรอบ)
-  7) ความเสี่ยง + วิธีลดความเสี่ยง
-  8) ตัวชี้วัดความสำเร็จ (KPI)
-- ขอแบบกระชับ เน้นเอาไปเสนอหัวหน้าได้"</div>
-  </div>
-  <div class="cl"><div class="cl-h">✅ Checklist ตรวจคุณภาพร่างโครงการ</div><ul><li>วัตถุประสงค์วัดได้หรือไม่? (เช่น ลด % วัชพืช, ลดการระบาด)</li><li>กิจกรรมเป็นขั้นตอนที่ปฏิบัติได้จริงหรือไม่?</li><li>ความเสี่ยงที่อาจเกิดขึ้นมีอะไรบ้าง? (เช่น ฝน, แล้ง, เครื่องจักร)</li></ul></div>
+      <div class="card">
+        <img src="/ai.png" alt="image" width="640" height="360"
+          style="width:100%;height:auto;border-radius:12px;margin-bottom:16px;display:block;" />
 
-  <h3>สรุปหัวข้อสำคัญ / สรุปประชุม</h3>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — สรุปให้สั่งงานได้</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"สรุปข้อความด้านล่างให้เป็น:
-1) ประเด็นสำคัญ 7 ข้อ
-2) งานต้องทำ (Action items) 5 ข้อ โดยระบุ 'ใคร' 'ทำอะไร' 'เมื่อไหร่'
-3) ความเสี่ยง/ข้อควรระวัง 3 ข้อ
-ข้อกำหนด: ใช้ bullet สั้น ๆ หลีกเลี่ยงภาษากว้าง"</div>
-  </div>
+        <h3>แนวคิดหลัก</h3>
+        <div class="g4">
+          <div class="mc">
+            <div class="mc-i">🤖</div>
+            <div class="mc-t">AI เป็นผู้ช่วย</div>
+            <div class="mc-d">ช่วยคิด, ร่าง, สรุป, ตรวจ ไม่ใช่ผู้ตัดสินใจ</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">👤</div>
+            <div class="mc-t">คนตัดสินใจ</div>
+            <div class="mc-d">AI เสนอทางเลือก คนรับผิดชอบผลลัพธ์</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">📊</div>
+            <div class="mc-t">ใช้ข้อมูลจริง</div>
+            <div class="mc-d">ใช้ข้อมูลจากระบบ สท. เฉพาะ "บำรุงอ้อย"</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">📋</div>
+            <div class="mc-t">รูปแบบมาตรฐาน</div>
+            <div class="mc-d">1 แปลง / 1 ฤดู = 1 แถว</div>
+          </div>
+        </div>
 
-  <h3>จัดลำดับความสำคัญงาน</h3>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — เรียงงานแบบมือโปร</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"จากรายการงานต่อไปนี้ ช่วยจัดลำดับความสำคัญ
-โดยให้คะแนน 1–5 ใน 2 มิติ:
-- ความเร่งด่วน
-- ผลกระทบต่อผลลัพธ์/ต้นทุน
-แล้วสรุป 3 งานแรกที่ควรทำทันที พร้อมเหตุผล"</div>
-  </div>
+        <h3>5 ด้านที่ AI ช่วยงานได้</h3>
+        <div class="card" style="background:var(--border-soft);margin-top:12px;">
+          <ol style="padding-left:18px;margin:0">
+            <li><strong>เพื่อนคู่คิด (Generative AI):</strong> ช่วยระดมสมองและวางแผน</li>
+            <li><strong>ผู้ช่วยเอกสาร (Document Assistant):</strong> ช่วยสรุปและร่างเอกสาร</li>
+            <li><strong>วิเคราะห์ข้อมูล (Excel + AI):</strong> แปลงข้อมูลเป็นข้อเสนอแนะ</li>
+            <li><strong>สร้างสรรค์สื่อ (Creative Content):</strong> ออกแบบสื่อรณรงค์และนำเสนอ</li>
+            <li><strong>จริยธรรม/ความถูกต้อง (Ethics & Accuracy):</strong> ใช้ AI อย่างปลอดภัย</li>
+          </ol>
+        </div>
 
-  <h3>Role-play เพื่อฝึกทีม</h3>
-  <div class="g3">
-    <div class="mc"><div class="mc-i">🧑‍🌾</div><div class="mc-t">S1 · ชาวไร่</div><div class="mc-d">คุยกับชาวไร่ที่ "ไม่อยากลงทุนเพิ่ม" เพราะแล้ง</div></div>
-    <div class="mc"><div class="mc-i">👔</div><div class="mc-t">S2 · หัวหน้า</div><div class="mc-d">ขอทีม/งบเพื่อคุมศัตรูพืชก่อนใส่ปุ๋ย</div></div>
-    <div class="mc"><div class="mc-i">👥</div><div class="mc-t">S3 · ทีมงาน</div><div class="mc-d">เรื่อง "ต้องทำให้ทันเวลา" และแบ่งงาน</div></div>
-  </div>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — AI เป็นคู่สนทนาฝึกโน้มน้าวใจ</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"ช่วยสวมบทบาทเป็น &lt;ชาวไร่/หัวหน้าไร่/ผู้จัดการพื้นที่&gt;
-บุคลิก: &lt;ดื้อ/กังวลงบ/ชอบถามหลักฐาน/ชอบสั้น ๆ&gt;
-สถานการณ์: &lt;อธิบายสถานการณ์ 3 บรรทัด&gt;
-คุณต้อง:
-- โต้แย้ง 5 ข้อ  - ถามคำถามยาก 3 ข้อ
-แล้วให้ฉันตอบกลับ จากนั้นประเมินคำตอบฉัน:
-1) ความชัดเจน  2) ความน่าเชื่อถือจากข้อมูล  3) ความสุภาพ
-พร้อมเสนอประโยคที่ควรปรับ 5 ประโยค"</div>
-  </div>
-</section>
+        <h3>สิ่งที่ผู้เรียนจะได้รับ</h3>
+        <div class="card" style="background:var(--border-soft);margin-top:12px;">
+          <ul style="margin:0">
+            <li>ชุด Prompt มาตรฐานกว่า <strong>20 ชุด</strong> พร้อมใช้งานจริง</li>
+            <li>วิธีจัดข้อมูลบำรุงอ้อยจากระบบ สท. ให้ AI วิเคราะห์ได้</li>
+            <li>วิธีใช้ AI สรุป, ร่าง, และตรวจเอกสาร ลดเวลางานเอกสาร</li>
+            <li>วิธีสั่งให้ AI คิดเป็น "แผนงาน + เหตุผล + งานต้องทำ"</li>
+            <li>กติกาตรวจสอบความถูกต้องเพื่อลดความเสี่ยงจาก AI</li>
+          </ul>
+        </div>
 
-<!-- ════════════════════════ MODULE 2 ════════════════════════ -->
-<section id="module2">
-  <div class="mband m2"><div class="mband-icon">📄</div><div><div class="mband-k">Module 2</div><div class="mband-t">AI ผู้ช่วยจัดการเอกสาร (Document Assistant)</div><div class="mband-tm">⏱️ 40 นาที</div></div></div>
+        <h3>บทบาท Excel – AI – คน</h3>
+        <div class="roles">
+          <div class="role ex">
+            <div class="role-i">📊</div>
+            <div class="role-t">Excel</div>
+            <div class="role-b">รวมข้อมูล, คำนวณ, จัดลำดับ</div>
+            <div class="role-k">เห็นตัวเลข</div>
+          </div>
+          <div class="role ai">
+            <div class="role-i">🤖</div>
+            <div class="role-t">AI</div>
+            <div class="role-b">เชื่อมโยงข้อมูล, อธิบายเหตุผล</div>
+            <div class="role-k">คิดจากตัวเลข</div>
+          </div>
+          <div class="role hu">
+            <div class="role-i">👨‍🌾</div>
+            <div class="role-t">คน</div>
+            <div class="role-b">ตรวจหน้างาน, ตัดสินใจ</div>
+            <div class="role-k">ลงมือทำ</div>
+          </div>
+        </div>
+        <div class="hl g">
+          <div class="hl-t">Excel = เห็นตัวเลข &nbsp;·&nbsp; AI = คิดจากตัวเลข &nbsp;·&nbsp; คน = ตัดสินใจและลงมือทำ
+          </div>
+        </div>
+      </div>
 
-  <h3>เปลี่ยนรายงานให้เป็นสรุป</h3>
-  <div class="g3">
-    <div class="mc"><div class="mc-i">📌</div><div class="mc-t">TL;DR 5 บรรทัด</div><div class="mc-d">สรุปสั้นสำหรับคนไม่มีเวลาอ่าน</div></div>
-    <div class="mc"><div class="mc-i">👔</div><div class="mc-t">สรุปแบบหัวหน้า</div><div class="mc-d">ปัญหา → หลักฐาน → ทางเลือก → ข้อเสนอ</div></div>
-    <div class="mc"><div class="mc-i">✅</div><div class="mc-t">สรุปแบบสั่งงาน</div><div class="mc-d">Action / Owner / Due date</div></div>
-  </div>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — สรุปแบบหัวหน้าอ่าน</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"สรุปเอกสารด้านล่างให้เป็น:
-- TL;DR 5 บรรทัด
-- ประเด็นสำคัญ 7 bullet
-- ข้อเสนอ 3 ทางเลือก (ทำ/ไม่ทำ/ทำบางส่วน) พร้อมข้อดีข้อเสีย
-ข้อกำหนด: ห้ามเพิ่มข้อมูลนอกเอกสาร ถ้าไม่แน่ใจให้บอกว่าต้องตรวจเพิ่ม"</div>
-  </div>
+      <!-- ════════════════════════ AGENDA ════════════════════════ -->
+      <section id="agenda">
+        <div class="label">🗓️ Agenda</div>
+        <h2>วาระการอบรม</h2>
+        <p class="sub">รวมเวลาทั้งหมด 3–4 ชั่วโมง</p>
+        <div class="agenda">
+          <div class="ag">
+            <div class="ag-t">10 นาที</div>
+            <div class="ag-c">เปิดคลาส และกติกาการใช้งาน AI</div>
+          </div>
+          <div class="ag">
+            <div class="ag-t">55 นาที</div>
+            <div class="ag-c"><strong>Module 1:</strong>&nbsp;AI เป็นเพื่อนคู่คิด (Generative AI)</div>
+          </div>
+          <div class="ag">
+            <div class="ag-t">40 นาที</div>
+            <div class="ag-c"><strong>Module 2:</strong>&nbsp;AI ผู้ช่วยงานเอกสาร (Document Assistant)</div>
+          </div>
+          <div class="ag" style="background:linear-gradient(90deg,var(--mband-m3-from),var(--agenda-bg))">
+            <div class="ag-t">65 นาที</div>
+            <div class="ag-c"><strong>Module 3:</strong>&nbsp;AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ &nbsp;<span
+                class="badge">⭐ แกนหลัก</span></div>
+          </div>
+          <div class="ag">
+            <div class="ag-t">30 นาที</div>
+            <div class="ag-c"><strong>Module 4:</strong>&nbsp;AI สร้างสรรค์สื่อ (Creative Content)</div>
+          </div>
+          <div class="ag">
+            <div class="ag-t">20 นาที</div>
+            <div class="ag-c"><strong>Module 5:</strong>&nbsp;ข้อควรระวัง (Ethics & Accuracy) และสรุปปิดคลาส</div>
+          </div>
+        </div>
+      </section>
 
-  <h3>เปลี่ยนเสียงเป็นข้อความ แล้วสรุปต่อ</h3>
-  <p>อัดเสียงรายงานหน้างาน 1–2 นาที → ถอดเป็นข้อความ → ให้ AI สรุปเป็นบันทึกตรวจแปลง</p>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — หลังได้ข้อความจากเสียง</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"นี่คือข้อความถอดเสียงจากหน้างาน
-ช่วยทำเป็น 'บันทึกตรวจแปลง' โดยมี:
-- วันที่/พื้นที่/ผู้รายงาน  - สภาพแปลง
-- ปัญหาที่พบ  - งานที่ต้องทำภายใน 3 วัน
-- สิ่งที่ต้องตรวจซ้ำ
-และระบุประโยคที่คุณไม่มั่นใจ ให้ฉันตรวจทาน"</div>
-  </div>
+      <!-- ════════════════════════ SECTION 0 ════════════════════════ -->
+      <section id="section0">
+        <div class="label">📌 Must Say</div>
+        <h2>กติกาเปิดคลาส</h2>
+        <p class="sub">ต้องพูดก่อนเริ่มทุกครั้ง</p>
+        <div class="rgrid">
+          <div class="rc">
+            <div class="rc-n">/ 01</div>
+            <div class="rc-t">AI ไม่รู้หน้างานจริง</div>
+            <div class="rc-d">AI รู้เฉพาะข้อมูลที่เราป้อนให้เท่านั้น</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 02</div>
+            <div class="rc-t">ข้อมูลผิด = AI ผิด</div>
+            <div class="rc-d">คุณภาพคำตอบขึ้นอยู่กับคุณภาพข้อมูล</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 03</div>
+            <div class="rc-t">AI ห้ามตัดสินใจแทนคน</div>
+            <div class="rc-d">AI เป็นเพียงผู้ช่วยเสนอทางเลือก</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 04</div>
+            <div class="rc-t">ใช้ AI เพื่อ "ช่วยคิด"</div>
+            <div class="rc-d">ใช้เป็นเครื่องมือขยายความคิดและวิเคราะห์</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 05</div>
+            <div class="rc-t">คำตอบต้องมีเหตุผลจากข้อมูล</div>
+            <div class="rc-d">ฝึกให้ AI อ้างอิงข้อมูลที่ให้ไปเสมอ</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 06</div>
+            <div class="rc-t">ถ้าข้อมูลไม่พอ ให้ AI ถามกลับ</div>
+            <div class="rc-d">อย่าปล่อยให้ AI คาดเดาเอง</div>
+          </div>
+        </div>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt เปิดคลาส
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"วันนี้คุณเป็นผู้ช่วยหัวหน้าไร่ ฉันจะให้ข้อมูลบำรุงอ้อยและงานเอกสาร
+            คุณต้องช่วยฉัน: (1) สรุป (2) เสนอทางเลือก (3) ทำเช็กลิสต์หน้างาน
+            แต่ห้ามฟันธงแทนคน และต้องบอกสิ่งที่ต้องตรวจเพิ่มเสมอ"</div>
+        </div>
 
-  <h3>ตรวจสอบความถูกต้อง (Proof + Consistency)</h3>
-  <div class="pb">
-    <div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — ตรวจความสอดคล้อง</div><div class="pb-dots"><span></span><span></span><span></span></div></div>
-    <div class="pb-code">"ช่วยตรวจเอกสาร/ตารางนี้ในมุม 'ความสอดคล้อง':
-1) หน่วย  2) วันที่และรูปแบบวัน
-3) ชื่อแปลง/รหัสแปลง  4) ตัวเลขที่ดูผิดปกติ (outliers)
-สรุปเป็นรายการสิ่งที่ต้องแก้/ต้องเช็คเพิ่ม"</div>
-  </div>
-</section>
+        <h3>การบำรุงอ้อยในมุม AI</h3>
+        <p>ในมุมมองของ AI, <strong>การบำรุงอ้อย คือ การตัดสินใจซ้ำ ๆ ทุกฤดู</strong> AI ช่วยตอบคำถามสำคัญ 4 ข้อ:</p>
+        <div class="g2">
+          <div class="mc">
+            <div class="mc-i">⏱️</div>
+            <div class="mc-t">ทันเวลา?</div>
+            <div class="mc-d">บำรุง "ทันเวลา" หรือล่าช้า</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">⚖️</div>
+            <div class="mc-t">พอหรือขาด?</div>
+            <div class="mc-d">ปริมาณบำรุงเพียงพอหรือไม่</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">🎯</div>
+            <div class="mc-t">ถูกจังหวะ?</div>
+            <div class="mc-d">บำรุง "ถูกจังหวะหรือผิดจังหวะ"</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">💰</div>
+            <div class="mc-t">คุ้มลงทุน?</div>
+            <div class="mc-d">ยัง "ควรลงทุนบำรุงต่อหรือไม่"</div>
+          </div>
+        </div>
+        <div class="hl g">
+          <div class="hl-t">AI ไม่ได้ช่วยใส่ปุ๋ย แต่ช่วย "คิดจากข้อมูลบำรุงที่มีอยู่"</div>
+        </div>
+      </section>
 
-<!-- ════════════════════════ MODULE 3 ════════════════════════ -->
-<section id="module3">
-  <div class="mband m3"><div class="mband-icon">📈</div><div><div class="mband-k">Module 3 · ⭐ แกนหลัก</div><div class="mband-t">AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ</div><div class="mband-tm">⏱️ 65 นาที</div></div></div>
-  <div class="hl g"><div class="hl-t">หลักคิด: ไม่ดึงทั้งระบบ ดึงเฉพาะข้อมูลที่ใช้ "ตัดสินใจบำรุง"<br/>ยึดหลัก <strong>1 แปลง / 1 ฤดู = 1 แถว</strong></div></div>
+      <!-- ════════════════════════ MODULE 1 ════════════════════════ -->
+      <section id="module1">
+        <div class="mband m1">
+          <div class="mband-icon">💡</div>
+          <div>
+            <div class="mband-k">Module 1</div>
+            <div class="mband-t">AI เป็นเพื่อนคู่คิด (Generative AI)</div>
+            <div class="mband-tm">⏱️ 55 นาที</div>
+          </div>
+        </div>
 
-  <h3>ข้อมูลที่ต้องดึงจากระบบ</h3>
-  <div class="card">
-    <ul style="margin:0">
-      <li><strong>สท.01:</strong> รหัสแปลง, พื้นที่ (ไร่), ประเภทอ้อย</li>
-      <li><strong>สท.03:</strong> วันใส่ปุ๋ยครั้งแรกหลังตัด, ปริมาณปุ๋ยต่อไร่, การให้น้ำ</li>
-      <li><strong>สท.04:</strong> ใส่ปุ๋ยเสริมหรือไม่, กำจัดวัชพืชหรือไม่, สภาพดิน</li>
-      <li><strong>สท.05:</strong> ศัตรูพืชที่พบ, ความรุนแรง (%)</li>
-      <li><strong>สท.07:</strong> ช่วงแล้ง (วัน), ให้น้ำช่วงแล้ง, ใส่ปุ๋ยช่วงแล้ง</li>
-    </ul>
-    <p style="margin-top:10px;font-size:0.8rem;color:var(--text-4)">⚠️ ไม่ใช้ Yield (สท.06) ในการตัดสินใจบำรุง — ใช้เพื่อ "ประเมินย้อนหลัง" เท่านั้น</p>
-  </div>
+        <h3>ร่างโครงการ / แผนงาน</h3>
+        <p><strong>ตัวอย่างงาน:</strong> โครงการกำจัดวัชพืช, แผนควบคุมศัตรูพืช, แผนบำรุงหลังตัด</p>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — ร่างโครงการ
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ช่วยร่างโครงการเรื่อง: &lt;ชื่อโครงการ&gt;
+            เงื่อนไข:
+            - หน่วยงาน: ฝ่ายไร่
+            - รูปแบบต้องมีหัวข้อ:
+            1) ที่มาและปัญหา (ใช้ภาษาชัด ไม่เยิ่นเย้อ)
+            2) วัตถุประสงค์ (วัดผลได้)
+            3) ขอบเขตพื้นที่/กลุ่มเป้าหมาย
+            4) แผนกิจกรรม (เป็นขั้นตอน)
+            5) Timeline (สั้น ๆ)
+            6) ทรัพยากรที่ใช้ (คน/อุปกรณ์/งบประมาณแบบกรอบ)
+            7) ความเสี่ยง + วิธีลดความเสี่ยง
+            8) ตัวชี้วัดความสำเร็จ (KPI)
+            - ขอแบบกระชับ เน้นเอาไปเสนอหัวหน้าได้"</div>
+        </div>
+        <div class="cl">
+          <div class="cl-h">✅ Checklist ตรวจคุณภาพร่างโครงการ</div>
+          <ul>
+            <li>วัตถุประสงค์วัดได้หรือไม่? (เช่น ลด % วัชพืช, ลดการระบาด)</li>
+            <li>กิจกรรมเป็นขั้นตอนที่ปฏิบัติได้จริงหรือไม่?</li>
+            <li>ความเสี่ยงที่อาจเกิดขึ้นมีอะไรบ้าง? (เช่น ฝน, แล้ง, เครื่องจักร)</li>
+          </ul>
+        </div>
 
-  <h3>รูปแบบตารางข้อมูล</h3>
-  <div class="tscroll"><table><thead><tr><th>รหัสแปลง</th><th>พื้นที่(ไร่)</th><th>ประเภทอ้อย</th><th>วันใส่ปุ๋ยหลังตัด</th><th>ปุ๋ย(กก./ไร่)</th><th>ให้น้ำ</th><th>กำจัดวัชพืช</th><th>ศัตรูพืช</th><th>รุนแรง(%)</th><th>แล้ง(วัน)</th></tr></thead><tbody><tr><td>0145808</td><td>10</td><td>อ้อยตอ</td><td>35</td><td>50</td><td>มี</td><td>มี</td><td>เพลี้ย</td><td>50</td><td>45</td></tr></tbody></table></div>
+        <h3>สรุปหัวข้อสำคัญ / สรุปประชุม</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — สรุปให้สั่งงานได้
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"สรุปข้อความด้านล่างให้เป็น:
+            1) ประเด็นสำคัญ 7 ข้อ
+            2) งานต้องทำ (Action items) 5 ข้อ โดยระบุ 'ใคร' 'ทำอะไร' 'เมื่อไหร่'
+            3) ความเสี่ยง/ข้อควรระวัง 3 ข้อ
+            ข้อกำหนด: ใช้ bullet สั้น ๆ หลีกเลี่ยงภาษากว้าง"</div>
+        </div>
 
-  <h3>ขั้นตอนการให้ AI วิเคราะห์ผ่าน Excel</h3>
-  <ol class="steps">
-    <li><span><strong>เตรียม Excel:</strong> จัดข้อมูลให้อยู่ในรูปแบบตาราง 1 แปลง/1 ฤดู = 1 แถว</span></li>
-    <li><span><strong>ตรวจคุณภาพข้อมูล:</strong> ตรวจสอบหน่วย (กก./ไร่, วัน), การสะกด, ช่องว่างสำคัญ</span></li>
-    <li><span><strong>ส่งข้อมูลให้ AI:</strong> คัดลอกตารางข้อมูลไปวางในหน้าต่างแชท</span></li>
-    <li><span><strong>สั่งงาน AI ตามโครงสร้าง:</strong> ใช้ Prompt ที่กำหนดเพื่อให้ AI ตอบตามโครง</span></li>
-    <li><span><strong>คนลงพื้นที่ยืนยัน:</strong> นำข้อเสนอแนะจาก AI ไปตรวจสอบกับหน้างานจริง</span></li>
-  </ol>
+        <h3>จัดลำดับความสำคัญงาน</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — เรียงงานแบบมือโปร
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"จากรายการงานต่อไปนี้ ช่วยจัดลำดับความสำคัญ
+            โดยให้คะแนน 1–5 ใน 2 มิติ:
+            - ความเร่งด่วน
+            - ผลกระทบต่อผลลัพธ์/ต้นทุน
+            แล้วสรุป 3 งานแรกที่ควรทำทันที พร้อมเหตุผล"</div>
+        </div>
 
-  <h3>Prompt 1 · ประเมินคุณภาพการบำรุง</h3>
-  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>เวอร์ชันมาตรฐาน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ ช่วยประเมินว่า
-- การบำรุงทันเวลา หรือช้า
-- ปริมาณการบำรุงเพียงพอ หรือขาด
-- มีปัจจัยใดทำให้การบำรุงได้ผลลดลง
-สรุปเป็นข้อ ๆ</div></div>
-  <div class="pb pro"><div class="pb-bar"><div class="pt p"><div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — ควบคุมคำตอบ</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ (1 แถว = 1 แปลง/ฤดู)
-ช่วยประเมินเป็นหัวข้อดังนี้ โดยอ้างอิงจากข้อมูลที่ให้เท่านั้น:
-A) ทันเวลาไหม: (เร็ว/พอดี/ช้า) + เหตุผล
-B) ปริมาณปุ๋ย: (พอ/เสี่ยงขาด/เสี่ยงสูญเสีย) + เหตุผล
-C) ปัจจัยลดประสิทธิภาพ: เรียงจาก 'กระทบมาก -> น้อย'
-D) สิ่งที่ต้องตรวจหน้างานเพิ่ม 3 ข้อ
-รูปแบบ: bullet สั้น ๆ ไม่เกิน 12 บรรทัด/แปลง"</div></div>
+        <h3>Role-play เพื่อฝึกทีม</h3>
+        <div class="g3">
+          <div class="mc">
+            <div class="mc-i">🧑‍🌾</div>
+            <div class="mc-t">S1 · ชาวไร่</div>
+            <div class="mc-d">คุยกับชาวไร่ที่ "ไม่อยากลงทุนเพิ่ม" เพราะแล้ง</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">👔</div>
+            <div class="mc-t">S2 · หัวหน้า</div>
+            <div class="mc-d">ขอทีม/งบเพื่อคุมศัตรูพืชก่อนใส่ปุ๋ย</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">👥</div>
+            <div class="mc-t">S3 · ทีมงาน</div>
+            <div class="mc-d">เรื่อง "ต้องทำให้ทันเวลา" และแบ่งงาน</div>
+          </div>
+        </div>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — AI เป็นคู่สนทนาฝึกโน้มน้าวใจ
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ช่วยสวมบทบาทเป็น &lt;ชาวไร่/หัวหน้าไร่/ผู้จัดการพื้นที่&gt;
+            บุคลิก: &lt;ดื้อ/กังวลงบ/ชอบถามหลักฐาน/ชอบสั้น ๆ&gt;
+            สถานการณ์: &lt;อธิบายสถานการณ์ 3 บรรทัด&gt;
+            คุณต้อง:
+            - โต้แย้ง 5 ข้อ - ถามคำถามยาก 3 ข้อ
+            แล้วให้ฉันตอบกลับ จากนั้นประเมินคำตอบฉัน:
+            1) ความชัดเจน 2) ความน่าเชื่อถือจากข้อมูล 3) ความสุภาพ
+            พร้อมเสนอประโยคที่ควรปรับ 5 ประโยค"</div>
+        </div>
+      </section>
 
-  <h3>Prompt 2 · ควรทำอะไรต่อ</h3>
-  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>เวอร์ชันมาตรฐาน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">จากสถานการณ์การบำรุงปัจจุบัน ช่วยแนะนำแนวทางจัดการต่อไป
-แยกเป็น: ควรเร่งทำ / ทำตามแผนเดิม / ไม่ควรลงทุนเพิ่ม
-พร้อมเหตุผล</div></div>
-  <div class="pb pro"><div class="pb-bar"><div class="pt p"><div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — แผนสั่งงานได้</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"จากข้อมูลแปลงต่อไปนี้ ช่วยเสนอ 'แผนทำต่อ 14 วัน'
-โดยแยกเป็น 3 กลุ่ม:
-1) ควรเร่งทำ (ภายใน 3 วัน) -> งาน/เหตุผล/ความเสี่ยง
-2) ทำตามแผนเดิม -> งาน/เหตุผล/เงื่อนไขที่ต้องเฝ้าดู
-3) ไม่ควรลงทุนเพิ่มตอนนี้ -> เพราะอะไร/ควรรออะไร
-สุดท้าย: สรุป 1 บรรทัดว่า 'หัวหน้าควรตัดสินใจแบบไหน' (ห้ามฟันธงแทนคน)"</div></div>
+      <!-- ════════════════════════ MODULE 2 ════════════════════════ -->
+      <section id="module2">
+        <div class="mband m2">
+          <div class="mband-icon">📄</div>
+          <div>
+            <div class="mband-k">Module 2</div>
+            <div class="mband-t">AI ผู้ช่วยจัดการเอกสาร (Document Assistant)</div>
+            <div class="mband-tm">⏱️ 40 นาที</div>
+          </div>
+        </div>
 
-  <h3>Prompt 3 · Checklist หน้างาน</h3>
-  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>เวอร์ชันมาตรฐาน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">ช่วยสร้าง Checklist การตรวจหน้างาน
-เพื่อยืนยันว่าการบำรุงที่ทำไปได้ผลจริงหรือไม่</div></div>
-  <div class="pb pro"><div class="pb-bar"><div class="pt p"><div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — เฉพาะเคส</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ช่วยสร้าง Checklist ตรวจหน้างานสำหรับแปลงนี้ แบ่งเป็น:
-- ต้องดูทันทีเมื่อถึงแปลง (5 ข้อ)
-- ต้องวัด/ถ่ายรูป/บันทึก (5 ข้อ)
-- สัญญาณอันตรายที่ต้องรายงานหัวหน้าทันที (3 ข้อ)
-- คำถามที่ต้องถามคนงาน/ชาวไร่ (3 ข้อ)
-ให้ Checklist 'สั้น ชัด ตรวจได้จริง'"</div></div>
+        <h3>เปลี่ยนรายงานให้เป็นสรุป</h3>
+        <div class="g3">
+          <div class="mc">
+            <div class="mc-i">📌</div>
+            <div class="mc-t">TL;DR 5 บรรทัด</div>
+            <div class="mc-d">สรุปสั้นสำหรับคนไม่มีเวลาอ่าน</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">👔</div>
+            <div class="mc-t">สรุปแบบหัวหน้า</div>
+            <div class="mc-d">ปัญหา → หลักฐาน → ทางเลือก → ข้อเสนอ</div>
+          </div>
+          <div class="mc">
+            <div class="mc-i">✅</div>
+            <div class="mc-t">สรุปแบบสั่งงาน</div>
+            <div class="mc-d">Action / Owner / Due date</div>
+          </div>
+        </div>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — สรุปแบบหัวหน้าอ่าน
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"สรุปเอกสารด้านล่างให้เป็น:
+            - TL;DR 5 บรรทัด
+            - ประเด็นสำคัญ 7 bullet
+            - ข้อเสนอ 3 ทางเลือก (ทำ/ไม่ทำ/ทำบางส่วน) พร้อมข้อดีข้อเสีย
+            ข้อกำหนด: ห้ามเพิ่มข้อมูลนอกเอกสาร ถ้าไม่แน่ใจให้บอกว่าต้องตรวจเพิ่ม"</div>
+        </div>
 
-  <h3>ตัวอย่าง Output ที่ใช้ได้จริง</h3>
-  <div class="out">
-    <h5>ผลการวิเคราะห์แปลง 0145808</h5>
-    <ul><li><strong>การบำรุง:</strong> ใส่ปุ๋ยล่าช้า (35 วัน) อาจส่งผลให้แตกกอช้า</li><li><strong>ปัจจัยเสี่ยง:</strong> พบเพลี้ยระดับสูง (50%) ทำให้การใช้ปุ๋ยอาจไม่มีประสิทธิภาพ</li><li><strong>สภาพแวดล้อม:</strong> ช่วงแล้งยาว 45 วัน ความเสี่ยงสูญเสียปุ๋ยสูง</li></ul>
-    <h5 style="margin-top:13px">ข้อแนะนำ:</h5>
-    <ul><li><span class="tag r">🚨 เร่งด่วน</span> ควบคุมศัตรูพืช (เพลี้ย) ก่อนเป็นอันดับแรก</li><li><span class="tag a">⏸️ ชะลอ</span> ชะลอใส่ปุ๋ยเพิ่มจนกว่าจะควบคุมเพลี้ยและมีฝน</li><li><span class="tag g">🔄 ประเมินซ้ำ</span> ประเมินความคุ้มค่าอีกครั้งเมื่อสถานการณ์ดีขึ้น</li></ul>
-  </div>
+        <h3>เปลี่ยนเสียงเป็นข้อความ แล้วสรุปต่อ</h3>
+        <p>อัดเสียงรายงานหน้างาน 1–2 นาที → ถอดเป็นข้อความ → ให้ AI สรุปเป็นบันทึกตรวจแปลง</p>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — หลังได้ข้อความจากเสียง
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"นี่คือข้อความถอดเสียงจากหน้างาน
+            ช่วยทำเป็น 'บันทึกตรวจแปลง' โดยมี:
+            - วันที่/พื้นที่/ผู้รายงาน - สภาพแปลง
+            - ปัญหาที่พบ - งานที่ต้องทำภายใน 3 วัน
+            - สิ่งที่ต้องตรวจซ้ำ
+            และระบุประโยคที่คุณไม่มั่นใจ ให้ฉันตรวจทาน"</div>
+        </div>
 
-  <h3>Workshop เคสแนะนำ (20–25 นาที)</h3>
-  <div class="cgrid">
-    <div class="cc"><div class="cc-l">💧 เคส A</div><div class="cc-d">ใส่ปุ๋ยเร็ว แต่ไม่มีน้ำ + แล้งยาว</div></div>
-    <div class="cc"><div class="cc-l">🌿 เคส B</div><div class="cc-d">ใส่ปุ๋ยช้า + วัชพืชสูง ไม่กำจัด</div></div>
-    <div class="cc"><div class="cc-l">🐛 เคส C</div><div class="cc-d">ปุ๋ยพอ + ให้น้ำ แต่ศัตรูพืชรุนแรง</div></div>
-    <div class="cc"><div class="cc-l">🏔️ เคส D</div><div class="cc-d">ใส่ปุ๋ยเสริมกลางฤดู + ดินแย่</div></div>
-    <div class="cc"><div class="cc-l">✅ เคส E</div><div class="cc-d">แล้งสั้น + บำรุงตามแผน (เคสดี)</div></div>
-  </div>
-</section>
+        <h3>ตรวจสอบความถูกต้อง (Proof + Consistency)</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — ตรวจความสอดคล้อง
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ช่วยตรวจเอกสาร/ตารางนี้ในมุม 'ความสอดคล้อง':
+            1) หน่วย 2) วันที่และรูปแบบวัน
+            3) ชื่อแปลง/รหัสแปลง 4) ตัวเลขที่ดูผิดปกติ (outliers)
+            สรุปเป็นรายการสิ่งที่ต้องแก้/ต้องเช็คเพิ่ม"</div>
+        </div>
+      </section>
 
-<!-- ════════════════════════ MODULE 4 ════════════════════════ -->
-<section id="module4">
-  <div class="mband m4"><div class="mband-icon">🎨</div><div><div class="mband-k">Module 4</div><div class="mband-t">AI สร้างสรรค์สื่อ (Creative Content)</div><div class="mband-tm">⏱️ 30 นาที</div></div></div>
+      <!-- ════════════════════════ MODULE 3 ════════════════════════ -->
+      <section id="module3">
+        <div class="mband m3">
+          <div class="mband-icon">📈</div>
+          <div>
+            <div class="mband-k">Module 3 · ⭐ แกนหลัก</div>
+            <div class="mband-t">AI วิเคราะห์ข้อมูลและช่วยตัดสินใจ</div>
+            <div class="mband-tm">⏱️ 65 นาที</div>
+          </div>
+        </div>
+        <div class="hl g">
+          <div class="hl-t">หลักคิด: ไม่ดึงทั้งระบบ ดึงเฉพาะข้อมูลที่ใช้ "ตัดสินใจบำรุง"<br />ยึดหลัก <strong>1 แปลง / 1
+              ฤดู = 1 แถว</strong></div>
+        </div>
 
-  <h3>สร้างภาพโปรโมท / รณรงค์</h3>
-  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — เขียน brief สร้างภาพ</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ช่วยเขียนคำสั่งสร้างภาพ (image prompt) สำหรับ:
-- เป้าหมาย: &lt;เช่น รณรงค์กำจัดวัชพืช&gt;
-- กลุ่มเป้าหมาย: คนงาน/ชาวไร่
-- ข้อความบนภาพ (ไทย): &lt;เช่น 'กำจัดวัชพืชให้ทัน 7 วันหลังตัด'&gt;
-- สไตล์: ชัด อ่านง่าย แบบโปสเตอร์
-- ต้องมี: ไอคอนอ้อย/แปลง/เครื่องมือ
-ขอ 3 แบบ: โทนจริงจัง/โทนเป็นมิตร/โทนผู้บริหาร"</div></div>
+        <h3>ข้อมูลที่ต้องดึงจากระบบ</h3>
+        <div class="card">
+          <ul style="margin:0">
+            <li><strong>สท.01:</strong> รหัสแปลง, พื้นที่ (ไร่), ประเภทอ้อย</li>
+            <li><strong>สท.03:</strong> วันใส่ปุ๋ยครั้งแรกหลังตัด, ปริมาณปุ๋ยต่อไร่, การให้น้ำ</li>
+            <li><strong>สท.04:</strong> ใส่ปุ๋ยเสริมหรือไม่, กำจัดวัชพืชหรือไม่, สภาพดิน</li>
+            <li><strong>สท.05:</strong> ศัตรูพืชที่พบ, ความรุนแรง (%)</li>
+            <li><strong>สท.07:</strong> ช่วงแล้ง (วัน), ให้น้ำช่วงแล้ง, ใส่ปุ๋ยช่วงแล้ง</li>
+          </ul>
+          <p style="margin-top:10px;font-size:0.8rem;color:var(--text-4)">⚠️ ไม่ใช้ Yield (สท.06) ในการตัดสินใจบำรุง —
+            ใช้เพื่อ "ประเมินย้อนหลัง" เท่านั้น</p>
+        </div>
 
-  <h3>ออกแบบ Presentation</h3>
-  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>Prompt มาตรฐาน — โครงสไลด์ 10 หน้า</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">ช่วยทำโครงสไลด์ 10 หน้า เรื่อง: &lt;หัวข้อ&gt;
-กลุ่มผู้ฟัง: &lt;หัวหน้าไร่/ผู้บริหาร/ทีมงาน&gt;
-เป้าหมาย: &lt;ขออนุมัติงบ/ตัดสินใจเลือกทาง/แจ้งแผน&gt;
-บริบท: &lt;เช่น ไร่ A โซน 3&gt; · ช่วงเวลา: &lt;เช่น Q1/2026&gt;
-รูปแบบ: 1) ปัญหา  2) ข้อมูลจริง  3) Insight  4) ทางเลือก 3 ทาง  5) ข้อเสนอ
-ข้อกำหนด: 10 สไลด์, ชื่อสไลด์ + bullet 3–5 บรรทัด สั้น ชัด วัดได้</div></div>
+        <h3>รูปแบบตารางข้อมูล</h3>
+        <div class="tscroll">
+          <table>
+            <thead>
+              <tr>
+                <th>รหัสแปลง</th>
+                <th>พื้นที่(ไร่)</th>
+                <th>ประเภทอ้อย</th>
+                <th>วันใส่ปุ๋ยหลังตัด</th>
+                <th>ปุ๋ย(กก./ไร่)</th>
+                <th>ให้น้ำ</th>
+                <th>กำจัดวัชพืช</th>
+                <th>ศัตรูพืช</th>
+                <th>รุนแรง(%)</th>
+                <th>แล้ง(วัน)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0145808</td>
+                <td>10</td>
+                <td>อ้อยตอ</td>
+                <td>35</td>
+                <td>50</td>
+                <td>มี</td>
+                <td>มี</td>
+                <td>เพลี้ย</td>
+                <td>50</td>
+                <td>45</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-  <div class="cl"><div class="cl-h">📐 แม่แบบโครง 10 สไลด์</div>
-    <ol class="slist" style="padding:0">
-      <li class="si"><div class="sn">01</div><div><strong>Title:</strong> ชื่อเรื่อง และเป้าหมายการนำเสนอ</div></li>
-      <li class="si"><div class="sn">02</div><div><strong>Executive Summary:</strong> สรุปสำหรับผู้บริหาร</div></li>
-      <li class="si"><div class="sn">03</div><div><strong>ปัญหา:</strong> สถานการณ์ปัจจุบัน และผลกระทบ</div></li>
-      <li class="si"><div class="sn">04</div><div><strong>สาเหตุ:</strong> สาเหตุที่คาดว่าเกี่ยวข้อง</div></li>
-      <li class="si"><div class="sn">05</div><div><strong>ข้อมูลจริง (1):</strong> ตัวเลข, หลักฐาน, ข้อจำกัดข้อมูล</div></li>
-      <li class="si"><div class="sn">06</div><div><strong>ข้อมูลจริง (2):</strong> แนวโน้ม, การเปรียบเทียบ, จุดผิดปกติ</div></li>
-      <li class="si"><div class="sn">07</div><div><strong>Insight:</strong> ข้อสรุปหลัก 3–5 ข้อ</div></li>
-      <li class="si"><div class="sn">08</div><div><strong>ทางเลือก 3 ทาง:</strong> เปรียบเทียบต้นทุน/เวลา/ความเสี่ยง</div></li>
-      <li class="si"><div class="sn">09</div><div><strong>Recommendation:</strong> เลือกทางไหน + เหตุผล</div></li>
-      <li class="si"><div class="sn">10</div><div><strong>แผนดำเนินการ:</strong> สิ่งที่ต้องอนุมัติ + Next Steps</div></li>
-    </ol>
-  </div>
+        <h3>ขั้นตอนการให้ AI วิเคราะห์ผ่าน Excel</h3>
+        <ol class="steps">
+          <li><span><strong>เตรียม Excel:</strong> จัดข้อมูลให้อยู่ในรูปแบบตาราง 1 แปลง/1 ฤดู = 1 แถว</span></li>
+          <li><span><strong>ตรวจคุณภาพข้อมูล:</strong> ตรวจสอบหน่วย (กก./ไร่, วัน), การสะกด, ช่องว่างสำคัญ</span></li>
+          <li><span><strong>ส่งข้อมูลให้ AI:</strong> คัดลอกตารางข้อมูลไปวางในหน้าต่างแชท</span></li>
+          <li><span><strong>สั่งงาน AI ตามโครงสร้าง:</strong> ใช้ Prompt ที่กำหนดเพื่อให้ AI ตอบตามโครง</span></li>
+          <li><span><strong>คนลงพื้นที่ยืนยัน:</strong> นำข้อเสนอแนะจาก AI ไปตรวจสอบกับหน้างานจริง</span></li>
+        </ol>
 
-  <h3>เครื่องมือแนะนำ</h3>
-  <div class="tgrid">
-    <div class="tc"><div class="tc-i">💬</div><div><div class="tc-n">ChatGPT</div><div class="tc-d">เก่งเรื่องโครงเรื่อง, เหตุผล, สรุปผู้บริหาร</div></div></div>
-    <div class="tc"><div class="tc-i">📎</div><div><div class="tc-n">PowerPoint Copilot</div><div class="tc-d">ทำสไลด์จริงจากโครง (ถ้าใช้ M365)</div></div></div>
-    <div class="tc"><div class="tc-i">🎨</div><div><div class="tc-n">Canva</div><div class="tc-d">เทมเพลตสวย ทำสไลด์ดูดีรวดเร็ว</div></div></div>
-    <div class="tc"><div class="tc-i">⚡</div><div><div class="tc-n">Gamma / Tome</div><div class="tc-d">สร้างสไลด์ทั้งชุดได้เร็ว เหมาะ draft รอบแรก</div></div></div>
-  </div>
-</section>
+        <h3>Prompt 1 · ประเมินคุณภาพการบำรุง</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>เวอร์ชันมาตรฐาน
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ ช่วยประเมินว่า
+            - การบำรุงทันเวลา หรือช้า
+            - ปริมาณการบำรุงเพียงพอ หรือขาด
+            - มีปัจจัยใดทำให้การบำรุงได้ผลลดลง
+            สรุปเป็นข้อ ๆ</div>
+        </div>
+        <div class="pb pro">
+          <div class="pb-bar">
+            <div class="pt p">
+              <div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — ควบคุมคำตอบ
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"จากข้อมูลการบำรุงอ้อยรายแปลงต่อไปนี้ (1 แถว = 1 แปลง/ฤดู)
+            ช่วยประเมินเป็นหัวข้อดังนี้ โดยอ้างอิงจากข้อมูลที่ให้เท่านั้น:
+            A) ทันเวลาไหม: (เร็ว/พอดี/ช้า) + เหตุผล
+            B) ปริมาณปุ๋ย: (พอ/เสี่ยงขาด/เสี่ยงสูญเสีย) + เหตุผล
+            C) ปัจจัยลดประสิทธิภาพ: เรียงจาก 'กระทบมาก -> น้อย'
+            D) สิ่งที่ต้องตรวจหน้างานเพิ่ม 3 ข้อ
+            รูปแบบ: bullet สั้น ๆ ไม่เกิน 12 บรรทัด/แปลง"</div>
+        </div>
 
-<!-- ════════════════════════ MODULE 5 ════════════════════════ -->
-<section id="module5">
-  <div class="mband m5"><div class="mband-icon">⚠️</div><div><div class="mband-k">Module 5</div><div class="mband-t">ข้อควรระวัง: AI Ethics & Accuracy</div><div class="mband-tm">⏱️ 20 นาที</div></div></div>
+        <h3>Prompt 2 · ควรทำอะไรต่อ</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>เวอร์ชันมาตรฐาน
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">จากสถานการณ์การบำรุงปัจจุบัน ช่วยแนะนำแนวทางจัดการต่อไป
+            แยกเป็น: ควรเร่งทำ / ทำตามแผนเดิม / ไม่ควรลงทุนเพิ่ม
+            พร้อมเหตุผล</div>
+        </div>
+        <div class="pb pro">
+          <div class="pb-bar">
+            <div class="pt p">
+              <div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — แผนสั่งงานได้
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"จากข้อมูลแปลงต่อไปนี้ ช่วยเสนอ 'แผนทำต่อ 14 วัน'
+            โดยแยกเป็น 3 กลุ่ม:
+            1) ควรเร่งทำ (ภายใน 3 วัน) -> งาน/เหตุผล/ความเสี่ยง
+            2) ทำตามแผนเดิม -> งาน/เหตุผล/เงื่อนไขที่ต้องเฝ้าดู
+            3) ไม่ควรลงทุนเพิ่มตอนนี้ -> เพราะอะไร/ควรรออะไร
+            สุดท้าย: สรุป 1 บรรทัดว่า 'หัวหน้าควรตัดสินใจแบบไหน' (ห้ามฟันธงแทนคน)"</div>
+        </div>
 
-  <h3>กฎ 5 ข้อ — จำให้ได้</h3>
-  <div class="rgrid danger">
-    <div class="rc"><div class="rc-n">/ 01</div><div class="rc-t">ข้อมูลผิด = AI ผิด</div><div class="rc-d">คุณภาพข้อมูลเข้า กำหนดคุณภาพผลลัพธ์ออก</div></div>
-    <div class="rc"><div class="rc-n">/ 02</div><div class="rc-t">AI ตอบมั่นใจทั้งที่อาจผิด</div><div class="rc-d">ต้องสั่งให้ AI ให้เหตุผลและหลักฐานจากข้อมูลเสมอ</div></div>
-    <div class="rc"><div class="rc-n">/ 03</div><div class="rc-t">หน้างานต้องตรวจจริง</div><div class="rc-d">ห้ามสั่งการโดยอิงจาก AI เพียงอย่างเดียว</div></div>
-    <div class="rc"><div class="rc-n">/ 04</div><div class="rc-t">ไม่ใส่ข้อมูลอ่อนไหว</div><div class="rc-d">ห้ามใส่ข้อมูลส่วนบุคคลหรือความลับบริษัท</div></div>
-    <div class="rc"><div class="rc-n">/ 05</div><div class="rc-t">คนต้องอนุมัติ</div><div class="rc-d">เรื่องงบประมาณและความปลอดภัย คนอนุมัติสุดท้าย</div></div>
-  </div>
+        <h3>Prompt 3 · Checklist หน้างาน</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>เวอร์ชันมาตรฐาน
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">ช่วยสร้าง Checklist การตรวจหน้างาน
+            เพื่อยืนยันว่าการบำรุงที่ทำไปได้ผลจริงหรือไม่</div>
+        </div>
+        <div class="pb pro">
+          <div class="pb-bar">
+            <div class="pt p">
+              <div class="pt-d"></div>เวอร์ชัน "ผู้ช่วยมือโปร" — เฉพาะเคส
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ช่วยสร้าง Checklist ตรวจหน้างานสำหรับแปลงนี้ แบ่งเป็น:
+            - ต้องดูทันทีเมื่อถึงแปลง (5 ข้อ)
+            - ต้องวัด/ถ่ายรูป/บันทึก (5 ข้อ)
+            - สัญญาณอันตรายที่ต้องรายงานหัวหน้าทันที (3 ข้อ)
+            - คำถามที่ต้องถามคนงาน/ชาวไร่ (3 ข้อ)
+            ให้ Checklist 'สั้น ชัด ตรวจได้จริง'"</div>
+        </div>
 
-  <h3>Prompt กันพลาด</h3>
-  <div class="pb danger"><div class="pb-bar"><div class="pt d"><div class="pt-d"></div>ใช้เป็นมาตรฐานทุกครั้ง</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ขอให้ตอบโดยแยกเป็น 3 ส่วน:
-(1) สิ่งที่สรุปได้จากข้อมูลที่ให้ (อ้างอิงช่องข้อมูล)
-(2) สิ่งที่ยังไม่รู้/ข้อมูลไม่พอ (ห้ามเดา)
-(3) คำถามที่ต้องตรวจหน้างาน/ต้องขอข้อมูลเพิ่ม 5 ข้อ"</div></div>
-  <div class="pb danger"><div class="pb-bar"><div class="pt d"><div class="pt-d"></div>Prompt ตรวจความน่าเชื่อถือ</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"ช่วยตรวจคำตอบของคุณเอง:
-- มีข้อไหนที่อาจเป็นการคาดเดา?
-- มีข้อไหนที่ควรมีข้อมูลเพิ่มก่อนสรุป?
-- ถ้าจะลดความเสี่ยงการตัดสินใจผิด ต้องตรวจอะไรเป็นอันดับแรก?"</div></div>
+        <h3>ตัวอย่าง Output ที่ใช้ได้จริง</h3>
+        <div class="out">
+          <h5>ผลการวิเคราะห์แปลง 0145808</h5>
+          <ul>
+            <li><strong>การบำรุง:</strong> ใส่ปุ๋ยล่าช้า (35 วัน) อาจส่งผลให้แตกกอช้า</li>
+            <li><strong>ปัจจัยเสี่ยง:</strong> พบเพลี้ยระดับสูง (50%) ทำให้การใช้ปุ๋ยอาจไม่มีประสิทธิภาพ</li>
+            <li><strong>สภาพแวดล้อม:</strong> ช่วงแล้งยาว 45 วัน ความเสี่ยงสูญเสียปุ๋ยสูง</li>
+          </ul>
+          <h5 style="margin-top:13px">ข้อแนะนำ:</h5>
+          <ul>
+            <li><span class="tag r">🚨 เร่งด่วน</span> ควบคุมศัตรูพืช (เพลี้ย) ก่อนเป็นอันดับแรก</li>
+            <li><span class="tag a">⏸️ ชะลอ</span> ชะลอใส่ปุ๋ยเพิ่มจนกว่าจะควบคุมเพลี้ยและมีฝน</li>
+            <li><span class="tag g">🔄 ประเมินซ้ำ</span> ประเมินความคุ้มค่าอีกครั้งเมื่อสถานการณ์ดีขึ้น</li>
+          </ul>
+        </div>
 
-  <div class="hl a"><div class="hl-t">AI ไม่ได้ทำให้ใส่ปุ๋ยเก่งขึ้น<br/>แต่ทำให้รู้ว่า "ใส่ปุ๋ยไปแล้ว ควรทำอะไรต่อ และอะไรไม่คุ้มที่จะทำ"</div></div>
-</section>
+        <h3>Workshop เคสแนะนำ (20–25 นาที)</h3>
+        <div class="cgrid">
+          <div class="cc">
+            <div class="cc-l">💧 เคส A</div>
+            <div class="cc-d">ใส่ปุ๋ยเร็ว แต่ไม่มีน้ำ + แล้งยาว</div>
+          </div>
+          <div class="cc">
+            <div class="cc-l">🌿 เคส B</div>
+            <div class="cc-d">ใส่ปุ๋ยช้า + วัชพืชสูง ไม่กำจัด</div>
+          </div>
+          <div class="cc">
+            <div class="cc-l">🐛 เคส C</div>
+            <div class="cc-d">ปุ๋ยพอ + ให้น้ำ แต่ศัตรูพืชรุนแรง</div>
+          </div>
+          <div class="cc">
+            <div class="cc-l">🏔️ เคส D</div>
+            <div class="cc-d">ใส่ปุ๋ยเสริมกลางฤดู + ดินแย่</div>
+          </div>
+          <div class="cc">
+            <div class="cc-l">✅ เคส E</div>
+            <div class="cc-d">แล้งสั้น + บำรุงตามแผน (เคสดี)</div>
+          </div>
+        </div>
+      </section>
 
-<!-- ════════════════════════ APPENDIX ════════════════════════ -->
-<section id="appendix">
-  <div class="label">📁 Appendix A</div>
-  <h2>ชุดข้อมูลตัวอย่าง</h2>
-  <p class="sub">คัดลอกตารางนี้ไปทดลองใช้กับ Prompt ต่างๆ ได้ทันที</p>
-  <div class="tscroll"><table><thead><tr><th>รหัสแปลง</th><th>พื้นที่(ไร่)</th><th>ประเภทอ้อย</th><th>วันใส่ปุ๋ยหลังตัด</th><th>ปุ๋ย(กก./ไร่)</th><th>ให้น้ำ</th><th>กำจัดวัชพืช</th><th>ศัตรูพืช</th><th>รุนแรง(%)</th><th>แล้ง(วัน)</th></tr></thead><tbody>
-    <tr><td>0145808</td><td>10</td><td>อ้อยตอ</td><td>35</td><td>50</td><td>มี</td><td>มี</td><td>เพลี้ย</td><td>50</td><td>45</td></tr>
-    <tr><td>0145810</td><td>12</td><td>อ้อยตอ</td><td>10</td><td>60</td><td>ไม่มี</td><td>มี</td><td>ไม่พบ</td><td>0</td><td>50</td></tr>
-    <tr><td>0145812</td><td>8</td><td>ปลูกใหม่</td><td>7</td><td>40</td><td>มี</td><td>ไม่มี</td><td>หนอนกอ</td><td>30</td><td>20</td></tr>
-    <tr><td>0145815</td><td>15</td><td>อ้อยตอ</td><td>25</td><td>30</td><td>ไม่มี</td><td>ไม่มี</td><td>เพลี้ยไฟ</td><td>60</td><td>35</td></tr>
-    <tr><td>0145820</td><td>9</td><td>ปลูกใหม่</td><td>14</td><td>55</td><td>มี</td><td>มี</td><td>ไม่พบ</td><td>0</td><td>10</td></tr>
-  </tbody></table></div>
-  <div class="pb"><div class="pb-bar"><div class="pt s"><div class="pt-d"></div>ตัวอย่างคำสั่ง — วิเคราะห์หลายแปลงพร้อมกัน</div><div class="pb-dots"><span></span><span></span><span></span></div></div><div class="pb-code">"จากตารางข้อมูลบำรุงอ้อย 5 แปลงนี้ ช่วย:
-1) จัดกลุ่มแปลงเป็น เร่งทำ/ตามแผน/ไม่ควรลงทุนเพิ่ม
-2) ให้เหตุผลแยกแต่ละแปลง (สั้น ๆ)
-3) สร้าง checklist หน้างานสำหรับแปลงที่เสี่ยงสูงสุด 1 แปลง
-4) ถ้าข้อมูลไม่พอให้ถามกลับ"</div></div>
-</section>
+      <!-- ════════════════════════ MODULE 4 ════════════════════════ -->
+      <section id="module4">
+        <div class="mband m4">
+          <div class="mband-icon">🎨</div>
+          <div>
+            <div class="mband-k">Module 4</div>
+            <div class="mband-t">AI สร้างสรรค์สื่อ (Creative Content)</div>
+            <div class="mband-tm">⏱️ 30 นาที</div>
+          </div>
+        </div>
 
-</div><!-- end .wrap -->
+        <h3>สร้างภาพโปรโมท / รณรงค์</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — เขียน brief สร้างภาพ
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ช่วยเขียนคำสั่งสร้างภาพ (image prompt) สำหรับ:
+            - เป้าหมาย: &lt;เช่น รณรงค์กำจัดวัชพืช&gt;
+            - กลุ่มเป้าหมาย: คนงาน/ชาวไร่
+            - ข้อความบนภาพ (ไทย): &lt;เช่น 'กำจัดวัชพืชให้ทัน 7 วันหลังตัด'&gt;
+            - สไตล์: ชัด อ่านง่าย แบบโปสเตอร์
+            - ต้องมี: ไอคอนอ้อย/แปลง/เครื่องมือ
+            ขอ 3 แบบ: โทนจริงจัง/โทนเป็นมิตร/โทนผู้บริหาร"</div>
+        </div>
 
-<footer><strong>END OF MANUAL</strong> — AI ผู้ช่วยมือโปร + บำรุงอ้อย &nbsp;·&nbsp; จัดทำวันที่ 25 กุมภาพันธ์ 2569</footer>
+        <h3>ออกแบบ Presentation</h3>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>Prompt มาตรฐาน — โครงสไลด์ 10 หน้า
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">ช่วยทำโครงสไลด์ 10 หน้า เรื่อง: &lt;หัวข้อ&gt;
+            กลุ่มผู้ฟัง: &lt;หัวหน้าไร่/ผู้บริหาร/ทีมงาน&gt;
+            เป้าหมาย: &lt;ขออนุมัติงบ/ตัดสินใจเลือกทาง/แจ้งแผน&gt;
+            บริบท: &lt;เช่น ไร่ A โซน 3&gt; · ช่วงเวลา: &lt;เช่น Q1/2026&gt;
+            รูปแบบ: 1) ปัญหา 2) ข้อมูลจริง 3) Insight 4) ทางเลือก 3 ทาง 5) ข้อเสนอ
+            ข้อกำหนด: 10 สไลด์, ชื่อสไลด์ + bullet 3–5 บรรทัด สั้น ชัด วัดได้</div>
+        </div>
 
-<!-- ════════════════════════ SCRIPT ════════════════════════ -->
-<script>
-// ── Font size ──────────────────────────────────────────────
-const SIZES = ['sm','md','lg','xl'];
+        <div class="cl">
+          <div class="cl-h">📐 แม่แบบโครง 10 สไลด์</div>
+          <ol class="slist" style="padding:0">
+            <li class="si">
+              <div class="sn">01</div>
+              <div><strong>Title:</strong> ชื่อเรื่อง และเป้าหมายการนำเสนอ</div>
+            </li>
+            <li class="si">
+              <div class="sn">02</div>
+              <div><strong>Executive Summary:</strong> สรุปสำหรับผู้บริหาร</div>
+            </li>
+            <li class="si">
+              <div class="sn">03</div>
+              <div><strong>ปัญหา:</strong> สถานการณ์ปัจจุบัน และผลกระทบ</div>
+            </li>
+            <li class="si">
+              <div class="sn">04</div>
+              <div><strong>สาเหตุ:</strong> สาเหตุที่คาดว่าเกี่ยวข้อง</div>
+            </li>
+            <li class="si">
+              <div class="sn">05</div>
+              <div><strong>ข้อมูลจริง (1):</strong> ตัวเลข, หลักฐาน, ข้อจำกัดข้อมูล</div>
+            </li>
+            <li class="si">
+              <div class="sn">06</div>
+              <div><strong>ข้อมูลจริง (2):</strong> แนวโน้ม, การเปรียบเทียบ, จุดผิดปกติ</div>
+            </li>
+            <li class="si">
+              <div class="sn">07</div>
+              <div><strong>Insight:</strong> ข้อสรุปหลัก 3–5 ข้อ</div>
+            </li>
+            <li class="si">
+              <div class="sn">08</div>
+              <div><strong>ทางเลือก 3 ทาง:</strong> เปรียบเทียบต้นทุน/เวลา/ความเสี่ยง</div>
+            </li>
+            <li class="si">
+              <div class="sn">09</div>
+              <div><strong>Recommendation:</strong> เลือกทางไหน + เหตุผล</div>
+            </li>
+            <li class="si">
+              <div class="sn">10</div>
+              <div><strong>แผนดำเนินการ:</strong> สิ่งที่ต้องอนุมัติ + Next Steps</div>
+            </li>
+          </ol>
+        </div>
 
-function setFont(size) {
-  const html = document.documentElement;
-  html.setAttribute('data-font', size);
-  document.querySelectorAll('.font-btn').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.size === size);
-  });
-  try { localStorage.setItem('pref-font', size); } catch(e){}
-}
+        <h3>เครื่องมือแนะนำ</h3>
+        <div class="tgrid">
+          <div class="tc">
+            <div class="tc-i">💬</div>
+            <div>
+              <div class="tc-n">ChatGPT</div>
+              <div class="tc-d">เก่งเรื่องโครงเรื่อง, เหตุผล, สรุปผู้บริหาร</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-i">📎</div>
+            <div>
+              <div class="tc-n">PowerPoint Copilot</div>
+              <div class="tc-d">ทำสไลด์จริงจากโครง (ถ้าใช้ M365)</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-i">🎨</div>
+            <div>
+              <div class="tc-n">Canva</div>
+              <div class="tc-d">เทมเพลตสวย ทำสไลด์ดูดีรวดเร็ว</div>
+            </div>
+          </div>
+          <div class="tc">
+            <div class="tc-i">⚡</div>
+            <div>
+              <div class="tc-n">Gamma / Tome</div>
+              <div class="tc-d">สร้างสไลด์ทั้งชุดได้เร็ว เหมาะ draft รอบแรก</div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-// ── Theme ──────────────────────────────────────────────────
-function getTheme() {
-  try { return localStorage.getItem('pref-theme'); } catch(e){ return null; }
-}
+      <!-- ════════════════════════ MODULE 5 ════════════════════════ -->
+      <section id="module5">
+        <div class="mband m5">
+          <div class="mband-icon">⚠️</div>
+          <div>
+            <div class="mband-k">Module 5</div>
+            <div class="mband-t">ข้อควรระวัง: AI Ethics & Accuracy</div>
+            <div class="mband-tm">⏱️ 20 นาที</div>
+          </div>
+        </div>
 
-function applyTheme(theme) {
-  document.documentElement.setAttribute('data-theme', theme);
-  document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
-  try { localStorage.setItem('pref-theme', theme); } catch(e){}
-}
+        <h3>กฎ 5 ข้อ — จำให้ได้</h3>
+        <div class="rgrid danger">
+          <div class="rc">
+            <div class="rc-n">/ 01</div>
+            <div class="rc-t">ข้อมูลผิด = AI ผิด</div>
+            <div class="rc-d">คุณภาพข้อมูลเข้า กำหนดคุณภาพผลลัพธ์ออก</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 02</div>
+            <div class="rc-t">AI ตอบมั่นใจทั้งที่อาจผิด</div>
+            <div class="rc-d">ต้องสั่งให้ AI ให้เหตุผลและหลักฐานจากข้อมูลเสมอ</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 03</div>
+            <div class="rc-t">หน้างานต้องตรวจจริง</div>
+            <div class="rc-d">ห้ามสั่งการโดยอิงจาก AI เพียงอย่างเดียว</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 04</div>
+            <div class="rc-t">ไม่ใส่ข้อมูลอ่อนไหว</div>
+            <div class="rc-d">ห้ามใส่ข้อมูลส่วนบุคคลหรือความลับบริษัท</div>
+          </div>
+          <div class="rc">
+            <div class="rc-n">/ 05</div>
+            <div class="rc-t">คนต้องอนุมัติ</div>
+            <div class="rc-d">เรื่องงบประมาณและความปลอดภัย คนอนุมัติสุดท้าย</div>
+          </div>
+        </div>
 
-function toggleTheme() {
-  const current = document.documentElement.getAttribute('data-theme');
-  applyTheme(current === 'dark' ? 'light' : 'dark');
-}
+        <h3>Prompt กันพลาด</h3>
+        <div class="pb danger">
+          <div class="pb-bar">
+            <div class="pt d">
+              <div class="pt-d"></div>ใช้เป็นมาตรฐานทุกครั้ง
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ขอให้ตอบโดยแยกเป็น 3 ส่วน:
+            (1) สิ่งที่สรุปได้จากข้อมูลที่ให้ (อ้างอิงช่องข้อมูล)
+            (2) สิ่งที่ยังไม่รู้/ข้อมูลไม่พอ (ห้ามเดา)
+            (3) คำถามที่ต้องตรวจหน้างาน/ต้องขอข้อมูลเพิ่ม 5 ข้อ"</div>
+        </div>
+        <div class="pb danger">
+          <div class="pb-bar">
+            <div class="pt d">
+              <div class="pt-d"></div>Prompt ตรวจความน่าเชื่อถือ
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"ช่วยตรวจคำตอบของคุณเอง:
+            - มีข้อไหนที่อาจเป็นการคาดเดา?
+            - มีข้อไหนที่ควรมีข้อมูลเพิ่มก่อนสรุป?
+            - ถ้าจะลดความเสี่ยงการตัดสินใจผิด ต้องตรวจอะไรเป็นอันดับแรก?"</div>
+        </div>
 
-// ── Init ───────────────────────────────────────────────────
-(function init() {
-  // Restore font preference
-  try {
-    const savedFont = localStorage.getItem('pref-font');
-    if (savedFont && SIZES.includes(savedFont)) setFont(savedFont);
-  } catch(e){}
+        <div class="hl a">
+          <div class="hl-t">AI ไม่ได้ทำให้ใส่ปุ๋ยเก่งขึ้น<br />แต่ทำให้รู้ว่า "ใส่ปุ๋ยไปแล้ว ควรทำอะไรต่อ
+            และอะไรไม่คุ้มที่จะทำ"</div>
+        </div>
+      </section>
 
-  // Restore theme preference, fallback to system preference
-  const savedTheme = getTheme();
-  if (savedTheme) {
-    applyTheme(savedTheme);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    applyTheme('dark');
-  }
+      <!-- ════════════════════════ APPENDIX ════════════════════════ -->
+      <section id="appendix">
+        <div class="label">📁 Appendix A</div>
+        <h2>ชุดข้อมูลตัวอย่าง</h2>
+        <p class="sub">คัดลอกตารางนี้ไปทดลองใช้กับ Prompt ต่างๆ ได้ทันที</p>
+        <div class="tscroll">
+          <table>
+            <thead>
+              <tr>
+                <th>รหัสแปลง</th>
+                <th>พื้นที่(ไร่)</th>
+                <th>ประเภทอ้อย</th>
+                <th>วันใส่ปุ๋ยหลังตัด</th>
+                <th>ปุ๋ย(กก./ไร่)</th>
+                <th>ให้น้ำ</th>
+                <th>กำจัดวัชพืช</th>
+                <th>ศัตรูพืช</th>
+                <th>รุนแรง(%)</th>
+                <th>แล้ง(วัน)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>0145808</td>
+                <td>10</td>
+                <td>อ้อยตอ</td>
+                <td>35</td>
+                <td>50</td>
+                <td>มี</td>
+                <td>มี</td>
+                <td>เพลี้ย</td>
+                <td>50</td>
+                <td>45</td>
+              </tr>
+              <tr>
+                <td>0145810</td>
+                <td>12</td>
+                <td>อ้อยตอ</td>
+                <td>10</td>
+                <td>60</td>
+                <td>ไม่มี</td>
+                <td>มี</td>
+                <td>ไม่พบ</td>
+                <td>0</td>
+                <td>50</td>
+              </tr>
+              <tr>
+                <td>0145812</td>
+                <td>8</td>
+                <td>ปลูกใหม่</td>
+                <td>7</td>
+                <td>40</td>
+                <td>มี</td>
+                <td>ไม่มี</td>
+                <td>หนอนกอ</td>
+                <td>30</td>
+                <td>20</td>
+              </tr>
+              <tr>
+                <td>0145815</td>
+                <td>15</td>
+                <td>อ้อยตอ</td>
+                <td>25</td>
+                <td>30</td>
+                <td>ไม่มี</td>
+                <td>ไม่มี</td>
+                <td>เพลี้ยไฟ</td>
+                <td>60</td>
+                <td>35</td>
+              </tr>
+              <tr>
+                <td>0145820</td>
+                <td>9</td>
+                <td>ปลูกใหม่</td>
+                <td>14</td>
+                <td>55</td>
+                <td>มี</td>
+                <td>มี</td>
+                <td>ไม่พบ</td>
+                <td>0</td>
+                <td>10</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pb">
+          <div class="pb-bar">
+            <div class="pt s">
+              <div class="pt-d"></div>ตัวอย่างคำสั่ง — วิเคราะห์หลายแปลงพร้อมกัน
+            </div>
+            <div class="pb-dots"><span></span><span></span><span></span></div>
+          </div>
+          <div class="pb-code">"จากตารางข้อมูลบำรุงอ้อย 5 แปลงนี้ ช่วย:
+            1) จัดกลุ่มแปลงเป็น เร่งทำ/ตามแผน/ไม่ควรลงทุนเพิ่ม
+            2) ให้เหตุผลแยกแต่ละแปลง (สั้น ๆ)
+            3) สร้าง checklist หน้างานสำหรับแปลงที่เสี่ยงสูงสุด 1 แปลง
+            4) ถ้าข้อมูลไม่พอให้ถามกลับ"</div>
+        </div>
+      </section>
 
-  // Auto-switch when OS theme changes (only if no manual preference)
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-    if (!getTheme()) applyTheme(e.matches ? 'dark' : 'light');
-  });
-})();
-</script>
+  </div><!-- end .wrap -->
+
+  <footer><strong>END OF MANUAL</strong> — AI ผู้ช่วยมือโปร + บำรุงอ้อย &nbsp;·&nbsp; จัดทำวันที่ 25 กุมภาพันธ์ 2569
+  </footer>
+
+  <!-- ════════════════════════ SCRIPT ════════════════════════ -->
+  <script>
+    // ── Font size ──────────────────────────────────────────────
+    const SIZES = ['sm', 'md', 'lg', 'xl'];
+
+    function setFont(size) {
+      const html = document.documentElement;
+      html.setAttribute('data-font', size);
+      document.querySelectorAll('.font-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.size === size);
+      });
+      try { localStorage.setItem('pref-font', size); } catch (e) { }
+    }
+
+    // ── Theme ──────────────────────────────────────────────────
+    function getTheme() {
+      try { return localStorage.getItem('pref-theme'); } catch (e) { return null; }
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('pref-theme', theme); } catch (e) { }
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      applyTheme(current === 'dark' ? 'light' : 'dark');
+    }
+
+    // ── Init ───────────────────────────────────────────────────
+    (function init() {
+      // Restore font preference
+      try {
+        const savedFont = localStorage.getItem('pref-font');
+        if (savedFont && SIZES.includes(savedFont)) setFont(savedFont);
+      } catch (e) { }
+
+      // Restore theme preference, fallback to system preference
+      const savedTheme = getTheme();
+      if (savedTheme) {
+        applyTheme(savedTheme);
+      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        applyTheme('dark');
+      }
+
+      // Auto-switch when OS theme changes (only if no manual preference)
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+        if (!getTheme()) applyTheme(e.matches ? 'dark' : 'light');
+      });
+    })();
+  </script>
 </body>
+
 </html>
