@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light" data-font="md">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Prompt Library — KTIS ฝ่ายไร่</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+/* ── FONT SCALE ── */
+html[data-font="sm"] { font-size:13px }
+html[data-font="md"] { font-size:15px }
+html[data-font="lg"] { font-size:17px }
+html[data-font="xl"] { font-size:19px }
+
+/* ── LIGHT THEME ── */
+html[data-theme="light"] {
+  --emerald:#10b981; --emerald-dim:#6ee7b7; --emerald-pale:#ecfdf5; --emerald-mid:#059669;
+  --teal:#0d9488; --sky:#0ea5e9; --violet:#8b5cf6; --amber:#f59e0b; --rose:#f43f5e;
+  --text:#0f172a; --text-2:#334155; --text-3:#64748b; --text-4:#94a3b8;
+  --border:#e2e8f0; --border-soft:#f1f5f9;
+  --bg:#f8fafc; --surface:#fff;
+  --nav-bg:rgba(255,255,255,0.88); --nav-border:rgba(226,232,240,0.8);
+  --card-bg:#fff; --card-hover:#fafffe;
+  --prompt-bg:#0f172a; --prompt-pro:#0a1929; --prompt-danger:#12060a;
+  --tag-plan-bg:#dbeafe;--tag-plan-c:#1e40af;
+  --tag-doc-bg:#ede9fe;--tag-doc-c:#5b21b6;
+  --tag-field-bg:#d1fae5;--tag-field-c:#065f46;
+  --tag-check-bg:#fef3c7;--tag-check-c:#92400e;
+  --tag-media-bg:#fce7f3;--tag-media-c:#9d174d;
+  --tag-safe-bg:#fee2e2;--tag-safe-c:#9f1239;
+  --tag-data-bg:#cffafe;--tag-data-c:#155e75;
+  --tag-train-bg:#f0fdf4;--tag-train-c:#14532d;
+  --tag-analyze-bg:#eff6ff;--tag-analyze-c:#1e40af;
+  --tag-comm-bg:#fdf4ff;--tag-comm-c:#6b21a8;
+  --tag-st00-bg:#fff7ed;--tag-st00-c:#c2410c;
+  --shadow-sm:0 1px 3px rgba(15,23,42,0.06),0 1px 2px rgba(15,23,42,0.04);
+  --shadow:0 4px 16px rgba(15,23,42,0.08),0 2px 6px rgba(15,23,42,0.05);
+  --shadow-lg:0 8px 24px rgba(15,23,42,0.1);
+  --ctrl-bg:rgba(0,0,0,0.04); --ctrl-border:rgba(0,0,0,0.1);
+  --ctrl-active-bg:#059669; --ctrl-active-text:#fff; --ctrl-hover-bg:rgba(0,0,0,0.06);
+  --copy-bg:#1e293b; --copy-hover:#334155; --copy-text:#94a3b8;
+  --orb-a:rgba(16,185,129,0.10); --orb-b:rgba(14,165,233,0.07); --orb-c:rgba(139,92,246,0.07);
+  --filter-bg:#fff; --filter-border:#e2e8f0; --filter-active-bg:var(--emerald-mid); --filter-active-c:#fff;
+  --input-bg:#fff; --input-border:#e2e8f0; --input-focus:var(--emerald-mid);
+  --footer-bg:#0f172a; --footer-text:#64748b; --footer-strong:#94a3b8;
+  --ex-bg:#f8fafc; --ex-border:#e2e8f0;
+}
+
+/* ── DARK THEME ── */
+html[data-theme="dark"] {
+  --emerald:#34d399; --emerald-dim:#6ee7b7; --emerald-pale:rgba(52,211,153,0.12); --emerald-mid:#34d399;
+  --teal:#2dd4bf; --sky:#38bdf8; --violet:#a78bfa; --amber:#fbbf24; --rose:#fb7185;
+  --text:#f1f5f9; --text-2:#cbd5e1; --text-3:#94a3b8; --text-4:#64748b;
+  --border:#1e293b; --border-soft:#172033;
+  --bg:#0a1020; --surface:#0f172a;
+  --nav-bg:rgba(10,16,32,0.9); --nav-border:rgba(30,41,59,0.9);
+  --card-bg:#0f172a; --card-hover:#111a2e;
+  --prompt-bg:#060d1a; --prompt-pro:#050f1c; --prompt-danger:#120408;
+  --tag-plan-bg:rgba(37,99,235,0.18);--tag-plan-c:#93c5fd;
+  --tag-doc-bg:rgba(109,40,217,0.18);--tag-doc-c:#c4b5fd;
+  --tag-field-bg:rgba(16,185,129,0.14);--tag-field-c:#6ee7b7;
+  --tag-check-bg:rgba(245,158,11,0.15);--tag-check-c:#fcd34d;
+  --tag-media-bg:rgba(236,72,153,0.15);--tag-media-c:#f9a8d4;
+  --tag-safe-bg:rgba(239,68,68,0.15);--tag-safe-c:#fca5a5;
+  --tag-data-bg:rgba(6,182,212,0.14);--tag-data-c:#67e8f9;
+  --tag-train-bg:rgba(22,163,74,0.14);--tag-train-c:#86efac;
+  --tag-analyze-bg:rgba(59,130,246,0.14);--tag-analyze-c:#93c5fd;
+  --tag-comm-bg:rgba(168,85,247,0.14);--tag-comm-c:#d8b4fe;
+  --tag-st00-bg:rgba(234,88,12,0.16);--tag-st00-c:#fdba74;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3),0 1px 2px rgba(0,0,0,0.2);
+  --shadow:0 4px 16px rgba(0,0,0,0.35),0 2px 6px rgba(0,0,0,0.25);
+  --shadow-lg:0 8px 24px rgba(0,0,0,0.4);
+  --ctrl-bg:rgba(255,255,255,0.06); --ctrl-border:rgba(255,255,255,0.12);
+  --ctrl-active-bg:#34d399; --ctrl-active-text:#030c08; --ctrl-hover-bg:rgba(255,255,255,0.1);
+  --copy-bg:#1e293b; --copy-hover:#263345; --copy-text:#94a3b8;
+  --orb-a:rgba(52,211,153,0.08); --orb-b:rgba(56,189,248,0.06); --orb-c:rgba(167,139,250,0.06);
+  --filter-bg:#0f172a; --filter-border:#1e293b; --filter-active-bg:#34d399; --filter-active-c:#030c08;
+  --input-bg:#0f172a; --input-border:#1e293b; --input-focus:#34d399;
+  --footer-bg:#050c18; --footer-text:#475569; --footer-strong:#64748b;
+  --ex-bg:#080f1e; --ex-border:#1e293b;
+}
+
+/* ── RESET ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Sarabun',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;-webkit-font-smoothing:antialiased;transition:background 0.25s,color 0.25s;}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--text-4);border-radius:3px}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+
+/* ── NAV ── */
+.nav{position:sticky;top:0;z-index:200;background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--nav-border);padding:0 16px;display:flex;align-items:center;gap:4px;overflow-x:auto;scrollbar-width:none;transition:background 0.25s,border-color 0.25s;}
+.nav::-webkit-scrollbar{display:none}
+.nav-brand{font-size:0.875rem;font-weight:800;color:var(--emerald-mid);white-space:nowrap;padding:13px 0;letter-spacing:-0.03em;flex-shrink:0;display:flex;align-items:center;gap:7px;text-decoration:none;}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,var(--emerald),var(--teal));flex-shrink:0;animation:pulse 2.5s infinite;}
+.nav-sep{width:1px;height:18px;background:var(--border);flex-shrink:0;margin:0 6px;}
+.nav-link{font-size:0.73rem;font-weight:600;color:var(--text-3);text-decoration:none;white-space:nowrap;padding:5px 8px;border-radius:7px;transition:all 0.15s;flex-shrink:0;}
+.nav-link:hover{color:var(--emerald-mid);background:var(--emerald-pale)}
+.nav-link.active{color:var(--emerald-mid);background:var(--emerald-pale)}
+.nav-controls{margin-left:auto;display:flex;align-items:center;gap:6px;flex-shrink:0;padding-left:10px;}
+.font-ctrl{display:flex;align-items:center;gap:2px;background:var(--ctrl-bg);border:1px solid var(--ctrl-border);border-radius:9px;padding:3px;}
+.font-btn{width:28px;height:26px;border:none;cursor:pointer;border-radius:6px;background:transparent;color:var(--text-3);font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;line-height:1;}
+.font-btn:hover{background:var(--ctrl-hover-bg);color:var(--text)}
+.font-btn.active{background:var(--ctrl-active-bg);color:var(--ctrl-active-text)}
+.theme-btn{width:34px;height:34px;border:1px solid var(--ctrl-border);border-radius:9px;background:var(--ctrl-bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1rem;transition:all 0.15s;flex-shrink:0;}
+.theme-btn:hover{background:var(--ctrl-hover-bg);transform:scale(1.05)}
+
+/* ── HERO ── */
+.hero{background:var(--surface);padding:56px 24px 64px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);pointer-events:none;}
+.orb-a{width:600px;height:260px;background:radial-gradient(ellipse,var(--orb-a) 0%,transparent 70%);top:-80px;left:50%;transform:translateX(-50%);}
+.orb-b{width:260px;height:260px;background:radial-gradient(ellipse,var(--orb-b) 0%,transparent 70%);top:0;right:5%;}
+.orb-c{width:220px;height:220px;background:radial-gradient(ellipse,var(--orb-c) 0%,transparent 70%);top:0;left:5%;}
+.eyebrow{display:inline-flex;align-items:center;gap:7px;background:var(--emerald-pale);border:1px solid rgba(16,185,129,0.2);color:var(--emerald-mid);font-size:0.68rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:5px 14px;border-radius:100px;margin-bottom:20px;position:relative;}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--emerald);}
+.hero h1{font-size:clamp(1.9rem,5.5vw,3.2rem);font-weight:800;color:var(--text);line-height:1.1;letter-spacing:-0.045em;margin-bottom:14px;position:relative;}
+.hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--emerald-mid) 0%,var(--teal) 50%,var(--sky) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:0.97rem;color:var(--text-3);max-width:480px;margin:0 auto 6px;position:relative;}
+.hero-sub strong{color:var(--text-2)}
+.hero-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:28px;position:relative;}
+.hchip{display:flex;align-items:center;gap:9px;background:var(--card-bg);border:1px solid var(--border);border-radius:13px;padding:10px 16px;box-shadow:var(--shadow-sm);transition:all 0.15s;}
+.hchip:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.hchip-v{font-size:1.2rem;font-weight:800;color:var(--text);letter-spacing:-0.04em;line-height:1}
+.hchip-l{font-size:0.66rem;color:var(--text-3);font-weight:600;line-height:1.35;text-align:left}
+
+/* ── MAIN LAYOUT ── */
+.main{max-width:1080px;margin:0 auto;padding:32px 20px 60px;}
+
+/* ── SEARCH & FILTER BAR ── */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;align-items:center;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:14px;height:14px;color:var(--text-4);pointer-events:none;}
+.search-input{width:100%;background:var(--input-bg);border:1px solid var(--input-border);border-radius:10px;padding:8px 12px 8px 32px;font-family:'Sarabun',sans-serif;font-size:0.87rem;color:var(--text);outline:none;transition:border-color 0.15s,box-shadow 0.15s;}
+.search-input:focus{border-color:var(--input-focus);box-shadow:0 0 0 3px rgba(16,185,129,0.12);}
+.search-input::placeholder{color:var(--text-4)}
+.filters{display:flex;flex-wrap:wrap;gap:6px;}
+.filter-btn{font-size:0.72rem;font-weight:700;padding:5px 12px;border-radius:8px;border:1px solid var(--filter-border);background:var(--filter-bg);color:var(--text-3);cursor:pointer;transition:all 0.15s;white-space:nowrap;font-family:'Sarabun',sans-serif;}
+.filter-btn:hover{border-color:var(--emerald-dim);color:var(--emerald-mid)}
+.filter-btn.on{background:var(--filter-active-bg);color:var(--filter-active-c);border-color:transparent}
+
+/* ── RESULTS BAR ── */
+.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.results-count{font-size:0.8rem;color:var(--text-4);font-family:'DM Mono',monospace;}
+.results-count strong{color:var(--emerald-mid)}
+
+/* ── SECTION HEADING ── */
+.sec-head{display:flex;align-items:center;gap:10px;margin:36px 0 16px;}
+.sec-head-line{flex:1;height:1px;background:var(--border);}
+.sec-head-label{font-size:0.68rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-4);white-space:nowrap;}
+
+/* ── PROMPT GRID ── */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px;margin-bottom:32px;}
+.pcard{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:0;
+  box-shadow:var(--shadow-sm);
+  transition:border-color 0.15s,box-shadow 0.15s,background 0.15s;
+  display:flex;flex-direction:column;
+  overflow:hidden;
+  animation:fadeIn 0.3s ease both;
+}
+.pcard:hover{border-color:var(--emerald-dim);box-shadow:var(--shadow);background:var(--card-hover)}
+.pcard.hidden{display:none}
+
+/* card header */
+.pcard-head{padding:16px 18px 14px;border-bottom:1px solid var(--border-soft);display:flex;gap:12px;align-items:flex-start;}
+.pcard-icon{font-size:1.5rem;flex-shrink:0;line-height:1;margin-top:2px;}
+.pcard-meta{flex:1;min-width:0;}
+.pcard-num{font-family:'DM Mono',monospace;font-size:0.65rem;color:var(--text-4);margin-bottom:3px;}
+.pcard-title{font-size:0.9rem;font-weight:700;color:var(--text);line-height:1.3;letter-spacing:-0.01em;}
+.pcard-tag{
+  display:inline-flex;align-items:center;
+  font-size:0.62rem;font-weight:700;
+  padding:2px 7px;border-radius:5px;
+  margin-top:6px;white-space:nowrap;
+}
+
+/* tag colors */
+.tag-ทั่วไป{background:var(--tag-field-bg);color:var(--tag-field-c)}
+.tag-วางแผน{background:var(--tag-plan-bg);color:var(--tag-plan-c)}
+.tag-เอกสาร{background:var(--tag-doc-bg);color:var(--tag-doc-c)}
+.tag-ฝึกทีม{background:var(--tag-train-bg);color:var(--tag-train-c)}
+.tag-หน้างาน{background:var(--tag-field-bg);color:var(--tag-field-c)}
+.tag-ตรวจสอบ{background:var(--tag-check-bg);color:var(--tag-check-c)}
+.tag-วิเคราะห์{background:var(--tag-analyze-bg);color:var(--tag-analyze-c)}
+.tag-สื่อ{background:var(--tag-media-bg);color:var(--tag-media-c)}
+.tag-กันพลาด{background:var(--tag-safe-bg);color:var(--tag-safe-c)}
+.tag-ข้อมูล{background:var(--tag-data-bg);color:var(--tag-data-c)}
+.tag-สื่อสาร{background:var(--tag-comm-bg);color:var(--tag-comm-c)}
+.tag-สท\.00{background:var(--tag-st00-bg);color:var(--tag-st00-c)}
+
+/* prompt body */
+.pcard-body{padding:14px 18px;flex:1;}
+.pcard-code{
+  font-family:'DM Mono',monospace;
+  font-size:0.75rem;line-height:1.75;
+  color:var(--text-3);
+  white-space:pre-wrap;word-break:break-word;
+  max-height:120px;overflow:hidden;
+  position:relative;
+  transition:max-height 0.3s ease;
+}
+.pcard-code::after{
+  content:'';
+  position:absolute;bottom:0;left:0;right:0;height:40px;
+  background:linear-gradient(transparent,var(--card-bg));
+  transition:opacity 0.2s;
+}
+.pcard.expanded .pcard-code{max-height:1200px;}
+.pcard.expanded .pcard-code::after{opacity:0;}
+
+/* card footer */
+.pcard-foot{padding:10px 18px;display:flex;gap:8px;align-items:center;border-top:1px solid var(--border-soft);}
+.btn-expand{
+  flex:1;font-size:0.73rem;font-weight:700;
+  background:transparent;border:1px solid var(--border);
+  color:var(--text-3);border-radius:7px;padding:6px 10px;
+  cursor:pointer;font-family:'Sarabun',sans-serif;
+  display:flex;align-items:center;gap:5px;justify-content:center;
+  transition:all 0.15s;
+}
+.btn-expand:hover{border-color:var(--emerald-dim);color:var(--emerald-mid);background:var(--emerald-pale)}
+.btn-expand svg{width:12px;height:12px;transition:transform 0.2s;}
+.pcard.expanded .btn-expand svg{transform:rotate(180deg)}
+.btn-copy{
+  font-size:0.73rem;font-weight:700;
+  background:var(--copy-bg);color:var(--copy-text);
+  border:none;border-radius:7px;padding:6px 12px;
+  cursor:pointer;font-family:'Sarabun',sans-serif;
+  display:flex;align-items:center;gap:5px;
+  transition:all 0.15s;white-space:nowrap;
+}
+.btn-copy:hover{background:var(--copy-hover);color:var(--text-2)}
+.btn-copy.copied{background:var(--emerald-mid);color:#fff}
+.btn-copy svg{width:12px;height:12px;}
+
+/* ── EXAMPLE DATA SECTION ── */
+.ex-section{margin-top:40px;}
+.ex-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px;}
+.ex-title-group{display:flex;align-items:center;gap:10px;}
+.ex-badge{display:inline-flex;align-items:center;gap:5px;background:var(--tag-st00-bg);color:var(--tag-st00-c);font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:6px;border:1px solid transparent;}
+.ex-desc{font-size:0.83rem;color:var(--text-3);margin-bottom:16px;}
+.ex-box{background:var(--ex-bg);border:1px solid var(--ex-border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);}
+.ex-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--ex-border);}
+.ex-label{font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-4);display:flex;align-items:center;gap:6px;}
+.ex-label-dot{width:5px;height:5px;border-radius:50%;background:var(--amber);}
+.tscroll{overflow-x:auto;}
+table{width:100%;border-collapse:collapse;font-size:0.8rem;}
+thead{background:var(--bg);}
+thead th{color:var(--text-3);font-size:0.66rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;padding:10px 12px;text-align:left;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{transition:background 0.1s;}
+tbody tr:hover{background:var(--border-soft)}
+tbody tr:last-child td{border-bottom:none}
+td{padding:9px 12px;border-bottom:1px solid var(--border-soft);color:var(--text-2);white-space:nowrap;}
+td:first-child{font-family:'DM Mono',monospace;font-size:0.76rem;color:var(--emerald-mid);font-weight:500;}
+.status-slow{color:#ef4444;font-weight:700;}
+.status-fast{color:var(--emerald-mid);font-weight:700;}
+.status-pending{color:var(--amber);font-weight:600;}
+
+/* ── USAGE EXAMPLES ── */
+.usage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px;}
+.usage-card{
+  background:var(--card-bg);border:1px solid var(--border);border-radius:14px;
+  padding:16px 18px;box-shadow:var(--shadow-sm);transition:all 0.15s;
+}
+.usage-card:hover{border-color:var(--violet);box-shadow:var(--shadow)}
+.usage-card-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.usage-icon{font-size:1.2rem;}
+.usage-title{font-size:0.85rem;font-weight:700;color:var(--text);}
+.usage-ref{font-size:0.68rem;font-weight:700;color:var(--violet);background:rgba(139,92,246,0.1);padding:2px 7px;border-radius:5px;margin-left:auto;}
+.usage-body{font-size:0.8rem;color:var(--text-3);line-height:1.6;}
+.usage-body strong{color:var(--text-2)}
+
+/* ── EMPTY STATE ── */
+.empty{display:none;flex-direction:column;align-items:center;justify-content:center;padding:60px 20px;text-align:center;gap:12px;}
+.empty.show{display:flex}
+.empty-icon{font-size:2.5rem;opacity:0.4;}
+.empty-text{font-size:0.9rem;color:var(--text-4);}
+
+/* ── LOADING SKELETON ── */
+.skeleton{animation:shimmer 1.5s infinite linear;background:linear-gradient(90deg,var(--border) 25%,var(--border-soft) 50%,var(--border) 75%);background-size:200% 100%;border-radius:6px;}
+
+/* ── FOOTER ── */
+footer{background:var(--footer-bg);color:var(--footer-text);text-align:center;padding:24px 20px;font-size:0.78rem;}
+footer strong{color:var(--footer-strong)}
+footer a{color:var(--emerald-mid);text-decoration:none;}
+footer a:hover{text-decoration:underline}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .hero{padding:40px 16px 48px}
+  .main{padding:24px 14px 48px}
+  .pgrid{grid-template-columns:1fr}
+  .toolbar{gap:8px}
+  .filters{gap:5px}
+  .font-btn{width:24px;height:24px}
+  .nav-controls{gap:4px}
+  .usage-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-brand" href="index.html"><div class="nav-dot"></div>AI ฝ่ายไร่</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link" href="index.html">← คู่มืออบรม</a>
+  <a class="nav-link active" href="#">Prompt Library</a>
+  <div class="nav-controls">
+    <div class="font-ctrl" title="ขนาดตัวอักษร">
+      <button class="font-btn" data-size="sm" onclick="setFont('sm')" title="เล็ก">A<sub style="font-size:0.6em">s</sub></button>
+      <button class="font-btn active" data-size="md" onclick="setFont('md')" title="ปกติ">A</button>
+      <button class="font-btn" data-size="lg" onclick="setFont('lg')" title="ใหญ่">A<sup style="font-size:0.65em">+</sup></button>
+      <button class="font-btn" data-size="xl" onclick="setFont('xl')" title="ใหญ่มาก">A<sup style="font-size:0.65em">++</sup></button>
+    </div>
+    <button class="theme-btn" onclick="toggleTheme()" title="สลับโหมด" id="themeBtn">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
+  <div class="eyebrow"><div class="eyebrow-dot"></div>KTIS · Prompt Pack 2026</div>
+  <h1><em>Prompt Library</em><br/>ฝ่ายไร่ พร้อมใช้งาน</h1>
+  <p class="hero-sub">ชุด Prompt มาตรฐาน <strong>30 ชุด</strong> — คัดลอกได้ทันที ค้นหาได้ กรองตามหมวดงาน</p>
+  <div class="hero-chips">
+    <div class="hchip"><div class="hchip-v">30</div><div class="hchip-l">Prompt<br/>พร้อมใช้</div></div>
+    <div class="hchip"><div class="hchip-v">11</div><div class="hchip-l">หมวด<br/>งาน</div></div>
+    <div class="hchip"><div class="hchip-v">6</div><div class="hchip-l">Prompt<br/>สท.00</div></div>
+    <div class="hchip"><div class="hchip-v">1-click</div><div class="hchip-l">Copy<br/>พร้อมแปะ</div></div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M17 17l-3.5-3.5"/></svg>
+      <input class="search-input" type="text" id="searchInput" placeholder="ค้นหา prompt... เช่น สรุป, แปลง, วิเคราะห์" oninput="filterAll()"/>
+    </div>
+    <div class="filters" id="filterGroup">
+      <button class="filter-btn on" data-filter="all" onclick="setFilter('all',this)">ทั้งหมด</button>
+      <button class="filter-btn" data-filter="ทั่วไป" onclick="setFilter('ทั่วไป',this)">⚙️ ทั่วไป</button>
+      <button class="filter-btn" data-filter="วางแผน" onclick="setFilter('วางแผน',this)">📋 วางแผน</button>
+      <button class="filter-btn" data-filter="เอกสาร" onclick="setFilter('เอกสาร',this)">📝 เอกสาร</button>
+      <button class="filter-btn" data-filter="วิเคราะห์" onclick="setFilter('วิเคราะห์',this)">📊 วิเคราะห์</button>
+      <button class="filter-btn" data-filter="หน้างาน" onclick="setFilter('หน้างาน',this)">🌾 หน้างาน</button>
+      <button class="filter-btn" data-filter="ตรวจสอบ" onclick="setFilter('ตรวจสอบ',this)">🔍 ตรวจสอบ</button>
+      <button class="filter-btn" data-filter="สื่อ" onclick="setFilter('สื่อ',this)">🎨 สื่อ</button>
+      <button class="filter-btn" data-filter="ฝึกทีม" onclick="setFilter('ฝึกทีม',this)">🎭 ฝึกทีม</button>
+      <button class="filter-btn" data-filter="กันพลาด" onclick="setFilter('กันพลาด',this)">🛡️ กันพลาด</button>
+      <button class="filter-btn" data-filter="สท.00" onclick="setFilter('สท.00',this)">📑 สท.00</button>
+    </div>
+  </div>
+
+  <!-- RESULTS BAR -->
+  <div class="results-bar">
+    <div class="results-count">แสดง <strong id="countShow">30</strong> จาก 30 prompts</div>
+  </div>
+
+  <!-- PROMPT GRID (populated by JS) -->
+  <div class="pgrid" id="pgrid"></div>
+
+  <!-- EMPTY STATE -->
+  <div class="empty" id="emptyState">
+    <div class="empty-icon">🔍</div>
+    <div class="empty-text">ไม่พบ Prompt ที่ตรงกับการค้นหา<br/>ลองเปลี่ยนคำค้นหาหรือกรองหมวดงาน</div>
+  </div>
+
+  <!-- EXAMPLE DATA SECTION -->
+  <div class="ex-section">
+    <div class="ex-head">
+      <div class="ex-title-group">
+        <span class="ex-badge">📑 สท.00</span>
+        <strong style="font-size:1rem;font-weight:800;color:var(--text);letter-spacing:-0.03em">ข้อมูลตัวอย่าง — ใช้ลอง Prompt 24–30 ได้ทันที</strong>
+      </div>
+      <button class="btn-copy" id="btnCopyEx" onclick="copyExample()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+        คัดลอกตาราง
+      </button>
+    </div>
+    <p class="ex-desc">แปะตารางนี้ต่อท้าย Prompt ใด ๆ เพื่อให้ AI วิเคราะห์ข้อมูลจริง</p>
+    <div class="ex-box">
+      <div class="ex-bar">
+        <div class="ex-label"><div class="ex-label-dot"></div>CSV · ตารางข้อมูลปลูกแปลงตัวอย่าง (5 แปลง)</div>
+      </div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>IDแปลง</th><th>พื้นที่(ไร่)</th><th>เขต</th><th>หน่วย</th>
+            <th>วันปลูก[แผน]</th><th>วันปลูกเสร็จ[สท.02]</th><th>ผลต่างวันปลูก</th>
+            <th>ผู้ปลูก</th><th>พันธุ์อ้อย[22]</th><th>ชนิดอ้อย[02]</th>
+            <th>ประวัติรื้อตอ[27]</th><th>ประวัติพื้นที่ใหม่[28]</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>252908</td><td>12</td><td>ตาคลี</td><td>โค้งบ้านใหม่</td><td>04-03-2026</td><td class="status-pending">-</td><td class="status-pending">-</td><td>ตนเอง</td><td>CSB15-144</td><td>อ้อยน้ำราด-น้ำสูบ</td><td>รื้อตอจากอ้อยตอ 2</td><td>-</td></tr>
+            <tr><td>214395</td><td>11</td><td>ตาคลี</td><td>โค้งบ้านใหม่</td><td>28-12-2025</td><td>03-02-2026</td><td class="status-slow">ช้า 37 วัน</td><td>ตนเอง</td><td>CSB15-144</td><td>อ้อยข้ามแล้ง</td><td>-</td><td>พื้นที่รกร้างว่างเปล่า</td></tr>
+            <tr><td>232016</td><td>6</td><td>ตาคลี</td><td>โค้งบ้านใหม่</td><td>03-03-2026</td><td class="status-pending">-</td><td class="status-pending">-</td><td>นางขวัญใจ หมื่นนราเดช</td><td>CSB15-144</td><td>อ้อยน้ำราด-น้ำสูบ</td><td>รื้อตอจากอ้อยตอ 2</td><td>-</td></tr>
+            <tr><td>211329</td><td>9</td><td>ตาคลี</td><td>โค้งบ้านใหม่</td><td>27-01-2026</td><td>28-01-2026</td><td class="status-slow">ช้า 1 วัน</td><td>ตนเอง</td><td>08-111</td><td>อ้อยข้ามแล้ง</td><td>-</td><td>พื้นที่รกร้างว่างเปล่า</td></tr>
+            <tr><td>211334</td><td>10</td><td>ตาคลี</td><td>โค้งบ้านใหม่</td><td>03-03-2026</td><td>22-02-2026</td><td class="status-fast">เร็ว 9 วัน</td><td>ตนเอง</td><td>CSB15-144</td><td>อ้อยน้ำราด-น้ำสูบ</td><td>-</td><td>พื้นที่รกร้างว่างเปล่า</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- USAGE EXAMPLES -->
+  <div style="margin-top:32px;">
+    <div class="sec-head"><div class="sec-head-line"></div><div class="sec-head-label">💡 ตัวอย่างการใช้งานจริง</div><div class="sec-head-line"></div></div>
+    <div class="usage-grid">
+      <div class="usage-card">
+        <div class="usage-card-head"><div class="usage-icon">🚀</div><div class="usage-title">ทำคิวเร่งปลูก</div><div class="usage-ref">Prompt 29</div></div>
+        <div class="usage-body">คัดลอก <strong>Prompt 29</strong> → แปะตารางตัวอย่างด้านบน → AI จะจัดอันดับแปลงที่ต้องเร่งปลูกพร้อมเหตุผล</div>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-head"><div class="usage-icon">📊</div><div class="usage-title">รายงานผู้บริหาร + ไลน์ทีม</div><div class="usage-ref">Prompt 30</div></div>
+        <div class="usage-body">คัดลอก <strong>Prompt 30</strong> → แปะตาราง → ได้รายงาน 1 หน้า + คิว Top 15 + ข้อความไลน์พร้อมส่ง</div>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-head"><div class="usage-icon">🗺️</div><div class="usage-title">งานค้างตามโซน</div><div class="usage-ref">Prompt 24</div></div>
+        <div class="usage-body">คัดลอก <strong>Prompt 24</strong> → แปะตาราง → AI สรุปแปลงพักดิน/รื้อตอรอตัด แยกตามเขต/หน่วย</div>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-head"><div class="usage-icon">🛡️</div><div class="usage-title">ลด AI เดา</div><div class="usage-ref">Prompt 12 + 13</div></div>
+        <div class="usage-body">ต่อท้าย Prompt ใด ๆ ด้วย <strong>Prompt 12</strong> เพื่อบังคับ AI แยก 3 ส่วน และใช้ <strong>Prompt 13</strong> ตรวจคำตอบ</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+
+<footer>
+  <strong>KTIS Prompt Library</strong> — ฝ่ายไร่ · v2026-02-26 &nbsp;|&nbsp;
+  <a href="ai-training-manual.html">← กลับหน้าคู่มืออบรม</a>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+//  DATA — parsed from prompts.txt structure
+// ═══════════════════════════════════════════
+const PROMPTS = [
+  {num:0,label:'ทั่วไป',icon:'⚙️',title:'ตั้งค่าเริ่มต้น — ใช้เปิดทุกงาน',
+   body:`"คุณเป็นผู้ช่วยงานฝ่ายไร่/บำรุงอ้อยของ KTIS
+งานของคุณคือช่วยสรุป วิเคราะห์ เสนอทางเลือก และทำรายการงานที่ต้องทำจากข้อมูลที่ฉันให้เท่านั้น
+กติกา:
+1) ห้ามเดาหรือเติมข้อมูลที่ฉันไม่ได้ให้
+2) ถ้าข้อมูลไม่พอ ให้ถามเป็นข้อ ๆ ก่อน
+3) แยกคำตอบเป็น 3 ส่วนเสมอ: (A) สรุปจากข้อมูล (B) สิ่งที่ยังไม่รู้/ต้องตรวจเพิ่ม (C) ข้อเสนอแนะ/ทางเลือก
+รูปแบบคำตอบ: กระชับ อ่านง่าย ใช้หัวข้อและตารางเมื่อเหมาะสม"`},
+
+  {num:1,label:'วางแผน',icon:'📋',title:'ร่างโครงการ/แผนงาน — เสนอหัวหน้าได้',
+   body:`"ช่วยร่างโครงการเรื่อง: <ชื่อโครงการ> สำหรับฝ่ายไร่ โดยมีหัวข้อ:
+- ที่มา/ปัญหา (อิงข้อมูลที่ให้)
+- วัตถุประสงค์ (วัดได้)
+- ขอบเขต/พื้นที่
+- แผนกิจกรรมเป็นขั้นตอน (Step 1..n)
+- Timeline
+- ทรัพยากร/งบประมาณ (ถ้ามีข้อมูล)
+- ความเสี่ยง + วิธีลดความเสี่ยง
+- KPI
+ขอแบบกระชับ ไม่เกิน 1-2 หน้า A4"`},
+
+  {num:2,label:'เอกสาร',icon:'📝',title:'สรุปประชุม/ข้อความยาว → Action Items สั่งงานได้',
+   body:`"จากบันทึกด้านล่าง ช่วยสรุปเป็น:
+1) ประเด็นสำคัญ (ไม่เกิน 7 bullet)
+2) งานที่ต้องทำ (Action items) ตาราง: งาน | เจ้าของงาน | กำหนดเสร็จ | ความเสี่ยง | สิ่งที่ต้องตรวจเพิ่ม
+3) สิ่งที่ยังไม่ชัด/ต้องถามเพิ่ม (รายการคำถาม)
+ห้ามเดา ถ้าไม่มีเจ้าของงาน/กำหนดเวลา ให้ใส่ '-' และระบุว่าต้องถามเพิ่ม"`},
+
+  {num:3,label:'วางแผน',icon:'🎯',title:'จัดลำดับความสำคัญงาน — เร่งด่วน x ผลกระทบ',
+   body:`"ฉันมีรายการงานดังนี้: <แปะรายการ>
+ช่วยจัดลำดับโดยให้คะแนน 1-5 สองมิติ:
+- ความเร่งด่วน (Deadline/ผลเสียถ้าช้า)
+- ผลกระทบ (ต่อผลผลิต/ต้นทุน/ความปลอดภัย)
+สรุปผลเป็นตารางและเลือก Top 3 งานที่ควรทำก่อน พร้อมเหตุผล 1 บรรทัดต่อรายการ"`},
+
+  {num:4,label:'ฝึกทีม',icon:'🎭',title:'Role-play ซ้อมคุย/โน้มน้าว — ชาวไร่/หัวหน้า/ทีมงาน',
+   body:`"ช่วย role-play โดยคุณเล่นเป็น <บทบาทคู่สนทนา> ที่มีความกังวล/คัดค้านดังนี้: <ระบุ>
+ฉันจะตอบ คุณช่วย:
+- โต้แย้งแบบสมจริง 3 รอบ
+- ให้คะแนนคำตอบฉัน (1-10) และแนะนำประโยคที่ดีกว่า
+- สรุป 'ประโยคทอง' 5 ประโยคไว้ใช้จริง"`},
+
+  {num:5,label:'เอกสาร',icon:'📄',title:'สรุปเอกสารให้หัวหน้าอ่าน — TL;DR + ทางเลือก',
+   body:`"สรุปเอกสารด้านล่างแบบหัวหน้าอ่าน:
+- TL;DR (3 บรรทัด)
+- ประเด็นสำคัญ 7 bullet
+- ทางเลือก 3 แบบ (ทำ/ไม่ทำ/ทำบางส่วน) พร้อมข้อดีข้อเสียและผลกระทบ
+ห้ามเพิ่มข้อมูลนอกเอกสาร"`},
+
+  {num:6,label:'หน้างาน',icon:'🎙️',title:'ถอดเสียง/บันทึกหน้างาน → บันทึกตรวจแปลงมาตรฐาน',
+   body:`"จากข้อความ/ถอดเสียงด้านล่าง ช่วยจัดเป็นบันทึกตรวจแปลงรูปแบบนี้:
+- วันที่/เวลา:
+- พื้นที่/แปลง:
+- สภาพแปลง:
+- ปัญหาที่พบ:
+- งานเร่งด่วน 24 ชม.:
+- แผนงาน 3 วัน:
+- สิ่งที่ต้องตรวจซ้ำ:
+- ข้อมูลที่ยังไม่ครบ/ต้องถามเพิ่ม:
+ถ้ามีประโยคคลุมเครือ ให้ทำเครื่องหมาย [ต้องยืนยัน]"`},
+
+  {num:7,label:'ตรวจสอบ',icon:'🔍',title:'ตรวจความสอดคล้องข้อมูล/ตาราง — QA',
+   body:`"ช่วยตรวจตาราง/ข้อมูลด้านล่าง หา:
+- ค่าหาย (Missing)
+- หน่วยไม่สอดคล้อง
+- วันที่ผิดลำดับ
+- ค่าหลุดช่วง/Outlier
+สรุปเป็นรายการ 'ข้อสงสัย' พร้อมเหตุผล และบอกวิธีตรวจยืนยันแต่ละข้อ"`},
+
+  {num:8,label:'วิเคราะห์',icon:'📊',title:'ประเมินคุณภาพการบำรุง — เวอร์ชันมาตรฐาน',
+   body:`"จากข้อมูลแปลง (1 แถว = 1 แปลง) ช่วยประเมิน:
+1) งานทันเวลาหรือช้า (เพราะอะไร)
+2) ปริมาณ/รอบการบำรุงพอหรือขาด (ตามข้อมูลที่ให้)
+3) ปัจจัยลดประสิทธิภาพ (น้ำ/วัชพืช/ศัตรูพืช/แรงงาน/เครื่องจักร)
+สรุปเป็นตาราง: แปลง | สถานะเวลา | จุดเสี่ยง | สิ่งที่ควรทำถัดไป | ต้องตรวจเพิ่ม"`},
+
+  {num:9,label:'วิเคราะห์',icon:'⚡',title:'ประเมินคุณภาพการบำรุง — เวอร์ชันผู้ช่วยมือโปร',
+   body:`"ให้สรุปผลต่อแปลงแบบ 4 ช่องเท่านั้น:
+A) เวลา: (ทัน/ช้า X วัน/ไม่ทราบ)
+B) งานหลัก: (ครบ/ขาด/ไม่ทราบ)
+C) ความเสี่ยงหลัก 1-2 ข้อ:
+D) ต้องตรวจเพิ่ม 1-3 ข้อ:
+จำกัดไม่เกิน 6 บรรทัดต่อแปลง"`},
+
+  {num:10,label:'สื่อ',icon:'🎨',title:'สร้าง brief เพื่อทำสื่อ/ภาพรณรงค์ — Image Prompt',
+   body:`"ช่วยเขียน image prompt สำหรับทำสื่อรณรงค์เรื่อง <หัวข้อ> ให้ 3 โทน:
+1) จริงจังมืออาชีพ 2) เป็นมิตรชาวไร่ 3) ผู้บริหาร
+แต่ละโทนระบุ: ฉาก/ตัวละคร/ข้อความบนภาพ/สไตล์/อัตราส่วนภาพ"`},
+
+  {num:11,label:'สื่อ',icon:'🖥️',title:'โครงสไลด์ 10 หน้า — Problem → Data → Insight → Rec',
+   body:`"ช่วยทำโครงสไลด์ 10 หน้าเรื่อง <หัวข้อ> โดยกำหนด:
+- ชื่อสไลด์แต่ละหน้า
+- Key message 1 บรรทัด
+- Bullet 3-5 ข้อ
+- ตาราง/กราฟที่ควรมี (ถ้ามีข้อมูล)
+โทนภาษา: ผู้บริหาร อ่านง่าย"`},
+
+  {num:12,label:'กันพลาด',icon:'🛡️',title:'Prompt กันพลาด — ห้ามเดา + แยก 3 ส่วน',
+   body:`"ตอบโดยห้ามเดา และต้องแยก 3 ส่วน:
+(A) สรุปจากข้อมูลที่ให้เท่านั้น
+(B) สิ่งที่ยังไม่รู้/ต้องตรวจเพิ่ม (รายการ)
+(C) ข้อเสนอแนะที่เป็น 'ทางเลือก' เท่านั้น (Option 1..n)"`},
+
+  {num:13,label:'กันพลาด',icon:'🔄',title:'ตรวจคำตอบตัวเอง — Self-check',
+   body:`"ช่วยตรวจคำตอบของคุณเอง:
+- ประโยคไหนอาจเป็นการเดา/ไม่มีหลักฐานจากข้อมูลที่ให้
+- จุดไหนต้องมีข้อมูลเพิ่มเพื่อสรุปให้ชัวร์
+- ถ้าต้องลดความเสี่ยง ให้ถามอะไรเพิ่ม 5 ข้อ"`},
+
+  {num:14,label:'ข้อมูล',icon:'📥',title:'แปลงข้อมูลดิบ → ตารางมาตรฐาน — 1 แปลง/1 ฤดู = 1 แถว',
+   body:`"ฉันมีข้อมูลบำรุงอ้อยแบบข้อความ/หลายบรรทัด ช่วยจัดเป็นตารางคอลัมน์:
+รหัสแปลง, พื้นที่, ประเภทอ้อย, วันใส่ปุ๋ยหลังตัด, ปุ๋ย(กก./ไร่), ให้น้ำ, กำจัดวัชพืช,
+ศัตรูพืช, รุนแรง(%), แล้ง(วัน), หมายเหตุ
+ถ้าช่องไหนไม่มีให้เว้นว่าง และถามกลับว่าต้องการข้อมูลอะไรเพิ่ม"`},
+
+  {num:15,label:'วิเคราะห์',icon:'🚦',title:'ตั้งเกณฑ์สีไฟจราจร — เขียว/เหลือง/แดง สำหรับความเสี่ยงแปลง',
+   body:`"ช่วยออกแบบเกณฑ์ เขียว/เหลือง/แดง โดยอิงตัวแปร:
+วันใส่ปุ๋ยหลังตัด, แล้ง(วัน), ศัตรูพืช(%), การให้น้ำ, วัชพืช
+ให้เหตุผลของเกณฑ์ และตัวอย่าง 3 เคส (เขียว/เหลือง/แดง)"`},
+
+  {num:16,label:'วางแผน',icon:'📅',title:'สรุป 1 แปลง แบบ \'แผน 7 วัน\'',
+   body:`"จากข้อมูลแปลงนี้ ช่วยทำแผน 7 วัน:
+วัน | งาน | เจ้าของงาน(บทบาท) | เป้าหมาย/ผลที่ต้องเห็น | ตรวจหน้างานก่อนเริ่ม
+ห้ามเดา ถ้าไม่มีข้อมูล ให้ถามก่อน"`},
+
+  {num:17,label:'วิเคราะห์',icon:'⚖️',title:'เปรียบเทียบ 2 ทางเลือกการบำรุง — A vs B',
+   body:`"เปรียบเทียบ A) <…> กับ B) <…> โดยดู:
+ต้นทุน, เวลา, ความเสี่ยง, โอกาสสำเร็จ
+สรุปเป็นตาราง และปิดท้ายด้วย 'คำแนะนำแบบถ้า-แล้ว'"`},
+
+  {num:18,label:'หน้างาน',icon:'❓',title:'สร้างชุดคำถามก่อนตัดสินใจ — ถามชาวไร่/ทีมหน้างาน',
+   body:`"จากสถานการณ์นี้ ช่วยสร้างคำถาม 12 ข้อ แบ่งหมวด:
+น้ำ, ดิน, ศัตรูพืช, วัชพืช, เครื่องจักร/แรงงาน, ข้อจำกัดเวลา"`},
+
+  {num:19,label:'สื่อสาร',icon:'💬',title:'สรุปรายงานเป็น \'ข้อความไลน์กลุ่ม\' + งานต้องทำ 3 ข้อ',
+   body:`"ย่อข้อมูลด้านล่างให้เป็นข้อความไลน์:
+- สถานการณ์ 2 บรรทัด
+- สิ่งที่ทำแล้ว 1 บรรทัด
+- งานต้องทำ 3 ข้อ (ใคร/ทำอะไร/ภายในเมื่อไหร่)
+ภาษาไทยสั้น ๆ"`},
+
+  {num:20,label:'ตรวจสอบ',icon:'🧮',title:'Sanity check ตัวเลข — หาค่าผิดปกติ/กรอกผิด',
+   body:`"ช่วยตรวจความสมเหตุสมผลของตัวเลขในตารางนี้:
+ระบุแถว/คอลัมน์ที่น่าสงสัย + เหตุผล + วิธีตรวจยืนยัน
+เช่น หน่วยผิด, ค่าเกินช่วง, วันที่ย้อนลำดับ"`},
+
+  {num:21,label:'วางแผน',icon:'🧯',title:'รายการความเสี่ยงของโครงการ + แผนสำรอง — Plan B',
+   body:`"สำหรับโครงการ <ชื่อ> ระบุความเสี่ยง 10 ข้อ (อากาศ/เครื่องจักร/งบ/คน/โรคแมลง/ข้อมูล)
+และเสนอแผนลดความเสี่ยง + แผนสำรอง (Plan B) แบบทำได้จริง"`},
+
+  {num:22,label:'ฝึกทีม',icon:'🎤',title:'สคริปต์พูด 1 นาที — บรีฟทีมก่อนลงแปลง',
+   body:`"ช่วยเขียนสคริปต์ 60 วินาทีเพื่อบรีฟทีมเรื่อง <หัวข้อ>
+ต้องมี: เป้าหมาย, ขั้นตอนสั้น ๆ, จุดความปลอดภัย, เกณฑ์เสร็จงาน (ต้องเห็นอะไร)"`},
+
+  {num:23,label:'วางแผน',icon:'📈',title:'สร้าง KPI วัดผลแผนบำรุง — วัดได้จริง',
+   body:`"จากแผนบำรุงนี้ เสนอ KPI 8 ตัว แบ่ง:
+คุณภาพงาน, เวลา, ต้นทุน, ความเสี่ยง
+พร้อมวิธีเก็บข้อมูล/ความถี่ (รายวัน/รายสัปดาห์)"`},
+
+  {num:24,label:'สท.00',icon:'🗺️',title:'ติดตาม \'งานค้าง\' ตามสถานะแปลง + โซน',
+   body:`"ช่วยสรุปแปลงที่เข้าข่าย 'พื้นที่ว่างเปล่า/พักดิน' หรือ 'รื้อตอรอตัด'
+แยกตาม เขต/โซน/หน่วย พร้อม:
+- จำนวนแปลง/รวมไร่
+- รายชื่อ IDแปลง/หมายเหตุ (ถ้ามี)
+และระบุ Top 5 โซนที่มีงานค้างมากสุด"`},
+
+  {num:25,label:'สท.00',icon:'📉',title:'ติดตาม \'แผน vs ผลจริง\' เร็ว/ช้า — คุม SLA',
+   body:`"ทำรายงานแผนเทียบผลจริง:
+- คัดแปลงที่ 'ช้ากว่าแผน' มากกว่า 7 วัน
+- จัดอันดับ Top 10 ที่ช้าที่สุด
+แสดงตาราง: เขต | หน่วย | IDแปลง | วันปลูกแผน | วันปลูกจริง | ผลต่างวันปลูก | ผู้ปลูก | หมายเหตุ/เงื่อนไข"`},
+
+  {num:26,label:'สท.00',icon:'👥',title:'ติดตาม \'ประสิทธิภาพทีม/ผู้รับผิดชอบ\'',
+   body:`"สรุปผลงานรายผู้ปลูก/ผู้ปฏิบัติงาน:
+- จำนวนแปลงที่ปลูกเสร็จ
+- จำนวนแปลงที่ยังไม่ปลูก (วันปลูกจริงเป็น '-')
+- เฉลี่ยเร็ว/ช้ากว่าแผน (เฉพาะแปลงที่มีผลต่างวันปลูก)
+- รายชื่อแปลงค้างของแต่ละคน/ทีม (Top 10)
+รูปแบบ: ตาราง + สรุป insight 5 ข้อ"`},
+
+  {num:27,label:'สท.00',icon:'🌾',title:'ติดตาม \'กิจกรรมงาน\' — รื้อตอประเภทต่าง ๆ',
+   body:`"แยกงานตามกิจกรรมจากคอลัมน์ 'ประวัติการรื้อตอ[27]' และ/หรือ 'ประวัติพื้นที่ใหม่[28]'
+สรุป: กิจกรรม | จำนวนแปลง | รวมไร่ | แปลงค้าง(วันปลูกจริงเป็น '-')"`},
+
+  {num:28,label:'สท.00',icon:'🌱',title:'ติดตาม \'พันธุ์/ชนิดอ้อย\' — วางแผนปลูก',
+   body:`"สรุปตามชนิดอ้อยและพันธุ์อ้อย:
+- ชนิดอ้อย[02] x พันธุ์อ้อย[22] : จำนวนแปลง/รวมไร่
+- แยกสถานะปลูกเสร็จ vs ยังไม่ปลูก
+สรุปเป็นตาราง และบอกกลุ่มที่ 'ค้างปลูก' มากสุด Top 5"`},
+
+  {num:29,label:'สท.00',icon:'🚀',title:'ทำ \'คิวเร่งปลูก\' — Ranking จาก Plan vs Actual',
+   body:`"ทำ 'คิวเร่งปลูก' จากตารางแปลง โดย:
+1) คัดแปลงที่ยังไม่ปลูก (วันปลูกจริงเป็น '-') หรือผลต่างวันปลูกเป็น 'ช้ากว่าแผน…'
+2) จัดลำดับเร่งด่วน: ช้ากว่าแผนมากสุด → วันปลูกแผนใกล้สุด → ไร่มากสุด
+3) แสดงผล:
+A) สรุปภาพรวม (ค้างกี่แปลง/กี่ไร่/โซนไหนหนักสุด)
+B) ตารางคิวเร่งปลูก: ลำดับ | เขต | หน่วย | IDแปลง | ไร่ | วันปลูกแผน | วันปลูกจริง | ผลต่าง | ผู้ปลูก | เงื่อนไข/หมายเหตุ
+4) แยกตาราง 'ยกเลิก/ไม่ต้องเข้าคิว' ถ้ามีจากเงื่อนไข/หมายเหตุ"`},
+
+  {num:30,label:'สท.00',icon:'🏆',title:'Prompt รวมงานครบวงจร — วิเคราะห์ + รายงานผู้บริหาร + ไลน์ทีม',
+   body:`"จากตาราง Plan vs Actual ด้านล่าง ช่วยทำ 3 ผลลัพธ์:
+(1) รายงานผู้บริหาร 1 หน้า: ภาพรวม, ตัวชี้วัด, โซนเสี่ยง, ข้อเสนอแนะ
+(2) คิวเร่งปลูก Top 15 (ตามเกณฑ์ข้อ 29)
+(3) ข้อความไลน์กลุ่ม 5 บรรทัด + งานต้องทำ 3 ข้อ
+กติกา: ห้ามเดา ถ้าข้อมูลไม่พอให้ระบุ 'ต้องตรวจเพิ่ม'"`},
+];
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let currentFilter = 'all';
+let currentSearch = '';
+
+// ═══════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════
+function renderCards() {
+  const grid = document.getElementById('pgrid');
+  grid.innerHTML = '';
+
+  PROMPTS.forEach((p, i) => {
+    const labelClass = 'tag-' + p.label.replace('.', '\\.');
+    const card = document.createElement('div');
+    card.className = 'pcard';
+    card.dataset.label = p.label;
+    card.dataset.num = p.num;
+    card.dataset.text = (p.title + ' ' + p.body + ' ' + p.label).toLowerCase();
+    card.style.animationDelay = (i * 0.02) + 's';
+
+    card.innerHTML = `
+      <div class="pcard-head">
+        <div class="pcard-icon">${p.icon}</div>
+        <div class="pcard-meta">
+          <div class="pcard-num">Prompt #${String(p.num).padStart(2,'0')}</div>
+          <div class="pcard-title">${p.title}</div>
+          <span class="pcard-tag tag-${p.label}">${p.label}</span>
+        </div>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-code" id="code-${p.num}">${escHtml(p.body)}</div>
+      </div>
+      <div class="pcard-foot">
+        <button class="btn-expand" onclick="toggleExpand(${p.num}, this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          ดูเพิ่มเติม
+        </button>
+        <button class="btn-copy" id="copy-${p.num}" onclick="copyPrompt(${p.num}, this)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          คัดลอก
+        </button>
+      </div>`;
+
+    grid.appendChild(card);
+  });
+
+  filterAll();
+}
+
+function escHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// ═══════════════════════════════════════════
+//  FILTER + SEARCH
+// ═══════════════════════════════════════════
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  filterAll();
+}
+
+function filterAll() {
+  currentSearch = document.getElementById('searchInput').value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.pcard');
+  let visible = 0;
+
+  cards.forEach(card => {
+    const matchFilter = currentFilter === 'all' || card.dataset.label === currentFilter;
+    const matchSearch = !currentSearch || card.dataset.text.includes(currentSearch);
+    const show = matchFilter && matchSearch;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  document.getElementById('countShow').textContent = visible;
+  document.getElementById('emptyState').classList.toggle('show', visible === 0);
+}
+
+// ═══════════════════════════════════════════
+//  EXPAND / COLLAPSE
+// ═══════════════════════════════════════════
+function toggleExpand(num, btn) {
+  const card = btn.closest('.pcard');
+  const expanded = card.classList.toggle('expanded');
+  btn.querySelector('svg + *') && (btn.lastChild.textContent = '');
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="${expanded ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"/></svg> ${expanded ? 'ย่อ' : 'ดูเพิ่มเติม'}`;
+}
+
+// ═══════════════════════════════════════════
+//  COPY PROMPT
+// ═══════════════════════════════════════════
+function copyPrompt(num, btn) {
+  const p = PROMPTS.find(x => x.num === num);
+  if (!p) return;
+  navigator.clipboard.writeText(p.body).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> คัดลอกแล้ว!`;
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  COPY EXAMPLE TABLE
+// ═══════════════════════════════════════════
+const EXAMPLE_CSV = `IDแปลง,พื้นที่,เขต,หน่วย,วันที่ปลูก[แผน],วันที่ปลูกเสร็จ[สท.02],ผลต่างวันปลูก,ผู้ปลูก,พันธุ์อ้อย[22],ชนิดอ้อย[02],ประวัติการรื้อตอ[27],ประวัติพื้นที่ใหม่[28]
+252908,12,ตาคลี,โค้งบ้านใหม่,04-03-2026,-,-,ตนเอง,CSB15-144,อ้อยน้ำราด-น้ำสูบ,รื้อตอจากอ้อยตอ 2,-
+214395,11,ตาคลี,โค้งบ้านใหม่,28-12-2025,03-02-2026,ช้ากว่าแผน 37 วัน,ตนเอง,CSB15-144,อ้อยข้ามแล้ง,-,พื้นที่รกร้างว่างเปล่า
+232016,6,ตาคลี,โค้งบ้านใหม่,03-03-2026,-,-,นางขวัญใจ หมื่นนราเดช,CSB15-144,อ้อยน้ำราด-น้ำสูบ,รื้อตอจากอ้อยตอ 2,-
+211329,9,ตาคลี,โค้งบ้านใหม่,27-01-2026,28-01-2026,ช้ากว่าแผน 1 วัน,ตนเอง,08-111,อ้อยข้ามแล้ง,-,พื้นที่รกร้างว่างเปล่า
+211334,10,ตาคลี,โค้งบ้านใหม่,03-03-2026,22-02-2026,เร็วกว่าแผน 9 วัน,ตนเอง,CSB15-144,อ้อยน้ำราด-น้ำสูบ,-,พื้นที่รกร้างว่างเปล่า`;
+
+function copyExample() {
+  const btn = document.getElementById('btnCopyEx');
+  navigator.clipboard.writeText(EXAMPLE_CSV).then(() => {
+    const orig = btn.innerHTML;
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> คัดลอกแล้ว!`;
+    btn.classList.add('copied');
+    setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  FONT SIZE
+// ═══════════════════════════════════════════
+const SIZES = ['sm','md','lg','xl'];
+function setFont(size) {
+  document.documentElement.setAttribute('data-font', size);
+  document.querySelectorAll('.font-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.size === size);
+  });
+  try { localStorage.setItem('pref-font', size); } catch(e){}
+}
+
+// ═══════════════════════════════════════════
+//  THEME
+// ═══════════════════════════════════════════
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  document.getElementById('themeBtn').textContent = theme === 'dark' ? '☀️' : '🌙';
+  try { localStorage.setItem('pref-theme', theme); } catch(e){}
+}
+function toggleTheme() {
+  const cur = document.documentElement.getAttribute('data-theme');
+  applyTheme(cur === 'dark' ? 'light' : 'dark');
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+(function init() {
+  try {
+    const sf = localStorage.getItem('pref-font');
+    if (sf && SIZES.includes(sf)) setFont(sf);
+  } catch(e){}
+  try {
+    const st = localStorage.getItem('pref-theme');
+    if (st) { applyTheme(st); }
+    else if (window.matchMedia('(prefers-color-scheme: dark)').matches) { applyTheme('dark'); }
+  } catch(e){}
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+    try { if (!localStorage.getItem('pref-theme')) applyTheme(e.matches ? 'dark' : 'light'); } catch(e){}
+  });
+  renderCards();
+})();
+</script>
+</body>
+</html>
