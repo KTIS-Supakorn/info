@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>✨ LUCKY DRAW</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+Thai:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060914;--card:rgba(255,255,255,.04);--border:rgba(255,255,255,.09);
+  --text:#f0f4ff;--muted:#6a7a9a;
+  --gold:#f5c842;--gold2:#ff9f1c;--green:#2dffb0;--red:#ff4d6d;--blue:#5090ff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Sans Thai',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+.bg-orb{position:fixed;border-radius:50%;pointer-events:none;filter:blur(100px);opacity:.45;animation:orb 20s ease-in-out infinite}
+.bg-orb:nth-child(1){width:550px;height:550px;background:rgba(80,144,255,.15);top:-180px;left:-130px}
+.bg-orb:nth-child(2){width:450px;height:450px;background:rgba(176,111,255,.12);bottom:-130px;right:-100px;animation-delay:-9s}
+.bg-orb:nth-child(3){width:380px;height:380px;background:rgba(74,240,208,.10);top:45%;left:45%;animation-delay:-16s}
+@keyframes orb{0%,100%{transform:translate(0,0)}50%{transform:translate(35px,-25px)}}
+
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:14px 16px 32px}
+
+/* HEADER */
+.hdr{text-align:center;padding:14px 0 10px}
+.hdr-badge{display:inline-block;padding:4px 14px;border-radius:999px;border:1px solid rgba(245,200,66,.3);background:rgba(245,200,66,.07);font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:7px}
+h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,6vw,70px);letter-spacing:5px;
+  background:linear-gradient(135deg,#fff 0%,var(--gold) 45%,var(--gold2) 70%,#4af0d0 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.hstats{display:flex;justify-content:center;gap:8px;margin-top:7px;flex-wrap:wrap}
+.hstat{padding:4px 14px;border-radius:999px;border:1px solid var(--border);font-size:12px;font-weight:700}
+.hstat.p{border-color:rgba(80,144,255,.4);color:#8ab4ff}
+.hstat.w{border-color:rgba(245,200,66,.4);color:var(--gold)}
+
+/* CARD */
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px;position:relative;overflow:hidden;margin-bottom:12px}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+.stitle{font-size:11px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.stitle::before{content:'';width:3px;height:11px;border-radius:99px;background:linear-gradient(var(--gold),var(--gold2));flex-shrink:0}
+
+/* INPUTS */
+textarea{width:100%;height:170px;resize:vertical;padding:10px;border-radius:10px;border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--text);font-family:inherit;font-size:13px;line-height:1.6;outline:none;transition:border-color .2s}
+textarea:focus{border-color:rgba(80,144,255,.5)}
+input[type=text],input[type=number]{padding:8px 11px;border-radius:9px;border:1px solid var(--border);background:rgba(0,0,0,.3);color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:border-color .2s}
+input[type=text]{width:100%}
+input[type=number]{width:72px;text-align:center}
+input:focus{border-color:rgba(80,144,255,.5)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 13px;border-radius:9px;border:1px solid var(--border);background:rgba(255,255,255,.05);color:var(--text);font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap;user-select:none}
+.btn:hover:not(:disabled){transform:translateY(-1px);border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.08)}
+.btn:active:not(:disabled){transform:scale(.97)}
+.btn:disabled{opacity:.3;cursor:not-allowed;transform:none!important}
+.btn-gold{background:linear-gradient(135deg,rgba(245,200,66,.22),rgba(255,159,28,.12));border-color:rgba(245,200,66,.5);color:var(--gold);font-size:15px;padding:11px 26px}
+.btn-auto{background:linear-gradient(135deg,rgba(80,144,255,.2),rgba(80,144,255,.1));border-color:rgba(80,144,255,.45);color:#8ab4ff;font-size:15px;padding:11px 18px}
+.btn-stop{background:linear-gradient(135deg,rgba(255,77,109,.2),rgba(255,77,109,.1));border-color:rgba(255,77,109,.4);color:#ff8fa8;font-size:15px;padding:11px 18px}
+.btn-green{background:rgba(45,255,176,.08);border-color:rgba(45,255,176,.35);color:var(--green)}
+.btn-red{background:rgba(255,77,109,.07);border-color:rgba(255,77,109,.3);color:#ff8fa8}
+/* Emergency reset button */
+.btn-reset{background:rgba(255,77,109,.15);border-color:rgba(255,77,109,.6);color:#ff8fa8;font-size:11px;padding:5px 10px}
+.row{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+.sep{width:1px;height:22px;background:var(--border);flex-shrink:0}
+
+/* DUP */
+.dup-box{margin-top:9px;padding:9px 11px;border-radius:9px;border:1px solid rgba(245,200,66,.25);background:rgba(245,200,66,.05);font-size:11px}
+.dup-box ul{margin:5px 0 0 14px}
+.dup-box li{margin:3px 0;color:rgba(255,210,90,.9)}
+
+/* STAGE CARD */
+.stage-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:16px;padding:14px;position:relative;overflow:hidden;
+  margin-bottom:12px;
+}
+.stage-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent)}
+
+.ctrl-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.ctrl-label{font-size:11px;color:var(--muted);white-space:nowrap}
+#prizeName{flex:1 1 160px;max-width:280px}
+.count-wrap{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);white-space:nowrap}
+
+.sbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+.sbadge{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.1);color:rgba(235,245,255,.8);background:rgba(0,0,0,.3)}
+.spool-txt{font-size:11px;color:var(--muted);font-weight:700}
+
+.drum-wrap{
+  position:relative;border-radius:11px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.07);
+  background:rgba(0,0,0,.45);
+  height:130px;
+  transition:border-color .3s,box-shadow .3s;
+}
+.drum-wrap::after{content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px);
+  pointer-events:none;z-index:6}
+.df-top,.df-bot{position:absolute;left:0;right:0;height:38px;z-index:5;pointer-events:none}
+.df-top{top:0;background:linear-gradient(to bottom,rgba(3,5,15,1),transparent)}
+.df-bot{bottom:0;background:linear-gradient(to top,rgba(3,5,15,1),transparent)}
+.drum-hl{
+  position:absolute;left:8px;right:8px;top:50%;transform:translateY(-50%);
+  height:44px;border-radius:7px;
+  border:1px solid rgba(245,200,66,.18);
+  background:linear-gradient(135deg,rgba(245,200,66,.05),rgba(255,159,28,.02));
+  pointer-events:none;z-index:4;transition:border-color .3s,box-shadow .3s;
+}
+.drum-wrap.is-spin{border-color:rgba(245,200,66,.5);box-shadow:0 0 28px rgba(245,200,66,.12)}
+.drum-wrap.is-spin .drum-hl{border-color:rgba(245,200,66,.35)}
+.drum-wrap.is-won{border-color:rgba(45,255,176,.5);box-shadow:0 0 28px rgba(45,255,176,.12)}
+.drum-wrap.is-won .drum-hl{border-color:rgba(45,255,176,.4);box-shadow:0 0 14px rgba(45,255,176,.1)}
+
+.drum-track{
+  position:absolute;top:50%;left:0;right:0;
+  transform:translateY(-50%);
+  display:flex;flex-direction:column;align-items:center;
+  z-index:2;pointer-events:none;
+}
+.di{display:flex;align-items:center;justify-content:center;width:100%;padding:0 14px;
+  font-family:'Bebas Neue','Noto Sans Thai',sans-serif;letter-spacing:1px;
+  text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;
+  height:24px;font-size:18px;color:rgba(255,255,255,.09);}
+.di.near{height:30px;font-size:22px;color:rgba(255,255,255,.28)}
+.di.active{
+  height:44px;font-size:32px;color:#fff;
+  text-shadow:0 0 16px rgba(245,200,66,.9),0 0 32px rgba(245,200,66,.4);
+}
+
+.prize-lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:6px;transition:color .3s}
+
+.bot-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.snd-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:7px;padding:6px 10px;
+  border-radius:9px;border:1px solid var(--border);background:rgba(0,0,0,.15);font-size:12px;color:var(--muted)}
+.snd-row label{display:flex;align-items:center;gap:4px}
+input[type=range]{accent-color:var(--gold);width:65px;cursor:pointer}
+
+.wo{
+  position:absolute;inset:0;z-index:20;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 55%,rgba(4,7,20,.97),rgba(4,7,20,1));
+  opacity:0;pointer-events:none;
+  padding:10px;text-align:center;
+  transition:opacity .28s ease;
+}
+.wo.show{opacity:1}
+.wo-lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:700}
+.wo-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,4.5vw,50px);letter-spacing:2px;line-height:1.1;
+  background:linear-gradient(135deg,#fff 0%,var(--gold) 55%,var(--gold2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 16px rgba(245,200,66,.5));}
+.wo-multi{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;max-height:60px;overflow-y:auto}
+.wo-chip{padding:3px 9px;border-radius:999px;border:1px solid rgba(245,200,66,.3);background:rgba(245,200,66,.08);font-size:11px;font-weight:700;color:#ffe08a}
+.wo-prize{margin-top:4px;font-size:11px;color:var(--muted);font-weight:700}
+@keyframes winIn{from{transform:scale(.8) translateY(5px);opacity:0}to{transform:scale(1);opacity:1}}
+.wo.show .wo-name,.wo.show .wo-chip{animation:winIn .35s cubic-bezier(.2,.9,.2,1) both}
+
+#pCanvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+
+.grid{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;align-items:start}
+@media(max-width:840px){.grid{grid-template-columns:1fr}}
+
+details{border:1px solid var(--border);border-radius:12px;background:rgba(0,0,0,.1);margin-top:8px}
+summary{cursor:pointer;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:7px;font-size:12px;font-weight:700;color:#c0d0e8;list-style:none;user-select:none;transition:background .15s}
+summary:hover{background:rgba(255,255,255,.02)}
+summary::-webkit-details-marker{display:none}
+.dtag{font-size:10px;padding:2px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted);background:rgba(255,255,255,.03);font-weight:900}
+.dpanel{padding:0 11px 11px;border-top:1px solid var(--border)}
+.pscroll{max-height:160px;overflow-y:auto;overflow-x:hidden;border:1px solid var(--border);border-radius:9px;background:rgba(0,0,0,.18)}
+.pscroll::-webkit-scrollbar{width:3px}
+.pscroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:99px}
+.litem{display:flex;align-items:center;justify-content:space-between;gap:7px;padding:7px 10px;border-top:1px solid rgba(255,255,255,.04);font-size:12px}
+.litem:first-child{border-top:none}
+.lnum{font-size:10px;color:var(--muted);font-weight:700;min-width:22px}
+.schips{padding:7px;display:flex;flex-wrap:wrap;gap:5px}
+.schip{padding:4px 9px;border-radius:999px;border:1px solid rgba(80,144,255,.2);background:rgba(80,144,255,.06);font-size:11px;display:flex;gap:5px;align-items:center}
+.schip b{font-weight:900;color:#a0c0ff}.schip small{color:var(--muted)}
+.srow{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0 5px}
+.srow input{flex:1 1 140px;font-size:12px}
+.fnote{margin-top:7px;font-size:11px;color:var(--muted);line-height:1.6}
+
+/* Stuck indicator */
+#stuckWarn{display:none;margin-top:6px;padding:6px 10px;border-radius:8px;border:1px solid rgba(255,77,109,.4);background:rgba(255,77,109,.08);font-size:11px;color:#ff8fa8;align-items:center;gap:8px}
+#stuckWarn.show{display:flex}
+
+@keyframes flash{0%{filter:brightness(1)}10%{filter:brightness(2) saturate(1.3)}100%{filter:brightness(1)}}
+.do-flash{animation:flash .4s ease-out}
+</style>
+</head>
+<body>
+<div class="bg-orb"></div>
+<div class="bg-orb"></div>
+<div class="bg-orb"></div>
+
+<div class="wrap">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-badge">🎰 Lucky Draw System</div>
+  <h1>LUCKY DRAW</h1>
+  <div class="hstats">
+    <span class="hstat p" id="hPool">Pool: 0 คน</span>
+    <span class="hstat w" id="hWon">ได้รางวัล: 0 คน</span>
+  </div>
+</div>
+
+<!-- STAGE -->
+<div class="stage-card" id="stageCard">
+  <canvas id="pCanvas"></canvas>
+
+  <div class="ctrl-row">
+    <span class="ctrl-label">ชื่อรางวัล</span>
+    <input id="prizeName" type="text" placeholder="เช่น รางวัลที่ 1"/>
+    <div class="count-wrap">
+      <span>สุ่มครั้งละ</span>
+      <input id="drawCount" type="number" min="1" value="1"/>
+    </div>
+    <div class="sep"></div>
+    <button class="btn btn-gold" id="drawBtn" disabled>🎲 สุ่มรางวัล</button>
+    <button class="btn btn-auto" id="autoBtn" disabled>▶ ต่อเนื่อง</button>
+    <button class="btn btn-stop" id="stopBtn" disabled>⏹ หยุด</button>
+    <span style="flex:1"></span>
+    <button class="btn" id="undoBtn" disabled>↩ Undo</button>
+    <button class="btn" id="exportBtn" disabled>📥 CSV</button>
+  </div>
+
+  <div class="sbar">
+    <span class="sbadge" id="sbadge">✨ พร้อมสุ่ม</span>
+    <span class="spool-txt" id="spoolTxt">Pool: 0</span>
+  </div>
+
+  <div class="drum-wrap" id="drumWrap">
+    <div class="df-top"></div>
+    <div class="df-bot"></div>
+    <div class="drum-hl"></div>
+    <div class="drum-track" id="drumTrack">
+      <div class="di"></div>
+      <div class="di near"></div>
+      <div class="di active">— กด สุ่มรางวัล เพื่อเริ่ม —</div>
+      <div class="di near"></div>
+      <div class="di"></div>
+    </div>
+    <div class="wo" id="wo">
+      <div class="wo-lbl" id="woLbl">🏆 ผู้ได้รับรางวัล</div>
+      <div class="wo-name" id="woName"></div>
+      <div class="wo-multi" id="woMulti"></div>
+      <div class="wo-prize" id="woPrize"></div>
+    </div>
+  </div>
+
+  <div class="prize-lbl" id="prizeLbl">ระบบสุ่มรางวัล</div>
+
+  <!-- Stuck warning -->
+  <div id="stuckWarn">
+    ⚠ ดูเหมือนระบบค้าง &nbsp;
+    <button class="btn btn-reset" id="forceResetBtn">🔄 Force Reset</button>
+  </div>
+
+  <div class="snd-row">
+    <label><input type="checkbox" id="sndOn" checked> เสียง</label>
+    <label>ระดับ <input type="range" id="sndVol" min="0" max="1" step=".01" value=".65"></label>
+    <span style="flex:1"></span>
+    <span style="font-size:11px;color:var(--muted)" id="shint">พร้อมใช้งาน</span>
+  </div>
+</div>
+
+<div class="grid">
+<div class="card">
+  <div class="stitle">รายชื่อผู้เข้าร่วม (1 บรรทัด / 1 คน)</div>
+  <textarea id="namesInput" placeholder="ตัวอย่าง:&#10;สมชาย ใจดี&#10;สมหญิง รุ่งเรือง&#10;IT BKK" spellcheck="false"></textarea>
+  <div class="row" style="margin-top:9px">
+    <button class="btn btn-green" id="loadBtn">⚡ โหลดเข้า Pool</button>
+    <button class="btn" id="dedupeBtn">🔧 ลบชื่อซ้ำ</button>
+    <span style="flex:1"></span>
+    <button class="btn btn-red" id="clearAllBtn">🗑 ล้างทั้งหมด</button>
+  </div>
+  <div class="dup-box" id="dupBox" style="display:none">
+    <strong style="color:rgba(255,210,80,.9)">⚠ พบชื่อซ้ำ</strong>
+    <ul id="dupList"></ul>
+  </div>
+  <div class="fnote">ทิป: กด "ลบชื่อซ้ำ" ก่อนโหลด Pool</div>
+</div>
+
+<div class="card">
+  <details open>
+    <summary>ผลสุ่มต่อเนื่อง <span class="dtag" id="dStream">0</span></summary>
+    <div class="dpanel">
+      <div class="row" style="margin:7px 0 5px">
+        <span style="font-size:11px;color:var(--muted)">จำกัด 60 รายการล่าสุด</span>
+        <span style="flex:1"></span>
+        <button class="btn btn-red" id="clearStreamBtn" style="font-size:11px;padding:4px 9px">ล้าง</button>
+      </div>
+      <div class="pscroll"><div class="schips" id="streamChips">
+        <span id="streamEmpty" style="font-size:11px;color:var(--muted)">ยังไม่มีผลสุ่ม</span>
+      </div></div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Pool (ผู้มีสิทธิ์ลุ้น) <span class="dtag" id="dPool">0</span></summary>
+    <div class="dpanel">
+      <div class="srow">
+        <input id="poolSearch" type="text" placeholder="ค้นหา..."/>
+        <button class="btn" id="poolSrchClr" style="font-size:11px;padding:4px 8px">✕</button>
+      </div>
+      <div class="pscroll" id="poolList"></div>
+      <div class="fnote" id="poolNote"></div>
+    </div>
+  </details>
+
+  <details open>
+    <summary>ผู้ได้รับรางวัล <span class="dtag" id="dWon">0</span></summary>
+    <div class="dpanel">
+      <div class="srow">
+        <input id="wonSearch" type="text" placeholder="ค้นหา..."/>
+        <button class="btn" id="wonSrchClr" style="font-size:11px;padding:4px 8px">✕</button>
+      </div>
+      <div class="pscroll" id="wonList"></div>
+      <div class="fnote" id="wonNote"></div>
+      <div class="row" style="margin-top:7px">
+        <button class="btn" id="reAddBtn">↪ คืน Pool</button>
+        <button class="btn btn-red" id="clearWonBtn">🗑 ล้าง</button>
+      </div>
+    </div>
+  </details>
+  <div class="fnote">🔐 crypto.getRandomValues · try/finally กันค้าง</div>
+</div>
+</div>
+</div>
+
+<script>
+// ══════════ STATE ══════════
+let pool=[], winners=[], stream=[], lastAction=null;
+let spinning=false, autoMode=false, stopReq=false;
+let drumAF=null, drumNames=[''], drumIdx=0;
+let spinStartTime=0, stuckTimer=null;
+
+// ══════════ UTILS ══════════
+const $=id=>document.getElementById(id);
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const norm=s=>(s||'').replace(/\s+/g,' ').trim().toLowerCase();
+const parseNames=t=>(t||'').split(/\r?\n/).map(x=>x.replace(/\s+/g,' ').trim()).filter(Boolean);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function rand(max){
+  if(max<=0)return 0;
+  if(window.crypto?.getRandomValues){
+    const lim=Math.floor(0xFFFFFFFF/max)*max,a=new Uint32Array(1);let x;
+    do{crypto.getRandomValues(a);x=a[0]}while(x>=lim);return x%max;
+  }
+  return Math.floor(Math.random()*max);
+}
+
+// ══════════ FORCE RESET — แก้ปัญหาค้าง ══════════
+function forceReset(msg){
+  // หยุด rAF ทุกตัว
+  if(drumAF){cancelAnimationFrame(drumAF);drumAF=null}
+  // หยุดเสียง
+  try{Snd.stopRoll()}catch(e){}
+  // unlock ทุก flag
+  spinning=false;
+  autoMode=false;
+  stopReq=false;
+  // ซ่อน stuck warning
+  clearStuckTimer();
+  // reset UI
+  drumWrapState('');
+  const _wo=document.getElementById('wo');if(_wo)_wo.classList.remove('show');
+  const _sb=document.getElementById('sbadge');if(_sb)_sb.textContent=msg||'🔄 รีเซ็ตแล้ว';
+  const _sh=document.getElementById('shint');if(_sh)_sh.textContent='พร้อมใช้งาน';
+  resetDrumText('— กด สุ่มรางวัล เพื่อเริ่ม —');
+  renderAll();
+}
+
+// ══════════ STUCK DETECTION ══════════
+function startStuckTimer(){
+  clearStuckTimer();
+  stuckTimer=setTimeout(()=>{
+    stuckTimer=null;
+    if(spinning&&(Date.now()-spinStartTime)>=5800){
+      const el=document.getElementById('stuckWarn');
+      if(el)el.classList.add('show');
+    }
+  },6000);
+}
+function clearStuckTimer(){
+  if(stuckTimer){clearTimeout(stuckTimer);stuckTimer=null}
+  const el=document.getElementById('stuckWarn');
+  if(el)el.classList.remove('show');
+}
+
+// ══════════ SOUND ══════════
+const Snd={
+  ctx:null,master:null,vol:.65,on:true,
+  _timer:null,_ns:null,_ng:null,
+  ensure(){
+    if(this.ctx)return true;
+    const AC=window.AudioContext||window.webkitAudioContext;
+    if(!AC)return false;
+    try{
+      this.ctx=new AC();
+      this.master=this.ctx.createGain();
+      this.master.gain.value=this.vol;
+      this.master.connect(this.ctx.destination);
+      return true;
+    }catch(e){return false}
+  },
+  setOn(v){this.on=v;if(!v)this.stopRoll()},
+  setVol(v){this.vol=v;if(this.master)this.master.gain.value=v},
+  async resume(){
+    if(!this.ensure())return;
+    if(this.ctx.state==='suspended')try{await this.ctx.resume()}catch(e){}
+  },
+  startRoll(){
+    if(!this.on||!this.ctx)return;
+    this.stopRoll();
+    try{
+      const len=Math.floor(this.ctx.sampleRate*2);
+      const buf=this.ctx.createBuffer(1,len,this.ctx.sampleRate);
+      const d=buf.getChannelData(0);for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*.35;
+      const ns=this.ctx.createBufferSource();ns.buffer=buf;ns.loop=true;
+      const bp=this.ctx.createBiquadFilter();bp.type='bandpass';bp.frequency.value=600;bp.Q.value=1.2;
+      const ng=this.ctx.createGain();ng.gain.value=.0001;
+      ns.connect(bp);bp.connect(ng);ng.connect(this.master);
+      ns.start();
+      const t=this.ctx.currentTime;
+      ng.gain.setValueAtTime(.0001,t);ng.gain.exponentialRampToValueAtTime(.06,t+.12);
+      this._ns=ns;this._ng=ng;
+      let iv=60;
+      const tick=()=>{
+        if(!this.on||!this.ctx||!this._ns)return;
+        try{
+          const t2=this.ctx.currentTime;
+          const o=this.ctx.createOscillator();o.type='square';
+          o.frequency.setValueAtTime(160+Math.random()*100,t2);
+          o.frequency.exponentialRampToValueAtTime(70,t2+.04);
+          const g=this.ctx.createGain();
+          g.gain.setValueAtTime(.0001,t2);g.gain.exponentialRampToValueAtTime(.13,t2+.004);g.gain.exponentialRampToValueAtTime(.0001,t2+.06);
+          o.connect(g);g.connect(this.master);
+          o.start(t2);o.stop(t2+.07);
+        }catch(e){}
+        this._timer=setTimeout(tick,iv);iv=Math.max(30,iv*.97);
+      };
+      tick();
+    }catch(e){}
+  },
+  stopRoll(){
+    clearTimeout(this._timer);this._timer=null;
+    if(this._ng&&this.ctx){
+      try{
+        const t=this.ctx.currentTime;
+        this._ng.gain.cancelScheduledValues(t);
+        this._ng.gain.setValueAtTime(Math.max(.0001,this._ng.gain.value),t);
+        this._ng.gain.exponentialRampToValueAtTime(.0001,t+.1);
+      }catch(e){}
+    }
+    const ns=this._ns;this._ns=null;this._ng=null;
+    if(ns)setTimeout(()=>{try{ns.stop();ns.disconnect()}catch(e){}},150);
+  },
+  fanfare(multi){
+    if(!this.on||!this.ctx)return;
+    try{
+      const t=this.ctx.currentTime;
+      const rl=Math.floor(this.ctx.sampleRate*1.2);
+      const rb=this.ctx.createBuffer(2,rl,this.ctx.sampleRate);
+      for(let c=0;c<2;c++){const dd=rb.getChannelData(c);for(let i=0;i<rl;i++)dd[i]=(Math.random()*2-1)*Math.pow(1-i/rl,2)}
+      const rv=this.ctx.createConvolver();rv.buffer=rb;
+      const rg=this.ctx.createGain();rg.gain.value=.15;rg.connect(this.master);rv.connect(rg);
+      const notes=multi?[261,330,392,523,659,784,1047]:[392,523,659,784,1047,1319];
+      notes.forEach((f,i)=>{
+        const dd=i*.08;
+        [f,f*2.003].forEach((fr,j)=>{
+          const o=this.ctx.createOscillator();o.type=j?'triangle':'sine';o.frequency.value=fr;
+          const g=this.ctx.createGain();
+          g.gain.setValueAtTime(.0001,t+dd);g.gain.exponentialRampToValueAtTime(.17*(1-i*.05),t+dd+.015);g.gain.exponentialRampToValueAtTime(.0001,t+dd+.38);
+          o.connect(g);g.connect(this.master);g.connect(rv);
+          o.start(t+dd);o.stop(t+dd+.42);
+        });
+      });
+      const bd=notes.length*.08+.04;
+      const bo=this.ctx.createOscillator();bo.type='sine';
+      bo.frequency.setValueAtTime(80,t+bd);bo.frequency.exponentialRampToValueAtTime(28,t+bd+.25);
+      const bg=this.ctx.createGain();
+      bg.gain.setValueAtTime(.0001,t+bd);bg.gain.exponentialRampToValueAtTime(.3,t+bd+.01);bg.gain.exponentialRampToValueAtTime(.0001,t+bd+.28);
+      bo.connect(bg);bg.connect(this.master);
+      bo.start(t+bd);bo.stop(t+bd+.32);
+    }catch(e){}
+  },
+  buildup(){
+    if(!this.on||!this.ctx)return;
+    try{
+      const t=this.ctx.currentTime;
+      [0,.09,.17,.24,.29,.33,.36,.38].forEach((dd,i)=>{
+        const o=this.ctx.createOscillator();o.type='sawtooth';o.frequency.value=180+i*32;
+        const g=this.ctx.createGain();
+        g.gain.setValueAtTime(.0001,t+dd);g.gain.exponentialRampToValueAtTime(.08-i*.005,t+dd+.008);g.gain.exponentialRampToValueAtTime(.0001,t+dd+.07);
+        o.connect(g);g.connect(this.master);
+        o.start(t+dd);o.stop(t+dd+.08);
+      });
+    }catch(e){}
+  }
+};
+
+// ══════════ PARTICLES ══════════
+const P={
+  cv:null,cx:null,ps:[],raf:null,w:0,h:0,_lt:0,
+  init(){this.cv=$('pCanvas');this.cx=this.cv.getContext('2d');this.resize()},
+  resize(){
+    try{
+      const r=$('stageCard').getBoundingClientRect(),dpr=Math.max(1,devicePixelRatio||1);
+      this.cv.width=Math.floor(r.width*dpr);this.cv.height=Math.floor(r.height*dpr);
+      this.cv.style.width=r.width+'px';this.cv.style.height=r.height+'px';
+      this.cx.setTransform(dpr,0,0,dpr,0,0);
+      this.w=r.width;this.h=r.height;
+    }catch(e){}
+  },
+  launch(){
+    if(this.raf){cancelAnimationFrame(this.raf);this.raf=null}
+    this.resize();
+    const cols=['#f5c842','#ff9f1c','#4af0d0','#b06fff','#ff5fa0','#2dffb0','#5090ff','#fff'];
+    this.ps=Array.from({length:110},()=>({
+      x:Math.random()*this.w,y:-8-Math.random()*30,
+      vx:(Math.random()-.5)*160,vy:55+Math.random()*210,
+      r:2+Math.random()*4,rot:Math.random()*6.28,vr:(Math.random()-.5)*9,
+      c:cols[rand(cols.length)],life:1,fade:.28+Math.random()*.18,
+      sh:Math.random()<.35?'c':'r'
+    }));
+    const t0=performance.now();this._lt=t0;
+    const step=now=>{
+      try{
+        const dt=Math.min(.05,(now-this._lt)/1000);this._lt=now;
+        this.ps.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.rot+=p.vr*dt;p.vy+=180*dt;p.life-=p.fade*dt});
+        this.ps=this.ps.filter(p=>p.life>0&&p.y<this.h+40);
+        this.cx.clearRect(0,0,this.w,this.h);
+        this.ps.forEach(p=>{
+          this.cx.save();this.cx.translate(p.x,p.y);this.cx.rotate(p.rot);
+          this.cx.globalAlpha=Math.max(0,p.life);this.cx.fillStyle=p.c;
+          if(p.sh==='c'){this.cx.beginPath();this.cx.arc(0,0,p.r,0,6.28);this.cx.fill()}
+          else this.cx.fillRect(-p.r,-p.r*.5,p.r*2,p.r);
+          this.cx.restore();
+        });
+        if(now-t0<1800&&this.ps.length){this.raf=requestAnimationFrame(step)}
+        else{this.cx.clearRect(0,0,this.w,this.h);this.raf=null}
+      }catch(e){this.raf=null}
+    };
+    this.raf=requestAnimationFrame(step);
+  }
+};
+
+// ══════════ DRUM ══════════
+function paintDrum(){
+  const items=$('drumTrack').children;
+  for(let i=0;i<5;i++){
+    const offset=i-2;
+    const ni=((drumIdx+offset)%drumNames.length+drumNames.length)%drumNames.length;
+    const el=items[i];if(!el)continue;
+    el.textContent=drumNames[ni]||'';
+    el.className='di';
+    if(offset===0)el.classList.add('active');
+    else if(Math.abs(offset)===1)el.classList.add('near');
+  }
+}
+function drumWrapState(s){
+  const dw=$('drumWrap');
+  dw.className='drum-wrap';
+  if(s)dw.classList.add(s);
+}
+function resetDrumText(msg){
+  drumNames=[msg];drumIdx=0;
+  const items=$('drumTrack').children;
+  for(let i=0;i<5;i++){
+    const el=items[i];if(!el)continue;
+    el.className='di';el.textContent='';
+    if(i===2){el.classList.add('active');el.textContent=msg}
+    else if(i===1||i===3)el.classList.add('near');
+  }
+}
+
+// ══════════ SPIN ══════════
+async function doSpin(n, prize){
+  // ★ Guard: ถ้า spinning อยู่แล้ว ห้ามเข้า
+  if(spinning||!pool.length)return;
+
+  spinning=true;
+  spinStartTime=Date.now();
+  startStuckTimer();  // เริ่มจับเวลา stuck
+  renderAll();
+
+  try{
+    drumWrapState('');
+    $('wo').classList.remove('show');
+    $('sbadge').textContent='🎰 กำลังสุ่ม...';
+    $('prizeLbl').textContent=(prize||'รางวัล')+' — กำลังวิ่งชื่อ...';
+    $('shint').textContent='กำลังสุ่ม...';
+
+    const snap=pool.map(p=>p.name);
+    drumNames=snap.length?snap:[''];
+    drumIdx=0;
+    paintDrum();
+    drumWrapState('is-spin');
+
+    Snd.startRoll();
+
+    const dur=1600+Math.min(800,n*150);
+    let bdFired=false;
+
+    // ★ Wrap animation ใน try/catch แยก เผื่อ rAF fail
+    await new Promise((resolve,reject)=>{
+      let settled=false;
+      // Safety timeout: ถ้า animation ไม่จบใน 5 วิ ให้ resolve ไปเลย
+      const safeTimeout=setTimeout(()=>{
+        if(!settled){settled=true;resolve()}
+      },5000);
+
+      const t0=performance.now();
+      function step(now){
+        if(settled)return;
+        try{
+          const prog=Math.min(1,(now-t0)/dur);
+          const spd=Math.max(1,Math.ceil(10*(1-prog*prog)));
+          drumIdx=(drumIdx+spd)%drumNames.length;
+          paintDrum();
+          if(prog>0.82&&!bdFired){bdFired=true;Snd.buildup()}
+          if(prog>=1){
+            if(!settled){settled=true;clearTimeout(safeTimeout);resolve()}
+            return;
+          }
+          drumAF=requestAnimationFrame(step);
+        }catch(e){
+          if(!settled){settled=true;clearTimeout(safeTimeout);resolve()}
+        }
+      }
+      drumAF=requestAnimationFrame(step);
+    });
+
+    if(drumAF){cancelAnimationFrame(drumAF);drumAF=null}
+    Snd.stopRoll();
+
+    // pick winners
+    const picks=[],removed=[],wAdded=[],sAdded=[];
+    const cnt=Math.min(n,pool.length);
+    for(let i=0;i<cnt;i++){
+      const idx=rand(pool.length);
+      const p=pool.splice(idx,1)[0];
+      removed.push(p);
+      const w={name:p.name,prize:prize||'รางวัล (ไม่ระบุ)',time:Date.now()};
+      winners.push(w);stream.push(w);
+      if(stream.length>60)stream=stream.slice(-60);
+      wAdded.push(w);sAdded.push(w);picks.push(w);
+    }
+
+    drumNames=[picks.length===1?picks[0].name:`✨ ${picks.length} คน`];
+    drumIdx=0;paintDrum();
+
+    $('woLbl').textContent='🏆 ผู้ได้รับรางวัล'+(picks.length>1?` ${picks.length} คน`:'');
+    $('woMulti').innerHTML='';
+    if(picks.length===1){
+      $('woName').textContent=picks[0].name;
+      $('woName').style.display='block';
+    }else{
+      $('woName').style.display='none';
+      picks.forEach(p=>{
+        const c=document.createElement('div');c.className='wo-chip';c.textContent=p.name;
+        $('woMulti').appendChild(c);
+      });
+    }
+    $('woPrize').textContent='🎁 '+(prize||'รางวัล (ไม่ระบุ)');
+
+    drumWrapState('is-won');
+    $('sbadge').textContent='🎉 ได้ผู้ชนะแล้ว!';
+    $('prizeLbl').textContent=prize||'รางวัล';
+    $('wo').classList.add('show');
+
+    Snd.fanfare(picks.length>1);
+    P.launch();
+    document.body.classList.remove('do-flash');
+    requestAnimationFrame(()=>{
+      document.body.classList.add('do-flash');
+      setTimeout(()=>document.body.classList.remove('do-flash'),420);
+    });
+
+    lastAction={wAdded,sAdded,removed};
+
+  }catch(err){
+    console.error('doSpin error:',err);
+    $('sbadge').textContent='⚠ เกิดข้อผิดพลาด — ลองใหม่ได้เลย';
+  }finally{
+    // ★★★ UNLOCK — runs no matter what ★★★
+    if(drumAF){cancelAnimationFrame(drumAF);drumAF=null}
+    try{Snd.stopRoll()}catch(e){}
+    spinning=false;
+    clearStuckTimer();  // ซ่อน stuck warning
+    $('shint').textContent='พร้อมใช้งาน';
+    renderAll();
+  }
+}
+
+// ══════════ AUTO ══════════
+async function startAuto(){
+  if(autoMode||spinning||!pool.length)return;
+  autoMode=true;stopReq=false;
+  $('shint').textContent='สุ่มต่อเนื่อง...';
+  renderAll();
+  try{
+    while(autoMode&&!stopReq&&pool.length>0){
+      let n=Number($('drawCount').value);if(!isFinite(n)||n<1)n=1;
+      await doSpin(Math.min(n,pool.length),$('prizeName').value.trim());
+      if(pool.length>0&&!stopReq)await sleep(600);
+    }
+  }finally{
+    autoMode=false;stopReq=false;
+    $('sbadge').textContent=pool.length===0?'Pool หมด ✅':'หยุดแล้ว ⏹';
+    $('shint').textContent='พร้อมใช้งาน';
+    renderAll();
+  }
+}
+
+// ══════════ RENDER ══════════
+function setText(id,v){const e=document.getElementById(id);if(e)e.textContent=v;}
+function renderBadges(){
+  setText('hPool',`Pool: ${pool.length} คน`);
+  setText('hWon',`ได้รางวัล: ${winners.length} คน`);
+  setText('spoolTxt',`Pool: ${pool.length}`);
+  setText('dPool',pool.length);
+  setText('dWon',winners.length);
+  setText('dStream',stream.length);
+}
+function renderStream(){
+  const box=$('streamChips');
+  if(!box)return;
+  // ล้างเฉพาะ chip items ไม่แตะ streamEmpty
+  [...box.children].forEach(c=>{if(c.id!=='streamEmpty')c.remove()});
+  const em=$('streamEmpty')||box.querySelector('span');
+  if(!stream.length){
+    if(em){em.style.display='inline';if(!em.parentNode)box.appendChild(em)}
+    return;
+  }
+  if(em)em.style.display='none';
+  stream.slice().reverse().forEach(s=>{
+    const c=document.createElement('div');c.className='schip';
+    const t=new Date(s.time).toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
+    c.innerHTML=`<b>${esc(s.name)}</b><small>${esc(s.prize)} · ${t}</small>`;
+    box.appendChild(c);
+  });
+}
+function renderPool(){
+  const el=$('poolList'),q=norm($('poolSearch').value);
+  el.innerHTML='';
+  const list=q?pool.filter(p=>norm(p.name).includes(q)):pool;
+  if(!list.length){
+    el.innerHTML=`<div class="litem"><span style="color:var(--muted)">${pool.length?'ไม่พบ':'ยังไม่มีรายชื่อ'}</span></div>`;
+    $('poolNote').textContent=pool.length?`คงเหลือ ${pool.length} คน`:'';return;
+  }
+  list.forEach((p,i)=>{
+    const row=document.createElement('div');row.className='litem';
+    row.innerHTML=`<span><span class="lnum">${String(i+1).padStart(3,'0')}</span>${esc(p.name)}</span><button class="btn btn-red" style="font-size:10px;padding:3px 7px" data-k="${p.key}">ลบ</button>`;
+    el.appendChild(row);
+  });
+  $('poolNote').textContent=q?`แสดง ${list.length}/${pool.length} คน`:`คงเหลือ ${pool.length} คน`;
+  el.querySelectorAll('[data-k]').forEach(b=>b.addEventListener('click',()=>{
+    if(spinning||autoMode)return;
+    const i=pool.findIndex(x=>x.key===b.dataset.k);
+    if(i>=0){pool.splice(i,1);lastAction=null;renderAll()}
+  }));
+}
+function renderWon(){
+  const el=$('wonList'),q=norm($('wonSearch').value);
+  el.innerHTML='';
+  const list=q?winners.filter(w=>norm(w.name).includes(q)||norm(w.prize).includes(q)):winners;
+  if(!list.length){
+    el.innerHTML=`<div class="litem"><span style="color:var(--muted)">${winners.length?'ไม่พบ':'ยังไม่มีผู้ได้รับรางวัล'}</span></div>`;
+    $('wonNote').textContent='';return;
+  }
+  list.forEach((w,i)=>{
+    const row=document.createElement('div');row.className='litem';
+    row.innerHTML=`<span><span class="lnum">${String(i+1).padStart(3,'0')}</span><strong>${esc(w.name)}</strong> <span style="color:var(--muted)">— ${esc(w.prize)} · ${new Date(w.time).toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})}</span></span>`;
+    el.appendChild(row);
+  });
+  $('wonNote').textContent=q?`แสดง ${list.length}/${winners.length}`:`รวม ${winners.length} รายการ`;
+}
+function setDisabled(id,v){const e=document.getElementById(id);if(e)e.disabled=v;}
+function renderAll(){
+  renderBadges();renderStream();renderPool();renderWon();
+  const lock=spinning||autoMode;
+  setDisabled('drawBtn',!pool.length||lock);
+  setDisabled('autoBtn',!pool.length||lock);
+  setDisabled('stopBtn',!autoMode||spinning);
+  setDisabled('loadBtn',lock);setDisabled('dedupeBtn',lock);setDisabled('clearAllBtn',lock);
+  setDisabled('reAddBtn',lock||!winners.length);
+  setDisabled('clearWonBtn',lock||!winners.length);
+  setDisabled('exportBtn',lock||!winners.length);
+  setDisabled('undoBtn',lock||!lastAction);
+  setDisabled('clearStreamBtn',lock||!stream.length);
+}
+
+// ══════════ DUP ══════════
+function showDups(names){
+  const m=new Map();names.forEach(n=>{const k=norm(n);if(k)m.set(k,(m.get(k)||0)+1)});
+  const dups=[...m.entries()].filter(([,c])=>c>1);
+  if(!dups.length){$('dupBox').style.display='none';return}
+  $('dupBox').style.display='block';
+  const grp=new Map();
+  names.forEach(n=>{const k=norm(n);if(!k)return;if(!grp.has(k))grp.set(k,new Set());grp.get(k).add(n.trim())});
+  $('dupList').innerHTML='';
+  dups.forEach(([k,c])=>{
+    const li=document.createElement('li');
+    li.innerHTML=esc([...grp.get(k)].join(' / '))+` <span style="color:var(--muted)">(${c}×)</span>`;
+    $('dupList').appendChild(li);
+  });
+}
+
+// ══════════ EVENTS ══════════
+$('namesInput').addEventListener('input',()=>showDups(parseNames($('namesInput').value)));
+
+$('loadBtn').addEventListener('click',()=>{
+  const names=parseNames($('namesInput').value);
+  if(!names.length){alert('ยังไม่มีรายชื่อ');return}
+  const ex=new Set(pool.map(p=>p.key));let added=0;
+  names.forEach(n=>{const k=norm(n);if(!k||ex.has(k))return;pool.push({name:n.trim(),key:k});ex.add(k);added++});
+  lastAction=null;renderAll();alert(`โหลดเข้า Pool: ${added} คน`);
+});
+$('dedupeBtn').addEventListener('click',()=>{
+  const names=parseNames($('namesInput').value);if(!names.length)return;
+  const s=new Set(),o=[];for(const n of names){const k=norm(n);if(k&&!s.has(k)){s.add(k);o.push(n)}}
+  $('namesInput').value=o.join('\n');showDups(parseNames($('namesInput').value));
+});
+
+// ★ FIX: drawBtn ใช้ click handler ปกติ — doSpin จัดการ lock เอง
+$('drawBtn').addEventListener('click',async()=>{
+  // Double-guard: ถ้ายัง spinning อยู่จริงๆ ให้ข้าม
+  if(spinning||autoMode||!pool.length)return;
+  // disable ปุ่มทันทีก่อน async
+  $('drawBtn').disabled=true;
+  Snd.setOn($('sndOn').checked);Snd.setVol(+$('sndVol').value);
+  try{await Snd.resume()}catch(e){}
+  let n=Number($('drawCount').value);if(!isFinite(n)||n<1)n=1;
+  // ★ await เต็ม — รอจบก่อน re-enable
+  await doSpin(Math.min(n,pool.length),$('prizeName').value.trim());
+});
+
+$('autoBtn').addEventListener('click',async()=>{
+  if(spinning||autoMode||!pool.length)return;
+  $('autoBtn').disabled=true;
+  Snd.setOn($('sndOn').checked);Snd.setVol(+$('sndVol').value);
+  try{await Snd.resume()}catch(e){}
+  startAuto();
+});
+
+$('stopBtn').addEventListener('click',()=>{stopReq=true;$('sbadge').textContent='กำลังจะหยุด...';renderAll()});
+$('sndOn').addEventListener('change',()=>Snd.setOn($('sndOn').checked));
+$('sndVol').addEventListener('input',()=>Snd.setVol(+$('sndVol').value));
+
+// ★ Force Reset button
+$('forceResetBtn').addEventListener('click',()=>{
+  forceReset('🔄 Force Reset แล้ว — กดสุ่มได้เลย');
+});
+
+$('undoBtn').addEventListener('click',()=>{
+  if(spinning||autoMode||!lastAction)return;
+  for(let i=0;i<lastAction.wAdded.length;i++)winners.pop();
+  for(let i=0;i<lastAction.sAdded.length;i++)stream.pop();
+  lastAction.removed.forEach(p=>{if(!pool.some(x=>x.key===p.key))pool.push(p)});
+  lastAction=null;
+  drumWrapState('');$('wo').classList.remove('show');
+  $('sbadge').textContent='↩ ย้อนกลับแล้ว';
+  resetDrumText('— กด สุ่มรางวัล เพื่อเริ่ม —');
+  renderAll();
+});
+$('exportBtn').addEventListener('click',async()=>{
+  if(!winners.length)return;
+  const rows=[['No','Name','Prize','Time'],...winners.map((w,i)=>[i+1,w.name,w.prize,new Date(w.time).toLocaleString('th-TH')])];
+  const csv=rows.map(r=>r.map(v=>{const s=String(v??'');return/[",\n]/.test(s)?`"${s.replaceAll('"','""')}"`:`${s}`}).join(',')).join('\n');
+  try{await navigator.clipboard.writeText(csv)}catch(e){}
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='winners.csv';a.click();URL.revokeObjectURL(a.href);
+});
+$('reAddBtn').addEventListener('click',()=>{
+  if(spinning||autoMode||!winners.length)return;
+  const ex=new Set(pool.map(p=>p.key));let added=0;
+  winners.forEach(w=>{const k=norm(w.name);if(!k||ex.has(k))return;pool.push({name:w.name,key:k});ex.add(k);added++});
+  lastAction=null;renderAll();alert(`คืน Pool: ${added} คน`);
+});
+$('clearWonBtn').addEventListener('click',()=>{
+  if(spinning||autoMode)return;
+  if(!confirm('ล้างผู้ได้รับรางวัลทั้งหมด?'))return;
+  winners=[];lastAction=null;renderAll();
+});
+$('clearStreamBtn').addEventListener('click',()=>{
+  if(spinning||autoMode)return;
+  if(!confirm('ล้าง Stream?'))return;
+  stream=[];renderAll();
+});
+$('clearAllBtn').addEventListener('click',()=>{
+  if(spinning||autoMode)return;
+  if(!confirm('ล้างทั้งหมด?'))return;
+  pool=[];winners=[];stream=[];lastAction=null;
+  drumWrapState('');$('wo').classList.remove('show');
+  $('sbadge').textContent='✨ พร้อมสุ่ม';
+  resetDrumText('— กด สุ่มรางวัล เพื่อเริ่ม —');
+  renderAll();
+});
+$('poolSearch').addEventListener('input',renderPool);
+$('wonSearch').addEventListener('input',renderWon);
+$('poolSrchClr').addEventListener('click',()=>{$('poolSearch').value='';renderPool()});
+$('wonSrchClr').addEventListener('click',()=>{$('wonSearch').value='';renderWon()});
+window.addEventListener('resize',()=>{if(P.cx)P.resize()});
+
+// ══════════ INIT ══════════
+P.init();
+try{Snd.ensure()}catch(e){}
+renderAll();
+</script>
+</body>
+</html>
