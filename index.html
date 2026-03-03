@@ -2842,8 +2842,8 @@
       try {
         const v = localStorage.getItem(COURSE_KEY);
         // default = open (ถ้าไม่เคยตั้งค่า)
-        return (v === null) ? true : (v === '1');
-        // return (v === null) ? false : (v === '1');
+        // return (v === null) ? true : (v === '1');
+        return (v === null) ? false : (v === '1');
       } catch (e) {
         return true;
       }
@@ -2909,7 +2909,8 @@
       if (ack) {
         // รับทราบ = ปิด popup แต่ถ้าสถานะยังปิดอยู่ ให้ยังคงบล็อกการใช้งาน
         // (ถ้าอยากให้ "รับทราบ" แล้วปล่อยอ่านได้ ให้เปลี่ยนเป็น hideCourseModal() เฉย ๆ)
-        ack.addEventListener('click', () => enforceCourseState());
+        // ack.addEventListener('click', () => enforceCourseState());
+        ack.addEventListener('click', () => hideCourseModal());
       }
 
       if (modal) {
