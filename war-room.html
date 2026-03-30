@@ -4,327 +4,177 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
-<title>KTIS War Room – พลังงาน &amp; PO</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&family=Oswald:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<title>KTIS War Room – พลังงาน & PO</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 <style>
-:root {
-  --bg0: #05111f;
-  --bg1: #091b2f;
-  --bg2: #0e2540;
-  --bg3: #132d4d;
-  --border: rgba(80,160,255,.14);
-  --border2: rgba(80,160,255,.06);
-  --text: #ddeeff;
-  --muted: #6b90b8;
-  --acc: #00c2ff;
-  --acc2: #0077cc;
-  --gold: #f5c542;
-  --green: #00e896;
-  --red: #ff4c6a;
-  --orange: #ff8c42;
-  --fs-xs: 11px;
-  --fs-sm: 13px;
-  --fs-md: 15px;
-  --fs-lg: 19px;
-  --fs-xl: 26px;
-  --fs-2xl: 36px;
-  --r: 14px;
-  --r-sm: 9px;
-  --glow: 0 0 18px rgba(0,194,255,.18);
-}
 *{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
+:root{
+  --bg0:#05111f;--bg1:#091b2f;--bg2:#0d2240;--bg3:#122c4e;
+  --bd:rgba(80,160,255,.13);--bd2:rgba(80,160,255,.06);
+  --tx:#ddeeff;--mu:#6b90b8;
+  --ac:#00c2ff;--go:#f5c542;--gr:#00e896;--rd:#ff4c6a;--or:#ff8c42;
+  --r:12px;--rs:8px;
+}
 body{
-  font-family:'Sarabun',sans-serif;
-  background:var(--bg0);
-  color:var(--text);
-  min-height:100vh;
-  -webkit-font-smoothing:antialiased;
+  font-family:'Sarabun',system-ui,sans-serif;
+  background:var(--bg0);color:var(--tx);
+  min-height:100vh;-webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 0% 0%,rgba(0,100,200,.12),transparent),
+    radial-gradient(ellipse 50% 35% at 100% 100%,rgba(0,180,100,.07),transparent);
 }
+.app{max-width:1480px;margin:0 auto;padding:14px 14px 40px;}
 
-/* ─── bg texture ─── */
-body::before{
-content:’’;position:fixed;inset:0;
-background:
-radial-gradient(ellipse 80% 50% at 10% 0%,rgba(0,119,204,.13) 0%,transparent 60%),
-radial-gradient(ellipse 60% 40% at 90% 100%,rgba(0,200,120,.07) 0%,transparent 55%);
-pointer-events:none;z-index:0;
-}
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:12px;margin-bottom:14px;border-bottom:1px solid var(–bd);}
+.tb-l{display:flex;align-items:center;gap:10px;min-width:0;flex:1;}
+.logo{font-family:‘Oswald’,sans-serif;font-size:26px;font-weight:700;color:var(–ac);letter-spacing:2px;flex-shrink:0;text-shadow:0 0 16px rgba(0,194,255,.4);}
+.sep{width:2px;height:32px;background:var(–bd);border-radius:2px;flex-shrink:0;}
+.titles{min-width:0;}
+.titles h1{font-family:‘Oswald’,sans-serif;font-size:16px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.titles p{font-size:10px;color:var(–mu);margin-top:1px;}
+.tb-r{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.badge-live{display:inline-flex;align-items:center;gap:4px;font-size:10px;color:var(–gr);background:rgba(0,232,150,.08);border:1px solid rgba(0,232,150,.2);border-radius:99px;padding:3px 9px;white-space:nowrap;}
+.dot{width:6px;height:6px;border-radius:50%;background:var(–gr);animation:pu 1.6s infinite;}
+@keyframes pu{0%,100%{opacity:1;}50%{opacity:.25;}}
+.stamp{font-size:10px;color:var(–mu);}
 
-/* ─── LAYOUT ─── */
-.app{position:relative;z-index:1;max-width:1480px;margin:0 auto;padding:16px 16px 32px;}
+/* FILTER */
+.fbar{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.fb{font-family:‘Sarabun’,sans-serif;font-size:12px;color:var(–mu);background:var(–bg2);border:1px solid var(–bd);border-radius:99px;padding:5px 13px;cursor:pointer;transition:all .2s;}
+.fb.on,.fb:hover{color:var(–ac);border-color:rgba(0,194,255,.4);background:rgba(0,194,255,.08);}
 
-/* ─── TOPBAR ─── */
-.topbar{
-display:flex;align-items:flex-start;justify-content:space-between;
-gap:12px;margin-bottom:18px;
-border-bottom:1px solid var(–border);padding-bottom:14px;
-}
-.brand-block{display:flex;align-items:center;gap:12px;}
-.brand-logo{
-font-family:‘Oswald’,sans-serif;font-size:28px;font-weight:700;
-color:var(–acc);letter-spacing:2px;
-text-shadow:0 0 20px rgba(0,194,255,.5);
-}
-.brand-sep{width:2px;height:36px;background:var(–border);border-radius:2px;}
-.brand-title h1{font-family:‘Oswald’,sans-serif;font-size:18px;font-weight:600;color:var(–text);letter-spacing:.3px;}
-.brand-title p{font-size:var(–fs-xs);color:var(–muted);margin-top:2px;}
-.brand-right{text-align:right;}
-.live-badge{
-display:inline-flex;align-items:center;gap:5px;
-font-size:var(–fs-xs);color:var(–green);
-background:rgba(0,232,150,.08);border:1px solid rgba(0,232,150,.2);
-border-radius:99px;padding:3px 10px;margin-bottom:4px;
-}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(–green);animation:pulse 1.6s infinite;}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
-.stamp{font-size:var(–fs-xs);color:var(–muted);}
+/* KPI STRIP */
+.kstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+.kc{background:linear-gradient(135deg,var(–bg2),var(–bg3));border:1px solid var(–bd);border-radius:var(–r);padding:14px 12px;position:relative;overflow:hidden;}
+.kc::after{content:’’;position:absolute;right:-16px;top:-16px;width:72px;height:72px;border-radius:50%;background:radial-gradient(circle,rgba(0,194,255,.07),transparent);pointer-events:none;}
+.kc-lbl{font-size:10px;color:var(–mu);margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.kc-val{font-family:‘Oswald’,sans-serif;font-size:28px;font-weight:700;line-height:1;margin-bottom:4px;}
+.kc-val .u{font-size:12px;font-weight:500;opacity:.65;margin-left:2px;}
+.kc-ch{font-size:11px;font-weight:600;margin-bottom:3px;line-height:1.3;}
+.kc-ft{font-size:10px;color:var(–mu);line-height:1.4;}
+.kc-src{display:inline-block;font-size:9px;padding:2px 6px;border-radius:99px;margin-top:5px;background:rgba(0,194,255,.08);color:var(–ac);border:1px solid rgba(0,194,255,.18);}
+.c-ac{color:var(–ac);}.c-rd{color:var(–rd);}.c-go{color:var(–go);}.c-gr{color:var(–gr);}
 
-/* ─── FILTER BAR ─── */
-.filterbar{
-display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;
-}
-.fbtn{
-font-family:‘Sarabun’,sans-serif;
-font-size:var(–fs-sm);color:var(–muted);
-background:var(–bg2);border:1px solid var(–border);
-border-radius:99px;padding:6px 14px;cursor:pointer;
-transition:all .2s;
-}
-.fbtn.active,.fbtn:hover{
-color:var(–acc);border-color:rgba(0,194,255,.4);
-background:rgba(0,194,255,.07);
-}
+.hint{font-size:10px;color:var(–mu);text-align:center;padding:3px;display:none;}
 
-/* ─── KPI STRIP ─── */
-.kpi-strip{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px;margin-bottom:18px;
-}
-.kpi-card{
-background:linear-gradient(135deg,var(–bg2) 0%,var(–bg3) 100%);
-border:1px solid var(–border);border-radius:var(–r);
-padding:16px;position:relative;overflow:hidden;
-transition:transform .2s,box-shadow .2s;
-}
-.kpi-card:hover{transform:translateY(-2px);box-shadow:var(–glow);}
-.kpi-card::after{
-content:’’;position:absolute;right:-20px;top:-20px;
-width:90px;height:90px;border-radius:50%;
-background:radial-gradient(circle,rgba(0,194,255,.08),transparent 70%);
-pointer-events:none;
-}
-.kpi-label{font-size:var(–fs-xs);color:var(–muted);margin-bottom:8px;letter-spacing:.3px;text-transform:uppercase;}
-.kpi-icon{font-size:18px;float:right;opacity:.7;}
-.kpi-val{font-family:‘Oswald’,sans-serif;font-size:var(–fs-2xl);font-weight:700;line-height:1;margin-bottom:6px;}
-.kpi-unit{font-size:var(–fs-sm);font-weight:400;opacity:.7;margin-left:3px;}
-.kpi-change{font-size:var(–fs-sm);font-weight:600;margin-bottom:4px;}
-.kpi-foot{font-size:var(–fs-xs);color:var(–muted);}
-.kpi-source{
-display:inline-block;font-size:10px;padding:2px 7px;border-radius:99px;
-background:rgba(0,194,255,.1);color:var(–acc);
-border:1px solid rgba(0,194,255,.2);margin-top:4px;
-}
-.up{color:var(–red);}
-.dn{color:var(–green);}
-.warn{color:var(–gold);}
-.info-c{color:var(–acc);}
-.loading{color:var(–muted);font-size:var(–fs-sm);animation:blink 1s infinite;}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+/* MAIN GRID */
+.mgrid{display:grid;grid-template-columns:1fr 360px;gap:14px;}
+.lcol,.rcol{display:flex;flex-direction:column;gap:14px;}
 
-/* ─── MAIN GRID ─── */
-.main-grid{display:grid;grid-template-columns:1fr 380px;gap:16px;}
+/* PANEL */
+.panel{background:linear-gradient(150deg,var(–bg1),var(–bg2));border:1px solid var(–bd);border-radius:var(–r);padding:16px;}
+.ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:6px;}
+.ph h2{font-family:‘Oswald’,sans-serif;font-size:17px;font-weight:600;}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;}
+.p-bl{background:rgba(0,194,255,.1);color:var(–ac);border:1px solid rgba(0,194,255,.2);}
+.p-gr{background:rgba(0,232,150,.08);color:var(–gr);border:1px solid rgba(0,232,150,.18);}
+.p-go{background:rgba(245,197,66,.1);color:var(–go);border:1px solid rgba(245,197,66,.2);}
+.p-rd{background:rgba(255,76,106,.1);color:var(–rd);border:1px solid rgba(255,76,106,.2);}
+.slbl{font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(–mu);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+.slbl::after{content:’’;flex:1;height:1px;background:var(–bd);}
 
-/* ─── PANELS ─── */
-.panel{
-background:linear-gradient(160deg,var(–bg1) 0%,var(–bg2) 100%);
-border:1px solid var(–border);border-radius:var(–r);
-padding:18px;margin-bottom:16px;
-}
-.panel:last-child{margin-bottom:0;}
-.panel-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:8px;}
-.panel-hdr h2{font-family:‘Oswald’,sans-serif;font-size:var(–fs-lg);font-weight:600;letter-spacing:.2px;}
-.panel-hdr .badge{font-size:var(–fs-xs);padding:3px 9px;border-radius:99px;}
+/* CHART */
+.cw{position:relative;width:100%;margin-bottom:4px;}
+.cw canvas{max-height:210px;}
+.cw-lg canvas{max-height:240px;}
 
-/* ─── CHART WRAPPER ─── */
-.chart-wrap{position:relative;width:100%;}
-.chart-wrap canvas{max-height:220px;}
-.chart-wrap-lg canvas{max-height:260px;}
+/* TREND CHIPS */
+.tchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px;}
+.tc{font-size:10px;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(–bd);color:var(–mu);}
+.tc.rd{color:var(–rd);}
 
-/* ─── TABLE ─── */
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
-table{width:100%;border-collapse:collapse;font-size:var(–fs-sm);}
-th{
-color:var(–muted);font-size:var(–fs-xs);text-transform:uppercase;
-letter-spacing:.5px;padding:8px 10px;
-border-bottom:1px solid var(–border);font-weight:600;
-}
-td{
-padding:10px 10px;border-bottom:1px solid var(–border2);
-vertical-align:middle;
-}
+/* FUEL CARDS */
+.fgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
+.fc{border-radius:var(–rs);padding:10px 11px;}
+.fc .ft{font-size:10px;color:var(–mu);margin-bottom:3px;}
+.fc .fv{font-family:‘Oswald’,sans-serif;font-size:26px;font-weight:700;line-height:1;}
+.fc .fb2{font-size:10px;color:var(–mu);margin-top:2px;}
+
+/* MINI STATS */
+.mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.mi{background:rgba(0,194,255,.04);border:1px solid var(–bd2);border-radius:var(–rs);padding:10px;text-align:center;}
+.mi .mt{font-size:10px;color:var(–mu);margin-bottom:3px;}
+.mi .mv{font-family:‘Oswald’,sans-serif;font-size:20px;font-weight:700;}
+.mi .ms{font-size:10px;color:var(–mu);margin-top:2px;}
+
+/* TABLE */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{color:var(–mu);font-size:10px;text-transform:uppercase;letter-spacing:.4px;padding:7px 8px;border-bottom:1px solid var(–bd);font-weight:600;}
+td{padding:9px 8px;border-bottom:1px solid var(–bd2);vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
-tr:hover td{background:rgba(0,194,255,.03);}
+.ibar{width:100%;height:3px;border-radius:2px;background:rgba(255,255,255,.07);overflow:hidden;margin-top:3px;}
+.ifill{height:100%;border-radius:2px;}
 
-/* ─── PILLS ─── */
-.pill{
-display:inline-block;font-size:11px;font-weight:700;
-padding:3px 9px;border-radius:99px;white-space:nowrap;
-}
-.pill-red{background:rgba(255,76,106,.12);color:var(–red);border:1px solid rgba(255,76,106,.2);}
-.pill-yellow{background:rgba(245,197,66,.12);color:var(–gold);border:1px solid rgba(245,197,66,.2);}
-.pill-green{background:rgba(0,232,150,.1);color:var(–green);border:1px solid rgba(0,232,150,.18);}
-.pill-blue{background:rgba(0,194,255,.1);color:var(–acc);border:1px solid rgba(0,194,255,.2);}
+/* ALERTS */
+.alerts{display:grid;gap:7px;}
+.al{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:9px 11px;border-radius:var(–rs);border:1px solid var(–bd);background:rgba(255,255,255,.02);}
+.ai{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0;}
+.ai.r{background:rgba(255,76,106,.12);color:var(–rd);}
+.ai.y{background:rgba(245,197,66,.12);color:var(–go);}
+.ai.b{background:rgba(0,194,255,.1);color:var(–ac);}
+.an{font-size:12px;font-weight:700;margin-bottom:2px;}
+.ad{font-size:10px;color:var(–mu);}
 
-/* ─── ALERTS ─── */
-.alert-list{display:grid;gap:8px;}
-.alert{
-display:grid;grid-template-columns:32px 1fr auto;
-gap:10px;align-items:center;
-padding:10px 12px;border-radius:var(–r-sm);
-border:1px solid var(–border);
-background:rgba(255,255,255,.025);
-transition:background .2s;
-}
-.alert:hover{background:rgba(0,194,255,.04);}
-.alert-icon{
-width:32px;height:32px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;
-font-size:14px;font-weight:800;flex-shrink:0;
-}
-.alert-icon.r{background:rgba(255,76,106,.15);color:var(–red);}
-.alert-icon.y{background:rgba(245,197,66,.15);color:var(–gold);}
-.alert-icon.b{background:rgba(0,194,255,.1);color:var(–acc);}
-.alert-name{font-size:var(–fs-sm);font-weight:600;margin-bottom:2px;}
-.alert-desc{font-size:var(–fs-xs);color:var(–muted);}
+/* API MAP */
+.amap{display:grid;gap:7px;}
+.am{background:rgba(0,194,255,.03);border:1px solid var(–bd2);border-radius:var(–rs);padding:9px 11px;}
+.am b{display:block;font-size:12px;margin-bottom:3px;}
+.am p{font-size:10px;color:var(–mu);margin-bottom:4px;}
+.am code{font-family:monospace;color:var(–ac);font-size:10px;word-break:break-all;}
 
-/* ─── MINI STATS ─── */
-.mini-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
-.mini{
-background:rgba(0,194,255,.04);border:1px solid var(–border2);
-border-radius:var(–r-sm);padding:12px;text-align:center;
-}
-.mini .mt{font-size:var(–fs-xs);color:var(–muted);margin-bottom:4px;}
-.mini .mv{font-family:‘Oswald’,sans-serif;font-size:22px;font-weight:700;}
-.mini .ms{font-size:var(–fs-xs);color:var(–muted);margin-top:3px;}
+/* DONUT LEGEND */
+.dlegend{margin-top:10px;display:grid;gap:4px;}
+.dl{display:flex;justify-content:space-between;align-items:center;font-size:12px;}
+.dlk{display:flex;align-items:center;gap:6px;}
+.dlk span{width:9px;height:9px;border-radius:50%;display:inline-block;}
 
-/* ─── API MAP ─── */
-.api-list{display:grid;gap:8px;}
-.api-item{
-background:rgba(0,194,255,.03);border:1px solid var(–border2);
-border-radius:var(–r-sm);padding:10px 12px;
-}
-.api-item b{display:block;font-size:var(–fs-sm);margin-bottom:4px;color:var(–text);}
-.api-item p{font-size:var(–fs-xs);color:var(–muted);margin-bottom:5px;}
-.api-item code{
-font-family:‘JetBrains Mono’,monospace;
-color:var(–acc);font-size:11px;word-break:break-all;
+/* JSON BOX */
+.jbox{font-family:monospace;font-size:10px;color:#8ecfff;background:rgba(0,194,255,.04);border:1px solid var(–bd2);border-radius:var(–rs);padding:10px;overflow:auto;white-space:pre-wrap;margin:0;}
+
+/* FOOTER */
+.foot{margin-top:16px;padding-top:12px;border-top:1px solid var(–bd);font-size:10px;color:var(–mu);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+
+/* RESPONSIVE: TABLET */
+@media(max-width:1050px){
+.mgrid{grid-template-columns:1fr;}
+.kstrip{grid-template-columns:repeat(2,1fr);}
 }
 
-/* ─── PO TABLE ─── */
-.impact-bar{
-width:100%;height:4px;border-radius:2px;margin-top:4px;
-background:rgba(255,255,255,.07);overflow:hidden;
-}
-.impact-fill{height:100%;border-radius:2px;}
-
-/* ─── TREND SUMMARY ─── */
-.trend-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-.trend-chip{
-font-size:var(–fs-xs);padding:4px 10px;border-radius:99px;
-background:rgba(255,255,255,.05);border:1px solid var(–border);
-color:var(–muted);
-}
-
-/* ─── SECTION LABEL ─── */
-.section-label{
-font-size:var(–fs-xs);text-transform:uppercase;
-letter-spacing:1px;color:var(–muted);
-margin-bottom:10px;margin-top:2px;
-display:flex;align-items:center;gap:6px;
-}
-.section-label::after{content:’’;flex:1;height:1px;background:var(–border);}
-
-/* ─── SCROLL HINT ─── */
-.scroll-hint{
-font-size:var(–fs-xs);color:var(–muted);text-align:center;
-padding:4px;display:none;
-}
-
-/* ─── FOOTER ─── */
-.footer{
-margin-top:20px;padding-top:14px;
-border-top:1px solid var(–border);
-font-size:var(–fs-xs);color:var(–muted);
-display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
-}
-.footer-right{display:flex;gap:12px;}
-
-/* ─── RESPONSIVE ─── */
-@media(max-width:1100px){
-.main-grid{grid-template-columns:1fr;}
-.kpi-strip{grid-template-columns:repeat(2,1fr);}
-}
-@media(max-width:640px){
-.app{padding:10px 10px 24px;}
-
-/* topbar — stack แนวตั้ง compact */
-.topbar{
-flex-direction:column;gap:6px;
-padding-bottom:10px;margin-bottom:12px;
-}
-.brand-block{gap:8px;}
-.brand-logo{font-size:20px;letter-spacing:1px;}
-.brand-sep{height:24px;}
-.brand-title h1{font-size:13px;line-height:1.3;}
-.brand-title p{font-size:10px;}
-.brand-right{
-width:100%;display:flex;
-align-items:center;justify-content:space-between;
-}
-.live-badge{margin-bottom:0;}
-.stamp{font-size:10px;}
-
-/* KPI strip */
-.kpi-strip{
-grid-template-columns:repeat(2,1fr);
-gap:8px;margin-bottom:12px;
-}
-.kpi-card{padding:12px 10px;}
-.kpi-label{font-size:10px;margin-bottom:5px;}
-.kpi-val{font-size:22px !important;line-height:1;}
-.kpi-unit{font-size:11px;}
-.kpi-change{font-size:11px;margin-bottom:3px;line-height:1.3;}
-.kpi-foot{font-size:10px;line-height:1.35;word-break:break-word;}
-.kpi-source{font-size:9px;padding:1px 6px;margin-top:3px;}
-
-/* panels */
-.panel{padding:12px;margin-bottom:12px;}
-.panel-hdr h2{font-size:15px;}
-.filterbar{display:none;}
-.scroll-hint{display:block;}
-.chart-wrap canvas{max-height:160px;}
-.chart-wrap-lg canvas{max-height:180px;}
-.mini-row{grid-template-columns:repeat(3,1fr);gap:6px;}
-.mini{padding:8px;}
-.mini .mv{font-size:18px;}
-
-/* fuel price cards */
-.fuel-grid{gap:6px !important;}
-.fuel-card{padding:8px 10px !important;}
-.fuel-card .fv{font-size:20px !important;}
-
-/* alert list */
-.alert{padding:8px 10px;gap:8px;}
-.alert-icon{width:28px;height:28px;font-size:12px;flex-shrink:0;}
-.alert-name{font-size:12px;}
-.alert-desc{font-size:10px;}
-
-/* table */
-td,th{padding:7px 6px;font-size:11px;}
+/* RESPONSIVE: MOBILE */
+@media(max-width:600px){
+.app{padding:10px 10px 28px;}
+.logo{font-size:20px;letter-spacing:1px;}
+.sep{height:22px;}
+.titles h1{font-size:13px;}
+.titles p{display:none;}
+.stamp{display:none;}
+.fbar{display:none;}
+.hint{display:block;}
+.kstrip{grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
+.kc{padding:11px 10px;}
+.kc-lbl{font-size:9px;margin-bottom:4px;}
+.kc-val{font-size:22px;}
+.kc-val .u{font-size:10px;}
+.kc-ch{font-size:10px;}
+.kc-ft{font-size:9px;}
+.kc-src{font-size:8px;padding:1px 5px;margin-top:3px;}
+.panel{padding:12px;}
+.ph h2{font-size:14px;}
+.cw canvas{max-height:150px;}
+.cw-lg canvas{max-height:165px;}
+.fc .fv{font-size:20px;}
+.mrow{gap:6px;}
+.mi{padding:8px;}
+.mi .mv{font-size:17px;}
+th{font-size:9px;padding:6px 5px;}
+td{font-size:11px;padding:8px 5px;}
+.pill{font-size:9px;padding:2px 6px;}
+.an{font-size:11px;}
+.ad{font-size:9px;}
 }
 </style>
 
@@ -332,336 +182,250 @@ td,th{padding:7px 6px;font-size:11px;}
 <body>
 <div class="app">
 
-  <!-- TOPBAR -->
+<!-- TOPBAR -->
 
-  <div class="topbar">
-    <div class="brand-block">
-      <div class="brand-logo">KTIS</div>
-      <div class="brand-sep"></div>
-      <div class="brand-title">
-        <h1>War Room — ค่าไฟ · พลังงาน · น้ำมัน · PO</h1>
-        <p>EPAC / ทุกหน่วย • Executive View</p>
-      </div>
-    </div>
-    <div class="brand-right">
-      <div class="live-badge"><span class="live-dot"></span> Live</div>
-      <div class="stamp" id="stamp">—</div>
+<div class="topbar">
+  <div class="tb-l">
+    <div class="logo">KTIS</div>
+    <div class="sep"></div>
+    <div class="titles">
+      <h1>War Room — ค่าไฟ · พลังงาน · น้ำมัน · PO</h1>
+      <p>EPAC / ทุกหน่วย • Executive View • มี.ค. 2569</p>
     </div>
   </div>
-
-  <!-- FILTER BAR -->
-
-  <div class="filterbar">
-    <button class="fbtn active">ทุกหน่วย</button>
-    <button class="fbtn">EPAC</button>
-    <button class="fbtn active">มี.ค. 2569</button>
-    <button class="fbtn active">ไฟ + น้ำมัน</button>
-    <button class="fbtn">PO Critical</button>
-    <button class="fbtn active">Executive</button>
+  <div class="tb-r">
+    <div class="badge-live"><span class="dot"></span>Live</div>
+    <div class="stamp" id="stamp">—</div>
   </div>
+</div>
 
-  <!-- KPI STRIP -->
+<!-- FILTER -->
 
-  <div class="kpi-strip">
-    <div class="kpi-card">
-      <div class="kpi-label">⚡ ใช้ไฟฟ้า</div>
-      <div class="kpi-val green">1,250,000<span class="kpi-unit">kWh</span></div>
-      <div class="kpi-change up">▲ +13.6% vs เดือนก่อน</div>
-      <div class="kpi-foot">เดือนก่อน 1,100,000 kWh</div>
-      <div class="kpi-source">Internal Meter API</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">💰 ค่าไฟ</div>
-      <div class="kpi-val up">5.875M<span class="kpi-unit">บาท</span></div>
-      <div class="kpi-change up">▲ +18.7% vs เดือนก่อน</div>
-      <div class="kpi-foot">ค่าไฟต่อหน่วย 4.70 บาท</div>
-      <div class="kpi-source">Calc + FT Rate</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">🛢 ดีเซล B7 (30 มี.ค. 69)</div>
-      <div class="kpi-val warn">38.94<span class="kpi-unit">บาท/ลิตร</span></div>
-      <div class="kpi-change up">▲ +6.00 บาท/ลิตร (ปรับ 26 มี.ค. 69)</div>
-      <div class="kpi-foot">แก๊สโซฮอล์ 95: 41.05 · 91: 40.68 บาท</div>
-      <div class="kpi-source">กระทรวงพลังงาน</div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">📦 PO Critical</div>
-      <div class="kpi-val info-c">12<span class="kpi-unit">PO</span></div>
-      <div class="kpi-change warn">⚠ 3 ล่าช้า · 2 เสี่ยงสูง</div>
-      <div class="kpi-foot">มูลค่ารวม 18.4 ล้านบาท</div>
-      <div class="kpi-source">Internal ERP API</div>
-    </div>
+<div class="fbar">
+  <button class="fb on">ทุกหน่วย</button>
+  <button class="fb">EPAC</button>
+  <button class="fb on">มี.ค. 2569</button>
+  <button class="fb on">ไฟ + น้ำมัน</button>
+  <button class="fb">PO Critical</button>
+  <button class="fb on">Executive</button>
+</div>
+
+<!-- KPI STRIP -->
+
+<div class="kstrip">
+  <div class="kc">
+    <div class="kc-lbl">⚡ ใช้ไฟฟ้า</div>
+    <div class="kc-val c-ac">1.25M<span class="u">kWh</span></div>
+    <div class="kc-ch c-rd">▲ +13.6% MoM</div>
+    <div class="kc-ft">เดือนก่อน 1.10M kWh</div>
+    <div class="kc-src">Meter API</div>
   </div>
+  <div class="kc">
+    <div class="kc-lbl">💰 ค่าไฟ</div>
+    <div class="kc-val c-rd">5.875M<span class="u">บาท</span></div>
+    <div class="kc-ch c-rd">▲ +18.7% MoM</div>
+    <div class="kc-ft">4.70 บาท/kWh</div>
+    <div class="kc-src">Calc + FT</div>
+  </div>
+  <div class="kc">
+    <div class="kc-lbl">🛢 ดีเซล B7</div>
+    <div class="kc-val c-go">38.94<span class="u">฿/ลิตร</span></div>
+    <div class="kc-ch c-rd">▲ +6.00 (26 มี.ค.)</div>
+    <div class="kc-ft">G95: 41.05 · G91: 40.68</div>
+    <div class="kc-src">กระทรวงพลังงาน</div>
+  </div>
+  <div class="kc">
+    <div class="kc-lbl">📦 PO Critical</div>
+    <div class="kc-val c-ac">12<span class="u">PO</span></div>
+    <div class="kc-ch c-go">⚠ 3 ล่าช้า · 2 เสี่ยง</div>
+    <div class="kc-ft">มูลค่ารวม 18.4M บาท</div>
+    <div class="kc-src">ERP API</div>
+  </div>
+</div>
 
-  <div class="scroll-hint">← เลื่อนซ้าย-ขวาเพื่อดูตาราง →</div>
+<div class="hint">← เลื่อนดูกราฟและตาราง →</div>
 
-  <!-- MAIN GRID -->
+<!-- MAIN GRID -->
 
-  <div class="main-grid">
-    <div class="leftcol">
+<div class="mgrid">
+<div class="lcol">
 
-```
-  <!-- กราฟค่าไฟ 6 เดือน -->
+  <!-- กราฟค่าไฟ -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>📊 แนวโน้มค่าไฟ &amp; การใช้พลังงาน (6 เดือน)</h2>
-      <span class="badge pill-blue">Internal API</span>
-    </div>
-    <div class="section-label">ค่าไฟ (บาท) และ kWh รายเดือน</div>
-    <div class="chart-wrap chart-wrap-lg">
-      <canvas id="chartElec"></canvas>
-    </div>
-    <div class="trend-row">
-      <span class="trend-chip">เฉลี่ย 4.58 บาท/kWh</span>
-      <span class="trend-chip">สูงสุด: มี.ค. 2569</span>
-      <span class="trend-chip up">ต้นทุน +18.7% MoM</span>
+    <div class="ph"><h2>📊 แนวโน้มค่าไฟ & การใช้ไฟ (6 เดือน)</h2><span class="pill p-bl">Meter API</span></div>
+    <div class="slbl">kWh & ค่าไฟ (บาท) รายเดือน</div>
+    <div class="cw cw-lg"><canvas id="cElec"></canvas></div>
+    <div class="tchips">
+      <span class="tc">เฉลี่ย 4.58 บาท/kWh</span>
+      <span class="tc">Peak: มี.ค. 2569</span>
+      <span class="tc rd">+18.7% MoM</span>
     </div>
   </div>
 
   <!-- กราฟน้ำมัน -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>🛢 ราคาน้ำมันไทย — ข้อมูลจริง 30 มี.ค. 2569</h2>
-      <span class="badge pill-green">กระทรวงพลังงาน ✓</span>
-    </div>
-    <div class="section-label">ราคาขายปลีก กทม. (บาท/ลิตร) — ปรับขึ้น 6 บาท เมื่อ 26 มี.ค. 69</div>
-
-    <!-- Fuel price cards -->
-    <div class="fuel-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:14px;">
-      <div class="fuel-card" style="background:rgba(245,197,66,.07);border:1px solid rgba(245,197,66,.2);border-radius:10px;padding:10px 12px;">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">⛽ ดีเซล B7</div>
-        <div class="fv" style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:var(--gold);">38.94</div>
-        <div style="font-size:10px;color:var(--muted);">บาท/ลิตร <span class="up">▲+6.00</span></div>
+    <div class="ph"><h2>🛢 ราคาน้ำมัน — 30 มี.ค. 2569</h2><span class="pill p-gr">กระทรวงพลังงาน ✓</span></div>
+    <div class="slbl">ราคาขายปลีก กทม. (บาท/ลิตร) ปรับขึ้น 6 บาท วันที่ 26 มี.ค.</div>
+    <div class="fgrid">
+      <div class="fc" style="background:rgba(245,197,66,.07);border:1px solid rgba(245,197,66,.2);">
+        <div class="ft">⛽ ดีเซล B7</div>
+        <div class="fv" style="color:var(--go);">38.94</div>
+        <div class="fb2">บาท/ลิตร <span class="c-rd">▲+6.00</span></div>
       </div>
-      <div class="fuel-card" style="background:rgba(0,194,255,.07);border:1px solid rgba(0,194,255,.2);border-radius:10px;padding:10px 12px;">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">⛽ แก๊สโซฮอล์ 95</div>
-        <div class="fv" style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:var(--acc);">41.05</div>
-        <div style="font-size:10px;color:var(--muted);">บาท/ลิตร <span class="up">▲+6.00</span></div>
+      <div class="fc" style="background:rgba(0,194,255,.07);border:1px solid rgba(0,194,255,.2);">
+        <div class="ft">⛽ แก๊สโซฮอล์ 95</div>
+        <div class="fv" style="color:var(--ac);">41.05</div>
+        <div class="fb2">บาท/ลิตร <span class="c-rd">▲+6.00</span></div>
       </div>
-      <div class="fuel-card" style="background:rgba(0,232,150,.07);border:1px solid rgba(0,232,150,.2);border-radius:10px;padding:10px 12px;">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">⛽ แก๊สโซฮอล์ 91</div>
-        <div class="fv" style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:var(--green);">40.68</div>
-        <div style="font-size:10px;color:var(--muted);">บาท/ลิตร <span class="up">▲+6.00</span></div>
+      <div class="fc" style="background:rgba(0,232,150,.07);border:1px solid rgba(0,232,150,.2);">
+        <div class="ft">⛽ แก๊สโซฮอล์ 91</div>
+        <div class="fv" style="color:var(--gr);">40.68</div>
+        <div class="fb2">บาท/ลิตร <span class="c-rd">▲+6.00</span></div>
       </div>
-      <div class="fuel-card" style="background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.2);border-radius:10px;padding:10px 12px;">
-        <div style="font-size:10px;color:var(--muted);margin-bottom:3px;">⛽ เบนซิน 95</div>
-        <div class="fv" style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:700;color:var(--orange);">50.14</div>
-        <div style="font-size:10px;color:var(--muted);">บาท/ลิตร <span class="up">▲+6.00</span></div>
+      <div class="fc" style="background:rgba(255,140,66,.07);border:1px solid rgba(255,140,66,.2);">
+        <div class="ft">⛽ เบนซิน 95</div>
+        <div class="fv" style="color:var(--or);">50.14</div>
+        <div class="fb2">บาท/ลิตร <span class="c-rd">▲+6.00</span></div>
       </div>
     </div>
-
-    <div class="section-label">แนวโน้มราคาดีเซล B7 รายเดือน (บาท/ลิตร)</div>
-    <div class="chart-wrap">
-      <canvas id="chartOil"></canvas>
-    </div>
-    <div class="trend-row">
-      <span class="trend-chip">ดีเซล 38.94 บาท/ลิตร</span>
-      <span class="trend-chip up">▲ +6.00 จาก 32.94</span>
-      <span class="trend-chip">แก๊สโซฮอล์ 95: 41.05</span>
-      <span class="trend-chip">91: 40.68</span>
+    <div class="slbl">แนวโน้มราคารายเดือน (บาท/ลิตร)</div>
+    <div class="cw"><canvas id="cOil"></canvas></div>
+    <div class="tchips">
+      <span class="tc">ดีเซล 38.94</span>
+      <span class="tc rd">▲+6.00 จาก 32.94</span>
+      <span class="tc">G95: 41.05</span>
+      <span class="tc">G91: 40.68</span>
     </div>
   </div>
 
   <!-- สรุปต้นทุน -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>📋 สรุปต้นทุนพลังงาน</h2>
-      <span class="badge pill-yellow">มี.ค. 2569</span>
+    <div class="ph"><h2>📋 สรุปต้นทุนพลังงาน</h2><span class="pill p-go">มี.ค. 2569</span></div>
+    <div class="mrow">
+      <div class="mi"><div class="mt">ใช้ไฟสะสม</div><div class="mv c-ac">1.25M</div><div class="ms">kWh</div></div>
+      <div class="mi"><div class="mt">ค่าไฟเฉลี่ย</div><div class="mv c-rd">4.70</div><div class="ms">บาท/kWh</div></div>
+      <div class="mi"><div class="mt">ต้นทุนน้ำมัน</div><div class="mv c-go">1.82M</div><div class="ms">บาท/เดือน</div></div>
     </div>
-    <div class="mini-row">
-      <div class="mini">
-        <div class="mt">ใช้ไฟสะสม</div>
-        <div class="mv green">1.25M</div>
-        <div class="ms">kWh</div>
-      </div>
-      <div class="mini">
-        <div class="mt">ค่าไฟเฉลี่ย</div>
-        <div class="mv up">4.70</div>
-        <div class="ms">บาท/kWh</div>
-      </div>
-      <div class="mini">
-        <div class="mt">ต้นทุนน้ำมัน</div>
-        <div class="mv warn">1.82M</div>
-        <div class="ms">บาท/เดือน</div>
-      </div>
-    </div>
-    <div class="tbl-wrap">
+    <div class="tw">
       <table>
-        <thead>
-          <tr>
-            <th>หมวด</th>
-            <th>เดือนก่อน</th>
-            <th>เดือนนี้</th>
-            <th>เปลี่ยนแปลง</th>
-            <th>ที่มา</th>
-          </tr>
-        </thead>
+        <thead><tr><th>หมวด</th><th>ก่อน</th><th>ตอนนี้</th><th>%</th><th>ที่มา</th></tr></thead>
         <tbody>
-          <tr><td>ใช้ไฟ (kWh)</td><td>1,100,000</td><td>1,250,000</td><td class="up">+13.6%</td><td><span class="pill pill-blue">Internal API</span></td></tr>
-          <tr><td>ค่าไฟ (บาท)</td><td>4,950,000</td><td>5,875,000</td><td class="up">+18.7%</td><td><span class="pill pill-yellow">Calc+FT</span></td></tr>
-          <tr><td>ดีเซล B7 (บาท/ลิตร)</td><td>32.94</td><td>38.94</td><td class="up">+18.2%</td><td><span class="pill pill-green">กระทรวงพลังงาน</span></td></tr>
-          <tr><td>ต้นทุนขนส่ง (บาท)</td><td>1,540,000</td><td>1,820,000</td><td class="up">+18.2%</td><td><span class="pill pill-blue">Internal API</span></td></tr>
-          <tr><td>ไอน้ำ (ตัน)</td><td>780</td><td>820</td><td class="up">+5.1%</td><td><span class="pill pill-blue">Internal API</span></td></tr>
+          <tr><td>ใช้ไฟ (kWh)</td><td>1.10M</td><td>1.25M</td><td class="c-rd">+13.6%</td><td><span class="pill p-bl">API</span></td></tr>
+          <tr><td>ค่าไฟ (บาท)</td><td>4.95M</td><td>5.88M</td><td class="c-rd">+18.7%</td><td><span class="pill p-go">Calc</span></td></tr>
+          <tr><td>ดีเซล (฿/ลิตร)</td><td>32.94</td><td>38.94</td><td class="c-rd">+18.2%</td><td><span class="pill p-gr">พลังงาน</span></td></tr>
+          <tr><td>ต้นทุนขนส่ง</td><td>1.54M</td><td>1.82M</td><td class="c-rd">+18.2%</td><td><span class="pill p-bl">API</span></td></tr>
+          <tr><td>ไอน้ำ (ตัน)</td><td>780</td><td>820</td><td class="c-rd">+5.1%</td><td><span class="pill p-bl">API</span></td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- PO Table -->
+  <!-- PO -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>📦 PO สำคัญที่กระทบพลังงาน</h2>
-      <span class="badge pill-blue">ERP API</span>
-    </div>
-    <div class="tbl-wrap">
+    <div class="ph"><h2>📦 PO สำคัญที่กระทบพลังงาน</h2><span class="pill p-bl">ERP</span></div>
+    <div class="tw">
       <table>
-        <thead>
-          <tr><th>PO</th><th>รายการ</th><th>มูลค่า</th><th>กำหนดส่ง</th><th>สถานะ</th><th>ผลกระทบ</th></tr>
-        </thead>
+        <thead><tr><th>PO</th><th>รายการ</th><th>มูลค่า</th><th>กำหนด</th><th>สถานะ</th><th>ผลกระทบ</th></tr></thead>
         <tbody>
           <tr>
-            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px;">PO-240031</span></td>
-            <td>เชื้อเพลิง / Utility</td>
-            <td>4.2M</td>
-            <td>31 มี.ค.</td>
-            <td><span class="pill pill-yellow">รอส่ง</span></td>
-            <td class="warn">เสี่ยงต้นทุนเพิ่ม<div class="impact-bar"><div class="impact-fill" style="width:70%;background:var(--gold);"></div></div></td>
+            <td style="font-family:monospace;font-size:11px;">PO-240031</td>
+            <td>เชื้อเพลิง/Utility</td><td>4.2M</td><td>31 มี.ค.</td>
+            <td><span class="pill p-go">รอส่ง</span></td>
+            <td class="c-go">เสี่ยงต้นทุน<div class="ibar"><div class="ifill" style="width:70%;background:var(--go);"></div></div></td>
           </tr>
           <tr>
-            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px;">PO-240045</span></td>
-            <td>อะไหล่ปั๊ม/มอเตอร์</td>
-            <td>1.8M</td>
-            <td>24 มี.ค.</td>
-            <td><span class="pill pill-red">ล่าช้า 7 วัน</span></td>
-            <td class="up">เสี่ยงหยุดเครื่อง<div class="impact-bar"><div class="impact-fill" style="width:95%;background:var(--red);"></div></div></td>
+            <td style="font-family:monospace;font-size:11px;">PO-240045</td>
+            <td>อะไหล่ปั๊ม</td><td>1.8M</td><td>24 มี.ค.</td>
+            <td><span class="pill p-rd">ล่าช้า 7 วัน</span></td>
+            <td class="c-rd">หยุดเครื่อง<div class="ibar"><div class="ifill" style="width:95%;background:var(--rd);"></div></div></td>
           </tr>
           <tr>
-            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px;">PO-240052</span></td>
-            <td>อุปกรณ์ไฟฟ้า</td>
-            <td>2.4M</td>
-            <td>29 มี.ค.</td>
-            <td><span class="pill pill-yellow">ส่งบางส่วน</span></td>
-            <td class="warn">งานซ่อมเลื่อน<div class="impact-bar"><div class="impact-fill" style="width:55%;background:var(--gold);"></div></div></td>
+            <td style="font-family:monospace;font-size:11px;">PO-240052</td>
+            <td>อุปกรณ์ไฟฟ้า</td><td>2.4M</td><td>29 มี.ค.</td>
+            <td><span class="pill p-go">ส่งบางส่วน</span></td>
+            <td class="c-go">ซ่อมเลื่อน<div class="ibar"><div class="ifill" style="width:55%;background:var(--go);"></div></div></td>
           </tr>
           <tr>
-            <td><span style="font-family:'JetBrains Mono',monospace;font-size:12px;">PO-240066</span></td>
-            <td>น้ำมันหล่อลื่น</td>
-            <td>0.95M</td>
-            <td>30 มี.ค.</td>
-            <td><span class="pill pill-green">ตรงเวลา</span></td>
-            <td class="dn">ไม่มีผลกระทบ<div class="impact-bar"><div class="impact-fill" style="width:10%;background:var(--green);"></div></div></td>
+            <td style="font-family:monospace;font-size:11px;">PO-240066</td>
+            <td>น้ำมันหล่อลื่น</td><td>0.95M</td><td>30 มี.ค.</td>
+            <td><span class="pill p-gr">ตรงเวลา</span></td>
+            <td class="c-gr">ปกติ<div class="ibar"><div class="ifill" style="width:10%;background:var(--gr);"></div></div></td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
-</div>
 
-<!-- RIGHT COL -->
-<div class="rightcol">
+</div><!-- /lcol -->
+<div class="rcol">
 
-  <!-- กราฟ Donut ต้นทุนรวม -->
+  <!-- Donut -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>🥧 สัดส่วนต้นทุน</h2>
-      <span class="badge pill-yellow">มี.ค. 2569</span>
-    </div>
-    <div class="chart-wrap" style="max-width:240px;margin:0 auto;">
-      <canvas id="chartDonut"></canvas>
-    </div>
-    <div style="margin-top:12px;display:grid;gap:5px;">
-      <div style="display:flex;justify-content:space-between;font-size:var(--fs-sm);"><span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:#00c2ff;display:inline-block;"></span>ค่าไฟฟ้า</span><span>5.875M (76%)</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:var(--fs-sm);"><span style="display:flex;align-items:center;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:#f5c542;display:inline-block;"></span>น้ำมัน/ขนส่ง</span><span>1.820M (24%)</span></div>
+    <div class="ph"><h2>🥧 สัดส่วนต้นทุน</h2><span class="pill p-go">มี.ค. 69</span></div>
+    <div class="cw" style="max-width:200px;margin:0 auto;"><canvas id="cDonut"></canvas></div>
+    <div class="dlegend">
+      <div class="dl"><div class="dlk"><span style="background:#00c2ff;"></span>ค่าไฟฟ้า</div><span>5.88M (76%)</span></div>
+      <div class="dl"><div class="dlk"><span style="background:#f5c542;"></span>น้ำมัน/ขนส่ง</div><span>1.82M (24%)</span></div>
     </div>
   </div>
 
-  <!-- กราฟ Bar PO Status -->
+  <!-- PO Status -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>📦 PO Status Overview</h2>
-    </div>
-    <div class="chart-wrap">
-      <canvas id="chartPO"></canvas>
-    </div>
+    <div class="ph"><h2>📦 PO Status</h2></div>
+    <div class="cw"><canvas id="cPO"></canvas></div>
   </div>
 
   <!-- Alerts -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>🚨 การแจ้งเตือน</h2>
-      <span class="badge pill-red">3 รายการ</span>
-    </div>
-    <div class="alert-list">
-      <div class="alert">
-        <div class="alert-icon r">!</div>
-        <div>
-          <div class="alert-name">ค่าไฟเพิ่มเกิน 15%</div>
-          <div class="alert-desc">ควร review load profile, peak hour, และเครื่องจักรที่ใช้ไฟสูง</div>
-        </div>
-        <span class="pill pill-red">High</span>
+    <div class="ph"><h2>🚨 การแจ้งเตือน</h2><span class="pill p-rd">3 รายการ</span></div>
+    <div class="alerts">
+      <div class="al">
+        <div class="ai r">!</div>
+        <div><div class="an">ค่าไฟเพิ่มเกิน 15%</div><div class="ad">Review load profile, peak hour, เครื่องจักร</div></div>
+        <span class="pill p-rd">High</span>
       </div>
-      <div class="alert">
-        <div class="alert-icon y">!</div>
-        <div>
-          <div class="alert-name">ดีเซลสูงขึ้นต่อเนื่อง</div>
-          <div class="alert-desc">กระทบรถภายใน, ขนส่ง, และต้นทุน vendor logistics</div>
-        </div>
-        <span class="pill pill-yellow">Med</span>
+      <div class="al">
+        <div class="ai y">!</div>
+        <div><div class="an">ดีเซลขึ้น +6 บาท</div><div class="ad">กระทบรถภายใน, ขนส่ง, vendor</div></div>
+        <span class="pill p-go">Med</span>
       </div>
-      <div class="alert">
-        <div class="alert-icon r">!</div>
-        <div>
-          <div class="alert-name">PO-240045 ล่าช้า 7 วัน</div>
-          <div class="alert-desc">อะไหล่ปั๊ม/มอเตอร์ยังไม่ส่ง เสี่ยงกระทบสายการผลิต</div>
-        </div>
-        <span class="pill pill-red">High</span>
+      <div class="al">
+        <div class="ai r">!</div>
+        <div><div class="an">PO-240045 ล่าช้า 7 วัน</div><div class="ad">อะไหล่ปั๊ม/มอเตอร์ยังไม่ส่ง</div></div>
+        <span class="pill p-rd">High</span>
       </div>
-      <div class="alert">
-        <div class="alert-icon b">i</div>
-        <div>
-          <div class="alert-name">FT รอบใหม่พร้อมใช้</div>
-          <div class="alert-desc">โหลด ETL เพื่อคาดการณ์ค่าไฟสิ้นเดือน</div>
-        </div>
-        <span class="pill pill-blue">Info</span>
+      <div class="al">
+        <div class="ai b">i</div>
+        <div><div class="an">FT รอบใหม่พร้อม</div><div class="ad">โหลด ETL คาดการณ์ค่าไฟสิ้นเดือน</div></div>
+        <span class="pill p-bl">Info</span>
       </div>
     </div>
   </div>
 
   <!-- API Map -->
+
   <div class="panel">
-    <div class="panel-hdr">
-      <h2>🔌 API Map</h2>
-    </div>
-    <div class="api-list">
-      <div class="api-item">
-        <b>ราคาน้ำมัน</b>
-        <p>ดึงได้จาก External API — ใช้คำนวณต้นทุนขนส่ง</p>
-        <code>EIA Open Data API v2</code>
-      </div>
-      <div class="api-item">
-        <b>ค่า FT / Tariff</b>
-        <p>ไม่มี public JSON API — แนะนำ ETL scraper จาก MEA</p>
-        <code>MEA tariff + manual version</code>
-      </div>
-      <div class="api-item">
-        <b>ใช้ไฟจริง / Demand</b>
-        <p>ดึงจาก SCADA, EMS, BMS, มิเตอร์, หรือ Data Warehouse</p>
-        <code>/api/energy/usage?plant=EPAC</code>
-      </div>
-      <div class="api-item">
-        <b>PO / Vendor / ETA</b>
-        <p>ดึงจาก ERP / Procurement API ภายใน</p>
-        <code>/api/procurement/po/critical</code>
-      </div>
+    <div class="ph"><h2>🔌 API Map</h2></div>
+    <div class="amap">
+      <div class="am"><b>ราคาน้ำมัน</b><p>External — คำนวณต้นทุนขนส่ง</p><code>กระทรวงพลังงาน / PTTOR</code></div>
+      <div class="am"><b>ค่า FT / Tariff</b><p>ETL scraper จาก MEA</p><code>MEA tariff + manual version</code></div>
+      <div class="am"><b>ใช้ไฟจริง</b><p>SCADA, EMS, BMS, มิเตอร์</p><code>/api/energy/usage?plant=EPAC</code></div>
+      <div class="am"><b>PO / Vendor / ETA</b><p>ERP / Procurement API ภายใน</p><code>/api/procurement/po/critical</code></div>
     </div>
   </div>
 
-  <!-- JSON Sample -->
-  <div class="panel">
-    <div class="panel-hdr"><h2>📄 JSON Format</h2></div>
-```
+  <!-- JSON -->
 
-<pre style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#8ecfff;background:rgba(0,194,255,.04);border:1px solid var(--border2);border-radius:var(--r-sm);padding:12px;overflow:auto;white-space:pre-wrap;">{
+  <div class="panel">
+    <div class="ph"><h2>📄 JSON Format</h2></div>
+    <pre class="jbox">{
   "electricity": {
     "usage_kwh": 1250000,
     "amount_baht": 5875000,
@@ -669,9 +433,10 @@ td,th{padding:7px 6px;font-size:11px;}
     "ft_rate": 0.58
   },
   "oil": {
-    "diesel_baht_per_litre": 32.40,
-    "change_baht": 1.20,
-    "source": "eia"
+    "diesel_b7": 38.94,
+    "gsh95": 41.05,
+    "gsh91": 40.68,
+    "benzene95": 50.14
   },
   "po_summary": {
     "open": 12,
@@ -680,252 +445,101 @@ td,th{padding:7px 6px;font-size:11px;}
     "total_baht": 18400000
   }
 }</pre>
-
-```
   </div>
 
-</div><!-- /rightcol -->
-```
+</div><!-- /rcol -->
+</div><!-- /mgrid -->
 
-  </div><!-- /main-grid -->
+<div class="foot">
+  <span>KTIS War Room • ราคาน้ำมัน: กระทรวงพลังงาน 30 มี.ค. 2569 • Internal: Mock Data</span>
+  <span>ดีเซล 38.94 · G95 41.05 · G91 40.68 บาท/ลิตร</span>
+</div>
 
-  <div class="footer">
-    <span>KTIS War Room Dashboard • ข้อมูล Internal: Mock • ราคาน้ำมัน: EIA API (Real) • © 2569</span>
-    <div class="footer-right">
-      <span id="footer-oil-status">ดีเซล: 38.94 บาท/ลิตร • แก๊สโซฮอล์ 95: 41.05 (30 มี.ค. 69)</span>
-    </div>
-  </div>
 </div><!-- /app -->
-
 <script>
-// ─── TIMESTAMP ───
-function updateStamp(){
-  const now=new Date();
-  const th=now.toLocaleDateString('th-TH',{year:'numeric',month:'long',day:'numeric'});
-  const tm=now.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('stamp').textContent=`อัปเดต: ${th} ${tm} น.`;
+// TIMESTAMP
+(function tick(){
+  const d=new Date();
+  document.getElementById('stamp').textContent=
+    d.toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'})+' '+
+    d.toLocaleTimeString('th-TH',{hour:'2-digit',minute:'2-digit'})+' น.';
+  setTimeout(tick,30000);
+})();
+
+Chart.defaults.color=’#6b90b8’;
+Chart.defaults.font.family=”‘Sarabun’,system-ui,sans-serif”;
+Chart.defaults.font.size=11;
+const TT={backgroundColor:‘rgba(5,17,31,.97)’,borderWidth:1,titleColor:’#ddeeff’,bodyColor:’#9db2cf’,padding:10};
+
+// CHART 1: ELECTRICITY
+(function(){
+const L=[‘ต.ค.’,‘พ.ย.’,‘ธ.ค.’,‘ม.ค.’,‘ก.พ.’,‘มี.ค.’];
+const K=[1080000,1060000,1100000,1060000,1100000,1250000];
+const C=[4951200,4865400,4950000,4865400,4950000,5875000];
+const ctx=document.getElementById(‘cElec’).getContext(‘2d’);
+const gK=ctx.createLinearGradient(0,0,0,220);gK.addColorStop(0,‘rgba(0,194,255,.22)’);gK.addColorStop(1,‘rgba(0,194,255,.01)’);
+new Chart(ctx,{type:‘bar’,data:{labels:L,datasets:[
+{label:‘ค่าไฟ (บาท)’,data:C,backgroundColor:‘rgba(255,76,106,.18)’,borderColor:‘rgba(255,76,106,.7)’,borderWidth:1.5,borderRadius:4,yAxisID:‘y1’,order:2},
+{type:‘line’,label:‘ใช้ไฟ (kWh)’,data:K,borderColor:’#00c2ff’,backgroundColor:gK,borderWidth:2.5,pointRadius:4,pointBackgroundColor:’#00c2ff’,tension:.4,fill:true,yAxisID:‘y’,order:1},
+]},options:{
+responsive:true,interaction:{mode:‘index’,intersect:false},
+plugins:{legend:{labels:{color:’#9db2cf’,boxWidth:11,padding:12}},tooltip:{…TT,borderColor:‘rgba(0,194,255,.25)’,callbacks:{label(c){return c.datasetIndex===0?` ค่าไฟ: ${(c.raw/1e6).toFixed(2)}M บาท`:` ใช้ไฟ: ${(c.raw/1000).toFixed(0)}K kWh`;}}}},
+scales:{
+x:{grid:{color:‘rgba(80,160,255,.06)’},ticks:{color:’#6b90b8’}},
+y:{type:‘linear’,position:‘left’,grid:{color:‘rgba(80,160,255,.06)’},ticks:{color:’#00c2ff’,callback:v=>(v/1000)+‘K’},title:{display:true,text:‘kWh’,color:’#00c2ff’}},
+y1:{type:‘linear’,position:‘right’,grid:{drawOnChartArea:false},ticks:{color:’#ff4c6a’,callback:v=>(v/1e6).toFixed(1)+‘M’},title:{display:true,text:‘บาท’,color:’#ff4c6a’}},
 }
-updateStamp();
-setInterval(updateStamp,60000);
-
-// ─── CHART DEFAULTS ───
-Chart.defaults.color='#6b90b8';
-Chart.defaults.font.family="'Sarabun',sans-serif";
-Chart.defaults.font.size=12;
-
-// ─── CHART 1: ELECTRICITY 6 MONTHS ───
-(function(){
-  const labels=['ต.ค.','พ.ย.','ธ.ค.','ม.ค.','ก.พ.','มี.ค.'];
-  const kwhData=[980000,1020000,1080000,1060000,1100000,1250000];
-  const costData=[4508000,4681200,4951200,4865400,4950000,5875000];
-  const ctx=document.getElementById('chartElec').getContext('2d');
-  const gKwh=ctx.createLinearGradient(0,0,0,220);
-  gKwh.addColorStop(0,'rgba(0,194,255,.25)');
-  gKwh.addColorStop(1,'rgba(0,194,255,.01)');
-  const gCost=ctx.createLinearGradient(0,0,0,220);
-  gCost.addColorStop(0,'rgba(255,76,106,.2)');
-  gCost.addColorStop(1,'rgba(255,76,106,.01)');
-  new Chart(ctx,{
-    type:'bar',
-    data:{
-      labels,
-      datasets:[
-        {
-          label:'ค่าไฟ (บาท)',
-          data:costData,
-          backgroundColor:'rgba(255,76,106,.18)',
-          borderColor:'rgba(255,76,106,.8)',
-          borderWidth:1.5,
-          borderRadius:4,
-          yAxisID:'y1',
-          order:2,
-        },
-        {
-          type:'line',
-          label:'ใช้ไฟ (kWh)',
-          data:kwhData,
-          borderColor:'#00c2ff',
-          backgroundColor:gKwh,
-          borderWidth:2.5,
-          pointRadius:4,
-          pointBackgroundColor:'#00c2ff',
-          tension:.4,
-          fill:true,
-          yAxisID:'y',
-          order:1,
-        },
-      ]
-    },
-    options:{
-      responsive:true,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{
-          labels:{color:'#9db2cf',boxWidth:12,padding:14}
-        },
-        tooltip:{
-          backgroundColor:'rgba(9,27,47,.95)',
-          borderColor:'rgba(0,194,255,.3)',
-          borderWidth:1,
-          titleColor:'#ddeeff',
-          bodyColor:'#9db2cf',
-          callbacks:{
-            label(ctx){
-              if(ctx.datasetIndex===0) return ` ค่าไฟ: ${(ctx.raw/1000000).toFixed(2)}M บาท`;
-              return ` ใช้ไฟ: ${(ctx.raw/1000).toFixed(0)}K kWh`;
-            }
-          }
-        }
-      },
-      scales:{
-        x:{grid:{color:'rgba(80,160,255,.07)'},ticks:{color:'#6b90b8'}},
-        y:{
-          type:'linear',position:'left',
-          grid:{color:'rgba(80,160,255,.07)'},
-          ticks:{color:'#00c2ff',callback:v=>(v/1000)+'K'},
-          title:{display:true,text:'kWh',color:'#00c2ff'}
-        },
-        y1:{
-          type:'linear',position:'right',
-          grid:{drawOnChartArea:false},
-          ticks:{color:'#ff4c6a',callback:v=>(v/1000000).toFixed(1)+'M'},
-          title:{display:true,text:'บาท',color:'#ff4c6a'}
-        }
-      }
-    }
-  });
+}});
 })();
 
-// ─── CHART 3: DONUT ───
+// CHART 2: OIL
 (function(){
-  const ctx=document.getElementById('chartDonut').getContext('2d');
-  new Chart(ctx,{
-    type:'doughnut',
-    data:{
-      labels:['ค่าไฟฟ้า','น้ำมัน/ขนส่ง'],
-      datasets:[{
-        data:[5875000,1820000],
-        backgroundColor:['rgba(0,194,255,.7)','rgba(245,197,66,.7)'],
-        borderColor:['#00c2ff','#f5c542'],
-        borderWidth:1.5,
-        hoverOffset:8,
-      }]
-    },
-    options:{
-      cutout:'68%',
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          backgroundColor:'rgba(9,27,47,.95)',
-          borderColor:'rgba(0,194,255,.3)',
-          borderWidth:1,
-          callbacks:{label:ctx=>`${ctx.label}: ${(ctx.raw/1000000).toFixed(2)}M บาท`}
-        }
-      }
-    }
-  });
+const L=[‘ส.ค.’,‘ก.ย.’,‘ต.ค.’,‘พ.ย.’,‘ธ.ค.’,‘ม.ค.’,‘ก.พ.’,‘มี.ค.’];
+const D=[29.94,29.94,29.94,29.94,32.94,32.94,32.94,38.94];
+const G95=[33.05,33.05,33.05,33.05,35.05,35.05,35.05,41.05];
+const G91=[32.68,32.68,32.68,32.68,34.68,34.68,34.68,40.68];
+const ctx=document.getElementById(‘cOil’).getContext(‘2d’);
+const gD=ctx.createLinearGradient(0,0,0,180);gD.addColorStop(0,‘rgba(245,197,66,.18)’);gD.addColorStop(1,‘rgba(245,197,66,.01)’);
+new Chart(ctx,{type:‘line’,data:{labels:L,datasets:[
+{label:‘ดีเซล B7’,data:D,borderColor:’#f5c542’,backgroundColor:gD,borderWidth:2.5,pointRadius:3,pointBackgroundColor:’#f5c542’,tension:.3,fill:true},
+{label:‘G95’,data:G95,borderColor:’#00c2ff’,backgroundColor:‘transparent’,borderWidth:2,pointRadius:3,pointBackgroundColor:’#00c2ff’,tension:.3,fill:false},
+{label:‘G91’,data:G91,borderColor:’#00e896’,backgroundColor:‘transparent’,borderWidth:2,pointRadius:3,pointBackgroundColor:’#00e896’,tension:.3,fill:false,borderDash:[4,3]},
+]},options:{
+responsive:true,interaction:{mode:‘index’,intersect:false},
+plugins:{legend:{labels:{color:’#9db2cf’,boxWidth:11,padding:10}},tooltip:{…TT,borderColor:‘rgba(245,197,66,.25)’,callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(2)} ฿/ลิตร`}}},
+scales:{
+x:{grid:{color:‘rgba(80,160,255,.05)’},ticks:{color:’#6b90b8’}},
+y:{grid:{color:‘rgba(80,160,255,.05)’},ticks:{color:’#f5c542’,callback:v=>v.toFixed(0)},min:26},
+}
+}});
 })();
 
-// ─── CHART 4: PO BAR ───
+// CHART 3: DONUT
 (function(){
-  const ctx=document.getElementById('chartPO').getContext('2d');
-  new Chart(ctx,{
-    type:'bar',
-    data:{
-      labels:['ตรงเวลา','รอส่ง','ส่งบางส่วน','ล่าช้า'],
-      datasets:[{
-        label:'PO',
-        data:[7,2,1,2],
-        backgroundColor:[
-          'rgba(0,232,150,.5)',
-          'rgba(245,197,66,.5)',
-          'rgba(255,140,66,.5)',
-          'rgba(255,76,106,.5)',
-        ],
-        borderColor:['#00e896','#f5c542','#ff8c42','#ff4c6a'],
-        borderWidth:1.5,
-        borderRadius:6,
-      }]
-    },
-    options:{
-      indexAxis:'y',
-      plugins:{legend:{display:false},tooltip:{
-        backgroundColor:'rgba(9,27,47,.95)',
-        borderColor:'rgba(0,194,255,.3)',
-        borderWidth:1,
-      }},
-      scales:{
-        x:{grid:{color:'rgba(80,160,255,.07)'},ticks:{color:'#6b90b8',stepSize:1}},
-        y:{grid:{color:'rgba(80,160,255,.04)'},ticks:{color:'#9db2cf'}}
-      }
-    }
-  });
+const ctx=document.getElementById(‘cDonut’).getContext(‘2d’);
+new Chart(ctx,{type:‘doughnut’,data:{
+labels:[‘ค่าไฟฟ้า’,‘น้ำมัน/ขนส่ง’],
+datasets:[{data:[5875000,1820000],backgroundColor:[‘rgba(0,194,255,.65)’,‘rgba(245,197,66,.65)’],borderColor:[’#00c2ff’,’#f5c542’],borderWidth:1.5,hoverOffset:7}]
+},options:{cutout:‘70%’,plugins:{legend:{display:false},tooltip:{…TT,callbacks:{label:c=>`${c.label}: ${(c.raw/1e6).toFixed(2)}M บาท`}}}}});
 })();
 
-
-// ─── กราฟน้ำมัน — ราคาจริงรายเดือน (กระทรวงพลังงาน) ───
+// CHART 4: PO BAR
 (function(){
-  // ราคาดีเซล B7 และแก๊สโซฮอล์ย้อนหลัง 8 เดือน (บาท/ลิตร)
-  // อ้างอิง: กระทรวงพลังงาน / OR / บางจาก
-  const labels=['ส.ค.68','ก.ย.68','ต.ค.68','พ.ย.68','ธ.ค.68','ม.ค.69','ก.พ.69','มี.ค.69'];
-  const diesel= [29.94, 29.94, 29.94, 29.94, 32.94, 32.94, 32.94, 38.94];
-  const gsh95 = [33.05, 33.05, 33.05, 33.05, 35.05, 35.05, 35.05, 41.05];
-  const gsh91 = [32.68, 32.68, 32.68, 32.68, 34.68, 34.68, 34.68, 40.68];
-
-  const ctx=document.getElementById('chartOil').getContext('2d');
-  const gD=ctx.createLinearGradient(0,0,0,200);
-  gD.addColorStop(0,'rgba(245,197,66,.18)');gD.addColorStop(1,'rgba(245,197,66,.01)');
-
-  new Chart(ctx,{
-    type:'line',
-    data:{
-      labels,
-      datasets:[
-        {
-          label:'ดีเซล B7',
-          data:diesel,
-          borderColor:'#f5c542',backgroundColor:gD,
-          borderWidth:2.5,pointRadius:4,pointBackgroundColor:'#f5c542',
-          tension:.3,fill:true,
-        },
-        {
-          label:'แก๊สโซฮอล์ 95',
-          data:gsh95,
-          borderColor:'#00c2ff',backgroundColor:'transparent',
-          borderWidth:2,pointRadius:3,pointBackgroundColor:'#00c2ff',
-          tension:.3,fill:false,borderDash:[],
-        },
-        {
-          label:'แก๊สโซฮอล์ 91',
-          data:gsh91,
-          borderColor:'#00e896',backgroundColor:'transparent',
-          borderWidth:2,pointRadius:3,pointBackgroundColor:'#00e896',
-          tension:.3,fill:false,borderDash:[4,3],
-        },
-      ]
-    },
-    options:{
-      responsive:true,
-      interaction:{mode:'index',intersect:false},
-      plugins:{
-        legend:{labels:{color:'#9db2cf',boxWidth:12,padding:12}},
-        tooltip:{
-          backgroundColor:'rgba(9,27,47,.95)',
-          borderColor:'rgba(245,197,66,.3)',borderWidth:1,
-          titleColor:'#ddeeff',bodyColor:'#9db2cf',
-          callbacks:{label:c=>`${c.dataset.label}: ${c.raw.toFixed(2)} บาท/ลิตร`}
-        }
-      },
-      scales:{
-        x:{grid:{color:'rgba(80,160,255,.06)'},ticks:{color:'#6b90b8'}},
-        y:{
-          grid:{color:'rgba(80,160,255,.06)'},
-          ticks:{color:'#f5c542',callback:v=>v.toFixed(0)},
-          min:25,
-        }
-      }
-    }
-  });
+const ctx=document.getElementById(‘cPO’).getContext(‘2d’);
+new Chart(ctx,{type:‘bar’,data:{
+labels:[‘ตรงเวลา’,‘รอส่ง’,‘ส่งบางส่วน’,‘ล่าช้า’],
+datasets:[{label:‘PO’,data:[7,2,1,2],
+backgroundColor:[‘rgba(0,232,150,.45)’,‘rgba(245,197,66,.45)’,‘rgba(255,140,66,.45)’,‘rgba(255,76,106,.45)’],
+borderColor:[’#00e896’,’#f5c542’,’#ff8c42’,’#ff4c6a’],
+borderWidth:1.5,borderRadius:5}]
+},options:{
+indexAxis:‘y’,
+plugins:{legend:{display:false},tooltip:{…TT}},
+scales:{
+x:{grid:{color:‘rgba(80,160,255,.06)’},ticks:{color:’#6b90b8’,stepSize:1}},
+y:{grid:{color:‘rgba(80,160,255,.04)’},ticks:{color:’#9db2cf’}},
+}
+}});
 })();
 </script>
 
