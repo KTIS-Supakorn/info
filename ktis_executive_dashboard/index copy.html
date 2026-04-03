@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KTIS Executive Dashboard</title>
+<style>
+:root{
+  --bg:#07131f; --bg2:#0b1d31; --panel:#0e243c; --panel2:#122b47; --line:#21486d;
+  --text:#eaf4ff; --muted:#95b3d0; --blue:#3ec2ff; --red:#ff617f; --yellow:#f4c44f;
+  --green:#32d4a6; --orange:#ff9b4c; --white:#ffffff;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:radial-gradient(circle at 10% 0%, #0d2742 0%, transparent 35%),
+             radial-gradient(circle at 100% 100%, #10304e 0%, transparent 30%),
+             linear-gradient(180deg, #05101b, #081726 40%, #05101b);
+  color:var(--text);
+}
+.wrap{max-width:1280px;margin:0 auto;padding:18px}
+.top{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:12px;
+  margin-bottom:14px
+}
+.h1{font-size:30px;font-weight:800;letter-spacing:.2px}
+.sub{color:var(--muted);font-size:13px;margin-top:4px}
+.tag{
+  display:inline-block;padding:7px 12px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(62,194,255,.08);color:#a8e8ff;font-size:12px
+}
+.statusbar{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px
+}
+.status{
+  border-radius:16px;padding:14px 16px;border:1px solid rgba(255,255,255,.08);
+  display:flex;justify-content:space-between;align-items:center;font-weight:700
+}
+.status small{display:block;font-weight:400;opacity:.85;font-size:12px;margin-top:3px}
+.s-red{background:linear-gradient(180deg,rgba(255,97,127,.18),rgba(255,97,127,.08));color:#ffd7df}
+.s-yellow{background:linear-gradient(180deg,rgba(244,196,79,.18),rgba(244,196,79,.08));color:#ffe8a7}
+.s-green{background:linear-gradient(180deg,rgba(50,212,166,.18),rgba(50,212,166,.08));color:#cffff0}
+.s-blue{background:linear-gradient(180deg,rgba(62,194,255,.18),rgba(62,194,255,.08));color:#d6f4ff}
+
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.card,.panel{
+  background:linear-gradient(180deg,var(--panel),var(--panel2));
+  border:1px solid var(--line); border-radius:18px;
+  box-shadow:0 6px 18px rgba(0,0,0,.16);
+}
+.card{padding:16px;min-height:132px}
+.k{font-size:13px;color:var(--muted);margin-bottom:10px}
+.v{font-size:44px;font-weight:800;line-height:1}
+.unit{font-size:18px;color:var(--muted)}
+.delta{margin-top:8px;font-size:16px;font-weight:700}
+.note{margin-top:8px;font-size:13px;color:var(--muted)}
+.up{color:var(--red)} .down{color:var(--green)} .warn{color:var(--yellow)} .info{color:var(--blue)}
+
+.decision{
+  background:linear-gradient(180deg,#3c1118,#2a1018);
+  border:1px solid rgba(255,97,127,.35);
+  border-radius:18px;padding:16px;margin-bottom:16px
+}
+.decision h2{margin:0 0 10px 0;font-size:24px}
+.decision-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.action{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:14px
+}
+.action .ttl{font-weight:800;color:#fff;margin-bottom:6px}
+.action .desc{font-size:13px;color:#ffd7df;line-height:1.5}
+.action .meta{margin-top:8px;font-size:12px;color:#f6b7c2}
+
+.layout{display:grid;grid-template-columns:1.7fr 1fr;gap:16px}
+.panel{padding:16px;margin-bottom:16px}
+.ph{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.ph h2{margin:0;font-size:22px}
+.badge{
+  display:inline-block;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700
+}
+.b-blue{background:rgba(62,194,255,.14);color:#a8e8ff}
+.b-red{background:rgba(255,97,127,.14);color:#ffb7c6}
+.b-yellow{background:rgba(244,196,79,.14);color:#ffe8a7}
+.b-green{background:rgba(50,212,166,.14);color:#bff7e5}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th,.tbl td{padding:10px 8px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
+.tbl th{color:var(--muted);font-size:12px}
+.tbl tr:last-child td{border-bottom:none}
+.list{
+  display:grid;gap:10px
+}
+.item{
+  border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px;
+  background:rgba(255,255,255,.03)
+}
+.item b{display:block;margin-bottom:4px}
+.item .sm{font-size:12px;color:var(--muted);line-height:1.5}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.footer{margin-top:4px;color:var(--muted);font-size:12px}
+svg{width:100%;height:auto;display:block;background:rgba(255,255,255,.02);border-radius:14px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:8px}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+
+@media (max-width:1100px){
+  .grid5{grid-template-columns:repeat(2,1fr)}
+  .layout{grid-template-columns:1fr}
+}
+@media (max-width:700px){
+  .statusbar{grid-template-columns:repeat(2,1fr)}
+  .decision-grid,.row2{grid-template-columns:1fr}
+  .grid5{grid-template-columns:1fr}
+  .h1{font-size:24px}
+  .v{font-size:40px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <div class="h1">KTIS Executive War Room</div>
+      <div class="sub">เวอร์ชันผู้บริหาร • เน้นตัดสินใจ • ค่าไฟ · พลังงาน · น้ำมัน · PO Critical</div>
+    </div>
+    <div class="tag">Single-file HTML • 1 หน้า</div>
+  </div>
+
+  <div class="statusbar">
+    <div class="status s-red">ค่าไฟ: แดง <small>สูงกว่า budget และเพิ่มเร็ว</small></div>
+    <div class="status s-yellow">น้ำมัน: เหลือง <small>ติดตามต้นทุนขนส่ง</small></div>
+    <div class="status s-red">PO Critical: แดง <small>มี 2 รายการเสี่ยงสูง</small></div>
+    <div class="status s-blue">สถานะรวม: เฝ้าระวัง <small>ต้องตัดสินใจวันนี้ 3 เรื่อง</small></div>
+  </div>
+
+  <div class="grid5">
+    <div class="card">
+      <div class="k">💰 ค่าไฟเดือนนี้</div>
+      <div class="v up">5.88<span class="unit"> M บาท</span></div>
+      <div class="delta up">▲ +18.7% MoM</div>
+      <div class="note">Budget 5.40M</div>
+    </div>
+    <div class="card">
+      <div class="k">📈 คาดการณ์สิ้นเดือน</div>
+      <div class="v warn">6.25<span class="unit"> M บาท</span></div>
+      <div class="delta up">▲ +8.5% เทียบ budget</div>
+      <div class="note">สาเหตุหลัก: usage + FT + peak demand</div>
+    </div>
+    <div class="card">
+      <div class="k">⚡ ใช้ไฟฟ้า</div>
+      <div class="v info">1.25<span class="unit"> M kWh</span></div>
+      <div class="delta up">▲ +13.6% MoM</div>
+      <div class="note">ค่าไฟเฉลี่ย 4.70 บาท/kWh</div>
+    </div>
+    <div class="card">
+      <div class="k">🛢 ดีเซล B7</div>
+      <div class="v warn">38.94<span class="unit"> บาท/ลิตร</span></div>
+      <div class="delta up">▲ +6.00 บาท/ลิตร</div>
+      <div class="note">กระทบต้นทุนขนส่งภายในและ vendor</div>
+    </div>
+    <div class="card">
+      <div class="k">📦 PO Critical</div>
+      <div class="v" style="color:var(--green)">12<span class="unit"> รายการ</span></div>
+      <div class="delta warn">3 ล่าช้า · 2 เสี่ยงสูง</div>
+      <div class="note">มูลค่ารวม 18.4 ล้านบาท</div>
+    </div>
+  </div>
+
+  <div class="decision">
+    <h2>ต้องตัดสินใจวันนี้</h2>
+    <div class="decision-grid">
+      <div class="action">
+        <div class="ttl">1) เร่ง PO-240045</div>
+        <div class="desc">อนุมัติ follow supplier และแผนจัดหาสำรองภายในวันนี้ เพื่อกันความเสี่ยงหยุดเครื่อง</div>
+        <div class="meta">Owner: จัดซื้อ / วิศวกรรม • Due: วันนี้ 16:00</div>
+      </div>
+      <div class="action">
+        <div class="ttl">2) คุมโหลดช่วง Peak</div>
+        <div class="desc">ทบทวนแผนเดินเครื่อง 14:00–18:00 เพื่อลดค่าไฟและ peak demand</div>
+        <div class="meta">Owner: ผลิต / พลังงาน • Due: วันนี้ 14:00</div>
+      </div>
+      <div class="action">
+        <div class="ttl">3) ยืนยัน supplier สำรอง</div>
+        <div class="desc">ยืนยันแหล่งสำรองสำหรับ Utility / อะไหล่ไฟฟ้า หาก PO หลักยังล่าช้า</div>
+        <div class="meta">Owner: จัดซื้อ • Due: วันนี้ 17:00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="panel">
+        <div class="ph">
+          <h2>แนวโน้มค่าไฟ 6 เดือน</h2>
+          <span class="badge b-blue">Executive trend</span>
+        </div>
+        <svg viewBox="0 0 760 290" aria-label="Electricity trend">
+          <rect x="0" y="0" width="760" height="290" rx="14" fill="rgba(255,255,255,0.02)"/>
+          <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+            <line x1="60" y1="35" x2="60" y2="240"/>
+            <line x1="60" y1="240" x2="720" y2="240"/>
+            <line x1="60" y1="190" x2="720" y2="190"/>
+            <line x1="60" y1="140" x2="720" y2="140"/>
+            <line x1="60" y1="90" x2="720" y2="90"/>
+            <line x1="60" y1="40" x2="720" y2="40"/>
+          </g>
+          <g fill="#95b3d0" font-size="12">
+            <text x="14" y="244">0</text>
+            <text x="6" y="194">1M</text>
+            <text x="6" y="144">2M</text>
+            <text x="6" y="94">3M</text>
+            <text x="6" y="44">4M+</text>
+          </g>
+          <g fill="rgba(255,97,127,.65)">
+            <rect x="90"  y="128" width="54" height="112" rx="6"/>
+            <rect x="190" y="122" width="54" height="118" rx="6"/>
+            <rect x="290" y="107" width="54" height="133" rx="6"/>
+            <rect x="390" y="111" width="54" height="129" rx="6"/>
+            <rect x="490" y="107" width="54" height="133" rx="6"/>
+            <rect x="590" y="79"  width="54" height="161" rx="6"/>
+          </g>
+          <polyline fill="none" stroke="#3ec2ff" stroke-width="4"
+            points="117,191 217,183 317,170 417,175 517,166 617,140"/>
+          <g fill="#3ec2ff">
+            <circle cx="117" cy="191" r="5"/><circle cx="217" cy="183" r="5"/><circle cx="317" cy="170" r="5"/>
+            <circle cx="417" cy="175" r="5"/><circle cx="517" cy="166" r="5"/><circle cx="617" cy="140" r="5"/>
+          </g>
+          <g fill="#95b3d0" font-size="12">
+            <text x="102" y="262">ต.ค.</text><text x="202" y="262">พ.ย.</text><text x="302" y="262">ธ.ค.</text>
+            <text x="402" y="262">ม.ค.</text><text x="502" y="262">ก.พ.</text><text x="602" y="262">มี.ค.</text>
+          </g>
+        </svg>
+        <div class="legend">
+          <div><span class="dot" style="background:var(--blue)"></span>ใช้ไฟ (kWh)</div>
+          <div><span class="dot" style="background:var(--red)"></span>ค่าไฟ (บาท)</div>
+        </div>
+      </div>
+
+      <div class="row2">
+        <div class="panel">
+          <div class="ph">
+            <h2>Budget vs Actual vs Forecast</h2>
+            <span class="badge b-yellow">March 2569</span>
+          </div>
+          <table class="tbl">
+            <thead>
+              <tr><th>หมวด</th><th>Budget</th><th>Actual</th><th>Forecast</th><th>สถานะ</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>ค่าไฟ</td><td>5.40M</td><td class="up">5.88M</td><td class="up">6.25M</td><td><span class="badge b-red">เกินงบ</span></td></tr>
+              <tr><td>ใช้ไฟ (kWh)</td><td>1.18M</td><td class="up">1.25M</td><td class="up">1.29M</td><td><span class="badge b-yellow">สูงกว่าคาด</span></td></tr>
+              <tr><td>น้ำมัน/ขนส่ง</td><td>1.65M</td><td class="up">1.82M</td><td class="up">1.95M</td><td><span class="badge b-yellow">ติดตาม</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="panel">
+          <div class="ph">
+            <h2>Top 3 หน่วยเสี่ยง</h2>
+            <span class="badge b-red">Focus</span>
+          </div>
+          <div class="list">
+            <div class="item">
+              <b>1) โรง A</b>
+              <div class="sm">ค่าไฟ/หน่วยสูงกว่ามาตรฐาน 12% • ต้อง review load profile</div>
+            </div>
+            <div class="item">
+              <b>2) โรง B</b>
+              <div class="sm">มี PO critical ล่าช้า 2 รายการ • เสี่ยงกระทบ uptime</div>
+            </div>
+            <div class="item">
+              <b>3) โรง C</b>
+              <div class="sm">ใช้น้ำมันสูงผิดปกติ • กระทบต้นทุนขนส่งภายใน</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <h2>Top 5 PO เสี่ยงสูง</h2>
+          <span class="badge b-blue">Action tracking</span>
+        </div>
+        <table class="tbl">
+          <thead>
+            <tr><th>PO</th><th>รายการ</th><th>สถานะ</th><th>Owner</th><th>Next action</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>PO-240045</td><td>อะไหล่ปั๊ม/มอเตอร์</td><td><span class="badge b-red">ล่าช้า 7 วัน</span></td><td>จัดซื้อ</td><td>Follow supplier + plan B</td><td>วันนี้ 16:00</td></tr>
+            <tr><td>PO-240031</td><td>เชื้อเพลิง / Utility</td><td><span class="badge b-yellow">รอส่ง</span></td><td>จัดซื้อ</td><td>ยืนยัน ETA และ stock cover</td><td>วันนี้ 15:00</td></tr>
+            <tr><td>PO-240052</td><td>อุปกรณ์ไฟฟ้า</td><td><span class="badge b-yellow">ส่งบางส่วน</span></td><td>วิศวกรรม</td><td>จัดลำดับงานซ่อมใหม่</td><td>พรุ่งนี้ 10:00</td></tr>
+            <tr><td>PO-240071</td><td>Valve utility line</td><td><span class="badge b-yellow">รออนุมัติ</span></td><td>วิศวกรรม</td><td>เร่งอนุมัติจัดซื้อ</td><td>วันนี้ 17:00</td></tr>
+            <tr><td>PO-240066</td><td>น้ำมันหล่อลื่น</td><td><span class="badge b-green">ตรงเวลา</span></td><td>คลัง</td><td>ติดตามรับเข้า</td><td>วันนี้ 18:00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div>
+      <div class="panel">
+        <div class="ph">
+          <h2>ผลกระทบทางการเงิน</h2>
+          <span class="badge b-red">Executive summary</span>
+        </div>
+        <div class="list">
+          <div class="item">
+            <b>ค่าไฟสูงกว่า budget +0.48M บาท</b>
+            <div class="sm">เกิดจาก usage เพิ่มและค่าไฟต่อหน่วยสูงขึ้น</div>
+          </div>
+          <div class="item">
+            <b>Forecast สิ้นเดือนเกิน budget +0.85M บาท</b>
+            <div class="sm">ถ้าไม่คุม peak load และ usage ภายในสัปดาห์นี้</div>
+          </div>
+          <div class="item">
+            <b>ต้นทุนขนส่งเสี่ยงเพิ่มอีก +0.13M บาท</b>
+            <div class="sm">จากราคาดีเซลและ vendor logistics</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <h2>ราคาน้ำมันไทย</h2>
+          <span class="badge b-green">Market watch</span>
+        </div>
+        <svg viewBox="0 0 360 220" aria-label="Oil chart">
+          <rect x="0" y="0" width="360" height="220" rx="14" fill="rgba(255,255,255,0.02)"/>
+          <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+            <line x1="42" y1="25" x2="42" y2="180"/>
+            <line x1="42" y1="180" x2="334" y2="180"/>
+            <line x1="42" y1="140" x2="334" y2="140"/>
+            <line x1="42" y1="100" x2="334" y2="100"/>
+            <line x1="42" y1="60" x2="334" y2="60"/>
+          </g>
+          <polyline fill="none" stroke="#f4c44f" stroke-width="4"
+            points="60,150 95,150 130,150 165,150 200,127 235,127 270,127 305,78"/>
+          <g fill="#f4c44f">
+            <circle cx="60" cy="150" r="4"/><circle cx="95" cy="150" r="4"/><circle cx="130" cy="150" r="4"/>
+            <circle cx="165" cy="150" r="4"/><circle cx="200" cy="127" r="4"/><circle cx="235" cy="127" r="4"/>
+            <circle cx="270" cy="127" r="4"/><circle cx="305" cy="78" r="4"/>
+          </g>
+          <g fill="#95b3d0" font-size="11">
+            <text x="52" y="198">ส.ค.</text><text x="87" y="198">ก.ย.</text><text x="122" y="198">ต.ค.</text>
+            <text x="157" y="198">พ.ย.</text><text x="192" y="198">ธ.ค.</text><text x="227" y="198">ม.ค.</text>
+            <text x="262" y="198">ก.พ.</text><text x="297" y="198">มี.ค.</text>
+          </g>
+        </svg>
+        <div class="footer">ดีเซล B7 ตัวอย่าง: 38.94 บาท/ลิตร • ใช้เป็น market watch สำหรับขนส่ง</div>
+      </div>
+
+      <div class="panel">
+        <div class="ph">
+          <h2>ผู้รับผิดชอบหลัก</h2>
+          <span class="badge b-blue">Owner view</span>
+        </div>
+        <div class="list">
+          <div class="item"><b>ฝ่ายจัดซื้อ</b><div class="sm">เร่ง PO critical, ยืนยัน ETA, ประสาน supplier สำรอง</div></div>
+          <div class="item"><b>ฝ่ายผลิต / พลังงาน</b><div class="sm">คุมโหลดช่วง peak, ทบทวนแผนเดินเครื่อง, ลดค่าไฟต่อหน่วย</div></div>
+          <div class="item"><b>ฝ่ายวิศวกรรม</b><div class="sm">จัดลำดับงานซ่อม, เตรียมอะไหล่สำรอง, ลดความเสี่ยงหยุดเครื่อง</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">เวอร์ชันผู้บริหาร: ตัด technical detail ออก และเน้นสิ่งที่ต้องตัดสินใจ, ผลกระทบเงิน, จุดเสี่ยง, owner, due date</div>
+</div>
+</body>
+</html>
