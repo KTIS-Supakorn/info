@@ -1609,204 +1609,6 @@
         grid-template-columns: repeat(2, 1fr);
       }
     }
-
-    /* ... CSS เดิมของคุณ ... */
-
-    /* ═══════════════════════════════════════════
-     COURSE TOGGLE + MODAL
-     ─────────────────────────────────────────── */
-    .course-ctrl {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--ctrl-bg);
-      border: 1px solid var(--ctrl-border);
-      border-radius: 10px;
-      padding: 6px 10px;
-      user-select: none;
-    }
-
-    .course-ctrl .course-label {
-      font-size: 0.72rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      color: var(--text-2);
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .course-pill {
-      font-size: 0.62rem;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text-3);
-    }
-
-    .course-pill.on {
-      border-color: rgba(16, 185, 129, 0.35);
-      background: var(--emerald-pale);
-      color: var(--emerald-mid);
-    }
-
-    .course-pill.off {
-      border-color: rgba(248, 113, 113, 0.35);
-      background: rgba(248, 113, 113, 0.10);
-      color: #f87171;
-    }
-
-    .switch {
-      width: 44px;
-      height: 26px;
-      border-radius: 999px;
-      border: 1px solid var(--ctrl-border);
-      background: rgba(0, 0, 0, 0.06);
-      position: relative;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: 0.15s;
-    }
-
-    html[data-theme="dark"] .switch {
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .switch::after {
-      content: "";
-      width: 20px;
-      height: 20px;
-      border-radius: 999px;
-      background: var(--surface);
-      box-shadow: var(--shadow-sm);
-      position: absolute;
-      top: 50%;
-      left: 3px;
-      transform: translateY(-50%);
-      transition: 0.15s;
-    }
-
-    .switch.on {
-      background: rgba(16, 185, 129, 0.20);
-      border-color: rgba(16, 185, 129, 0.35);
-    }
-
-    .switch.on::after {
-      left: 21px;
-    }
-
-    /* Modal overlay */
-    .modal-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(2, 6, 23, 0.55);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 9999;
-      display: none;
-      padding: 18px;
-    }
-
-    .modal-backdrop.show {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal {
-      width: min(520px, 100%);
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
-      overflow: hidden;
-    }
-
-    .modal-head {
-      padding: 14px 18px;
-      background: linear-gradient(135deg, rgba(248, 113, 113, 0.16), rgba(245, 158, 11, 0.10));
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .modal-title {
-      font-size: 0.9rem;
-      font-weight: 900;
-      color: var(--text);
-      letter-spacing: -0.02em;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .modal-title .icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      background: rgba(248, 113, 113, 0.18);
-      border: 1px solid rgba(248, 113, 113, 0.25);
-      font-size: 1.1rem;
-    }
-
-    .modal-body {
-      padding: 16px 18px 18px;
-      color: var(--text-2);
-      font-size: 0.9rem;
-      line-height: 1.75;
-    }
-
-    .modal-body p {
-      margin: 0 0 10px;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      padding: 0 18px 18px;
-    }
-
-    .btn {
-      border: 1px solid var(--border);
-      background: var(--surface);
-      color: var(--text);
-      border-radius: 12px;
-      padding: 10px 14px;
-      font-size: 0.86rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.15s;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .btn.primary {
-      border-color: rgba(16, 185, 129, 0.35);
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(13, 148, 136, 0.10));
-      color: var(--text);
-    }
-
-    .btn.danger {
-      border-color: rgba(248, 113, 113, 0.35);
-      background: linear-gradient(135deg, rgba(248, 113, 113, 0.18), rgba(245, 158, 11, 0.10));
-    }
-
-    /* Lock scroll when modal shows */
-    body.modal-lock {
-      overflow: hidden;
-    }
   </style>
 </head>
 
@@ -1815,10 +1617,7 @@
   <!-- ════════════════════════ NAV ════════════════════════ -->
   <nav class="nav">
     <div class="nav-brand">
-      <img src="img/logo(Small).png"
-        alt="KTIS More Than Sugar logo: red globe with latitude and longitude grid lines, white KTIS text overlaid on globe, tagline More Than Sugar in red script and text below"
-        style="width:64px;height:auto;margin-right:8px;vertical-align:middle;" />
-      <div class="nav-dot"></div>AI ฝ่ายไร่
+      <img src="img/logo(Small).png" alt="KTIS More Than Sugar logo: red globe with latitude and longitude grid lines, white KTIS text overlaid on globe, tagline More Than Sugar in red script and text below" style="width:64px;height:auto;margin-right:8px;vertical-align:middle;" /><div class="nav-dot"></div>AI ฝ่ายไร่
     </div>
     <div class="nav-sep"></div>
     <a class="nav-link" href="#overview">ภาพรวม</a>
@@ -1830,9 +1629,8 @@
     <a class="nav-link" href="#module4">M4</a>
     <a class="nav-link" href="#module5">M5</a>
     <a class="nav-link" href="#appendix">Appendix</a>
-    <div class="nav-sep"></div>
-    <a class="nav-link" href="prompts.html"
-      style="color:var(--emerald-mid);background:var(--emerald-pale);font-weight:700;">📚 Prompt Library</a>
+<div class="nav-sep"></div>
+  <a class="nav-link" href="prompts.html" style="color:var(--emerald-mid);background:var(--emerald-pale);font-weight:700;">📚 Prompt Library</a>
     <!-- Controls -->
     <div class="nav-controls">
       <!-- Font size -->
@@ -1847,13 +1645,6 @@
       </div>
       <!-- Theme -->
       <button class="theme-btn" onclick="toggleTheme()" title="สลับโหมด" id="themeBtn">🌙</button>
-      <div class="course-ctrl" title="เปิด/ปิดหลักสูตร (บันทึกในเครื่องนี้)">
-        <div class="course-label">
-          หลักสูตร
-          <span id="coursePill" class="course-pill">—</span>
-        </div>
-        <div id="courseSwitch" class="switch" role="switch" aria-checked="true" tabindex="0"></div>
-      </div>
     </div>
   </nav>
 
@@ -1862,13 +1653,11 @@
     <div class="orb orb-a"></div>
     <div class="orb orb-b"></div>
     <div class="orb orb-c"></div>
-    <img src="img/logo(Small).png"
-      alt="KTIS More Than Sugar logo: red globe with latitude and longitude grid lines, white KTIS text overlaid on globe, tagline More Than Sugar in red script and text below"
-      style="width:150px;height:auto;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto;" />
+    <img src="img/logo(Small).png" alt="KTIS More Than Sugar logo: red globe with latitude and longitude grid lines, white KTIS text overlaid on globe, tagline More Than Sugar in red script and text below" style="width:150px;height:auto;margin-bottom:16px;display:block;margin-left:auto;margin-right:auto;" />
     <div class="eyebrow">
       <div class="eyebrow-dot"></div>คู่มืออบรม · ฝ่ายไร่
     </div>
-    <h1>AI สำหรับ <em>ฝ่ายไร่</em></h1>
+    <h1>AI สำหรับ  <em>ฝ่ายไร่</em></h1>
     <p class="hero-sub">ภายใต้แนวคิด <strong>"ให้ AI เป็นผู้ช่วยมือโปร"</strong></p>
     <p class="hero-meta">ผสาน "การใช้ AI ช่วยตัดสินใจงานบำรุงอ้อยจากข้อมูลจริง" เป็นแกนหลัก</p>
     <div class="chips">
@@ -1900,7 +1689,8 @@
       <p class="sub">หลักการ ขอบเขต และสิ่งที่ผู้เรียนจะได้รับ</p>
 
       <div class="card">
-        <img src="img/AI.png" alt="image" width="640" height="360" style="width:100%;height:auto;" />
+        <img src="img/AI.png" alt="image" width="640" height="360"
+          style="width:100%;height:auto;" />
 
         <h3>แนวคิดหลัก</h3>
         <div class="g4">
@@ -2765,26 +2555,7 @@
 
   <footer><strong>END OF MANUAL</strong> — AI ผู้ช่วยมือโปร + บำรุงอ้อย &nbsp;·&nbsp; จัดทำวันที่ 25 กุมภาพันธ์ 2569
   </footer>
-  <!-- ════════════════════════ COURSE CLOSED MODAL ════════════════════════ -->
-  <div id="courseModal" class="modal-backdrop" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="courseModalTitle">
-      <div class="modal-head">
-        <div class="modal-title" id="courseModalTitle">
-          <span class="icon">⛔</span>
-          ปิดหลักสูตรชั่วคราว
-        </div>
-      </div>
-      <div class="modal-body">
-        <p><strong>ขณะนี้หลักสูตรนี้ถูกปิดการใช้งาน</strong> กรุณาติดต่อผู้ดูแล/ผู้จัดอบรมเพื่อเปิดใช้งานอีกครั้ง</p>
-        <p style="font-size:0.82rem;color:var(--text-3);margin-top:6px;">
-          หมายเหตุ: ถ้าเป็นผู้ดูแล สามารถเปิดได้จากสวิตช์ “หลักสูตร” บนแถบด้านบน
-        </p>
-      </div>
-      <div class="modal-actions">
-        <button class="btn danger" id="courseAcknowledge">รับทราบ</button>
-      </div>
-    </div>
-  </div>
+
   <!-- ════════════════════════ SCRIPT ════════════════════════ -->
   <script>
     // ── Font size ──────────────────────────────────────────────
@@ -2835,101 +2606,6 @@
       window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
         if (!getTheme()) applyTheme(e.matches ? 'dark' : 'light');
       });
-    })();
-    const COURSE_KEY = 'course-open'; // "1" = open, "0" = closed
-
-    function isCourseOpen() {
-      try {
-        const v = localStorage.getItem(COURSE_KEY);
-        // default = open (ถ้าไม่เคยตั้งค่า)
-        // return (v === null) ? true : (v === '1');
-        return (v === null) ? false : (v === '1');
-      } catch (e) {
-        return true;
-      }
-    }
-
-    function setCourseOpen(open) {
-      try { localStorage.setItem(COURSE_KEY, open ? '1' : '0'); } catch (e) { }
-      renderCourseUI();
-      enforceCourseState();
-    }
-
-    function renderCourseUI() {
-      const open = isCourseOpen();
-      const sw = document.getElementById('courseSwitch');
-      const pill = document.getElementById('coursePill');
-      if (!sw || !pill) return;
-
-      sw.classList.toggle('on', open);
-      sw.setAttribute('aria-checked', open ? 'true' : 'false');
-
-      pill.textContent = open ? 'OPEN' : 'CLOSED';
-      pill.classList.toggle('on', open);
-      pill.classList.toggle('off', !open);
-    }
-
-    function showCourseModal() {
-      const modal = document.getElementById('courseModal');
-      if (!modal) return;
-      modal.classList.add('show');
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.classList.add('modal-lock');
-    }
-
-    function hideCourseModal() {
-      const modal = document.getElementById('courseModal');
-      if (!modal) return;
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.classList.remove('modal-lock');
-    }
-
-    function enforceCourseState() {
-      // ถ้าปิดหลักสูตร -> โชว์ popup ทับหน้า
-      if (!isCourseOpen()) showCourseModal();
-      else hideCourseModal();
-    }
-
-    function bindCourseToggle() {
-      const sw = document.getElementById('courseSwitch');
-      const ack = document.getElementById('courseAcknowledge');
-      const modal = document.getElementById('courseModal');
-
-      if (sw) {
-        sw.addEventListener('click', () => setCourseOpen(!isCourseOpen()));
-        sw.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            setCourseOpen(!isCourseOpen());
-          }
-        });
-      }
-
-      if (ack) {
-        // รับทราบ = ปิด popup แต่ถ้าสถานะยังปิดอยู่ ให้ยังคงบล็อกการใช้งาน
-        // (ถ้าอยากให้ "รับทราบ" แล้วปล่อยอ่านได้ ให้เปลี่ยนเป็น hideCourseModal() เฉย ๆ)
-        ack.addEventListener('click', () => enforceCourseState());
-        // ack.addEventListener('click', () => hideCourseModal());
-      }
-
-      if (modal) {
-        // คลิกนอกกล่อง = ไม่อนุญาตให้ปิด (กันหลุดใช้งานตอนปิดหลักสูตร)
-        modal.addEventListener('click', (e) => {
-          const dialog = modal.querySelector('.modal');
-          if (dialog && !dialog.contains(e.target)) {
-            enforceCourseState();
-          }
-        });
-      }
-    }
-
-    // ── Extend init ─────────────────────────────────────────────
-    (function initCourseGate() {
-      // รันหลัง DOM โหลด (ไฟล์นี้อยู่ท้าย body อยู่แล้ว ส่วนใหญ่ DOM พร้อม)
-      renderCourseUI();
-      bindCourseToggle();
-      enforceCourseState();
     })();
   </script>
 </body>
