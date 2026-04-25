@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เข้าสู่ระบบ - CaneZone Assessment Platform เขต 7</title>
+  <style>
+    :root{
+      --green-950:#03451f;
+      --green-900:#075c2c;
+      --green-800:#0c7a3b;
+      --green-700:#159447;
+      --green-100:#edf9ef;
+      --green-50:#f7fff8;
+      --yellow-50:#fffbed;
+      --yellow-100:#fff4ce;
+      --yellow-500:#e8ad10;
+      --blue-700:#0b63ce;
+      --gray-950:#111827;
+      --gray-800:#1f2937;
+      --gray-700:#374151;
+      --gray-600:#4b5563;
+      --gray-500:#6b7280;
+      --gray-300:#d1d5db;
+      --gray-200:#e5e7eb;
+      --gray-100:#f3f4f6;
+      --white:#fff;
+      --red-600:#dc2626;
+      --shadow:0 20px 50px rgba(17,24,39,.16);
+      --radius:18px;
+    }
+
+    *{box-sizing:border-box}
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Noto Sans Thai","Tahoma","Arial",sans-serif;
+      color:var(--gray-950);
+      background:
+        radial-gradient(circle at 12% 16%, rgba(255,244,206,.85), transparent 26%),
+        radial-gradient(circle at 78% 18%, rgba(237,249,239,.9), transparent 26%),
+        linear-gradient(135deg,#ffffff 0%,#f5faf6 48%,#edf9ef 100%);
+      display:grid;
+      place-items:center;
+      padding:28px;
+    }
+
+    .login-shell{
+      width:min(1180px,100%);
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      border-radius:28px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(3,69,31,.1);
+      min-height:680px;
+    }
+
+    .hero{
+      background:
+        linear-gradient(145deg,rgba(3,69,31,.92),rgba(12,122,59,.93)),
+        repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 36px, rgba(255,255,255,.09) 36px 37px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 36px, rgba(255,255,255,.08) 36px 37px);
+      color:#fff;
+      padding:42px;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      width:320px;
+      height:320px;
+      border-radius:999px;
+      right:-120px;
+      bottom:-120px;
+      background:rgba(255,255,255,.12);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      position:relative;
+      z-index:1;
+    }
+
+    .logo{
+      width:68px;
+      height:68px;
+      border-radius:20px;
+      background:#fff;
+      color:var(--green-800);
+      display:grid;
+      place-items:center;
+      font-weight:950;
+      line-height:1.08;
+      font-size:18px;
+      box-shadow:inset 0 0 0 2px rgba(4,97,44,.12);
+      flex:0 0 auto;
+    }
+
+    .brand-text strong{
+      display:block;
+      font-size:28px;
+      font-weight:950;
+      line-height:1.25;
+    }
+
+    .brand-text span{
+      display:block;
+      margin-top:4px;
+      opacity:.88;
+      font-weight:700;
+    }
+
+    .hero-content{
+      position:relative;
+      z-index:1;
+      max-width:520px;
+      margin-top:40px;
+    }
+
+    .hero-content h1{
+      margin:0 0 14px;
+      font-size:38px;
+      line-height:1.22;
+      font-weight:950;
+    }
+
+    .hero-content p{
+      margin:0;
+      line-height:1.8;
+      font-size:16px;
+      opacity:.92;
+    }
+
+    .flow-card{
+      position:relative;
+      z-index:1;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:18px;
+      padding:18px;
+      backdrop-filter:blur(6px);
+      margin-top:32px;
+    }
+
+    .flow-card h3{
+      margin:0 0 12px;
+      font-size:16px;
+      font-weight:950;
+    }
+
+    .flow{
+      display:grid;
+      gap:10px;
+    }
+
+    .flow-step{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      line-height:1.4;
+    }
+
+    .step-no{
+      width:28px;
+      height:28px;
+      border-radius:999px;
+      background:#fff;
+      color:var(--green-800);
+      display:grid;
+      place-items:center;
+      font-weight:950;
+      flex:0 0 auto;
+    }
+
+    .login-panel{
+      padding:42px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      background:#fff;
+    }
+
+    .login-panel h2{
+      margin:0 0 8px;
+      font-size:30px;
+      font-weight:950;
+      color:var(--gray-950);
+    }
+
+    .login-panel .sub{
+      margin:0 0 28px;
+      color:var(--gray-500);
+      font-weight:700;
+    }
+
+    .form{
+      display:grid;
+      gap:16px;
+    }
+
+    .field label{
+      display:block;
+      margin-bottom:7px;
+      font-weight:950;
+      color:var(--gray-700);
+    }
+
+    .input-wrap{
+      position:relative;
+    }
+
+    .input-wrap input,
+    .field select{
+      width:100%;
+      min-height:48px;
+      border:1px solid var(--gray-300);
+      border-radius:12px;
+      padding:12px 14px;
+      font:inherit;
+      color:var(--gray-950);
+      background:#fff;
+      box-shadow:inset 0 1px 2px rgba(0,0,0,.03);
+      outline:none;
+    }
+
+    .input-wrap input:focus,
+    .field select:focus{
+      border-color:var(--green-700);
+      box-shadow:0 0 0 4px rgba(21,148,71,.12);
+    }
+
+    .row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin:2px 0 6px;
+      color:var(--gray-600);
+      font-size:13px;
+      font-weight:800;
+    }
+
+    .remember{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    input[type="checkbox"]{
+      width:17px;
+      height:17px;
+      accent-color:var(--green-800);
+    }
+
+    .link{
+      color:var(--green-800);
+      text-decoration:none;
+      font-weight:950;
+    }
+
+    .login-btn{
+      min-height:52px;
+      border:none;
+      border-radius:13px;
+      background:linear-gradient(180deg,#18a34a,#087338);
+      color:#fff;
+      font:inherit;
+      font-size:17px;
+      font-weight:950;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      box-shadow:0 12px 22px rgba(8,115,56,.22);
+      text-decoration:none;
+    }
+
+    .login-btn:hover{
+      filter:brightness(.98);
+    }
+
+    .quick-login{
+      margin-top:18px;
+      border-top:1px solid var(--gray-200);
+      padding-top:18px;
+    }
+
+    .quick-login h3{
+      margin:0 0 10px;
+      font-size:14px;
+      color:var(--gray-700);
+      font-weight:950;
+    }
+
+    .role-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    .role-card{
+      border:1px solid var(--gray-200);
+      background:var(--gray-100);
+      color:var(--gray-700);
+      border-radius:12px;
+      padding:12px;
+      font-weight:900;
+      text-decoration:none;
+      display:grid;
+      gap:4px;
+    }
+
+    .role-card strong{
+      color:var(--gray-950);
+      font-size:14px;
+    }
+
+    .role-card span{
+      font-size:12px;
+      color:var(--gray-500);
+      line-height:1.45;
+    }
+
+    .note{
+      margin-top:18px;
+      background:#fff7dc;
+      border:1px dashed #eab308;
+      color:#7c4b00;
+      border-radius:12px;
+      padding:12px;
+      font-size:13px;
+      font-weight:800;
+      line-height:1.6;
+    }
+
+    .footer{
+      margin-top:20px;
+      text-align:center;
+      color:var(--gray-500);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    @media (max-width:980px){
+      .login-shell{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        min-height:420px;
+      }
+    }
+
+    @media (max-width:640px){
+      body{padding:14px}
+      .hero,.login-panel{padding:26px}
+      .brand-text strong{font-size:22px}
+      .hero-content h1{font-size:28px}
+      .role-grid{grid-template-columns:1fr}
+    }
+  
+    a.top-btn, a.btn, a.mini-btn, a.action-btn, a.small-btn{
+      text-decoration:none;
+    }
+    
+  
+    /* ===== Theme: Light / Dark ===== */
+    :root{
+      color-scheme: light;
+    }
+
+    [data-theme="dark"]{
+      color-scheme: dark;
+      --green-950:#021b0d;
+      --green-900:#06351b;
+      --green-800:#0b5f31;
+      --green-700:#16a34a;
+      --green-100:#143521;
+      --green-50:#0f2418;
+      --yellow-50:#2a2413;
+      --yellow-100:#352b13;
+      --yellow-200:#4a3b18;
+      --yellow-500:#facc15;
+      --blue-700:#60a5fa;
+      --blue-100:#15233a;
+      --orange-600:#f59e0b;
+      --red-600:#f87171;
+      --red-100:#3c1616;
+      --purple-600:#a78bfa;
+      --purple-100:#2a1d43;
+      --gray-950:#f9fafb;
+      --gray-800:#e5e7eb;
+      --gray-700:#d1d5db;
+      --gray-600:#cbd5e1;
+      --gray-500:#94a3b8;
+      --gray-300:#475569;
+      --gray-200:#334155;
+      --gray-100:#1e293b;
+      --white:#0f172a;
+      --shadow:0 12px 30px rgba(0,0,0,.45);
+    }
+
+    [data-theme="dark"] body,
+    body[data-theme="dark"]{
+      background:linear-gradient(180deg,#0b1220 0%,#111827 100%);
+      color:var(--gray-950);
+    }
+
+    [data-theme="dark"] .panel,
+    [data-theme="dark"] .card,
+    [data-theme="dark"] .summary-card,
+    [data-theme="dark"] .selected-card,
+    [data-theme="dark"] .filter-card,
+    [data-theme="dark"] .login-panel,
+    [data-theme="dark"] .role-card,
+    [data-theme="dark"] .summary-box,
+    [data-theme="dark"] .risk-card{
+      background:#0f172a;
+      border-color:#334155;
+      color:#f9fafb;
+    }
+
+    [data-theme="dark"] .panel.yellow,
+    [data-theme="dark"] .form-section{
+      background:linear-gradient(180deg,#2a2413,#352b13);
+      border-color:#66511a;
+    }
+
+    [data-theme="dark"] .panel.green,
+    [data-theme="dark"] .map-card{
+      background:linear-gradient(180deg,#0f2418,#143521);
+      border-color:#235b34;
+    }
+
+    [data-theme="dark"] input,
+    [data-theme="dark"] select,
+    [data-theme="dark"] textarea,
+    [data-theme="dark"] .choice-row,
+    [data-theme="dark"] .table-wrap,
+    [data-theme="dark"] table,
+    [data-theme="dark"] .small-btn,
+    [data-theme="dark"] .btn-outline,
+    [data-theme="dark"] .tool-chip,
+    [data-theme="dark"] .mini-filter{
+      background:#111827;
+      color:#f9fafb;
+      border-color:#475569;
+    }
+
+    [data-theme="dark"] th{
+      background:#1e293b;
+      color:#f9fafb;
+    }
+
+    [data-theme="dark"] tr.selected,
+    [data-theme="dark"] tr.selected-row{
+      background:#143521;
+    }
+
+    [data-theme="dark"] .hint-box,
+    [data-theme="dark"] .flow-note,
+    [data-theme="dark"] .note{
+      background:#352b13;
+      color:#fde68a;
+      border-color:#8a6f1f;
+    }
+
+    [data-theme="dark"] .map-box{
+      background:
+        radial-gradient(circle at 15% 20%, rgba(96,165,250,.16), transparent 18%),
+        radial-gradient(circle at 62% 28%, rgba(34,197,94,.18), transparent 18%),
+        radial-gradient(circle at 40% 68%, rgba(245,158,11,.18), transparent 18%),
+        linear-gradient(0deg, rgba(15,23,42,.72), rgba(15,23,42,.72)),
+        repeating-linear-gradient(0deg, #12301d 0 44px, #1e3a2a 44px 45px),
+        repeating-linear-gradient(90deg, #12301d 0 44px, #1e3a2a 44px 45px);
+      border-color:#235b34;
+    }
+
+    [data-theme="dark"] .topbar{
+      background:linear-gradient(90deg,#021b0d,#06351b 55%,#021b0d);
+    }
+
+    .theme-toggle{
+      border:1px solid rgba(255,255,255,.3);
+      background:rgba(255,255,255,.1);
+      color:#fff;
+      min-height:38px;
+      padding:8px 12px;
+      border-radius:10px;
+      font:inherit;
+      font-weight:900;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      white-space:nowrap;
+    }
+
+    [data-theme="dark"] .logo{
+      background:#e5f7e9;
+      color:#075c2c;
+    }
+
+  </style>
+</head>
+<body>
+  <section class="login-shell">
+    <aside class="hero">
+      <div class="brand">
+        <div class="logo">เขต<br>7</div>
+        <div class="brand-text">
+          <strong>CaneZone Assessment Platform</strong>
+          <span>สำหรับเจ้าหน้าที่ นสส. เขต 7</span>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <h1>เข้าสู่ระบบเพื่อจัดการข้อมูลแปลงอ้อย</h1>
+        <p>
+          ระบบช่วยค้นหาแปลง เลือกแปลงจากตารางหรือแผนที่ บันทึกข้อมูลประเมินภาคสนาม
+          และติดตามภาพรวมผ่าน Dashboard ได้ในชุดเดียว
+        </p>
+
+        <div class="flow-card">
+          <h3>ลำดับหน้าจอการใช้งาน</h3>
+          <div class="flow">
+            <div class="flow-step"><span class="step-no">1</span> Login เข้าสู่ระบบตามสิทธิ์ผู้ใช้งาน</div>
+            <div class="flow-step"><span class="step-no">2</span> Dashboard ดูภาพรวมและรายการที่ต้องติดตาม</div>
+            <div class="flow-step"><span class="step-no">3</span> เลือกแปลงจากตารางหรือ Maps</div>
+            <div class="flow-step"><span class="step-no">4</span> บันทึกข้อมูลประเมินของ ID แปลงอ้อยที่เลือก</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <main class="login-panel">
+      <h2>เข้าสู่ระบบ</h2>
+      <p class="sub">กรอกบัญชีผู้ใช้งานเพื่อเข้าสู่CaneZone Assessment Platform</p>
+
+      <form class="form">
+        <div class="field">
+          <label>ชื่อผู้ใช้งาน</label>
+          <div class="input-wrap">
+            <input type="text" value="somchai.j" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>รหัสผ่าน</label>
+          <div class="input-wrap">
+            <input type="password" value="password" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label>บทบาทผู้ใช้งาน</label>
+          <select>
+            <option selected>นสส. เขต 7</option>
+            <option>หัวหน้าเขต</option>
+            <option>ผู้ดูแลระบบ</option>
+            <option>ผู้บริหาร / ดูรายงาน</option>
+          </select>
+        </div>
+
+        <div class="row">
+          <label class="remember">
+            <input type="checkbox" checked />
+            จดจำการเข้าสู่ระบบ
+          </label>
+          <a class="link" href="#">ลืมรหัสผ่าน?</a>
+        </div>
+
+        <a class="login-btn" href="dashboard.html">🔐 เข้าสู่ระบบ</a>
+      </form>
+
+      <div class="quick-login">
+        <h3>ทางลัดสำหรับตัวอย่างหน้าจอ</h3>
+        <div class="role-grid">
+          <a class="role-card" href="dashboard.html">
+            <strong>Dashboard</strong>
+            <span>ดูภาพรวมการประเมิน</span>
+          </a>
+          <a class="role-card" href="plots.html">
+            <strong>เลือกแปลง</strong>
+            <span>เลือกแปลงจากตารางและ Maps</span>
+          </a>
+          <a class="role-card" href="assessment.html">
+            <strong>บันทึกประเมิน</strong>
+            <span>กรอกข้อมูลประเมินรายแปลง</span>
+          </a>
+          <a class="role-card" href="dashboard.html">
+            <strong>จัดการผู้ใช้</strong>
+            <span>เฉพาะผู้ดูแลระบบ</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="note">
+        หมายเหตุ: ไฟล์นี้เป็น HTML ตัวอย่างสำหรับ Mockup ส่วนการตรวจสอบรหัสผ่านจริงต้องเชื่อมต่อระบบ Login/Database ภายหลัง
+      </div>
+
+      <div class="footer">
+        © เขต 7 - Sugarcane Field Assessment System
+      </div>
+    </main>
+  </section>
+
+  <script>
+    (function () {
+      var savedTheme = localStorage.getItem("canezone-theme") || "light";
+      document.documentElement.setAttribute("data-theme", savedTheme);
+
+      window.toggleTheme = function () {
+        var current = document.documentElement.getAttribute("data-theme") || "light";
+        var next = current === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("canezone-theme", next);
+
+        document.querySelectorAll("[data-theme-label]").forEach(function (el) {
+          el.textContent = next === "dark" ? "โหมดสว่าง" : "โหมดมืด";
+        });
+      };
+
+      window.addEventListener("DOMContentLoaded", function () {
+        var current = document.documentElement.getAttribute("data-theme") || "light";
+        document.querySelectorAll("[data-theme-label]").forEach(function (el) {
+          el.textContent = current === "dark" ? "โหมดสว่าง" : "โหมดมืด";
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>

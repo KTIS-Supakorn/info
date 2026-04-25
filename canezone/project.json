@@ -1,0 +1,17 @@
+{
+  "projectName": "CaneZone Assessment Platform",
+  "projectSlug": "canezone-assessment-platform",
+  "version": "0.2.0-mockup",
+  "supportsMultipleAreas": true,
+  "defaultArea": "เขต 7",
+  "pages": [
+    {"file": "index.html", "name": "Login"},
+    {"file": "dashboard.html", "name": "Dashboard"},
+    {"file": "plots.html", "name": "Plot Selection"},
+    {"file": "assessment.html", "name": "Assessment Form"}
+  ],
+  "theme": {
+    "mode": "light-dark",
+    "storageKey": "canezone-theme"
+  }
+}
