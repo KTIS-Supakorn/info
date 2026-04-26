@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>หน้าเลือกแปลงเพื่อดำเนินการ - CaneZone Assessment Platform เขต 7</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>หน้าเลือกแปลงเพื่อดำเนินการ - CaneZone Assessment Platform เขต 7</title>
+<style>
     :root{
       --green-950:#03451f;
       --green-900:#075c2c;
@@ -565,276 +566,317 @@
       color:#075c2c;
     }
 
+  
+    /* ===== Mobile usability upgrade ===== */
+    @media (max-width: 768px){
+      html, body{width:100%;max-width:100%;overflow-x:hidden;}
+      body{font-size:14px;}
+      .topbar{position:relative;min-height:auto;padding:12px;gap:12px;flex-direction:column;align-items:stretch;}
+      .brand{width:100%;align-items:center;}
+      .logo{width:48px !important;height:48px !important;border-radius:14px !important;font-size:14px;}
+      .brand h1,.brand-text strong{font-size:18px !important;line-height:1.35;white-space:normal !important;overflow:visible !important;}
+      .top-actions{width:100%;display:grid !important;grid-template-columns:1fr 1fr;gap:8px;overflow:visible !important;}
+      .top-btn,.theme-toggle,.user-chip{width:100%;justify-content:center;min-height:42px;padding:8px 10px !important;font-size:13px;}
+      .user-chip{grid-column:1 / -1;}
+      .page{width:100%;max-width:100%;padding:12px !important;overflow-x:hidden !important;}
+      .page-title{margin:8px 0 12px;gap:10px;align-items:flex-start;}
+      .title-left,.page-title{flex-direction:column;align-items:flex-start;}
+      .page-title .icon{font-size:28px;}
+      .page-title h2{font-size:20px !important;line-height:1.35;}
+      .period-filter,.filter-actions,.panel-actions{width:100%;display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .period-filter select,.period-filter input,.period-filter .btn,.filter-actions .btn,.panel-actions .btn,.panel-actions .mini-filter{width:100%;}
+      .layout,.dashboard-grid,.chart-row,.summary-grid,.summary-strip,.form-grid,.form-grid.two,.form-grid.one,.risk-grid,.donut-wrap,.action-stack,.login-shell{grid-template-columns:1fr !important;}
+      .panel,.card,.summary-card,.filter-card,.map-card,.selected-card{width:100%;max-width:100%;padding:12px !important;border-radius:14px;margin-bottom:12px;min-height:auto !important;position:static !important;max-height:none !important;overflow:visible !important;}
+      .panel-title{font-size:18px !important;line-height:1.35;align-items:flex-start;flex-direction:column;}
+      .panel-title h3{font-size:17px !important;line-height:1.35;}
+      .readonly-grid,.info-grid{grid-template-columns:1fr !important;gap:4px 0 !important;}
+      .readonly-grid .label,.info-grid .label{margin-top:8px;color:var(--gray-500);}
+      .readonly-grid .value,.info-grid .value{font-size:15px;padding-bottom:4px;border-bottom:1px dashed var(--gray-200);}
+      .choice-row{align-items:flex-start;display:grid !important;grid-template-columns:1fr;gap:8px !important;padding:10px !important;}
+      .choice-row label{white-space:normal !important;}
+      input[type="text"],input[type="number"],input[type="password"],select,textarea{min-height:46px !important;font-size:16px !important;}
+      textarea{min-height:110px !important;}
+      .action-grid{grid-template-columns:1fr 1fr !important;gap:10px !important;}
+      .action-btn{min-height:56px !important;font-size:15px !important;padding:10px !important;}
+      .status-card{grid-template-columns:54px 1fr !important;padding:14px !important;}
+      .check-icon{width:48px !important;height:48px !important;font-size:30px !important;}
+      .map-box{height:320px !important;min-height:320px;}
+      .plot-label{font-size:11px !important;max-width:160px;white-space:normal !important;}
+      .legend{grid-template-columns:1fr 1fr !important;}
+      .table-wrap{border:none !important;overflow:visible !important;background:transparent !important;}
+      table{min-width:0 !important;width:100% !important;border-collapse:separate !important;border-spacing:0 10px !important;background:transparent !important;}
+      thead{display:none !important;}
+      tbody,tr,td{display:block !important;width:100% !important;}
+      tr{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(17,24,39,.06);margin-bottom:10px;}
+      [data-theme="dark"] tr{background:#0f172a;border-color:#334155;}
+      tr.selected,tr.selected-row{outline:none !important;border-color:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,.18),0 6px 16px rgba(17,24,39,.06);}
+      td{border:none !important;padding:7px 4px !important;display:grid !important;grid-template-columns:42% 58%;gap:8px;align-items:start;font-size:13px !important;word-break:break-word;}
+      td::before{content:attr(data-label);color:var(--gray-500);font-weight:900;}
+      td.center{text-align:left !important;}
+      .row-actions{display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .mini-btn{width:100%;text-align:center;justify-content:center;display:flex;}
+      .donut{margin:auto;width:160px !important;height:160px !important;}
+      .donut::after{inset:30px !important;}
+      .summary-value{font-size:26px !important;}
+      .hero{min-height:auto !important;padding:26px !important;}
+      .hero-content{margin-top:26px !important;}
+      .hero-content h1{font-size:26px !important;}
+      .login-panel{padding:24px !important;}
+      .login-panel h2{font-size:24px !important;}
+      .role-grid{grid-template-columns:1fr !important;}
+    }
+    @media (max-width: 420px){
+      .top-actions,.action-grid,.legend{grid-template-columns:1fr !important;}
+      td{grid-template-columns:1fr;gap:2px;}
+      .map-box{height:280px !important;}
+    }
+
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">เขต<br>7</div>
-      <h1>CaneZone Assessment Platform</h1>
-    </div>
-    <div class="top-actions">
-      <button class="theme-toggle" type="button" onclick="toggleTheme()">🌓 <span data-theme-label>โหมดมืด</span></button>
-      <a class="top-btn" href="dashboard.html">⌂ หน้าแรก</a>
-      <a class="top-btn" href="dashboard.html">📊 Dashboard</a>
-      <div class="user-chip">
-        <div class="user-icon">👤</div>
-        <div>
-          <strong>นายสมชาย ใจดี</strong><br />
-          <span>ผู้ใช้งาน: นสส. เขต 7 ▾</span>
-        </div>
-      </div>
-      <a class="top-btn" href="index.html">ออกจากระบบ</a>
-    </div>
-  </header>
-
-  <main class="page">
-    <div class="page-title">
-      <div class="icon">🗺️</div>
-      <h2>หน้าเลือกแปลงเพื่อดำเนินการ</h2>
-    </div>
-
-    <div class="flow-note">
+<header class="topbar">
+<div class="brand">
+<div class="logo">เขต<br/>7</div>
+<h1>CaneZone Assessment Platform</h1>
+</div>
+<div class="top-actions">
+<button class="theme-toggle" onclick="toggleTheme()" type="button">🌓 <span data-theme-label="">โหมดมืด</span></button>
+<a class="top-btn" href="dashboard.html">⌂ หน้าแรก</a>
+<a class="top-btn" href="dashboard.html">📊 Dashboard</a>
+<div class="user-chip">
+<div class="user-icon">👤</div>
+<div>
+<strong>นายสมชาย ใจดี</strong><br>
+<span>ผู้ใช้งาน: นสส. เขต 7 ▾</span>
+</br></div>
+</div>
+<a class="top-btn" href="index.html">ออกจากระบบ</a>
+</div>
+</header>
+<main class="page">
+<div class="page-title">
+<div class="icon">🗺️</div>
+<h2>หน้าเลือกแปลงเพื่อดำเนินการ</h2>
+</div>
+<div class="flow-note">
       ลำดับการใช้งาน: ค้นหาชาวไร่/แปลงอ้อย → เลือกแปลงจาก “ตาราง” หรือ “แผนที่” → กด “ไปหน้าบันทึกประเมิน”
     </div>
-
-    <div class="summary-strip">
-      <div class="summary-box">
-        <div class="small">จำนวนแปลงที่พบ</div>
-        <div class="big">24</div>
-      </div>
-      <div class="summary-box">
-        <div class="small">บันทึกแล้ว</div>
-        <div class="big">12</div>
-      </div>
-      <div class="summary-box">
-        <div class="small">รออัปเดต</div>
-        <div class="big">7</div>
-      </div>
-      <div class="summary-box">
-        <div class="small">ยังไม่ประเมิน</div>
-        <div class="big">5</div>
-      </div>
-    </div>
-
-    <div class="filter-card">
-      <h3>ค้นหาและกรองข้อมูลแปลง</h3>
-      <div class="form-grid">
-        <div class="field">
-          <label>เลขสัญญา</label>
-          <input type="text" value="700123" />
-        </div>
-        <div class="field">
-          <label>ชื่อเจ้าของอ้อย</label>
-          <input type="text" value="นายวิชัย แสนดี" />
-        </div>
-        <div class="field">
-          <label>ID แปลงอ้อย</label>
-          <input type="text" placeholder="เช่น 7001234" />
-        </div>
-        <div class="field">
-          <label>สถานะประเมิน</label>
-          <select>
-            <option selected>ทั้งหมด</option>
-            <option>บันทึกแล้ว</option>
-            <option>รออัปเดต</option>
-            <option>ยังไม่ประเมิน</option>
-          </select>
-        </div>
-      </div>
-      <div class="filter-actions">
-        <a class="btn btn-blue" href="plots.html">🔎 ค้นหา</a>
-        <a class="btn btn-green" href="plots.html">📍 แสดงบนแผนที่</a>
-        <a class="btn btn-outline" href="plots.html">🧹 ล้างตัวกรอง</a>
-      </div>
-    </div>
-
-    <section class="layout">
-      <section class="panel">
-        <div class="panel-title table">📋 ตารางรายการแปลงเพื่อดำเนินการ</div>
-
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>ลำดับ</th>
-                <th>ID แปลงอ้อย</th>
-                <th>เลขสัญญา</th>
-                <th>ชื่อเจ้าของอ้อย</th>
-                <th>ชนิดอ้อย</th>
-                <th>พื้นที่</th>
-                <th>ที่ตั้งแปลง</th>
-                <th>สถานะประเมิน</th>
-                <th>วันที่บันทึกล่าสุด</th>
-                <th>ดำเนินการ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="selected">
-                <td>1</td>
-                <td><strong>7001234</strong></td>
-                <td>700123</td>
-                <td>นายวิชัย แสนดี</td>
-                <td>อ้อยข้ามแล้ง</td>
-                <td>5.25 ไร่</td>
-                <td>บ้านหนองบัว ม.7 ต.หนองบัว</td>
-                <td><span class="chip chip-done">บันทึกแล้ว</span></td>
-                <td>20/05/2567</td>
-                <td>
-                  <div class="row-actions">
-                    <a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
-                    <a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td><strong>7001235</strong></td>
-                <td>700123</td>
-                <td>นายวิชัย แสนดี</td>
-                <td>อ้อยตอ</td>
-                <td>4.75 ไร่</td>
-                <td>บ้านหนองบัว ม.7 ต.หนองบัว</td>
-                <td><span class="chip chip-pending">รออัปเดต</span></td>
-                <td>19/05/2567</td>
-                <td>
-                  <div class="row-actions">
-                    <a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
-                    <a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td><strong>7001236</strong></td>
-                <td>700123</td>
-                <td>นายวิชัย แสนดี</td>
-                <td>อ้อยฝน</td>
-                <td>5.50 ไร่</td>
-                <td>บ้านโนนสว่าง ม.8 ต.หนองบัว</td>
-                <td><span class="chip chip-new">ยังไม่ประเมิน</span></td>
-                <td>-</td>
-                <td>
-                  <div class="row-actions">
-                    <a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
-                    <a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td><strong>7001281</strong></td>
-                <td>700128</td>
-                <td>นางทองใบ สีสุข</td>
-                <td>อ้อยน้ำราด</td>
-                <td>8.25 ไร่</td>
-                <td>บ้านโคกใหญ่ ม.4 ต.บ้านเขว้า</td>
-                <td><span class="chip chip-pending">รออัปเดต</span></td>
-                <td>18/05/2567</td>
-                <td>
-                  <div class="row-actions">
-                    <a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
-                    <a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td><strong>7001282</strong></td>
-                <td>700128</td>
-                <td>นางทองใบ สีสุข</td>
-                <td>อ้อยตอ</td>
-                <td>6.80 ไร่</td>
-                <td>บ้านโคกใหญ่ ม.4 ต.บ้านเขว้า</td>
-                <td><span class="chip chip-done">บันทึกแล้ว</span></td>
-                <td>17/05/2567</td>
-                <td>
-                  <div class="row-actions">
-                    <a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
-                    <a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <aside class="panel">
-        <div class="panel-title map">🗺️ แผนที่แปลงอ้อย</div>
-
-        <div class="map-card">
-          <div class="map-toolbar">
-            <div class="tool-chip">แสดงเฉพาะแปลงที่เลือก</div>
-            <div class="tool-chip">แสดงสถานะประเมิน</div>
-            <div class="tool-chip">ซูมเข้า/ออก</div>
-          </div>
-
-          <div class="map-box">
-            <div class="road r1"></div>
-            <div class="road r2"></div>
-            <div class="road r3"></div>
-            <div class="water"></div>
-
-            <div class="plot green selected" style="left:28%; top:26%;"></div>
-            <div class="plot-label" style="left:32%; top:22%;">7001234 (แปลงที่เลือก)</div>
-
-            <div class="plot orange" style="left:41%; top:31%;"></div>
-            <div class="plot-label" style="left:45%; top:28%;">7001235</div>
-
-            <div class="plot blue" style="left:23%; top:56%;"></div>
-            <div class="plot-label" style="left:27%; top:53%;">7001236</div>
-
-            <div class="plot orange" style="left:68%; top:44%;"></div>
-            <div class="plot-label" style="left:72%; top:41%;">7001281</div>
-
-            <div class="plot green" style="left:61%; top:68%;"></div>
-            <div class="plot-label" style="left:65%; top:65%;">7001282</div>
-          </div>
-
-          <div class="legend">
-            <div class="legend-item"><span class="dot green"></span> บันทึกแล้ว</div>
-            <div class="legend-item"><span class="dot orange"></span> รออัปเดต</div>
-            <div class="legend-item"><span class="dot blue"></span> ยังไม่ประเมิน</div>
-            <div class="legend-item"><span class="dot red"></span> ไม่พบพิกัด</div>
-          </div>
-        </div>
-
-        <div class="selected-card">
-          <h3>แปลงที่เลือกเพื่อดำเนินการ</h3>
-          <div class="info-grid">
-            <div class="label">ID แปลงอ้อย</div>
-            <div class="value">7001234</div>
-
-            <div class="label">เลขสัญญา</div>
-            <div class="value">700123</div>
-
-            <div class="label">ชื่อเจ้าของอ้อย</div>
-            <div class="value">นายวิชัย แสนดี</div>
-
-            <div class="label">ชนิดอ้อย</div>
-            <div class="value">อ้อยข้ามแล้ง</div>
-
-            <div class="label">พื้นที่</div>
-            <div class="value">5.25 ไร่</div>
-
-            <div class="label">ที่ตั้งแปลง</div>
-            <div class="value">บ้านหนองบัว ม.7 ต.หนองบัว อ.บ้านค่าย จ.ชัยภูมิ</div>
-
-            <div class="label">สถานะ</div>
-            <div class="value"><span class="chip chip-done">บันทึกแล้ว</span></div>
-          </div>
-
-          <div class="action-stack">
-            <a class="btn btn-green" href="assessment.html">✅ เลือกแปลงนี้</a>
-            <a class="btn btn-blue" href="assessment.html">➡️ ไปหน้าบันทึกประเมิน</a>
-          </div>
-        </div>
-      </aside>
-    </section>
-  </main>
-
-  <script>
+<div class="summary-strip">
+<div class="summary-box">
+<div class="small">จำนวนแปลงที่พบ</div>
+<div class="big">24</div>
+</div>
+<div class="summary-box">
+<div class="small">บันทึกแล้ว</div>
+<div class="big">12</div>
+</div>
+<div class="summary-box">
+<div class="small">รออัปเดต</div>
+<div class="big">7</div>
+</div>
+<div class="summary-box">
+<div class="small">ยังไม่ประเมิน</div>
+<div class="big">5</div>
+</div>
+</div>
+<div class="filter-card">
+<h3>ค้นหาและกรองข้อมูลแปลง</h3>
+<div class="form-grid">
+<div class="field">
+<label>เลขสัญญา</label>
+<input type="text" value="700123"/>
+</div>
+<div class="field">
+<label>ชื่อเจ้าของอ้อย</label>
+<input type="text" value="นายวิชัย แสนดี"/>
+</div>
+<div class="field">
+<label>ID แปลงอ้อย</label>
+<input placeholder="เช่น 7001234" type="text"/>
+</div>
+<div class="field">
+<label>สถานะประเมิน</label>
+<select>
+<option selected="">ทั้งหมด</option>
+<option>บันทึกแล้ว</option>
+<option>รออัปเดต</option>
+<option>ยังไม่ประเมิน</option>
+</select>
+</div>
+</div>
+<div class="filter-actions">
+<a class="btn btn-blue" href="plots.html">🔎 ค้นหา</a>
+<a class="btn btn-green" href="plots.html">📍 แสดงบนแผนที่</a>
+<a class="btn btn-outline" href="plots.html">🧹 ล้างตัวกรอง</a>
+</div>
+</div>
+<section class="layout">
+<section class="panel">
+<div class="panel-title table">📋 ตารางรายการแปลงเพื่อดำเนินการ</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ลำดับ</th>
+<th>ID แปลงอ้อย</th>
+<th>เลขสัญญา</th>
+<th>ชื่อเจ้าของอ้อย</th>
+<th>ชนิดอ้อย</th>
+<th>พื้นที่</th>
+<th>ที่ตั้งแปลง</th>
+<th>สถานะประเมิน</th>
+<th>วันที่บันทึกล่าสุด</th>
+<th>ดำเนินการ</th>
+</tr>
+</thead>
+<tbody>
+<tr class="selected">
+<td data-label="ลำดับ">1</td>
+<td data-label="ID แปลงอ้อย"><strong>7001234</strong></td>
+<td data-label="เลขสัญญา">700123</td>
+<td data-label="ชื่อเจ้าของอ้อย">นายวิชัย แสนดี</td>
+<td data-label="ชนิดอ้อย">อ้อยข้ามแล้ง</td>
+<td data-label="พื้นที่">5.25 ไร่</td>
+<td data-label="ที่ตั้งแปลง">บ้านหนองบัว ม.7 ต.หนองบัว</td>
+<td data-label="สถานะประเมิน"><span class="chip chip-done">บันทึกแล้ว</span></td>
+<td data-label="วันที่บันทึกล่าสุด">20/05/2567</td>
+<td data-label="ดำเนินการ">
+<div class="row-actions">
+<a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
+<a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
+</div>
+</td>
+</tr>
+<tr>
+<td data-label="ลำดับ">2</td>
+<td data-label="ID แปลงอ้อย"><strong>7001235</strong></td>
+<td data-label="เลขสัญญา">700123</td>
+<td data-label="ชื่อเจ้าของอ้อย">นายวิชัย แสนดี</td>
+<td data-label="ชนิดอ้อย">อ้อยตอ</td>
+<td data-label="พื้นที่">4.75 ไร่</td>
+<td data-label="ที่ตั้งแปลง">บ้านหนองบัว ม.7 ต.หนองบัว</td>
+<td data-label="สถานะประเมิน"><span class="chip chip-pending">รออัปเดต</span></td>
+<td data-label="วันที่บันทึกล่าสุด">19/05/2567</td>
+<td data-label="ดำเนินการ">
+<div class="row-actions">
+<a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
+<a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
+</div>
+</td>
+</tr>
+<tr>
+<td data-label="ลำดับ">3</td>
+<td data-label="ID แปลงอ้อย"><strong>7001236</strong></td>
+<td data-label="เลขสัญญา">700123</td>
+<td data-label="ชื่อเจ้าของอ้อย">นายวิชัย แสนดี</td>
+<td data-label="ชนิดอ้อย">อ้อยฝน</td>
+<td data-label="พื้นที่">5.50 ไร่</td>
+<td data-label="ที่ตั้งแปลง">บ้านโนนสว่าง ม.8 ต.หนองบัว</td>
+<td data-label="สถานะประเมิน"><span class="chip chip-new">ยังไม่ประเมิน</span></td>
+<td data-label="วันที่บันทึกล่าสุด">-</td>
+<td data-label="ดำเนินการ">
+<div class="row-actions">
+<a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
+<a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
+</div>
+</td>
+</tr>
+<tr>
+<td data-label="ลำดับ">4</td>
+<td data-label="ID แปลงอ้อย"><strong>7001281</strong></td>
+<td data-label="เลขสัญญา">700128</td>
+<td data-label="ชื่อเจ้าของอ้อย">นางทองใบ สีสุข</td>
+<td data-label="ชนิดอ้อย">อ้อยน้ำราด</td>
+<td data-label="พื้นที่">8.25 ไร่</td>
+<td data-label="ที่ตั้งแปลง">บ้านโคกใหญ่ ม.4 ต.บ้านเขว้า</td>
+<td data-label="สถานะประเมิน"><span class="chip chip-pending">รออัปเดต</span></td>
+<td data-label="วันที่บันทึกล่าสุด">18/05/2567</td>
+<td data-label="ดำเนินการ">
+<div class="row-actions">
+<a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
+<a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
+</div>
+</td>
+</tr>
+<tr>
+<td data-label="ลำดับ">5</td>
+<td data-label="ID แปลงอ้อย"><strong>7001282</strong></td>
+<td data-label="เลขสัญญา">700128</td>
+<td data-label="ชื่อเจ้าของอ้อย">นางทองใบ สีสุข</td>
+<td data-label="ชนิดอ้อย">อ้อยตอ</td>
+<td data-label="พื้นที่">6.80 ไร่</td>
+<td data-label="ที่ตั้งแปลง">บ้านโคกใหญ่ ม.4 ต.บ้านเขว้า</td>
+<td data-label="สถานะประเมิน"><span class="chip chip-done">บันทึกแล้ว</span></td>
+<td data-label="วันที่บันทึกล่าสุด">17/05/2567</td>
+<td data-label="ดำเนินการ">
+<div class="row-actions">
+<a class="mini-btn mini-blue" href="plots.html">ดูบนแผนที่</a>
+<a class="mini-btn mini-green" href="assessment.html">เลือกแปลงนี้</a>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<aside class="panel">
+<div class="panel-title map">🗺️ แผนที่แปลงอ้อย</div>
+<div class="map-card">
+<div class="map-toolbar">
+<div class="tool-chip">แสดงเฉพาะแปลงที่เลือก</div>
+<div class="tool-chip">แสดงสถานะประเมิน</div>
+<div class="tool-chip">ซูมเข้า/ออก</div>
+</div>
+<div class="map-box">
+<div class="road r1"></div>
+<div class="road r2"></div>
+<div class="road r3"></div>
+<div class="water"></div>
+<div class="plot green selected" style="left:28%; top:26%;"></div>
+<div class="plot-label" style="left:32%; top:22%;">7001234 (แปลงที่เลือก)</div>
+<div class="plot orange" style="left:41%; top:31%;"></div>
+<div class="plot-label" style="left:45%; top:28%;">7001235</div>
+<div class="plot blue" style="left:23%; top:56%;"></div>
+<div class="plot-label" style="left:27%; top:53%;">7001236</div>
+<div class="plot orange" style="left:68%; top:44%;"></div>
+<div class="plot-label" style="left:72%; top:41%;">7001281</div>
+<div class="plot green" style="left:61%; top:68%;"></div>
+<div class="plot-label" style="left:65%; top:65%;">7001282</div>
+</div>
+<div class="legend">
+<div class="legend-item"><span class="dot green"></span> บันทึกแล้ว</div>
+<div class="legend-item"><span class="dot orange"></span> รออัปเดต</div>
+<div class="legend-item"><span class="dot blue"></span> ยังไม่ประเมิน</div>
+<div class="legend-item"><span class="dot red"></span> ไม่พบพิกัด</div>
+</div>
+</div>
+<div class="selected-card">
+<h3>แปลงที่เลือกเพื่อดำเนินการ</h3>
+<div class="info-grid">
+<div class="label">ID แปลงอ้อย</div>
+<div class="value">7001234</div>
+<div class="label">เลขสัญญา</div>
+<div class="value">700123</div>
+<div class="label">ชื่อเจ้าของอ้อย</div>
+<div class="value">นายวิชัย แสนดี</div>
+<div class="label">ชนิดอ้อย</div>
+<div class="value">อ้อยข้ามแล้ง</div>
+<div class="label">พื้นที่</div>
+<div class="value">5.25 ไร่</div>
+<div class="label">ที่ตั้งแปลง</div>
+<div class="value">บ้านหนองบัว ม.7 ต.หนองบัว อ.บ้านค่าย จ.ชัยภูมิ</div>
+<div class="label">สถานะ</div>
+<div class="value"><span class="chip chip-done">บันทึกแล้ว</span></div>
+</div>
+<div class="action-stack">
+<a class="btn btn-green" href="assessment.html">✅ เลือกแปลงนี้</a>
+<a class="btn btn-blue" href="assessment.html">➡️ ไปหน้าบันทึกประเมิน</a>
+</div>
+</div>
+</aside>
+</section>
+</main>
+<script>
     (function () {
       var savedTheme = localStorage.getItem("canezone-theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -858,6 +900,5 @@
       });
     })();
   </script>
-
 </body>
 </html>

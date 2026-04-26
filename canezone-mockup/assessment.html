@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CaneZone Assessment Platform เขต 7</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CaneZone Assessment Platform เขต 7</title>
+<style>
     :root{
       --green-950:#03451f;
       --green-900:#075c2c;
@@ -396,405 +397,436 @@
       color:#075c2c;
     }
 
+  
+    /* ===== Mobile usability upgrade ===== */
+    @media (max-width: 768px){
+      html, body{width:100%;max-width:100%;overflow-x:hidden;}
+      body{font-size:14px;}
+      .topbar{position:relative;min-height:auto;padding:12px;gap:12px;flex-direction:column;align-items:stretch;}
+      .brand{width:100%;align-items:center;}
+      .logo{width:48px !important;height:48px !important;border-radius:14px !important;font-size:14px;}
+      .brand h1,.brand-text strong{font-size:18px !important;line-height:1.35;white-space:normal !important;overflow:visible !important;}
+      .top-actions{width:100%;display:grid !important;grid-template-columns:1fr 1fr;gap:8px;overflow:visible !important;}
+      .top-btn,.theme-toggle,.user-chip{width:100%;justify-content:center;min-height:42px;padding:8px 10px !important;font-size:13px;}
+      .user-chip{grid-column:1 / -1;}
+      .page{width:100%;max-width:100%;padding:12px !important;overflow-x:hidden !important;}
+      .page-title{margin:8px 0 12px;gap:10px;align-items:flex-start;}
+      .title-left,.page-title{flex-direction:column;align-items:flex-start;}
+      .page-title .icon{font-size:28px;}
+      .page-title h2{font-size:20px !important;line-height:1.35;}
+      .period-filter,.filter-actions,.panel-actions{width:100%;display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .period-filter select,.period-filter input,.period-filter .btn,.filter-actions .btn,.panel-actions .btn,.panel-actions .mini-filter{width:100%;}
+      .layout,.dashboard-grid,.chart-row,.summary-grid,.summary-strip,.form-grid,.form-grid.two,.form-grid.one,.risk-grid,.donut-wrap,.action-stack,.login-shell{grid-template-columns:1fr !important;}
+      .panel,.card,.summary-card,.filter-card,.map-card,.selected-card{width:100%;max-width:100%;padding:12px !important;border-radius:14px;margin-bottom:12px;min-height:auto !important;position:static !important;max-height:none !important;overflow:visible !important;}
+      .panel-title{font-size:18px !important;line-height:1.35;align-items:flex-start;flex-direction:column;}
+      .panel-title h3{font-size:17px !important;line-height:1.35;}
+      .readonly-grid,.info-grid{grid-template-columns:1fr !important;gap:4px 0 !important;}
+      .readonly-grid .label,.info-grid .label{margin-top:8px;color:var(--gray-500);}
+      .readonly-grid .value,.info-grid .value{font-size:15px;padding-bottom:4px;border-bottom:1px dashed var(--gray-200);}
+      .choice-row{align-items:flex-start;display:grid !important;grid-template-columns:1fr;gap:8px !important;padding:10px !important;}
+      .choice-row label{white-space:normal !important;}
+      input[type="text"],input[type="number"],input[type="password"],select,textarea{min-height:46px !important;font-size:16px !important;}
+      textarea{min-height:110px !important;}
+      .action-grid{grid-template-columns:1fr 1fr !important;gap:10px !important;}
+      .action-btn{min-height:56px !important;font-size:15px !important;padding:10px !important;}
+      .status-card{grid-template-columns:54px 1fr !important;padding:14px !important;}
+      .check-icon{width:48px !important;height:48px !important;font-size:30px !important;}
+      .map-box{height:320px !important;min-height:320px;}
+      .plot-label{font-size:11px !important;max-width:160px;white-space:normal !important;}
+      .legend{grid-template-columns:1fr 1fr !important;}
+      .table-wrap{border:none !important;overflow:visible !important;background:transparent !important;}
+      table{min-width:0 !important;width:100% !important;border-collapse:separate !important;border-spacing:0 10px !important;background:transparent !important;}
+      thead{display:none !important;}
+      tbody,tr,td{display:block !important;width:100% !important;}
+      tr{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(17,24,39,.06);margin-bottom:10px;}
+      [data-theme="dark"] tr{background:#0f172a;border-color:#334155;}
+      tr.selected,tr.selected-row{outline:none !important;border-color:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,.18),0 6px 16px rgba(17,24,39,.06);}
+      td{border:none !important;padding:7px 4px !important;display:grid !important;grid-template-columns:42% 58%;gap:8px;align-items:start;font-size:13px !important;word-break:break-word;}
+      td::before{content:attr(data-label);color:var(--gray-500);font-weight:900;}
+      td.center{text-align:left !important;}
+      .row-actions{display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .mini-btn{width:100%;text-align:center;justify-content:center;display:flex;}
+      .donut{margin:auto;width:160px !important;height:160px !important;}
+      .donut::after{inset:30px !important;}
+      .summary-value{font-size:26px !important;}
+      .hero{min-height:auto !important;padding:26px !important;}
+      .hero-content{margin-top:26px !important;}
+      .hero-content h1{font-size:26px !important;}
+      .login-panel{padding:24px !important;}
+      .login-panel h2{font-size:24px !important;}
+      .role-grid{grid-template-columns:1fr !important;}
+    }
+    @media (max-width: 420px){
+      .top-actions,.action-grid,.legend{grid-template-columns:1fr !important;}
+      td{grid-template-columns:1fr;gap:2px;}
+      .map-box{height:280px !important;}
+    }
+
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">เขต<br>7</div>
-      <h1>CaneZone Assessment Platform</h1>
-    </div>
-    <div class="top-actions">
-      <button class="theme-toggle" type="button" onclick="toggleTheme()">🌓 <span data-theme-label>โหมดมืด</span></button>
-      <a class="top-btn" href="dashboard.html">⌂ หน้าแรก</a>
-      <a class="top-btn" href="plots.html">🗺️ เลือกแปลง</a>
-      <div class="user-chip">
-        <div class="user-icon">👤</div>
-        <div>
-          <strong>นายสมชาย ใจดี</strong><br />
-          <span>ผู้ใช้งาน: นสส. เขต 7 ▾</span>
-        </div>
-      </div>
-      <a class="top-btn" href="index.html">ออกจากระบบ</a>
-    </div>
-  </header>
-
-  <main class="page">
-    <div class="page-title">
-      <div class="icon">📋</div>
-      <h2>หน้าจอบันทึกข้อมูลแบบประเมินศักยภาพแปลงอ้อย เขต 7</h2>
-    </div>
-
-    <div class="desktop-note">
+<header class="topbar">
+<div class="brand">
+<div class="logo">เขต<br/>7</div>
+<h1>CaneZone Assessment Platform</h1>
+</div>
+<div class="top-actions">
+<button class="theme-toggle" onclick="toggleTheme()" type="button">🌓 <span data-theme-label="">โหมดมืด</span></button>
+<a class="top-btn" href="dashboard.html">⌂ หน้าแรก</a>
+<a class="top-btn" href="plots.html">🗺️ เลือกแปลง</a>
+<div class="user-chip">
+<div class="user-icon">👤</div>
+<div>
+<strong>นายสมชาย ใจดี</strong><br>
+<span>ผู้ใช้งาน: นสส. เขต 7 ▾</span>
+</br></div>
+</div>
+<a class="top-btn" href="index.html">ออกจากระบบ</a>
+</div>
+</header>
+<main class="page">
+<div class="page-title">
+<div class="icon">📋</div>
+<h2>หน้าจอบันทึกข้อมูลแบบประเมินศักยภาพแปลงอ้อย เขต 7</h2>
+</div>
+<div class="desktop-note">
       แนะนำให้เปิดบนหน้าจอขนาดใหญ่ เพื่อเห็น 3 ส่วนพร้อมกัน: สีขาวแสดงผล / สีเหลืองกรอกข้อมูล / สีเขียวอัปเดต
     </div>
+<section class="layout">
+<!-- LEFT -->
+<aside class="panel white">
+<div class="panel-title blue">🖥️ ส่วนแสดงผล</div>
+<div class="card">
+<h3>ข้อมูลชาวไร่ / แปลงที่เลือก <span class="badge-readonly">อ่านอย่างเดียว</span></h3>
+<div class="readonly-grid">
+<div class="label">เลขสัญญา</div>
+<div class="value">700123</div>
+<div class="label">ชื่อเจ้าของอ้อย</div>
+<div class="value">นายวิชัย แสนดี</div>
+<div class="label">นสส.ผู้ดูแล</div>
+<div class="value">นายสมชาย ใจดี</div>
+<div class="label">ID แปลงอ้อย</div>
+<div class="value">7001234</div>
+<div class="label">ชนิดอ้อย</div>
+<div class="value">อ้อยข้ามแล้ง</div>
+<div class="label">พื้นที่แปลง</div>
+<div class="value">5.25 ไร่</div>
+<div class="label">ตัน/ไร่ปีที่ผ่านมา</div>
+<div class="value">12.80 ตัน/ไร่</div>
+<div class="label">หมู่บ้าน</div>
+<div class="value">บ้านหนองบัว</div>
+<div class="label">หมู่ที่</div>
+<div class="value">7</div>
+<div class="label">ตำบล</div>
+<div class="value">หนองบัว</div>
+<div class="label">อำเภอ</div>
+<div class="value">บ้านค่าย</div>
+<div class="label">ที่อยู่แปลง</div>
+<div class="value">บ้านหนองบัว ม.7 ต.หนองบัว อ.บ้านค่าย จ.ชัยภูมิ</div>
+<div class="label">จำนวนแปลงทั้งหมด</div>
+<div class="value">3 แปลง</div>
+<div class="label">พื้นที่รวม</div>
+<div class="value">15.50 ไร่</div>
+</div>
+</div>
+<div class="card">
+<h3>รายการแปลงอ้อยของชาวไร่รายนี้</h3>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ลำดับ</th>
+<th>ID แปลงอ้อย</th>
+<th>ที่ตั้งแปลง</th>
+<th>ชนิดอ้อย</th>
+<th>พื้นที่</th>
+<th>สถานะประเมิน</th>
+<th>วันที่บันทึกล่าสุด</th>
+</tr>
+</thead>
+<tbody>
+<tr class="selected-row">
+<td class="center" data-label="ลำดับ">1</td>
+<td data-label="ID แปลงอ้อย"><strong>7001234</strong></td>
+<td data-label="ที่ตั้งแปลง">บ้านหนองบัว ม.7</td>
+<td data-label="ชนิดอ้อย">อ้อยข้ามแล้ง</td>
+<td data-label="พื้นที่">5.25 ไร่</td>
+<td data-label="สถานะประเมิน"><span class="status-pill pill-done">บันทึกแล้ว</span></td>
+<td data-label="วันที่บันทึกล่าสุด">20/05/2567</td>
+</tr>
+<tr>
+<td class="center" data-label="ลำดับ">2</td>
+<td data-label="ID แปลงอ้อย"><strong>7001235</strong></td>
+<td data-label="ที่ตั้งแปลง">บ้านหนองบัว ม.7</td>
+<td data-label="ชนิดอ้อย">อ้อยตอ</td>
+<td data-label="พื้นที่">4.75 ไร่</td>
+<td data-label="สถานะประเมิน"><span class="status-pill pill-pending">รออัปเดต</span></td>
+<td data-label="วันที่บันทึกล่าสุด">19/05/2567</td>
+</tr>
+<tr>
+<td class="center" data-label="ลำดับ">3</td>
+<td data-label="ID แปลงอ้อย"><strong>7001236</strong></td>
+<td data-label="ที่ตั้งแปลง">บ้านโนนสว่าง ม.8</td>
+<td data-label="ชนิดอ้อย">อ้อยฝน</td>
+<td data-label="พื้นที่">5.50 ไร่</td>
+<td data-label="สถานะประเมิน"><span class="status-pill pill-new">ยังไม่ประเมิน</span></td>
+<td data-label="วันที่บันทึกล่าสุด">-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="center">
+<a class="small-btn" href="plots.html">☰ ดูทั้งหมด</a>
+</div>
+</div>
+<div class="sub-note">ในหน้าจอหลักแสดงเป็นชื่อเต็ม เช่น “อ้อยข้ามแล้ง” โดยไม่ต้องแสดงรหัสย่อ</div>
 
-    <section class="layout">
-      <!-- LEFT -->
-      <aside class="panel white">
-        <div class="panel-title blue">🖥️ ส่วนแสดงผล</div>
-
-        <div class="card">
-          <h3>ข้อมูลชาวไร่ / แปลงที่เลือก <span class="badge-readonly">อ่านอย่างเดียว</span></h3>
-          <div class="readonly-grid">
-            <div class="label">เลขสัญญา</div>
-            <div class="value">700123</div>
-
-            <div class="label">ชื่อเจ้าของอ้อย</div>
-            <div class="value">นายวิชัย แสนดี</div>
-
-            <div class="label">นสส.ผู้ดูแล</div>
-            <div class="value">นายสมชาย ใจดี</div>
-
-            <div class="label">ID แปลงอ้อย</div>
-            <div class="value">7001234</div>
-
-            <div class="label">ชนิดอ้อย</div>
-            <div class="value">อ้อยข้ามแล้ง</div>
-
-            <div class="label">พื้นที่แปลง</div>
-            <div class="value">5.25 ไร่</div>
-
-            <div class="label">ตัน/ไร่ปีที่ผ่านมา</div>
-            <div class="value">12.80 ตัน/ไร่</div>
-
-            <div class="label">หมู่บ้าน</div>
-            <div class="value">บ้านหนองบัว</div>
-
-            <div class="label">หมู่ที่</div>
-            <div class="value">7</div>
-
-            <div class="label">ตำบล</div>
-            <div class="value">หนองบัว</div>
-
-            <div class="label">อำเภอ</div>
-            <div class="value">บ้านค่าย</div>
-
-            <div class="label">ที่อยู่แปลง</div>
-            <div class="value">บ้านหนองบัว ม.7 ต.หนองบัว อ.บ้านค่าย จ.ชัยภูมิ</div>
-
-            <div class="label">จำนวนแปลงทั้งหมด</div>
-            <div class="value">3 แปลง</div>
-
-            <div class="label">พื้นที่รวม</div>
-            <div class="value">15.50 ไร่</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>รายการแปลงอ้อยของชาวไร่รายนี้</h3>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>ลำดับ</th>
-                  <th>ID แปลงอ้อย</th>
-                  <th>ที่ตั้งแปลง</th>
-                  <th>ชนิดอ้อย</th>
-                  <th>พื้นที่</th>
-                  <th>สถานะประเมิน</th>
-                  <th>วันที่บันทึกล่าสุด</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="selected-row">
-                  <td class="center">1</td>
-                  <td><strong>7001234</strong></td>
-                  <td>บ้านหนองบัว ม.7</td>
-                  <td>อ้อยข้ามแล้ง</td>
-                  <td>5.25 ไร่</td>
-                  <td><span class="status-pill pill-done">บันทึกแล้ว</span></td>
-                  <td>20/05/2567</td>
-                </tr>
-                <tr>
-                  <td class="center">2</td>
-                  <td><strong>7001235</strong></td>
-                  <td>บ้านหนองบัว ม.7</td>
-                  <td>อ้อยตอ</td>
-                  <td>4.75 ไร่</td>
-                  <td><span class="status-pill pill-pending">รออัปเดต</span></td>
-                  <td>19/05/2567</td>
-                </tr>
-                <tr>
-                  <td class="center">3</td>
-                  <td><strong>7001236</strong></td>
-                  <td>บ้านโนนสว่าง ม.8</td>
-                  <td>อ้อยฝน</td>
-                  <td>5.50 ไร่</td>
-                  <td><span class="status-pill pill-new">ยังไม่ประเมิน</span></td>
-                  <td>-</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="center">
-            <a class="small-btn" href="plots.html">☰ ดูทั้งหมด</a>
-          </div>
-        </div>
-          <div class="sub-note">ในหน้าจอหลักแสดงเป็นชื่อเต็ม เช่น “อ้อยข้ามแล้ง” โดยไม่ต้องแสดงรหัสย่อ</div>
-        </div>
-      </aside>
-
-      <!-- CENTER -->
-      <section class="panel yellow">
-        <div class="panel-title yellow-title" style="font-size:24px;">✏️ ส่วนกรอกข้อมูลประเมิน</div>
-
-        <div class="hint-box">
+</aside>
+<!-- CENTER -->
+<section class="panel yellow">
+<div class="panel-title yellow-title" style="font-size:24px;">✏️ ส่วนกรอกข้อมูลประเมิน</div>
+<div class="hint-box">
           ส่วนนี้กรอกเฉพาะข้อมูลประเมินเท่านั้น ข้อมูลตั้งต้น เช่น ID แปลงอ้อย, เจ้าของ, เลขสัญญา, ชนิดอ้อย, ที่อยู่ และพื้นที่แปลง อยู่ในส่วนแสดงผลและแก้ไขไม่ได้
         </div>
-
-        <div class="form-section">
-          <h3>1) ประวัติแปลง / ประเภทพื้นที่</h3>
-          <div class="form-grid">
-            <div class="field">
-              <label>ทำอ้อยต่อเนื่อง (ปี) <span class="req">*</span></label>
-              <input type="number" value="3" min="0" />
-            </div>
-            <div class="field">
-              <span class="choice-label">ประเภทพื้นที่ <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="landType" checked /> ไร่</label>
-                <label><input type="radio" name="landType" /> นา</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>2) ศักยภาพของดิน</h3>
-          <div class="choice-row">
-            <label><input type="radio" name="soil" /> A &gt; 20 ตัน/ไร่</label>
-            <label><input type="radio" name="soil" /> B &gt; 15 - 20 ตัน/ไร่</label>
-            <label><input type="radio" name="soil" checked /> C 10 - 15 ตัน/ไร่</label>
-            <label><input type="radio" name="soil" /> D &lt; 10 ตัน/ไร่</label>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>3) ศักยภาพด้านทันเวลา</h3>
-          <div class="field">
-            <span class="choice-label">ปลูก/ตัด <span class="req">*</span></span>
-            <div class="choice-row">
-              <label><input type="radio" name="timePotential" checked /> ก่อน 31 ม.ค.</label>
-              <label><input type="radio" name="timePotential" /> หลัง 31 ม.ค.</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>4) ศักยภาพด้านการจัดการวัชพืช</h3>
-          <div class="form-grid two">
-            <div class="field">
-              <span class="choice-label">สภาพวัชพืชรก <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="weedPercent" checked /> &lt; 10%</label>
-                <label><input type="radio" name="weedPercent" /> 10-30%</label>
-                <label><input type="radio" name="weedPercent" /> &gt; 30%</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">ฉีดยาคุม-ฆ่า <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="weedSpray" checked /> √ ฉีดแล้ว</label>
-                <label><input type="radio" name="weedSpray" /> X ยังไม่ฉีด</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>5) การจัดการด้านโรคแมลง</h3>
-          <div class="form-grid two">
-            <div class="field">
-              <span class="choice-label">โรคแส้ดำ <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="smut" checked /> ไม่พบโรค</label>
-                <label><input type="radio" name="smut" /> มี</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">% โรคแส้ดำที่พบ</span>
-              <div class="choice-row">
-                <label><input type="radio" name="smutPercent" /> &lt; 10%</label>
-                <label><input type="radio" name="smutPercent" /> 10-20%</label>
-                <label><input type="radio" name="smutPercent" /> &gt; 20%</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">สถานะการฉีดยาโรคแส้ดำ</span>
-              <div class="choice-row">
-                <label><input type="radio" name="smutSpray" /> √ ฉีดแล้ว</label>
-                <label><input type="radio" name="smutSpray" /> X ยังไม่ฉีด</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">โรคอื่น ๆ ที่พบ <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="otherDisease" /> ไม่พบโรค</label>
-                <label><input type="radio" name="otherDisease" checked /> มี</label>
-              </div>
-            </div>
-            <div class="field">
-              <label>ระบุโรคอื่น ๆ ที่พบ</label>
-              <input type="text" value="ใบขาว" />
-            </div>
-            <div class="field">
-              <span class="choice-label">หนอนกอ <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="borer" /> ไม่พบหนอนกอ</label>
-                <label><input type="radio" name="borer" checked /> มี</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">% เสียหายจากหนอนกอ</span>
-              <div class="choice-row">
-                <label><input type="radio" name="borerDamage" checked /> &lt; 10%</label>
-                <label><input type="radio" name="borerDamage" /> 10-20%</label>
-                <label><input type="radio" name="borerDamage" /> &gt; 20%</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">สถานะการฉีดยาหนอนกอ</span>
-              <div class="choice-row">
-                <label><input type="radio" name="borerSpray" /> √ ฉีดแล้ว</label>
-                <label><input type="radio" name="borerSpray" checked /> X ยังไม่ฉีด</label>
-              </div>
-            </div>
-          </div>
-          <div class="sub-note">หมายเหตุ: หากเลือก “ไม่พบโรค” หรือ “ไม่พบหนอนกอ” ไม่จำเป็นต้องกรอกรายละเอียดเปอร์เซ็นต์และสถานะการฉีดยา</div>
-        </div>
-
-        <div class="form-section">
-          <h3>6) ศักยภาพด้านการจัดการน้ำ</h3>
-          <div class="form-grid">
-            <div class="field">
-              <span class="choice-label">แหล่งน้ำ <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="waterSource" checked /> √ มีแหล่งน้ำ</label>
-                <label><input type="radio" name="waterSource" /> X ไม่มีแหล่งน้ำ</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">ให้น้ำได้ (ครั้ง) <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="waterTimes" /> 0</label>
-                <label><input type="radio" name="waterTimes" /> 1</label>
-                <label><input type="radio" name="waterTimes" /> 2</label>
-                <label><input type="radio" name="waterTimes" checked /> ≥ 3</label>
-              </div>
-            </div>
-            <div class="field">
-              <span class="choice-label">การระบายน้ำ <span class="req">*</span></span>
-              <div class="choice-row">
-                <label><input type="radio" name="drainage" checked /> ไม่แช่ขัง</label>
-                <label><input type="radio" name="drainage" /> แช่ขังนาน 1-4 สัปดาห์</label>
-                <label><input type="radio" name="drainage" /> แช่ขังนาน &gt; 4 สัปดาห์</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>7) สถานะการไว้ใบในแปลง</h3>
-          <div class="choice-row">
-            <label><input type="radio" name="leafStatus" /> เผาใบ</label>
-            <label><input type="radio" name="leafStatus" /> เก็บหมดแปลง</label>
-            <label><input type="radio" name="leafStatus" checked /> เหลือ 30%</label>
-            <label><input type="radio" name="leafStatus" /> ไว้ 100%</label>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h3>8) ข้อแนะนำ / ด้านผลผลิต</h3>
-          <div class="form-grid one">
-            <div class="field">
-              <label>ระบุข้อแนะนำในการจัดการแปลงหลังจากการตรวจแปลงแล้ว</label>
-              <textarea>แนะนำให้กำจัดวัชพืชก่อนใส่ปุ๋ย และปรับปรุงการให้น้ำในช่วงแล้ง</textarea>
-            </div>
-          </div>
-          <div class="form-grid two" style="margin-top:12px;">
-            <div class="field">
-              <label>ก่อนให้คำแนะนำ (ตัน/ไร่)</label>
-              <input type="number" value="12.80" step="0.01" />
-            </div>
-            <div class="field">
-              <label>หลังทำตามคำแนะนำ (ตัน/ไร่)</label>
-              <input type="number" value="16.00" step="0.01" />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- RIGHT -->
-      <aside class="panel green">
-        <div class="panel-title green-title">⚙️ ส่วนอัปเดต</div>
-
-        <div class="status-card">
-          <div class="check-icon">✓</div>
-          <div>
-            <strong>สถานะ: พร้อมอัปเดต</strong>
-            <div>ข้อมูลล่าสุด: 20/05/2567 10:15 น.</div>
-            <div class="muted">โดย: นายสมชาย ใจดี</div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>การดำเนินการ</h3>
-          <div class="action-grid">
-            <a class="action-btn btn-blue" href="plots.html">🔎 ค้นหา</a>
-            <a class="action-btn btn-green" href="assessment.html">🔄 อัปเดตข้อมูล</a>
-            <a class="action-btn btn-orange" href="assessment.html">🧹 ล้างข้อมูล</a>
-            <a class="action-btn btn-darkgreen" href="dashboard.html">💾 บันทึก</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>ประวัติการอัปเดตของ ID แปลงอ้อย 7001234</h3>
-          <div class="history-item">
-            <div>
-              <strong>20/05/2567 10:15 น.</strong><br />
-              <span class="muted">บันทึกข้อมูลประเมินใหม่</span>
-            </div>
-            <div class="person">นายสมชาย ใจดี</div>
-          </div>
-          <div class="history-item">
-            <div>
-              <strong>19/05/2567 14:30 น.</strong><br />
-              <span class="muted">อัปเดตข้อมูลแหล่งน้ำ</span>
-            </div>
-            <div class="person">นางสาวรุ้งนภา ดีมาก</div>
-          </div>
-          <div class="history-item">
-            <div>
-              <strong>18/05/2567 09:20 น.</strong><br />
-              <span class="muted">อัปเดตข้อมูลตัน/ไร่ปีที่ผ่านมา</span>
-            </div>
-            <div class="person">นายสมชาย ใจดี</div>
-          </div>
-          <div class="center">
-            <a class="small-btn" href="dashboard.html">↺ ดูประวัติทั้งหมด</a>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>ตรวจสอบก่อนบันทึก</h3>
-          <ul class="validation-list">
-            <li>เลือก ID แปลงอ้อย 7 หลักแล้ว</li>
-            <li>เลือกประเภทพื้นที่ ไร่/นา</li>
-            <li>เลือกศักยภาพดิน A/B/C/D</li>
-            <li>เลือกปลูก/ตัด ก่อนหรือหลัง 31 ม.ค.</li>
-            <li>โรคแส้ดำต้องเลือก ไม่พบโรค/มี</li>
-            <li>โรคอื่น ๆ ต้องเลือก ไม่พบโรค/มี</li>
-            <li>หนอนกอต้องเลือก ไม่พบหนอนกอ/มี</li>
-            <li>ถ้าเลือก “มี” ต้องกรอกรายละเอียดที่เกี่ยวข้อง</li>
-            <li>ผลผลิตต้องเป็นตัวเลขเท่านั้น</li>
-          </ul>
-        </div>
-      </aside>
-    </section>
-  </main>
-
-  <script>
+<div class="form-section">
+<h3>1) ประวัติแปลง / ประเภทพื้นที่</h3>
+<div class="form-grid">
+<div class="field">
+<label>ทำอ้อยต่อเนื่อง (ปี) <span class="req">*</span></label>
+<input min="0" type="number" value="3"/>
+</div>
+<div class="field">
+<span class="choice-label">ประเภทพื้นที่ <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="landType" type="radio"/> ไร่</label>
+<label><input name="landType" type="radio"/> นา</label>
+</div>
+</div>
+</div>
+</div>
+<div class="form-section">
+<h3>2) ศักยภาพของดิน</h3>
+<div class="choice-row">
+<label><input name="soil" type="radio"/> A &gt; 20 ตัน/ไร่</label>
+<label><input name="soil" type="radio"/> B &gt; 15 - 20 ตัน/ไร่</label>
+<label><input checked="" name="soil" type="radio"/> C 10 - 15 ตัน/ไร่</label>
+<label><input name="soil" type="radio"/> D &lt; 10 ตัน/ไร่</label>
+</div>
+</div>
+<div class="form-section">
+<h3>3) ศักยภาพด้านทันเวลา</h3>
+<div class="field">
+<span class="choice-label">ปลูก/ตัด <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="timePotential" type="radio"/> ก่อน 31 ม.ค.</label>
+<label><input name="timePotential" type="radio"/> หลัง 31 ม.ค.</label>
+</div>
+</div>
+</div>
+<div class="form-section">
+<h3>4) ศักยภาพด้านการจัดการวัชพืช</h3>
+<div class="form-grid two">
+<div class="field">
+<span class="choice-label">สภาพวัชพืชรก <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="weedPercent" type="radio"/> &lt; 10%</label>
+<label><input name="weedPercent" type="radio"/> 10-30%</label>
+<label><input name="weedPercent" type="radio"/> &gt; 30%</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">ฉีดยาคุม-ฆ่า <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="weedSpray" type="radio"/> √ ฉีดแล้ว</label>
+<label><input name="weedSpray" type="radio"/> X ยังไม่ฉีด</label>
+</div>
+</div>
+</div>
+</div>
+<div class="form-section">
+<h3>5) การจัดการด้านโรคแมลง</h3>
+<div class="form-grid two">
+<div class="field">
+<span class="choice-label">โรคแส้ดำ <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="smut" type="radio"/> ไม่พบโรค</label>
+<label><input name="smut" type="radio"/> มี</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">% โรคแส้ดำที่พบ</span>
+<div class="choice-row">
+<label><input name="smutPercent" type="radio"/> &lt; 10%</label>
+<label><input name="smutPercent" type="radio"/> 10-20%</label>
+<label><input name="smutPercent" type="radio"/> &gt; 20%</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">สถานะการฉีดยาโรคแส้ดำ</span>
+<div class="choice-row">
+<label><input name="smutSpray" type="radio"/> √ ฉีดแล้ว</label>
+<label><input name="smutSpray" type="radio"/> X ยังไม่ฉีด</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">โรคอื่น ๆ ที่พบ <span class="req">*</span></span>
+<div class="choice-row">
+<label><input name="otherDisease" type="radio"/> ไม่พบโรค</label>
+<label><input checked="" name="otherDisease" type="radio"/> มี</label>
+</div>
+</div>
+<div class="field">
+<label>ระบุโรคอื่น ๆ ที่พบ</label>
+<input type="text" value="ใบขาว"/>
+</div>
+<div class="field">
+<span class="choice-label">หนอนกอ <span class="req">*</span></span>
+<div class="choice-row">
+<label><input name="borer" type="radio"/> ไม่พบหนอนกอ</label>
+<label><input checked="" name="borer" type="radio"/> มี</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">% เสียหายจากหนอนกอ</span>
+<div class="choice-row">
+<label><input checked="" name="borerDamage" type="radio"/> &lt; 10%</label>
+<label><input name="borerDamage" type="radio"/> 10-20%</label>
+<label><input name="borerDamage" type="radio"/> &gt; 20%</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">สถานะการฉีดยาหนอนกอ</span>
+<div class="choice-row">
+<label><input name="borerSpray" type="radio"/> √ ฉีดแล้ว</label>
+<label><input checked="" name="borerSpray" type="radio"/> X ยังไม่ฉีด</label>
+</div>
+</div>
+</div>
+<div class="sub-note">หมายเหตุ: หากเลือก “ไม่พบโรค” หรือ “ไม่พบหนอนกอ” ไม่จำเป็นต้องกรอกรายละเอียดเปอร์เซ็นต์และสถานะการฉีดยา</div>
+</div>
+<div class="form-section">
+<h3>6) ศักยภาพด้านการจัดการน้ำ</h3>
+<div class="form-grid">
+<div class="field">
+<span class="choice-label">แหล่งน้ำ <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="waterSource" type="radio"/> √ มีแหล่งน้ำ</label>
+<label><input name="waterSource" type="radio"/> X ไม่มีแหล่งน้ำ</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">ให้น้ำได้ (ครั้ง) <span class="req">*</span></span>
+<div class="choice-row">
+<label><input name="waterTimes" type="radio"/> 0</label>
+<label><input name="waterTimes" type="radio"/> 1</label>
+<label><input name="waterTimes" type="radio"/> 2</label>
+<label><input checked="" name="waterTimes" type="radio"/> ≥ 3</label>
+</div>
+</div>
+<div class="field">
+<span class="choice-label">การระบายน้ำ <span class="req">*</span></span>
+<div class="choice-row">
+<label><input checked="" name="drainage" type="radio"/> ไม่แช่ขัง</label>
+<label><input name="drainage" type="radio"/> แช่ขังนาน 1-4 สัปดาห์</label>
+<label><input name="drainage" type="radio"/> แช่ขังนาน &gt; 4 สัปดาห์</label>
+</div>
+</div>
+</div>
+</div>
+<div class="form-section">
+<h3>7) สถานะการไว้ใบในแปลง</h3>
+<div class="choice-row">
+<label><input name="leafStatus" type="radio"/> เผาใบ</label>
+<label><input name="leafStatus" type="radio"/> เก็บหมดแปลง</label>
+<label><input checked="" name="leafStatus" type="radio"/> เหลือ 30%</label>
+<label><input name="leafStatus" type="radio"/> ไว้ 100%</label>
+</div>
+</div>
+<div class="form-section">
+<h3>8) ข้อแนะนำ / ด้านผลผลิต</h3>
+<div class="form-grid one">
+<div class="field">
+<label>ระบุข้อแนะนำในการจัดการแปลงหลังจากการตรวจแปลงแล้ว</label>
+<textarea>แนะนำให้กำจัดวัชพืชก่อนใส่ปุ๋ย และปรับปรุงการให้น้ำในช่วงแล้ง</textarea>
+</div>
+</div>
+<div class="form-grid two" style="margin-top:12px;">
+<div class="field">
+<label>ก่อนให้คำแนะนำ (ตัน/ไร่)</label>
+<input step="0.01" type="number" value="12.80"/>
+</div>
+<div class="field">
+<label>หลังทำตามคำแนะนำ (ตัน/ไร่)</label>
+<input step="0.01" type="number" value="16.00"/>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT -->
+<aside class="panel green">
+<div class="panel-title green-title">⚙️ ส่วนอัปเดต</div>
+<div class="status-card">
+<div class="check-icon">✓</div>
+<div>
+<strong>สถานะ: พร้อมอัปเดต</strong>
+<div>ข้อมูลล่าสุด: 20/05/2567 10:15 น.</div>
+<div class="muted">โดย: นายสมชาย ใจดี</div>
+</div>
+</div>
+<div class="card">
+<h3>การดำเนินการ</h3>
+<div class="action-grid">
+<a class="action-btn btn-blue" href="plots.html">🔎 ค้นหา</a>
+<a class="action-btn btn-green" href="assessment.html">🔄 อัปเดตข้อมูล</a>
+<a class="action-btn btn-orange" href="assessment.html">🧹 ล้างข้อมูล</a>
+<a class="action-btn btn-darkgreen" href="dashboard.html">💾 บันทึก</a>
+</div>
+</div>
+<div class="card">
+<h3>ประวัติการอัปเดตของ ID แปลงอ้อย 7001234</h3>
+<div class="history-item">
+<div>
+<strong>20/05/2567 10:15 น.</strong><br/>
+<span class="muted">บันทึกข้อมูลประเมินใหม่</span>
+</div>
+<div class="person">นายสมชาย ใจดี</div>
+</div>
+<div class="history-item">
+<div>
+<strong>19/05/2567 14:30 น.</strong><br/>
+<span class="muted">อัปเดตข้อมูลแหล่งน้ำ</span>
+</div>
+<div class="person">นางสาวรุ้งนภา ดีมาก</div>
+</div>
+<div class="history-item">
+<div>
+<strong>18/05/2567 09:20 น.</strong><br/>
+<span class="muted">อัปเดตข้อมูลตัน/ไร่ปีที่ผ่านมา</span>
+</div>
+<div class="person">นายสมชาย ใจดี</div>
+</div>
+<div class="center">
+<a class="small-btn" href="dashboard.html">↺ ดูประวัติทั้งหมด</a>
+</div>
+</div>
+<div class="card">
+<h3>ตรวจสอบก่อนบันทึก</h3>
+<ul class="validation-list">
+<li>เลือก ID แปลงอ้อย 7 หลักแล้ว</li>
+<li>เลือกประเภทพื้นที่ ไร่/นา</li>
+<li>เลือกศักยภาพดิน A/B/C/D</li>
+<li>เลือกปลูก/ตัด ก่อนหรือหลัง 31 ม.ค.</li>
+<li>โรคแส้ดำต้องเลือก ไม่พบโรค/มี</li>
+<li>โรคอื่น ๆ ต้องเลือก ไม่พบโรค/มี</li>
+<li>หนอนกอต้องเลือก ไม่พบหนอนกอ/มี</li>
+<li>ถ้าเลือก “มี” ต้องกรอกรายละเอียดที่เกี่ยวข้อง</li>
+<li>ผลผลิตต้องเป็นตัวเลขเท่านั้น</li>
+</ul>
+</div>
+</aside>
+</section>
+</main>
+<script>
     (function () {
       var savedTheme = localStorage.getItem("canezone-theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -818,6 +850,5 @@
       });
     })();
   </script>
-
 </body>
 </html>

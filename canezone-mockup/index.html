@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>เข้าสู่ระบบ - CaneZone Assessment Platform เขต 7</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>เข้าสู่ระบบ - CaneZone Assessment Platform เขต 7</title>
+<style>
     :root{
       --green-950:#03451f;
       --green-900:#075c2c;
@@ -513,111 +514,164 @@
       color:#075c2c;
     }
 
+  
+    /* ===== Mobile usability upgrade ===== */
+    @media (max-width: 768px){
+      html, body{width:100%;max-width:100%;overflow-x:hidden;}
+      body{font-size:14px;}
+      .topbar{position:relative;min-height:auto;padding:12px;gap:12px;flex-direction:column;align-items:stretch;}
+      .brand{width:100%;align-items:center;}
+      .logo{width:48px !important;height:48px !important;border-radius:14px !important;font-size:14px;}
+      .brand h1,.brand-text strong{font-size:18px !important;line-height:1.35;white-space:normal !important;overflow:visible !important;}
+      .top-actions{width:100%;display:grid !important;grid-template-columns:1fr 1fr;gap:8px;overflow:visible !important;}
+      .top-btn,.theme-toggle,.user-chip{width:100%;justify-content:center;min-height:42px;padding:8px 10px !important;font-size:13px;}
+      .user-chip{grid-column:1 / -1;}
+      .page{width:100%;max-width:100%;padding:12px !important;overflow-x:hidden !important;}
+      .page-title{margin:8px 0 12px;gap:10px;align-items:flex-start;}
+      .title-left,.page-title{flex-direction:column;align-items:flex-start;}
+      .page-title .icon{font-size:28px;}
+      .page-title h2{font-size:20px !important;line-height:1.35;}
+      .period-filter,.filter-actions,.panel-actions{width:100%;display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .period-filter select,.period-filter input,.period-filter .btn,.filter-actions .btn,.panel-actions .btn,.panel-actions .mini-filter{width:100%;}
+      .layout,.dashboard-grid,.chart-row,.summary-grid,.summary-strip,.form-grid,.form-grid.two,.form-grid.one,.risk-grid,.donut-wrap,.action-stack,.login-shell{grid-template-columns:1fr !important;}
+      .panel,.card,.summary-card,.filter-card,.map-card,.selected-card{width:100%;max-width:100%;padding:12px !important;border-radius:14px;margin-bottom:12px;min-height:auto !important;position:static !important;max-height:none !important;overflow:visible !important;}
+      .panel-title{font-size:18px !important;line-height:1.35;align-items:flex-start;flex-direction:column;}
+      .panel-title h3{font-size:17px !important;line-height:1.35;}
+      .readonly-grid,.info-grid{grid-template-columns:1fr !important;gap:4px 0 !important;}
+      .readonly-grid .label,.info-grid .label{margin-top:8px;color:var(--gray-500);}
+      .readonly-grid .value,.info-grid .value{font-size:15px;padding-bottom:4px;border-bottom:1px dashed var(--gray-200);}
+      .choice-row{align-items:flex-start;display:grid !important;grid-template-columns:1fr;gap:8px !important;padding:10px !important;}
+      .choice-row label{white-space:normal !important;}
+      input[type="text"],input[type="number"],input[type="password"],select,textarea{min-height:46px !important;font-size:16px !important;}
+      textarea{min-height:110px !important;}
+      .action-grid{grid-template-columns:1fr 1fr !important;gap:10px !important;}
+      .action-btn{min-height:56px !important;font-size:15px !important;padding:10px !important;}
+      .status-card{grid-template-columns:54px 1fr !important;padding:14px !important;}
+      .check-icon{width:48px !important;height:48px !important;font-size:30px !important;}
+      .map-box{height:320px !important;min-height:320px;}
+      .plot-label{font-size:11px !important;max-width:160px;white-space:normal !important;}
+      .legend{grid-template-columns:1fr 1fr !important;}
+      .table-wrap{border:none !important;overflow:visible !important;background:transparent !important;}
+      table{min-width:0 !important;width:100% !important;border-collapse:separate !important;border-spacing:0 10px !important;background:transparent !important;}
+      thead{display:none !important;}
+      tbody,tr,td{display:block !important;width:100% !important;}
+      tr{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(17,24,39,.06);margin-bottom:10px;}
+      [data-theme="dark"] tr{background:#0f172a;border-color:#334155;}
+      tr.selected,tr.selected-row{outline:none !important;border-color:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,.18),0 6px 16px rgba(17,24,39,.06);}
+      td{border:none !important;padding:7px 4px !important;display:grid !important;grid-template-columns:42% 58%;gap:8px;align-items:start;font-size:13px !important;word-break:break-word;}
+      td::before{content:attr(data-label);color:var(--gray-500);font-weight:900;}
+      td.center{text-align:left !important;}
+      .row-actions{display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .mini-btn{width:100%;text-align:center;justify-content:center;display:flex;}
+      .donut{margin:auto;width:160px !important;height:160px !important;}
+      .donut::after{inset:30px !important;}
+      .summary-value{font-size:26px !important;}
+      .hero{min-height:auto !important;padding:26px !important;}
+      .hero-content{margin-top:26px !important;}
+      .hero-content h1{font-size:26px !important;}
+      .login-panel{padding:24px !important;}
+      .login-panel h2{font-size:24px !important;}
+      .role-grid{grid-template-columns:1fr !important;}
+    }
+    @media (max-width: 420px){
+      .top-actions,.action-grid,.legend{grid-template-columns:1fr !important;}
+      td{grid-template-columns:1fr;gap:2px;}
+      .map-box{height:280px !important;}
+    }
+
   </style>
 </head>
 <body>
-  <section class="login-shell">
-    <aside class="hero">
-      <div class="brand">
-        <div class="logo">เขต<br>7</div>
-        <div class="brand-text">
-          <strong>CaneZone Assessment Platform</strong>
-          <span>สำหรับเจ้าหน้าที่ นสส. เขต 7</span>
-        </div>
-      </div>
-
-      <div class="hero-content">
-        <h1>เข้าสู่ระบบเพื่อจัดการข้อมูลแปลงอ้อย</h1>
-        <p>
+<section class="login-shell">
+<aside class="hero">
+<div class="brand">
+<div class="logo">เขต<br/>7</div>
+<div class="brand-text">
+<strong>CaneZone Assessment Platform</strong>
+<span>สำหรับเจ้าหน้าที่ นสส. เขต 7</span>
+</div>
+</div>
+<div class="hero-content">
+<h1>เข้าสู่ระบบเพื่อจัดการข้อมูลแปลงอ้อย</h1>
+<p>
           ระบบช่วยค้นหาแปลง เลือกแปลงจากตารางหรือแผนที่ บันทึกข้อมูลประเมินภาคสนาม
           และติดตามภาพรวมผ่าน Dashboard ได้ในชุดเดียว
         </p>
-
-        <div class="flow-card">
-          <h3>ลำดับหน้าจอการใช้งาน</h3>
-          <div class="flow">
-            <div class="flow-step"><span class="step-no">1</span> Login เข้าสู่ระบบตามสิทธิ์ผู้ใช้งาน</div>
-            <div class="flow-step"><span class="step-no">2</span> Dashboard ดูภาพรวมและรายการที่ต้องติดตาม</div>
-            <div class="flow-step"><span class="step-no">3</span> เลือกแปลงจากตารางหรือ Maps</div>
-            <div class="flow-step"><span class="step-no">4</span> บันทึกข้อมูลประเมินของ ID แปลงอ้อยที่เลือก</div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <main class="login-panel">
-      <h2>เข้าสู่ระบบ</h2>
-      <p class="sub">กรอกบัญชีผู้ใช้งานเพื่อเข้าสู่CaneZone Assessment Platform</p>
-
-      <form class="form">
-        <div class="field">
-          <label>ชื่อผู้ใช้งาน</label>
-          <div class="input-wrap">
-            <input type="text" value="somchai.j" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label>รหัสผ่าน</label>
-          <div class="input-wrap">
-            <input type="password" value="password" />
-          </div>
-        </div>
-
-        <div class="field">
-          <label>บทบาทผู้ใช้งาน</label>
-          <select>
-            <option selected>นสส. เขต 7</option>
-            <option>หัวหน้าเขต</option>
-            <option>ผู้ดูแลระบบ</option>
-            <option>ผู้บริหาร / ดูรายงาน</option>
-          </select>
-        </div>
-
-        <div class="row">
-          <label class="remember">
-            <input type="checkbox" checked />
+<div class="flow-card">
+<h3>ลำดับหน้าจอการใช้งาน</h3>
+<div class="flow">
+<div class="flow-step"><span class="step-no">1</span> Login เข้าสู่ระบบตามสิทธิ์ผู้ใช้งาน</div>
+<div class="flow-step"><span class="step-no">2</span> Dashboard ดูภาพรวมและรายการที่ต้องติดตาม</div>
+<div class="flow-step"><span class="step-no">3</span> เลือกแปลงจากตารางหรือ Maps</div>
+<div class="flow-step"><span class="step-no">4</span> บันทึกข้อมูลประเมินของ ID แปลงอ้อยที่เลือก</div>
+</div>
+</div>
+</div>
+</aside>
+<main class="login-panel">
+<h2>เข้าสู่ระบบ</h2>
+<p class="sub">กรอกบัญชีผู้ใช้งานเพื่อเข้าสู่CaneZone Assessment Platform</p>
+<form class="form">
+<div class="field">
+<label>ชื่อผู้ใช้งาน</label>
+<div class="input-wrap">
+<input type="text" value="somchai.j"/>
+</div>
+</div>
+<div class="field">
+<label>รหัสผ่าน</label>
+<div class="input-wrap">
+<input type="password" value="password"/>
+</div>
+</div>
+<div class="field">
+<label>บทบาทผู้ใช้งาน</label>
+<select>
+<option selected="">นสส. เขต 7</option>
+<option>หัวหน้าเขต</option>
+<option>ผู้ดูแลระบบ</option>
+<option>ผู้บริหาร / ดูรายงาน</option>
+</select>
+</div>
+<div class="row">
+<label class="remember">
+<input checked="" type="checkbox"/>
             จดจำการเข้าสู่ระบบ
           </label>
-          <a class="link" href="#">ลืมรหัสผ่าน?</a>
-        </div>
-
-        <a class="login-btn" href="dashboard.html">🔐 เข้าสู่ระบบ</a>
-      </form>
-
-      <div class="quick-login">
-        <h3>ทางลัดสำหรับตัวอย่างหน้าจอ</h3>
-        <div class="role-grid">
-          <a class="role-card" href="dashboard.html">
-            <strong>Dashboard</strong>
-            <span>ดูภาพรวมการประเมิน</span>
-          </a>
-          <a class="role-card" href="plots.html">
-            <strong>เลือกแปลง</strong>
-            <span>เลือกแปลงจากตารางและ Maps</span>
-          </a>
-          <a class="role-card" href="assessment.html">
-            <strong>บันทึกประเมิน</strong>
-            <span>กรอกข้อมูลประเมินรายแปลง</span>
-          </a>
-          <a class="role-card" href="dashboard.html">
-            <strong>จัดการผู้ใช้</strong>
-            <span>เฉพาะผู้ดูแลระบบ</span>
-          </a>
-        </div>
-      </div>
-
-      <div class="note">
+<a class="link" href="#">ลืมรหัสผ่าน?</a>
+</div>
+<a class="login-btn" href="dashboard.html">🔐 เข้าสู่ระบบ</a>
+</form>
+<div class="quick-login">
+<h3>ทางลัดสำหรับตัวอย่างหน้าจอ</h3>
+<div class="role-grid">
+<a class="role-card" href="dashboard.html">
+<strong>Dashboard</strong>
+<span>ดูภาพรวมการประเมิน</span>
+</a>
+<a class="role-card" href="plots.html">
+<strong>เลือกแปลง</strong>
+<span>เลือกแปลงจากตารางและ Maps</span>
+</a>
+<a class="role-card" href="assessment.html">
+<strong>บันทึกประเมิน</strong>
+<span>กรอกข้อมูลประเมินรายแปลง</span>
+</a>
+<a class="role-card" href="dashboard.html">
+<strong>จัดการผู้ใช้</strong>
+<span>เฉพาะผู้ดูแลระบบ</span>
+</a>
+</div>
+</div>
+<div class="note">
         หมายเหตุ: ไฟล์นี้เป็น HTML ตัวอย่างสำหรับ Mockup ส่วนการตรวจสอบรหัสผ่านจริงต้องเชื่อมต่อระบบ Login/Database ภายหลัง
       </div>
-
-      <div class="footer">
+<div class="footer">
         © เขต 7 - Sugarcane Field Assessment System
       </div>
-    </main>
-  </section>
-
-  <script>
+</main>
+</section>
+<script>
     (function () {
       var savedTheme = localStorage.getItem("canezone-theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -641,6 +695,5 @@
       });
     })();
   </script>
-
 </body>
 </html>

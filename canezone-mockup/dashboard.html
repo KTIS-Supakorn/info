@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="th">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard - CaneZone Assessment Platform เขต 7</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard - CaneZone Assessment Platform เขต 7</title>
+<style>
     :root{
       --green-950:#03451f;
       --green-900:#075c2c;
@@ -816,375 +817,415 @@
       color:#075c2c;
     }
 
+  
+    /* ===== Mobile usability upgrade ===== */
+    @media (max-width: 768px){
+      html, body{width:100%;max-width:100%;overflow-x:hidden;}
+      body{font-size:14px;}
+      .topbar{position:relative;min-height:auto;padding:12px;gap:12px;flex-direction:column;align-items:stretch;}
+      .brand{width:100%;align-items:center;}
+      .logo{width:48px !important;height:48px !important;border-radius:14px !important;font-size:14px;}
+      .brand h1,.brand-text strong{font-size:18px !important;line-height:1.35;white-space:normal !important;overflow:visible !important;}
+      .top-actions{width:100%;display:grid !important;grid-template-columns:1fr 1fr;gap:8px;overflow:visible !important;}
+      .top-btn,.theme-toggle,.user-chip{width:100%;justify-content:center;min-height:42px;padding:8px 10px !important;font-size:13px;}
+      .user-chip{grid-column:1 / -1;}
+      .page{width:100%;max-width:100%;padding:12px !important;overflow-x:hidden !important;}
+      .page-title{margin:8px 0 12px;gap:10px;align-items:flex-start;}
+      .title-left,.page-title{flex-direction:column;align-items:flex-start;}
+      .page-title .icon{font-size:28px;}
+      .page-title h2{font-size:20px !important;line-height:1.35;}
+      .period-filter,.filter-actions,.panel-actions{width:100%;display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .period-filter select,.period-filter input,.period-filter .btn,.filter-actions .btn,.panel-actions .btn,.panel-actions .mini-filter{width:100%;}
+      .layout,.dashboard-grid,.chart-row,.summary-grid,.summary-strip,.form-grid,.form-grid.two,.form-grid.one,.risk-grid,.donut-wrap,.action-stack,.login-shell{grid-template-columns:1fr !important;}
+      .panel,.card,.summary-card,.filter-card,.map-card,.selected-card{width:100%;max-width:100%;padding:12px !important;border-radius:14px;margin-bottom:12px;min-height:auto !important;position:static !important;max-height:none !important;overflow:visible !important;}
+      .panel-title{font-size:18px !important;line-height:1.35;align-items:flex-start;flex-direction:column;}
+      .panel-title h3{font-size:17px !important;line-height:1.35;}
+      .readonly-grid,.info-grid{grid-template-columns:1fr !important;gap:4px 0 !important;}
+      .readonly-grid .label,.info-grid .label{margin-top:8px;color:var(--gray-500);}
+      .readonly-grid .value,.info-grid .value{font-size:15px;padding-bottom:4px;border-bottom:1px dashed var(--gray-200);}
+      .choice-row{align-items:flex-start;display:grid !important;grid-template-columns:1fr;gap:8px !important;padding:10px !important;}
+      .choice-row label{white-space:normal !important;}
+      input[type="text"],input[type="number"],input[type="password"],select,textarea{min-height:46px !important;font-size:16px !important;}
+      textarea{min-height:110px !important;}
+      .action-grid{grid-template-columns:1fr 1fr !important;gap:10px !important;}
+      .action-btn{min-height:56px !important;font-size:15px !important;padding:10px !important;}
+      .status-card{grid-template-columns:54px 1fr !important;padding:14px !important;}
+      .check-icon{width:48px !important;height:48px !important;font-size:30px !important;}
+      .map-box{height:320px !important;min-height:320px;}
+      .plot-label{font-size:11px !important;max-width:160px;white-space:normal !important;}
+      .legend{grid-template-columns:1fr 1fr !important;}
+      .table-wrap{border:none !important;overflow:visible !important;background:transparent !important;}
+      table{min-width:0 !important;width:100% !important;border-collapse:separate !important;border-spacing:0 10px !important;background:transparent !important;}
+      thead{display:none !important;}
+      tbody,tr,td{display:block !important;width:100% !important;}
+      tr{background:#fff;border:1px solid var(--gray-200);border-radius:14px;padding:10px;box-shadow:0 6px 16px rgba(17,24,39,.06);margin-bottom:10px;}
+      [data-theme="dark"] tr{background:#0f172a;border-color:#334155;}
+      tr.selected,tr.selected-row{outline:none !important;border-color:#22c55e;box-shadow:0 0 0 2px rgba(34,197,94,.18),0 6px 16px rgba(17,24,39,.06);}
+      td{border:none !important;padding:7px 4px !important;display:grid !important;grid-template-columns:42% 58%;gap:8px;align-items:start;font-size:13px !important;word-break:break-word;}
+      td::before{content:attr(data-label);color:var(--gray-500);font-weight:900;}
+      td.center{text-align:left !important;}
+      .row-actions{display:grid !important;grid-template-columns:1fr;gap:8px;}
+      .mini-btn{width:100%;text-align:center;justify-content:center;display:flex;}
+      .donut{margin:auto;width:160px !important;height:160px !important;}
+      .donut::after{inset:30px !important;}
+      .summary-value{font-size:26px !important;}
+      .hero{min-height:auto !important;padding:26px !important;}
+      .hero-content{margin-top:26px !important;}
+      .hero-content h1{font-size:26px !important;}
+      .login-panel{padding:24px !important;}
+      .login-panel h2{font-size:24px !important;}
+      .role-grid{grid-template-columns:1fr !important;}
+    }
+    @media (max-width: 420px){
+      .top-actions,.action-grid,.legend{grid-template-columns:1fr !important;}
+      td{grid-template-columns:1fr;gap:2px;}
+      .map-box{height:280px !important;}
+    }
+
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">เขต<br>7</div>
-      <h1>CaneZone Assessment Platform</h1>
-    </div>
-    <div class="top-actions">
-      <button class="theme-toggle" type="button" onclick="toggleTheme()">🌓 <span data-theme-label>โหมดมืด</span></button>
-      <a class="top-btn" href="dashboard.html">⌂ หน้าแรก</a>
-      <a class="top-btn" href="plots.html">🗺️ เลือกแปลง</a>
-      <a class="top-btn" href="assessment.html">📋 บันทึกประเมิน</a>
-      <div class="user-chip">
-        <div class="user-icon">👤</div>
-        <div>
-          <strong>นายสมชาย ใจดี</strong><br />
-          <span>ผู้ใช้งาน: นสส. เขต 7 ▾</span>
-        </div>
-      </div>
-      <a class="top-btn" href="index.html">ออกจากระบบ</a>
-    </div>
-  </header>
-
-  <main class="page">
-    <div class="page-title">
-      <div class="title-left">
-        <div class="icon">📊</div>
-        <h2>Dashboard ภาพรวมการประเมินศักยภาพแปลงอ้อย เขต 7</h2>
-      </div>
-
-      <div class="period-filter">
-        <select>
-          <option selected>ฤดูการผลิต 2567/68</option>
-          <option>ฤดูการผลิต 2566/67</option>
-          <option>ฤดูการผลิต 2565/66</option>
-        </select>
-        <select>
-          <option selected>ทุกอำเภอ</option>
-          <option>บ้านค่าย</option>
-          <option>บ้านเขว้า</option>
-          <option>หนองบัว</option>
-        </select>
-        <input type="text" value="01/05/2567 - 31/05/2567" />
-        <a class="btn btn-blue" href="dashboard.html">🔎 แสดงผล</a>
-        <a class="btn btn-outline" href="dashboard.html">⬇️ ส่งออก</a>
-      </div>
-    </div>
-
-    <section class="summary-grid">
-      <div class="summary-card">
-        <div class="summary-head">
-          <div class="summary-title">แปลงทั้งหมด</div>
-          <div class="summary-icon">🌱</div>
-        </div>
-        <div class="summary-value">1,248</div>
-        <div class="summary-sub">พื้นที่รวม 18,420.50 ไร่</div>
-      </div>
-
-      <div class="summary-card blue">
-        <div class="summary-head">
-          <div class="summary-title">ประเมินแล้ว</div>
-          <div class="summary-icon">✅</div>
-        </div>
-        <div class="summary-value">864</div>
-        <div class="summary-sub">คิดเป็น 69.2% ของแปลงทั้งหมด</div>
-      </div>
-
-      <div class="summary-card orange">
-        <div class="summary-head">
-          <div class="summary-title">รออัปเดต</div>
-          <div class="summary-icon">🔄</div>
-        </div>
-        <div class="summary-value">236</div>
-        <div class="summary-sub">ต้องติดตามภายในรอบนี้</div>
-      </div>
-
-      <div class="summary-card red">
-        <div class="summary-head">
-          <div class="summary-title">ยังไม่ประเมิน</div>
-          <div class="summary-icon">⚠️</div>
-        </div>
-        <div class="summary-value">148</div>
-        <div class="summary-sub">ควรจัดลำดับลงพื้นที่</div>
-      </div>
-
-      <div class="summary-card purple">
-        <div class="summary-head">
-          <div class="summary-title">ผลผลิตเฉลี่ย</div>
-          <div class="summary-icon">📈</div>
-        </div>
-        <div class="summary-value">14.85</div>
-        <div class="summary-sub">ตัน/ไร่ จากแปลงที่ประเมินแล้ว</div>
-      </div>
-    </section>
-
-    <section class="dashboard-grid">
-      <div>
-        <div class="panel">
-          <div class="panel-title">
-            <h3>📌 สถานะการประเมินตามพื้นที่</h3>
-            <div class="panel-actions">
-              <span class="mini-filter">รายอำเภอ</span>
-              <span class="mini-filter">รายตำบล</span>
-            </div>
-          </div>
-
-          <div class="chart-row">
-            <div class="bar-list">
-              <div class="bar-item">
-                <div class="bar-meta"><span>บ้านค่าย</span><span>82%</span></div>
-                <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
-              </div>
-              <div class="bar-item">
-                <div class="bar-meta"><span>บ้านเขว้า</span><span>74%</span></div>
-                <div class="bar-track"><div class="bar-fill blue" style="width:74%"></div></div>
-              </div>
-              <div class="bar-item">
-                <div class="bar-meta"><span>หนองบัว</span><span>68%</span></div>
-                <div class="bar-track"><div class="bar-fill orange" style="width:68%"></div></div>
-              </div>
-              <div class="bar-item">
-                <div class="bar-meta"><span>โคกสูง</span><span>55%</span></div>
-                <div class="bar-track"><div class="bar-fill red" style="width:55%"></div></div>
-              </div>
-              <div class="bar-item">
-                <div class="bar-meta"><span>หนองแวง</span><span>49%</span></div>
-                <div class="bar-track"><div class="bar-fill purple" style="width:49%"></div></div>
-              </div>
-            </div>
-
-            <div class="donut-wrap">
-              <div class="donut">
-                <div class="donut-center"><div><span>864</span>ประเมินแล้ว</div></div>
-              </div>
-              <div class="legend">
-                <div class="legend-item">
-                  <div class="legend-left"><span class="dot green"></span> บันทึกแล้ว</div>
-                  <strong>45%</strong>
-                </div>
-                <div class="legend-item">
-                  <div class="legend-left"><span class="dot orange"></span> รออัปเดต</div>
-                  <strong>27%</strong>
-                </div>
-                <div class="legend-item">
-                  <div class="legend-left"><span class="dot blue"></span> ยังไม่ประเมิน</div>
-                  <strong>18%</strong>
-                </div>
-                <div class="legend-item">
-                  <div class="legend-left"><span class="dot red"></span> ข้อมูลไม่ครบ</div>
-                  <strong>10%</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">
-            <h3>🗺️ แผนที่ภาพรวมแปลงอ้อย</h3>
-            <div class="panel-actions">
-              <span class="mini-filter">แสดง Heatmap</span>
-              <span class="mini-filter">แสดงตามสถานะ</span>
-            </div>
-          </div>
-
-          <div class="map-box">
-            <div class="road r1"></div>
-            <div class="road r2"></div>
-            <div class="road r3"></div>
-
-            <div class="plot green" style="left:22%; top:21%;"></div>
-            <div class="plot green" style="left:31%; top:28%;"></div>
-            <div class="plot orange" style="left:42%; top:34%;"></div>
-            <div class="plot blue" style="left:25%; top:58%;"></div>
-            <div class="plot red pulse" style="left:69%; top:38%;"></div>
-            <div class="plot green" style="left:58%; top:63%;"></div>
-            <div class="plot orange" style="left:76%; top:61%;"></div>
-            <div class="plot blue" style="left:48%; top:72%;"></div>
-            <div class="plot green" style="left:62%; top:18%;"></div>
-            <div class="plot orange" style="left:36%; top:48%;"></div>
-          </div>
-
-          <div class="legend" style="margin-top:12px;grid-template-columns:repeat(4,minmax(0,1fr));">
-            <div class="legend-item"><div class="legend-left"><span class="dot green"></span> บันทึกแล้ว</div></div>
-            <div class="legend-item"><div class="legend-left"><span class="dot orange"></span> รออัปเดต</div></div>
-            <div class="legend-item"><div class="legend-left"><span class="dot blue"></span> ยังไม่ประเมิน</div></div>
-            <div class="legend-item"><div class="legend-left"><span class="dot red"></span> ข้อมูลเสี่ยง/ไม่ครบ</div></div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">
-            <h3>📋 รายการที่ต้องติดตามเร่งด่วน</h3>
-            <a class="btn btn-outline" href="plots.html">ดูทั้งหมด</a>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>ID แปลงอ้อย</th>
-                  <th>เจ้าของอ้อย</th>
-                  <th>พื้นที่</th>
-                  <th>ประเด็นติดตาม</th>
-                  <th>สถานะ</th>
-                  <th>ผู้รับผิดชอบ</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a class="link-inline" href="assessment.html"><strong>7001281</strong></a></td>
-                  <td>นางทองใบ สีสุข</td>
-                  <td>8.25 ไร่</td>
-                  <td>โรคอื่น ๆ ที่พบ / ยังไม่ระบุคำแนะนำ</td>
-                  <td><span class="chip chip-risk">ข้อมูลไม่ครบ</span></td>
-                  <td>นายสมชาย ใจดี</td>
-                </tr>
-                <tr>
-                  <td><a class="link-inline" href="assessment.html"><strong>7001322</strong></a></td>
-                  <td>นายประเสริฐ มากมี</td>
-                  <td>12.00 ไร่</td>
-                  <td>หนอนกอ &gt; 20%</td>
-                  <td><span class="chip chip-pending">รออัปเดต</span></td>
-                  <td>นางสาวรุ้งนภา ดีมาก</td>
-                </tr>
-                <tr>
-                  <td><a class="link-inline" href="assessment.html"><strong>7001410</strong></a></td>
-                  <td>นางสมพร ใจดี</td>
-                  <td>6.75 ไร่</td>
-                  <td>ยังไม่ประเมิน</td>
-                  <td><span class="chip chip-new">ยังไม่ประเมิน</span></td>
-                  <td>นายสมชาย ใจดี</td>
-                </tr>
-                <tr>
-                  <td><a class="link-inline" href="assessment.html"><strong>7001515</strong></a></td>
-                  <td>นายคำพล พลพาน</td>
-                  <td>18.25 ไร่</td>
-                  <td>แหล่งน้ำ X / ให้น้ำได้ 0 ครั้ง</td>
-                  <td><span class="chip chip-risk">เสี่ยงแล้ง</span></td>
-                  <td>นางสาวรุ้งนภา ดีมาก</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <aside>
-        <div class="panel">
-          <div class="panel-title">
-            <h3>🌾 ศักยภาพของดิน</h3>
-          </div>
-
-          <div class="bar-list">
-            <div class="bar-item">
-              <div class="bar-meta"><span>A &gt; 20 ตัน/ไร่</span><span>18%</span></div>
-              <div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-meta"><span>B &gt; 15 - 20 ตัน/ไร่</span><span>36%</span></div>
-              <div class="bar-track"><div class="bar-fill blue" style="width:36%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-meta"><span>C 10 - 15 ตัน/ไร่</span><span>31%</span></div>
-              <div class="bar-track"><div class="bar-fill orange" style="width:31%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-meta"><span>D &lt; 10 ตัน/ไร่</span><span>15%</span></div>
-              <div class="bar-track"><div class="bar-fill red" style="width:15%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">
-            <h3>⚠️ สัญญาณความเสี่ยง</h3>
-          </div>
-
-          <div class="risk-grid">
-            <div class="risk-card risk-high">
-              <strong>โรค/แมลง</strong>
-              <div class="risk-value">86</div>
-              <div class="risk-detail">แปลงที่พบโรคหรือหนอนกอ</div>
-            </div>
-            <div class="risk-card risk-medium">
-              <strong>ขาดแหล่งน้ำ</strong>
-              <div class="risk-value">124</div>
-              <div class="risk-detail">แปลงที่ไม่มีแหล่งน้ำ</div>
-            </div>
-            <div class="risk-card risk-medium">
-              <strong>วัชพืช &gt; 30%</strong>
-              <div class="risk-value">57</div>
-              <div class="risk-detail">ควรติดตามการจัดการวัชพืช</div>
-            </div>
-            <div class="risk-card risk-low">
-              <strong>ไว้ใบ 100%</strong>
-              <div class="risk-value">312</div>
-              <div class="risk-detail">แปลงที่มีแนวโน้มดูแลดินดี</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">
-            <h3>👥 ผลงานตามผู้รับผิดชอบ</h3>
-          </div>
-
-          <div class="bar-list">
-            <div class="bar-item">
-              <div class="bar-meta"><span>นายสมชาย ใจดี</span><span>326 แปลง</span></div>
-              <div class="bar-track"><div class="bar-fill" style="width:86%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-meta"><span>นางสาวรุ้งนภา ดีมาก</span><span>284 แปลง</span></div>
-              <div class="bar-track"><div class="bar-fill blue" style="width:74%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-meta"><span>นายประเสริฐ มากมี</span><span>168 แปลง</span></div>
-              <div class="bar-track"><div class="bar-fill orange" style="width:48%"></div></div>
-            </div>
-            <div class="bar-item">
-              <div class="bar-meta"><span>นางสมพร ใจดี</span><span>86 แปลง</span></div>
-              <div class="bar-track"><div class="bar-fill purple" style="width:28%"></div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">
-            <h3>🕘 กิจกรรมล่าสุด</h3>
-          </div>
-
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="time">วันนี้<br>10:15</div>
-              <div class="event">
-                <strong>บันทึกประเมินแปลง 7001234</strong>
-                <span>โดย นายสมชาย ใจดี</span>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="time">วันนี้<br>09:40</div>
-              <div class="event">
-                <strong>อัปเดตข้อมูลแหล่งน้ำ 7001281</strong>
-                <span>โดย นางสาวรุ้งนภา ดีมาก</span>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="time">เมื่อวาน<br>16:20</div>
-              <div class="event">
-                <strong>เพิ่มคำแนะนำการจัดการแปลง</strong>
-                <span>ID แปลงอ้อย 7001322</span>
-              </div>
-            </div>
-            <div class="timeline-item">
-              <div class="time">เมื่อวาน<br>14:05</div>
-              <div class="event">
-                <strong>ส่งออกรายงานประจำวัน</strong>
-                <span>ฤดูการผลิต 2567/68</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </aside>
-    </section>
-  </main>
-
-  <script>
+<header class="topbar">
+<div class="brand">
+<div class="logo">เขต<br/>7</div>
+<h1>CaneZone Assessment Platform</h1>
+</div>
+<div class="top-actions">
+<button class="theme-toggle" onclick="toggleTheme()" type="button">🌓 <span data-theme-label="">โหมดมืด</span></button>
+<a class="top-btn" href="dashboard.html">⌂ หน้าแรก</a>
+<a class="top-btn" href="plots.html">🗺️ เลือกแปลง</a>
+<a class="top-btn" href="assessment.html">📋 บันทึกประเมิน</a>
+<div class="user-chip">
+<div class="user-icon">👤</div>
+<div>
+<strong>นายสมชาย ใจดี</strong><br>
+<span>ผู้ใช้งาน: นสส. เขต 7 ▾</span>
+</br></div>
+</div>
+<a class="top-btn" href="index.html">ออกจากระบบ</a>
+</div>
+</header>
+<main class="page">
+<div class="page-title">
+<div class="title-left">
+<div class="icon">📊</div>
+<h2>Dashboard ภาพรวมการประเมินศักยภาพแปลงอ้อย เขต 7</h2>
+</div>
+<div class="period-filter">
+<select>
+<option selected="">ฤดูการผลิต 2567/68</option>
+<option>ฤดูการผลิต 2566/67</option>
+<option>ฤดูการผลิต 2565/66</option>
+</select>
+<select>
+<option selected="">ทุกอำเภอ</option>
+<option>บ้านค่าย</option>
+<option>บ้านเขว้า</option>
+<option>หนองบัว</option>
+</select>
+<input type="text" value="01/05/2567 - 31/05/2567"/>
+<a class="btn btn-blue" href="dashboard.html">🔎 แสดงผล</a>
+<a class="btn btn-outline" href="dashboard.html">⬇️ ส่งออก</a>
+</div>
+</div>
+<section class="summary-grid">
+<div class="summary-card">
+<div class="summary-head">
+<div class="summary-title">แปลงทั้งหมด</div>
+<div class="summary-icon">🌱</div>
+</div>
+<div class="summary-value">1,248</div>
+<div class="summary-sub">พื้นที่รวม 18,420.50 ไร่</div>
+</div>
+<div class="summary-card blue">
+<div class="summary-head">
+<div class="summary-title">ประเมินแล้ว</div>
+<div class="summary-icon">✅</div>
+</div>
+<div class="summary-value">864</div>
+<div class="summary-sub">คิดเป็น 69.2% ของแปลงทั้งหมด</div>
+</div>
+<div class="summary-card orange">
+<div class="summary-head">
+<div class="summary-title">รออัปเดต</div>
+<div class="summary-icon">🔄</div>
+</div>
+<div class="summary-value">236</div>
+<div class="summary-sub">ต้องติดตามภายในรอบนี้</div>
+</div>
+<div class="summary-card red">
+<div class="summary-head">
+<div class="summary-title">ยังไม่ประเมิน</div>
+<div class="summary-icon">⚠️</div>
+</div>
+<div class="summary-value">148</div>
+<div class="summary-sub">ควรจัดลำดับลงพื้นที่</div>
+</div>
+<div class="summary-card purple">
+<div class="summary-head">
+<div class="summary-title">ผลผลิตเฉลี่ย</div>
+<div class="summary-icon">📈</div>
+</div>
+<div class="summary-value">14.85</div>
+<div class="summary-sub">ตัน/ไร่ จากแปลงที่ประเมินแล้ว</div>
+</div>
+</section>
+<section class="dashboard-grid">
+<div>
+<div class="panel">
+<div class="panel-title">
+<h3>📌 สถานะการประเมินตามพื้นที่</h3>
+<div class="panel-actions">
+<span class="mini-filter">รายอำเภอ</span>
+<span class="mini-filter">รายตำบล</span>
+</div>
+</div>
+<div class="chart-row">
+<div class="bar-list">
+<div class="bar-item">
+<div class="bar-meta"><span>บ้านค่าย</span><span>82%</span></div>
+<div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>บ้านเขว้า</span><span>74%</span></div>
+<div class="bar-track"><div class="bar-fill blue" style="width:74%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>หนองบัว</span><span>68%</span></div>
+<div class="bar-track"><div class="bar-fill orange" style="width:68%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>โคกสูง</span><span>55%</span></div>
+<div class="bar-track"><div class="bar-fill red" style="width:55%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>หนองแวง</span><span>49%</span></div>
+<div class="bar-track"><div class="bar-fill purple" style="width:49%"></div></div>
+</div>
+</div>
+<div class="donut-wrap">
+<div class="donut">
+<div class="donut-center"><div><span>864</span>ประเมินแล้ว</div></div>
+</div>
+<div class="legend">
+<div class="legend-item">
+<div class="legend-left"><span class="dot green"></span> บันทึกแล้ว</div>
+<strong>45%</strong>
+</div>
+<div class="legend-item">
+<div class="legend-left"><span class="dot orange"></span> รออัปเดต</div>
+<strong>27%</strong>
+</div>
+<div class="legend-item">
+<div class="legend-left"><span class="dot blue"></span> ยังไม่ประเมิน</div>
+<strong>18%</strong>
+</div>
+<div class="legend-item">
+<div class="legend-left"><span class="dot red"></span> ข้อมูลไม่ครบ</div>
+<strong>10%</strong>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-title">
+<h3>🗺️ แผนที่ภาพรวมแปลงอ้อย</h3>
+<div class="panel-actions">
+<span class="mini-filter">แสดง Heatmap</span>
+<span class="mini-filter">แสดงตามสถานะ</span>
+</div>
+</div>
+<div class="map-box">
+<div class="road r1"></div>
+<div class="road r2"></div>
+<div class="road r3"></div>
+<div class="plot green" style="left:22%; top:21%;"></div>
+<div class="plot green" style="left:31%; top:28%;"></div>
+<div class="plot orange" style="left:42%; top:34%;"></div>
+<div class="plot blue" style="left:25%; top:58%;"></div>
+<div class="plot red pulse" style="left:69%; top:38%;"></div>
+<div class="plot green" style="left:58%; top:63%;"></div>
+<div class="plot orange" style="left:76%; top:61%;"></div>
+<div class="plot blue" style="left:48%; top:72%;"></div>
+<div class="plot green" style="left:62%; top:18%;"></div>
+<div class="plot orange" style="left:36%; top:48%;"></div>
+</div>
+<div class="legend" style="margin-top:12px;grid-template-columns:repeat(4,minmax(0,1fr));">
+<div class="legend-item"><div class="legend-left"><span class="dot green"></span> บันทึกแล้ว</div></div>
+<div class="legend-item"><div class="legend-left"><span class="dot orange"></span> รออัปเดต</div></div>
+<div class="legend-item"><div class="legend-left"><span class="dot blue"></span> ยังไม่ประเมิน</div></div>
+<div class="legend-item"><div class="legend-left"><span class="dot red"></span> ข้อมูลเสี่ยง/ไม่ครบ</div></div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-title">
+<h3>📋 รายการที่ต้องติดตามเร่งด่วน</h3>
+<a class="btn btn-outline" href="plots.html">ดูทั้งหมด</a>
+</div>
+<div class="table-wrap">
+<table>
+<thead>
+<tr>
+<th>ID แปลงอ้อย</th>
+<th>เจ้าของอ้อย</th>
+<th>พื้นที่</th>
+<th>ประเด็นติดตาม</th>
+<th>สถานะ</th>
+<th>ผู้รับผิดชอบ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="ID แปลงอ้อย"><a class="link-inline" href="assessment.html"><strong>7001281</strong></a></td>
+<td data-label="เจ้าของอ้อย">นางทองใบ สีสุข</td>
+<td data-label="พื้นที่">8.25 ไร่</td>
+<td data-label="ประเด็นติดตาม">โรคอื่น ๆ ที่พบ / ยังไม่ระบุคำแนะนำ</td>
+<td data-label="สถานะ"><span class="chip chip-risk">ข้อมูลไม่ครบ</span></td>
+<td data-label="ผู้รับผิดชอบ">นายสมชาย ใจดี</td>
+</tr>
+<tr>
+<td data-label="ID แปลงอ้อย"><a class="link-inline" href="assessment.html"><strong>7001322</strong></a></td>
+<td data-label="เจ้าของอ้อย">นายประเสริฐ มากมี</td>
+<td data-label="พื้นที่">12.00 ไร่</td>
+<td data-label="ประเด็นติดตาม">หนอนกอ &gt; 20%</td>
+<td data-label="สถานะ"><span class="chip chip-pending">รออัปเดต</span></td>
+<td data-label="ผู้รับผิดชอบ">นางสาวรุ้งนภา ดีมาก</td>
+</tr>
+<tr>
+<td data-label="ID แปลงอ้อย"><a class="link-inline" href="assessment.html"><strong>7001410</strong></a></td>
+<td data-label="เจ้าของอ้อย">นางสมพร ใจดี</td>
+<td data-label="พื้นที่">6.75 ไร่</td>
+<td data-label="ประเด็นติดตาม">ยังไม่ประเมิน</td>
+<td data-label="สถานะ"><span class="chip chip-new">ยังไม่ประเมิน</span></td>
+<td data-label="ผู้รับผิดชอบ">นายสมชาย ใจดี</td>
+</tr>
+<tr>
+<td data-label="ID แปลงอ้อย"><a class="link-inline" href="assessment.html"><strong>7001515</strong></a></td>
+<td data-label="เจ้าของอ้อย">นายคำพล พลพาน</td>
+<td data-label="พื้นที่">18.25 ไร่</td>
+<td data-label="ประเด็นติดตาม">แหล่งน้ำ X / ให้น้ำได้ 0 ครั้ง</td>
+<td data-label="สถานะ"><span class="chip chip-risk">เสี่ยงแล้ง</span></td>
+<td data-label="ผู้รับผิดชอบ">นางสาวรุ้งนภา ดีมาก</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<aside>
+<div class="panel">
+<div class="panel-title">
+<h3>🌾 ศักยภาพของดิน</h3>
+</div>
+<div class="bar-list">
+<div class="bar-item">
+<div class="bar-meta"><span>A &gt; 20 ตัน/ไร่</span><span>18%</span></div>
+<div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>B &gt; 15 - 20 ตัน/ไร่</span><span>36%</span></div>
+<div class="bar-track"><div class="bar-fill blue" style="width:36%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>C 10 - 15 ตัน/ไร่</span><span>31%</span></div>
+<div class="bar-track"><div class="bar-fill orange" style="width:31%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>D &lt; 10 ตัน/ไร่</span><span>15%</span></div>
+<div class="bar-track"><div class="bar-fill red" style="width:15%"></div></div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-title">
+<h3>⚠️ สัญญาณความเสี่ยง</h3>
+</div>
+<div class="risk-grid">
+<div class="risk-card risk-high">
+<strong>โรค/แมลง</strong>
+<div class="risk-value">86</div>
+<div class="risk-detail">แปลงที่พบโรคหรือหนอนกอ</div>
+</div>
+<div class="risk-card risk-medium">
+<strong>ขาดแหล่งน้ำ</strong>
+<div class="risk-value">124</div>
+<div class="risk-detail">แปลงที่ไม่มีแหล่งน้ำ</div>
+</div>
+<div class="risk-card risk-medium">
+<strong>วัชพืช &gt; 30%</strong>
+<div class="risk-value">57</div>
+<div class="risk-detail">ควรติดตามการจัดการวัชพืช</div>
+</div>
+<div class="risk-card risk-low">
+<strong>ไว้ใบ 100%</strong>
+<div class="risk-value">312</div>
+<div class="risk-detail">แปลงที่มีแนวโน้มดูแลดินดี</div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-title">
+<h3>👥 ผลงานตามผู้รับผิดชอบ</h3>
+</div>
+<div class="bar-list">
+<div class="bar-item">
+<div class="bar-meta"><span>นายสมชาย ใจดี</span><span>326 แปลง</span></div>
+<div class="bar-track"><div class="bar-fill" style="width:86%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>นางสาวรุ้งนภา ดีมาก</span><span>284 แปลง</span></div>
+<div class="bar-track"><div class="bar-fill blue" style="width:74%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>นายประเสริฐ มากมี</span><span>168 แปลง</span></div>
+<div class="bar-track"><div class="bar-fill orange" style="width:48%"></div></div>
+</div>
+<div class="bar-item">
+<div class="bar-meta"><span>นางสมพร ใจดี</span><span>86 แปลง</span></div>
+<div class="bar-track"><div class="bar-fill purple" style="width:28%"></div></div>
+</div>
+</div>
+</div>
+<div class="panel">
+<div class="panel-title">
+<h3>🕘 กิจกรรมล่าสุด</h3>
+</div>
+<div class="timeline">
+<div class="timeline-item">
+<div class="time">วันนี้<br/>10:15</div>
+<div class="event">
+<strong>บันทึกประเมินแปลง 7001234</strong>
+<span>โดย นายสมชาย ใจดี</span>
+</div>
+</div>
+<div class="timeline-item">
+<div class="time">วันนี้<br/>09:40</div>
+<div class="event">
+<strong>อัปเดตข้อมูลแหล่งน้ำ 7001281</strong>
+<span>โดย นางสาวรุ้งนภา ดีมาก</span>
+</div>
+</div>
+<div class="timeline-item">
+<div class="time">เมื่อวาน<br/>16:20</div>
+<div class="event">
+<strong>เพิ่มคำแนะนำการจัดการแปลง</strong>
+<span>ID แปลงอ้อย 7001322</span>
+</div>
+</div>
+<div class="timeline-item">
+<div class="time">เมื่อวาน<br/>14:05</div>
+<div class="event">
+<strong>ส่งออกรายงานประจำวัน</strong>
+<span>ฤดูการผลิต 2567/68</span>
+</div>
+</div>
+</div>
+</div>
+</aside>
+</section>
+</main>
+<script>
     (function () {
       var savedTheme = localStorage.getItem("canezone-theme") || "light";
       document.documentElement.setAttribute("data-theme", savedTheme);
@@ -1208,6 +1249,5 @@
       });
     })();
   </script>
-
 </body>
 </html>
