@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แบบฟอร์มบันทึกข้อมูลการประเมินศักยภาพแหล่งน้ำ</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Tahoma", "Arial", sans-serif;
+      margin: 0;
+      padding: 24px;
+      background: #f4f6f8;
+      color: #222;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    h2 {
+      margin-top: 32px;
+      padding: 10px 12px;
+      font-size: 18px;
+      background: #e8f4ec;
+      border-left: 6px solid #3fa25b;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid #cfd6dd;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .unit-row {
+      display: grid;
+      grid-template-columns: 1fr 90px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .unit {
+      color: #555;
+      font-size: 14px;
+    }
+
+    .formula {
+      margin: 12px 0;
+      padding: 12px;
+      background: #fff8db;
+      border: 1px solid #f0d872;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th,
+    td {
+      border: 1px solid #d9dee3;
+      padding: 10px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f0f3f5;
+    }
+
+    .summary input {
+      background: #f7fff8;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    button {
+      padding: 10px 18px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .btn-print {
+      background: #2f855a;
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: #e2e8f0;
+      color: #222;
+    }
+
+    @media (max-width: 760px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        padding: 18px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .unit-row {
+        grid-template-columns: 1fr 70px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>แบบฟอร์มบันทึกข้อมูลการประเมินศักยภาพแหล่งน้ำและพื้นที่ให้น้ำ</h1>
+
+    <form>
+      <h2>1. ข้อมูลทั่วไป</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="recordDate">วันที่บันทึกข้อมูล</label>
+          <input type="date" id="recordDate" name="recordDate" />
+        </div>
+        <div class="field">
+          <label for="plotName">ชื่อแปลง / พื้นที่</label>
+          <input type="text" id="plotName" name="plotName" />
+        </div>
+        <div class="field">
+          <label for="recorder">ชื่อผู้บันทึก</label>
+          <input type="text" id="recorder" name="recorder" />
+        </div>
+        <div class="field">
+          <label for="cropType">ประเภทพืช</label>
+          <input type="text" id="cropType" name="cropType" />
+        </div>
+        <div class="field">
+          <label for="totalArea">พื้นที่ปลูกทั้งหมด</label>
+          <div class="unit-row">
+            <input type="number" id="totalArea" name="totalArea" step="0.01" />
+            <span class="unit">ไร่</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wateringCycle">รอบการให้น้ำ</label>
+          <div class="unit-row">
+            <input type="number" id="wateringCycle" name="wateringCycle" value="30" />
+            <span class="unit">วัน</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wateringHours">ระยะเวลาให้น้ำต่อครั้ง</label>
+          <div class="unit-row">
+            <input type="number" id="wateringHours" name="wateringHours" value="12" step="0.01" />
+            <span class="unit">ชั่วโมง</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>2. ข้อมูลประเภทดิน</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="soilType">ประเภทดิน</label>
+          <select id="soilType" name="soilType">
+            <option value="clay">ดินเหนียว 1:1</option>
+            <option value="loam" selected>ดินร่วน 1:1.5</option>
+            <option value="sand">ดินทราย 1:2</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="slopeRatio">ค่าความลาดชันที่เลือกใช้</label>
+          <input type="number" id="slopeRatio" name="slopeRatio" value="1.5" step="0.1" />
+        </div>
+      </div>
+
+      <h2>3. ข้อมูลสระน้ำ</h2>
+      <div class="formula">
+        สูตรคำนวณปริมาณน้ำในสระ: V = (H ÷ 3) × (A1 + A2 + √(A1 × A2))<br />
+        A1 = กว้างปากสระ × ยาวปากสระ, A2 = กว้างก้นสระ × ยาวก้นสระ
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label for="pondWidth">ความกว้างปากสระ</label>
+          <div class="unit-row">
+            <input type="number" id="pondWidth" name="pondWidth" value="30" step="0.01" />
+            <span class="unit">เมตร</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pondLength">ความยาวปากสระ</label>
+          <div class="unit-row">
+            <input type="number" id="pondLength" name="pondLength" value="50" step="0.01" />
+            <span class="unit">เมตร</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pondDepth">ความลึกสระ</label>
+          <div class="unit-row">
+            <input type="number" id="pondDepth" name="pondDepth" value="4" step="0.01" />
+            <span class="unit">เมตร</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="bottomWidth">ความกว้างก้นสระ</label>
+          <div class="unit-row">
+            <input type="number" id="bottomWidth" name="bottomWidth" value="18" step="0.01" />
+            <span class="unit">เมตร</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="bottomLength">ความยาวก้นสระ</label>
+          <div class="unit-row">
+            <input type="number" id="bottomLength" name="bottomLength" value="38" step="0.01" />
+            <span class="unit">เมตร</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pondVolume">ปริมาตรน้ำในสระ</label>
+          <div class="unit-row">
+            <input type="number" id="pondVolume" name="pondVolume" value="4270" step="0.01" />
+            <span class="unit">ลบ.ม.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pondAreaCapacity">พื้นที่ที่สระรองรับได้</label>
+          <div class="unit-row">
+            <input type="number" id="pondAreaCapacity" name="pondAreaCapacity" value="53" step="0.01" />
+            <span class="unit">ไร่/ครั้ง</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>4. ข้อมูลบ่อบาดาล</h2>
+      <div class="formula">
+        สูตรคำนวณ: ปริมาณน้ำต่อวัน = Q × Hr, ปริมาณน้ำต่อรอบ = ปริมาณน้ำต่อวัน × จำนวนวัน
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label for="wellSize">ขนาดบ่อ</label>
+          <div class="unit-row">
+            <input type="number" id="wellSize" name="wellSize" value="4" step="0.01" />
+            <span class="unit">นิ้ว</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wellDepth">ความลึกบ่อ</label>
+          <div class="unit-row">
+            <input type="number" id="wellDepth" name="wellDepth" value="100" step="0.01" />
+            <span class="unit">เมตร</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wellFlowRate">ปริมาณน้ำที่สูบได้</label>
+          <div class="unit-row">
+            <input type="number" id="wellFlowRate" name="wellFlowRate" value="5" step="0.01" />
+            <span class="unit">ลบ.ม./ชม.</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="pumpHours">ชั่วโมงสูบต่อวัน</label>
+          <div class="unit-row">
+            <input type="number" id="pumpHours" name="pumpHours" value="12" step="0.01" />
+            <span class="unit">ชม./วัน</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wellWaterPerDay">ปริมาณน้ำต่อวัน</label>
+          <div class="unit-row">
+            <input type="number" id="wellWaterPerDay" name="wellWaterPerDay" value="60" step="0.01" />
+            <span class="unit">ลบ.ม./วัน</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wellWaterPerCycle">ปริมาณน้ำต่อรอบ</label>
+          <div class="unit-row">
+            <input type="number" id="wellWaterPerCycle" name="wellWaterPerCycle" value="1800" step="0.01" />
+            <span class="unit">ลบ.ม./รอบ</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="wellAreaCapacity">พื้นที่ที่บ่อบาดาลรองรับได้</label>
+          <div class="unit-row">
+            <input type="number" id="wellAreaCapacity" name="wellAreaCapacity" value="23" step="0.01" />
+            <span class="unit">ไร่/ครั้ง</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>5. ข้อมูลระบบน้ำหยด</h2>
+      <div class="formula">
+        อัตราการใช้น้ำต่อไร่ = จำนวนหัวน้ำหยด × อัตราการหยด ÷ 1,000<br />
+        ปริมาณน้ำต่อไร่ต่อครั้ง = อัตราการใช้น้ำต่อไร่ × ชั่วโมงให้น้ำ
+      </div>
+      <div class="grid">
+        <div class="field">
+          <label for="dripHeads">จำนวนหัวน้ำหยดต่อไร่</label>
+          <div class="unit-row">
+            <input type="number" id="dripHeads" name="dripHeads" value="3333" />
+            <span class="unit">หัว/ไร่</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="dripRate">อัตราการหยดต่อหัว</label>
+          <div class="unit-row">
+            <input type="number" id="dripRate" name="dripRate" value="2" step="0.01" />
+            <span class="unit">ลิตร/ชม./หัว</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="waterUsePerRaiHour">อัตราการใช้น้ำต่อไร่</label>
+          <div class="unit-row">
+            <input type="number" id="waterUsePerRaiHour" name="waterUsePerRaiHour" value="6.666" step="0.001" />
+            <span class="unit">ลบ.ม./ชม./ไร่</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="waterUsePerRaiCycle">ปริมาณน้ำที่ใช้ต่อไร่ต่อครั้ง</label>
+          <div class="unit-row">
+            <input type="number" id="waterUsePerRaiCycle" name="waterUsePerRaiCycle" value="79.992" step="0.001" />
+            <span class="unit">ลบ.ม./ไร่</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>6. สรุปผลการประเมิน</h2>
+      <table class="summary">
+        <tr>
+          <th>รายการ</th>
+          <th>ผลลัพธ์</th>
+          <th>หน่วย</th>
+        </tr>
+        <tr>
+          <td>ปริมาณน้ำในสระ</td>
+          <td><input type="number" value="4270" step="0.01" /></td>
+          <td>ลบ.ม.</td>
+        </tr>
+        <tr>
+          <td>พื้นที่ที่สระรองรับได้</td>
+          <td><input type="number" value="53" step="0.01" /></td>
+          <td>ไร่</td>
+        </tr>
+        <tr>
+          <td>ปริมาณน้ำจากบ่อบาดาลต่อรอบ</td>
+          <td><input type="number" value="1800" step="0.01" /></td>
+          <td>ลบ.ม.</td>
+        </tr>
+        <tr>
+          <td>พื้นที่ที่บ่อบาดาลรองรับได้</td>
+          <td><input type="number" value="23" step="0.01" /></td>
+          <td>ไร่</td>
+        </tr>
+        <tr>
+          <td>พื้นที่แนะนำให้ใช้งานจริง</td>
+          <td><input type="number" placeholder="ระบุพื้นที่แนะนำ" step="0.01" /></td>
+          <td>ไร่</td>
+        </tr>
+      </table>
+
+      <h2>7. หมายเหตุเพิ่มเติม</h2>
+      <textarea name="remark" placeholder="บันทึกหมายเหตุเพิ่มเติม"></textarea>
+
+      <div class="actions">
+        <button type="button" class="btn-print" onclick="window.print()">พิมพ์แบบฟอร์ม</button>
+        <button type="reset" class="btn-reset">ล้างข้อมูล</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
