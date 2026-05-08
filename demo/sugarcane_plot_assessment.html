@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>แบบฟอร์มบันทึกประเมินแปลงอ้อย</title>
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
       margin: 0;
@@ -113,7 +116,9 @@
       flex: 0 0 auto;
     }
 
-    .full { grid-column: 1 / -1; }
+    .full {
+      grid-column: 1 / -1;
+    }
 
     .inline-fields {
       display: grid;
@@ -162,7 +167,8 @@
       margin-top: 10px;
     }
 
-    th, td {
+    th,
+    td {
       border: 1px solid #d8dfd1;
       padding: 9px;
       text-align: left;
@@ -190,26 +196,68 @@
       font-family: inherit;
     }
 
-    .btn-print { background: #347a2a; color: #fff; }
-    .btn-reset { background: #e5eadf; color: #222; }
+    .btn-print {
+      background: #347a2a;
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: #e5eadf;
+      color: #222;
+    }
 
     @media (max-width: 780px) {
-      body { padding: 12px; }
-      .container { padding: 18px; }
-      .grid, .choice-group, .criteria { grid-template-columns: 1fr; }
-      .inline-fields { grid-template-columns: 1fr; }
-      .full { grid-column: auto; }
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        padding: 18px;
+      }
+
+      .grid,
+      .choice-group,
+      .criteria {
+        grid-template-columns: 1fr;
+      }
+
+      .inline-fields {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
     }
 
     @media print {
-      body { background: #fff; padding: 0; }
-      .container { box-shadow: none; border-radius: 0; }
-      .actions { display: none; }
-      h2 { break-after: avoid; }
-      .criteria-card, .choice, table { break-inside: avoid; }
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .actions {
+        display: none;
+      }
+
+      h2 {
+        break-after: avoid;
+      }
+
+      .criteria-card,
+      .choice,
+      table {
+        break-inside: avoid;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>แบบฟอร์มบันทึกประเมินแปลงอ้อย</h1>
@@ -257,20 +305,30 @@
       <h3>ส่วนที่ 1: สังเกตสีของหน้าดิน</h3>
       <div class="choice-group">
         <label class="choice"><input type="radio" name="soilColor" /> 🟤 สีน้ำตาลเข้ม ถึง เทาเข้ม</label>
-        <label class="choice"><input type="radio" name="soilColor" /> 🟡 สีน้ำตาลอ่อน น้ำตาลปนเหลือง หรือสีซีดจางคล้ายทราย</label>
-        <label class="choice"><input type="radio" name="soilColor" /> ⚫ สีดำสนิท หรือน้ำตาลเข้มจัด สีเข้มสม่ำเสมอ</label>
+        <label class="choice"><input type="radio" name="soilColor" /> 🟡 สีน้ำตาลอ่อน น้ำตาลปนเหลือง
+          หรือสีซีดจางคล้ายทราย</label>
+        <label class="choice"><input type="radio" name="soilColor" /> ⚫ สีดำสนิท หรือน้ำตาลเข้มจัด
+          สีเข้มสม่ำเสมอ</label>
         <label class="choice"><input type="radio" name="soilColor" /> ⚪ สีเทา หรือน้ำตาลปนเทา ดูจืดชืด</label>
       </div>
 
       <h3>ส่วนที่ 2: จุดสังเกตพิเศษในเนื้อดิน เลือกได้มากกว่า 1 ข้อ</h3>
       <div class="choice-group">
-        <label class="choice"><input type="checkbox" name="soilFeature" /> ขุดลงไป 30-50 ซม. เจอก้อนปูนสีขาว หรือเศษหินปูนปะปน</label>
-        <label class="choice"><input type="checkbox" name="soilFeature" /> มองเห็นเม็ดทรายปนอยู่ในเนื้อดินค่อนข้างเยอะ</label>
-        <label class="choice"><input type="checkbox" name="soilFeature" /> มีจุดประสีแดง ส้ม หรือเหลือง คล้ายสีสนิมเหล็ก</label>
+        <label class="choice"><input type="checkbox" name="soilFeature" /> ขุดลงไป 30-50 ซม. เจอก้อนปูนสีขาว
+          หรือเศษหินปูนปะปน</label>
+        <label class="choice"><input type="checkbox" name="soilFeature" />
+          มองเห็นเม็ดทรายปนอยู่ในเนื้อดินค่อนข้างเยอะ</label>
+        <label class="choice"><input type="checkbox" name="soilFeature" /> มีจุดประสีแดง ส้ม หรือเหลือง
+          คล้ายสีสนิมเหล็ก</label>
         <label class="choice"><input type="checkbox" name="soilFeature" /> เจอก้อนศิลาแลง เม็ดกลม สีดำ/แดง แข็ง</label>
         <label class="choice full"><input type="checkbox" name="soilFeature" /> ไม่มีจุดสังเกตพิเศษใดๆ ด้านบน</label>
       </div>
-
+      
+      <div class="grid" style="margin-top: 16px;">
+        <div class="field">
+          <img src="1485388.png" alt="">
+        </div>
+      </div>
       <div class="criteria">
         <div class="criteria-card">
           <strong>กลุ่มดินตื้นมีปูน</strong>
@@ -298,12 +356,7 @@
         </div>
       </div>
 
-      <div class="grid" style="margin-top: 16px;">
-        <div class="field">
-        <img src="1485388.png" alt="">
-        </div>
-       
-      </div>
+
 
       <h2>3. ศักยภาพด้านการจัดการวัชพืช</h2>
       <h3>ส่วนที่ 1: สภาพวัชพืชรก</h3>
@@ -371,9 +424,12 @@
       <h2>5. ศักยภาพด้านการจัดการน้ำ</h2>
       <h3>ส่วนที่ 1: แหล่งน้ำ</h3>
       <div class="choice-group">
-        <label class="choice"><input type="checkbox" name="waterSource" /> สระน้ำ <input type="number" placeholder="จำนวนสระ" style="margin-left:auto; max-width:120px;" /></label>
-        <label class="choice"><input type="checkbox" name="waterSource" /> บ่อบาดาล <input type="number" placeholder="จำนวนบ่อ" style="margin-left:auto; max-width:120px;" /></label>
-        <label class="choice"><input type="checkbox" name="waterSource" /> อื่นๆ <input type="text" placeholder="ระบุ" style="margin-left:auto; max-width:180px;" /></label>
+        <label class="choice"><input type="checkbox" name="waterSource" /> สระน้ำ <input type="number"
+            placeholder="จำนวนสระ" style="margin-left:auto; max-width:120px;" /></label>
+        <label class="choice"><input type="checkbox" name="waterSource" /> บ่อบาดาล <input type="number"
+            placeholder="จำนวนบ่อ" style="margin-left:auto; max-width:120px;" /></label>
+        <label class="choice"><input type="checkbox" name="waterSource" /> อื่นๆ <input type="text" placeholder="ระบุ"
+            style="margin-left:auto; max-width:180px;" /></label>
         <label class="choice"><input type="checkbox" name="waterSource" /> ไม่มีแหล่งน้ำ</label>
       </div>
 
@@ -432,7 +488,8 @@
       </div>
 
       <div class="note-box">
-        หมายเหตุ: แบบฟอร์มนี้จัดทำตามหัวข้อจากไฟล์ประเมินแปลงอ้อยที่แนบมา และออกแบบให้ใช้กรอกข้อมูลภาคสนามหรือพิมพ์เป็นกระดาษได้
+        หมายเหตุ: แบบฟอร์มนี้จัดทำตามหัวข้อจากไฟล์ประเมินแปลงอ้อยที่แนบมา
+        และออกแบบให้ใช้กรอกข้อมูลภาคสนามหรือพิมพ์เป็นกระดาษได้
       </div>
 
       <div class="actions">
@@ -442,4 +499,5 @@
     </form>
   </div>
 </body>
+
 </html>
