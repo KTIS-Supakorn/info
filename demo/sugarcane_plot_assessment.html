@@ -76,6 +76,16 @@
       display: block;
     }
 
+    .image-grid {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .image-grid .field {
+      width: 100%;
+      max-width: 560px;
+    }
+
     label,
     .label {
       font-weight: 600;
@@ -318,7 +328,7 @@
           สีเข้มสม่ำเสมอ</label>
         <label class="choice"><input type="radio" name="soilColor" /> ⚪ สีเทา หรือน้ำตาลปนเทา ดูจืดชืด</label>
       </div>
-      <div class="grid" style="margin-top: 16px;">
+      <div class="grid image-grid" style="margin-top: 16px;">
         <div class="field">
           <img src="1485388.png" alt="">
         </div>
