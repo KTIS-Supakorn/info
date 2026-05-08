@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>แบบฟอร์มบันทึกประเมินแปลงอ้อย</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f5f7f2;
+      color: #222;
+      line-height: 1.55;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 28px;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      text-align: center;
+      font-size: 26px;
+      color: #245c2e;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      margin: 30px 0 14px;
+      padding: 10px 14px;
+      background: #e7f3df;
+      border-left: 6px solid #4d9a34;
+      font-size: 18px;
+      color: #234b1b;
+    }
+
+    h3 {
+      margin: 18px 0 10px;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px 18px;
+      margin-bottom: 10px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field>img {
+      width: 100%;
+      max-width: 560px;
+      height: auto;
+      display: block;
+    }
+
+    .image-grid {
+      grid-template-columns: 1fr;
+      justify-items: center;
+    }
+
+    .image-grid .field {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    label,
+    .label {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 9px 10px;
+      border: 1px solid #cfd8c8;
+      border-radius: 7px;
+      font-family: inherit;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 86px;
+      resize: vertical;
+    }
+
+    .choice-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .choice {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      padding: 10px;
+      border: 1px solid #dbe3d4;
+      border-radius: 8px;
+      background: #fbfdf9;
+    }
+
+    .choice input {
+      margin-top: 4px;
+      flex: 0 0 auto;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .inline-fields {
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .note-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #fff8dc;
+      border: 1px solid #ecd27a;
+      font-size: 14px;
+    }
+
+    .criteria {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .criteria-card {
+      border: 1px solid #d9e3d0;
+      border-radius: 10px;
+      padding: 14px;
+      background: #fcfff9;
+    }
+
+    .criteria-card strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #2f6f25;
+    }
+
+    .criteria-card p {
+      margin: 6px 0;
+      font-size: 13px;
+    }
+
+    .section-box {
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid #d9e3d0;
+      border-radius: 10px;
+      background: #fcfff9;
+    }
+
+    .section-box legend {
+      padding: 0 8px;
+      font-weight: 700;
+      color: #234b1b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    th,
+    td {
+      border: 1px solid #d8dfd1;
+      padding: 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef5e9;
+      color: #234b1b;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 11px 18px;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: inherit;
+    }
+
+    .btn-print {
+      background: #347a2a;
+      color: #fff;
+    }
+
+    .btn-reset {
+      background: #e5eadf;
+      color: #222;
+    }
+
+    @media (max-width: 780px) {
+      body {
+        padding: 12px;
+      }
+
+      .container {
+        padding: 18px;
+      }
+
+      .grid,
+      .choice-group,
+      .criteria {
+        grid-template-columns: 1fr;
+      }
+
+      .inline-fields {
+        grid-template-columns: 1fr;
+      }
+
+      .full {
+        grid-column: auto;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+        padding: 0;
+      }
+
+      .container {
+        box-shadow: none;
+        border-radius: 0;
+      }
+
+      .actions {
+        display: none;
+      }
+
+      h2 {
+        break-after: avoid;
+      }
+
+      .criteria-card,
+      .choice,
+      table {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>แบบฟอร์มบันทึกประเมินแปลงอ้อย</h1>
+    <div class="subtitle">สำหรับบันทึกข้อมูลภาคสนาม ดิน วัชพืช โรคแมลง น้ำ ใบอ้อย และคาดการณ์ผลผลิต</div>
+
+    <form>
+      <h2>ข้อมูลทั่วไป</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="recordDate">วันที่ประเมิน</label>
+          <input type="date" id="recordDate" name="recordDate" />
+        </div>
+        <div class="field">
+          <label for="recorder">ผู้ประเมิน</label>
+          <input type="text" id="recorder" name="recorder" />
+        </div>
+        <div class="field">
+          <label for="plotCode">รหัส / ชื่อแปลง</label>
+          <input type="text" id="plotCode" name="plotCode" />
+        </div>
+        <div class="field">
+          <label for="farmerName">ชื่อเกษตรกร</label>
+          <input type="text" id="farmerName" name="farmerName" />
+        </div>
+        <div class="field">
+          <label for="areaRai">พื้นที่ประเมิน</label>
+          <div class="inline-fields">
+            <input type="number" id="areaRai" name="areaRai" step="0.01" />
+            <span>ไร่</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="location">ที่ตั้งแปลง</label>
+          <input type="text" id="location" name="location" />
+        </div>
+      </div>
+
+      <h2>1. ประเภทพื้นที่</h2>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="landType" value="ไร่" /> ไร่</label>
+        <label class="choice"><input type="radio" name="landType" value="นา" /> นา</label>
+      </div>
+
+      <h2>2. ศักยภาพของดิน</h2>
+      <h3>ส่วนที่ 1: สังเกตสีของหน้าดิน</h3>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="soilColor" /> 🟤 สีน้ำตาลเข้ม ถึง เทาเข้ม</label>
+        <label class="choice"><input type="radio" name="soilColor" /> 🟡 สีน้ำตาลอ่อน น้ำตาลปนเหลือง
+          หรือสีซีดจางคล้ายทราย</label>
+        <label class="choice"><input type="radio" name="soilColor" /> ⚫ สีดำสนิท หรือน้ำตาลเข้มจัด
+          สีเข้มสม่ำเสมอ</label>
+        <label class="choice"><input type="radio" name="soilColor" /> ⚪ สีเทา หรือน้ำตาลปนเทา ดูจืดชืด</label>
+      </div>
+      <div class="grid image-grid" style="margin-top: 16px;">
+        <div class="field">
+          <img src="1485388.png" alt="">
+        </div>
+      </div>
+      <h3>ส่วนที่ 2: จุดสังเกตพิเศษในเนื้อดิน เลือกได้มากกว่า 1 ข้อ</h3>
+      <div class="choice-group">
+        <label class="choice"><input type="checkbox" name="soilFeature" /> ขุดลงไป 30-50 ซม. เจอก้อนปูนสีขาว
+          หรือเศษหินปูนปะปน</label>
+        <label class="choice"><input type="checkbox" name="soilFeature" />
+          มองเห็นเม็ดทรายปนอยู่ในเนื้อดินค่อนข้างเยอะ</label>
+        <label class="choice"><input type="checkbox" name="soilFeature" /> มีจุดประสีแดง ส้ม หรือเหลือง
+          คล้ายสีสนิมเหล็ก</label>
+        <label class="choice"><input type="checkbox" name="soilFeature" /> เจอก้อนศิลาแลง เม็ดกลม สีดำ/แดง แข็ง</label>
+        <label class="choice full"><input type="checkbox" name="soilFeature" /> ไม่มีจุดสังเกตพิเศษใดๆ ด้านบน</label>
+      </div>
+
+
+      <div class="criteria">
+        <div class="criteria-card">
+          <strong>กลุ่มดินตื้นมีปูน</strong>
+          <p><b>เงื่อนไขหลัก:</b> พบก้อนปูนสีขาว หรือเศษหินปูนปะปน</p>
+          <p><b>ผลประเมิน:</b> ดินตื้นที่เกิดจากหินปูน</p>
+          <p><b>ธงเตือน:</b> ดินเป็นด่างสูง ตรึงฟอสฟอรัส หน้าแล้งดินแข็งตัวเร็ว</p>
+        </div>
+        <div class="criteria-card">
+          <strong>กลุ่มดินร่วนทราย</strong>
+          <p><b>เงื่อนไขหลัก:</b> เห็นเม็ดทรายปนในเนื้อดินค่อนข้างเยอะ</p>
+          <p><b>ผลประเมิน:</b> ระบายน้ำดี แต่ไม่อุ้มน้ำ</p>
+          <p><b>ธงเตือน:</b> เสี่ยงผลผลิตชะงักเมื่อฝนทิ้งช่วง ควรมีน้ำหยดหรือแหล่งน้ำสำรอง</p>
+        </div>
+        <div class="criteria-card">
+          <strong>กลุ่มดินลุ่มทนน้ำ</strong>
+          <p><b>เงื่อนไขหลัก:</b> มีจุดประสีแดง ส้ม เหลือง และ/หรือก้อนศิลาแลง</p>
+          <p><b>ผลประเมิน:</b> ดินลุ่มต่ำ หรือเคยมีน้ำแช่ขังนาน</p>
+          <p><b>ธงเตือน:</b> เสี่ยงน้ำขังและโรคแส้ดำ ต้องยกร่องและทำทางระบายน้ำ</p>
+        </div>
+        <div class="criteria-card">
+          <strong>กลุ่มดินเหนียวดำยืดหดตัวสูง</strong>
+          <p><b>เงื่อนไขหลัก:</b> ไม่มีจุดสังเกตพิเศษ และสีดำสนิท/น้ำตาลเข้มจัด</p>
+          <p><b>ผลประเมิน:</b> ดินเหนียวหนักสีดำ ศักยภาพผลผลิตสูง</p>
+          <p><b>ธงเตือน:</b> ระวังเครื่องจักรหนักลงแปลงช่วงดินชื้น เพราะดินแน่นและรถติดหล่มง่าย</p>
+        </div>
+      </div>
+
+
+
+      <h2>3. ฟอร์มตรวจวัชพืช</h2>
+      <fieldset class="section-box">
+        <legend>สภาพวัชพืช</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="CODETP26">สภาพวัชพืช [26]</label>
+            <select name="CODETP26" id="CODETP26" style="background: #FFFFCC">
+              <option value="">---Select---</option>
+              <option value="01" selected>01 : ไม่รก</option>
+              <option value="02">02 : เริ่มรก</option>
+              <option value="03">03 : รกมาก</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="CODE26_DTE">วันที่</label>
+            <input type="date" name="CODE26_DTE" id="CODE26_DTE" value="2026-05-08" />
+          </div>
+          <div class="field">
+            <label for="CANE_HIGH2">ความสูงวัชพืช / ซม. (RP)</label>
+            <input type="number" step="any" name="CANE_HIGH2" id="CANE_HIGH2" value="0.00" />
+          </div>
+        </div>
+      </fieldset>
+
+      <h2>4. การจัดการด้านโรคและแมลง</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>รายการ</th>
+            <th>สถานะการพบ</th>
+            <th>สถานะการฉีดยา</th>
+            <th>หมายเหตุ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>โรคแส้ดำ</td>
+            <td>
+              <label><input type="radio" name="smutFound" /> ไม่พบโรค</label><br />
+              <label><input type="radio" name="smutFound" /> มี</label>
+            </td>
+            <td>
+              <label><input type="radio" name="smutSpray" /> ฉีดแล้ว</label><br />
+              <label><input type="radio" name="smutSpray" /> ยังไม่ฉีด</label><br />
+              <label><input type="radio" name="smutSpray" /> ไม่ทราบ</label>
+            </td>
+            <td><input type="text" name="smutRemark" /></td>
+          </tr>
+          <tr>
+            <td>โรคอื่นๆ</td>
+            <td>
+              <label><input type="radio" name="otherDiseaseFound" /> ไม่พบโรค</label><br />
+              <label><input type="radio" name="otherDiseaseFound" /> มี</label>
+            </td>
+            <td><input type="text" name="otherDiseaseSpray" placeholder="ระบุการจัดการ" /></td>
+            <td><input type="text" name="otherDiseaseRemark" placeholder="ระบุโรคที่พบ" /></td>
+          </tr>
+          <tr>
+            <td>หนอนกอ</td>
+            <td>
+              <label><input type="radio" name="borerFound" /> ไม่พบหนอนกอ</label><br />
+              <label><input type="radio" name="borerFound" /> มี</label>
+            </td>
+            <td>
+              <label><input type="radio" name="borerSpray" /> ฉีดแล้ว</label><br />
+              <label><input type="radio" name="borerSpray" /> ยังไม่ฉีด</label><br />
+              <label><input type="radio" name="borerSpray" /> ไม่ทราบ</label>
+            </td>
+            <td><input type="text" name="borerRemark" /></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>5. ศักยภาพด้านการจัดการน้ำ</h2>
+      <h3>ส่วนที่ 1: แหล่งน้ำ</h3>
+      <div class="choice-group">
+        <label class="choice"><input type="checkbox" name="waterSource" /> สระน้ำ <input type="number"
+            placeholder="จำนวนสระ" style="margin-left:auto; max-width:120px;" /></label>
+        <label class="choice"><input type="checkbox" name="waterSource" /> บ่อบาดาล <input type="number"
+            placeholder="จำนวนบ่อ" style="margin-left:auto; max-width:120px;" /></label>
+        <label class="choice"><input type="checkbox" name="waterSource" /> อื่นๆ <input type="text" placeholder="ระบุ"
+            style="margin-left:auto; max-width:180px;" /></label>
+        <label class="choice"><input type="checkbox" name="waterSource" /> ไม่มีแหล่งน้ำ</label>
+      </div>
+
+      <h3>ส่วนที่ 2: ให้น้ำได้กี่ครั้ง</h3>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="waterTimes" /> 0 ครั้ง</label>
+        <label class="choice"><input type="radio" name="waterTimes" /> 1 ครั้ง</label>
+        <label class="choice"><input type="radio" name="waterTimes" /> 2 ครั้ง</label>
+        <label class="choice"><input type="radio" name="waterTimes" /> ตั้งแต่ 3 ครั้งขึ้นไป</label>
+      </div>
+
+      <h3>ส่วนที่ 3: การระบายน้ำ</h3>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="drainage" /> ไม่แช่ขัง</label>
+        <label class="choice"><input type="radio" name="drainage" /> แช่ขังนาน 1-4 สัปดาห์</label>
+        <label class="choice"><input type="radio" name="drainage" /> แช่ขังนานมากกว่า 4 สัปดาห์</label>
+      </div>
+
+      <h2>6. สถานะการไว้ใบในแปลง</h2>
+      <div class="choice-group">
+        <label class="choice"><input type="radio" name="leafStatus" /> อ้อยปลูกใหม่</label>
+        <label class="choice"><input type="radio" name="leafStatus" /> เผาใบ</label>
+        <label class="choice"><input type="radio" name="leafStatus" /> เก็บหมดแปลง</label>
+        <label class="choice"><input type="radio" name="leafStatus" /> เหลือ 30%</label>
+        <label class="choice"><input type="radio" name="leafStatus" /> ไว้ 100%</label>
+      </div>
+
+      <h2>7. ประเมินคาดการณ์ตันเข้าหีบ</h2>
+      <div class="grid">
+        <div class="field">
+          <label for="estimateTon">ประมาณตันต่อไร่</label>
+          <div class="inline-fields">
+            <input type="number" id="estimateTon" name="estimateTon" step="0.01" />
+            <span>ตัน/ไร่</span>
+          </div>
+        </div>
+        <div class="field">
+          <label for="estimateTotalTon">ประมาณตันรวม</label>
+          <div class="inline-fields">
+            <input type="number" id="estimateTotalTon" name="estimateTotalTon" step="0.01" />
+            <span>ตัน</span>
+          </div>
+        </div>
+      </div>
+
+      <h2>สรุปผลและข้อเสนอแนะ</h2>
+      <div class="grid">
+        <div class="field full">
+          <label for="summary">สรุปภาพรวมแปลง</label>
+          <textarea id="summary" name="summary"></textarea>
+        </div>
+        <div class="field full">
+          <label for="recommendation">ข้อเสนอแนะการจัดการ</label>
+          <textarea id="recommendation" name="recommendation"></textarea>
+        </div>
+      </div>
+
+      <div class="note-box">
+        หมายเหตุ: แบบฟอร์มนี้จัดทำตามหัวข้อจากไฟล์ประเมินแปลงอ้อยที่แนบมา
+        และออกแบบให้ใช้กรอกข้อมูลภาคสนามหรือพิมพ์เป็นกระดาษได้
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn-print" onclick="window.print()">พิมพ์แบบฟอร์ม</button>
+        <button type="reset" class="btn-reset">ล้างข้อมูล</button>
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
