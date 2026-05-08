@@ -414,53 +414,170 @@
       </fieldset>
 
       <h2>4. การจัดการด้านโรคและแมลง</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>รายการ</th>
-            <th>สถานะการพบ</th>
-            <th>สถานะการฉีดยา</th>
-            <th>หมายเหตุ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>โรคแส้ดำ</td>
-            <td>
-              <label><input type="radio" name="smutFound" /> ไม่พบโรค</label><br />
-              <label><input type="radio" name="smutFound" /> มี</label>
-            </td>
-            <td>
-              <label><input type="radio" name="smutSpray" /> ฉีดแล้ว</label><br />
-              <label><input type="radio" name="smutSpray" /> ยังไม่ฉีด</label><br />
-              <label><input type="radio" name="smutSpray" /> ไม่ทราบ</label>
-            </td>
-            <td><input type="text" name="smutRemark" /></td>
-          </tr>
-          <tr>
-            <td>โรคอื่นๆ</td>
-            <td>
-              <label><input type="radio" name="otherDiseaseFound" /> ไม่พบโรค</label><br />
-              <label><input type="radio" name="otherDiseaseFound" /> มี</label>
-            </td>
-            <td><input type="text" name="otherDiseaseSpray" placeholder="ระบุการจัดการ" /></td>
-            <td><input type="text" name="otherDiseaseRemark" placeholder="ระบุโรคที่พบ" /></td>
-          </tr>
-          <tr>
-            <td>หนอนกอ</td>
-            <td>
-              <label><input type="radio" name="borerFound" /> ไม่พบหนอนกอ</label><br />
-              <label><input type="radio" name="borerFound" /> มี</label>
-            </td>
-            <td>
-              <label><input type="radio" name="borerSpray" /> ฉีดแล้ว</label><br />
-              <label><input type="radio" name="borerSpray" /> ยังไม่ฉีด</label><br />
-              <label><input type="radio" name="borerSpray" /> ไม่ทราบ</label>
-            </td>
-            <td><input type="text" name="borerRemark" /></td>
-          </tr>
-        </tbody>
-      </table>
+      
+      <fieldset class="section-box">
+        <legend>แมลงศัตรูอ้อย</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="CODE12_IND">วันที่ตรวจพบ</label>
+            <input type="date" name="CODE12_IND" id="CODE12_IND" value="0000-00-00" />
+          </div>
+          <div class="field">
+            <label for="CODETP12">ชนิดแมลง [12]</label>
+            <select name="CODETP12" id="CODETP12" style="background: #FFFFCC">
+              <option value="">---Select---</option>
+              <option value="01">01 : หนอนกอสีขาว</option>
+              <option value="02">02 : หนอนกอลายจุดใหญ่</option>
+              <option value="03">03 : หนอนกอลายจุดเล็ก</option>
+              <option value="04">04 : หนอนกอลายแถบ</option>
+              <option value="05">05 : หนอนกอสีชมพู</option>
+              <option value="06">06 : แมลงหวี่ขาว</option>
+              <option value="07">07 : ไรแดง</option>
+              <option value="08">08 : ปลวก</option>
+              <option value="09">09 : ตั๊กแตน</option>
+              <option value="10">10 : เพลี้ยต่างๆ</option>
+              <option value="11">11 : แมลงนูนหลวง</option>
+              <option value="12">12 : ด้วงหนวดยาว</option>
+              <option value="13">13 : ด้วงงวงอ้อย</option>
+              <option value="14">14 : หนู</option>
+              <option value="15">15 : หนอนกอลายแถบแดง</option>
+              <option value="16">16 : แมลงค่อมทอง</option>
+              <option value="17">17 : หนอนกระทู้ควายพระอินทร์</option>
+              <option value="18">18 : เพลี้ยแป้งสีชมพู</option>
+              <option value="19">19 : หนอนกระทู้ข้าวโพดลายจุด</option>
+              <option value="20">20 : จักจั่นอ้อย</option>
+              <option value="99">99 : อื่นๆ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="CODE12_DNG">ความรุนแรง %</label>
+            <input type="number" step="any" name="CODE12_DNG" id="CODE12_DNG" value="0.00" />
+          </div>
+          <div class="field">
+            <label for="CODE12_OUD">วันที่แก้ไข</label>
+            <input type="date" name="CODE12_OUD" id="CODE12_OUD" value="0000-00-00" />
+          </div>
+          <div class="field">
+            <label for="CODE15_12">การแก้ไข [15]</label>
+            <select name="CODE15_12" id="CODE15_12" style="background: #FFFFCC">
+              <option value="">---Select---</option>
+              <option value="01">01 : ไม่ทำอะไร</option>
+              <option value="02">02 : ปล่อยแตนเบียนไข่</option>
+              <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
+              <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
+              <option value="05">05 : ปล่อยไรตัวห้ำ</option>
+              <option value="06">06 : ปล่อยด้วงเต่า</option>
+              <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
+              <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
+              <option value="09">09 : ใช้ใส้เดือนฝอย</option>
+              <option value="10">10 : ใช้เชื้อไวรัส</option>
+              <option value="11">11 : ใช้เชื้อ B.T.</option>
+              <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
+              <option value="13">13 : ใช้วิธีกล</option>
+              <option value="14">14 : ใช้วิธีเขตกรรม</option>
+              <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
+              <option value="16">16 : ใช้สารเคมี</option>
+              <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
+              <option value="18">18 : รื้อทิ้ง</option>
+              <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
+              <option value="20">20 : ฉีดพ่น ยาดรากอน มูร่า</option>
+              <option value="99">99 : อื่นๆ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="CODE152QTY">อัตรา</label>
+            <input type="number" step="any" name="CODE152QTY" id="CODE152QTY" value="0.00" />
+          </div>
+          <div class="field">
+            <label for="CODE16_12">ผลลัพธ์</label>
+            <select name="CODE16_12" id="CODE16_12">
+              <option value="">---Select---</option>
+              <option value="01">ได้ผล</option>
+              <option value="00">ไม่ได้ผล</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="section-box">
+        <legend>โรคอ้อย</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="CODE13_IND">วันที่ตรวจพบ</label>
+            <input type="date" name="CODE13_IND" id="CODE13_IND" value="2026-05-08" />
+          </div>
+          <div class="field">
+            <label for="CODETP13">ชนิดโรค [13]</label>
+            <select name="CODETP13" id="CODETP13" style="background: #FFFFCC">
+              <option value="">---Select---</option>
+              <option value="01" selected>01 : แส้ดำ(Smut)</option>
+              <option value="02">02 : ใบขาว</option>
+              <option value="03">03 : เหี่ยวเน่าแดง</option>
+              <option value="04">04 : กอตะไคร้</option>
+              <option value="05">05 : ตอแคระแกรน</option>
+              <option value="06">06 : ฟิจิ</option>
+              <option value="07">07 : เน่ากลิ่นสับปะรด/ลำต้นเน่า</option>
+              <option value="08">08 : ท่อนพันธุ์เน่า</option>
+              <option value="09">09 : ยอดบิด(Pokkak Boeng)</option>
+              <option value="10">10 : เน่าคออ้อย(แบคทีรีโอซีส)</option>
+              <option value="11">11 : ใบจุดเหลือง</option>
+              <option value="12">12 : ราสนิม(Rust)</option>
+              <option value="13">13 : โรคเหี่ยว(Acremonium)</option>
+              <option value="14">14 : โรครากเน่า(Pythium)</option>
+              <option value="15">15 : โรคใบลวก</option>
+              <option value="16">16 : โรคใบด่าง</option>
+              <option value="99">99 : อื่นๆ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="CODE13_DNG">ความรุนแรง %</label>
+            <input type="number" step="any" name="CODE13_DNG" id="CODE13_DNG" value="2.00" />
+          </div>
+          <div class="field">
+            <label for="CODE13_OUD">วันที่แก้ไข</label>
+            <input type="date" name="CODE13_OUD" id="CODE13_OUD" value="2026-04-25" />
+          </div>
+          <div class="field">
+            <label for="CODE15_13">การแก้ไข [15]</label>
+            <select name="CODE15_13" id="CODE15_13" style="background: #FFFFCC">
+              <option value="">---Select---</option>
+              <option value="01">01 : ไม่ทำอะไร</option>
+              <option value="02">02 : ปล่อยแตนเบียนไข่</option>
+              <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
+              <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
+              <option value="05">05 : ปล่อยไรตัวห้ำ</option>
+              <option value="06">06 : ปล่อยด้วงเต่า</option>
+              <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
+              <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
+              <option value="09">09 : ใช้ใส้เดือนฝอย</option>
+              <option value="10">10 : ใช้เชื้อไวรัส</option>
+              <option value="11">11 : ใช้เชื้อ B.T.</option>
+              <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
+              <option value="13">13 : ใช้วิธีกล</option>
+              <option value="14">14 : ใช้วิธีเขตกรรม</option>
+              <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
+              <option value="16">16 : ใช้สารเคมี</option>
+              <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
+              <option value="18">18 : รื้อทิ้ง</option>
+              <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
+              <option value="20" selected>20 : ฉีดพ่น ยาดรากอน มูร่า</option>
+              <option value="99">99 : อื่นๆ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="CODE153QTY">อัตรา</label>
+            <input type="number" step="any" name="CODE153QTY" id="CODE153QTY" value="6.00" />
+          </div>
+          <div class="field">
+            <label for="CODE16_13">ผลลัพธ์</label>
+            <select name="CODE16_13" id="CODE16_13">
+              <option value="">---Select---</option>
+              <option value="01">ได้ผล</option>
+              <option value="00">ไม่ได้ผล</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
 
       <h2>5. ศักยภาพด้านการจัดการน้ำ</h2>
       <h3>ส่วนที่ 1: แหล่งน้ำ</h3>
