@@ -1067,6 +1067,60 @@
         </div>
       </div>
 
+      <h2>8. สำรวจพื้นที่หิน</h2>
+
+      <h3>ส่วนที่ 8.1: ลักษณะแปลง</h3>
+      <div class="choice-group">
+        <label class="choice">
+          <input type="radio" name="rockStatus" value="0" data-toggle-target="rock-details" checked /> ไม่พบหิน
+        </label>
+        <label class="choice">
+          <input type="radio" name="rockStatus" value="1" data-toggle-target="rock-details" /> พบหิน
+        </label>
+      </div>
+
+      <div id="rock-details" class="hidden" style="margin-top:12px;">
+
+        <h3>ส่วนที่ 8.2: ในกรณีพบหิน</h3>
+
+        <h3 style="font-size:14px; margin:10px 0 6px;">ส่วนที่ 8.2.1: ประเภทของหินที่พบ</h3>
+        <div class="choice-group">
+          <label class="choice"><input type="radio" name="rockType" value="01" /> หินดาน</label>
+          <label class="choice"><input type="radio" name="rockType" value="02" /> หินดาน+หินลอย</label>
+          <label class="choice"><input type="radio" name="rockType" value="03" /> หินกรวดลอยก้อนเล็ก</label>
+        </div>
+
+        <h3 style="font-size:14px; margin:14px 0 6px;">ส่วนที่ 8.2.2: สภาพหินที่พบ</h3>
+        <div class="choice-group" style="flex-direction:column; gap:8px;">
+          <label class="choice"><input type="radio" name="rockCondition" value="01" /> มีหินบางส่วนจัดการได้</label>
+          <label class="choice" style="flex-direction:column; align-items:flex-start; gap:6px;">
+            <span style="display:flex; align-items:center; gap:8px;">
+              <input type="radio" name="rockCondition" value="02" id="rockCondManage" /> มีหินทั้งแปลงจัดการได้
+            </span>
+            <div id="rock-manage-pct" class="hidden" style="padding-left:24px; display:flex; flex-direction:column; gap:6px;">
+              <label class="choice"><input type="radio" name="rockManagePct" value="01" /> น้อยกว่า 25%</label>
+              <label class="choice"><input type="radio" name="rockManagePct" value="02" /> ระหว่าง 25-50%</label>
+              <label class="choice"><input type="radio" name="rockManagePct" value="03" /> ระหว่าง 50-75%</label>
+              <label class="choice"><input type="radio" name="rockManagePct" value="04" /> มากกว่า 75%</label>
+            </div>
+          </label>
+          <label class="choice"><input type="radio" name="rockCondition" value="03" /> มีหินมาก ต้องใช้แรงงานคนเท่านั้น</label>
+        </div>
+
+        <h3 style="font-size:14px; margin:14px 0 6px;">ส่วนที่ 8.2.3: สิ่งกีดขวางในแปลง</h3>
+        <div class="choice-group">
+          <label class="choice"><input type="checkbox" name="rockObstacle" value="00" /> ไม่มี</label>
+          <label class="choice"><input type="checkbox" name="rockObstacle" value="01" /> ชุดโซล่าเซลล์</label>
+          <label class="choice"><input type="checkbox" name="rockObstacle" value="02" /> ตอไม้</label>
+          <label class="choice" style="gap:6px;">
+            <input type="checkbox" name="rockObstacle" value="99" id="rockObstacleOther" />
+            <span>อื่นๆ</span>
+            <input type="text" id="rockObstacleOtherText" name="rockObstacleOtherText" placeholder="ระบุ..." style="border:none; border-bottom:1px solid #aaa; outline:none; flex:1; font-size:14px;" />
+          </label>
+        </div>
+
+      </div>
+
       <h2>สรุปผลและข้อเสนอแนะ</h2>
       <div class="grid">
         <div class="field full">
@@ -1328,7 +1382,37 @@
       refreshGroup("otherDiseaseStatus");
       refreshGroup("otherPestStatus");
 
-      setupLiveCamera({
+      // Section 8: rock survey toggle
+      function updateRockDetails() {
+        const checked = document.querySelector("input[name='rockStatus']:checked");
+        const detail = document.getElementById("rock-details");
+        if (!detail) { return; }
+        const show = checked && checked.value === "1";
+        detail.classList.toggle("hidden", !show);
+      }
+
+      function updateRockManagePct() {
+        const checked = document.querySelector("input[name='rockCondition']:checked");
+        const pct = document.getElementById("rock-manage-pct");
+        if (!pct) { return; }
+        const show = checked && checked.value === "02";
+        pct.classList.toggle("hidden", !show);
+        if (!show) {
+          pct.querySelectorAll("input[type='radio']").forEach(function(r){ r.checked = false; });
+        }
+      }
+
+      document.querySelectorAll("input[name='rockStatus']").forEach(function(r) {
+        r.addEventListener("change", updateRockDetails);
+      });
+      document.querySelectorAll("input[name='rockCondition']").forEach(function(r) {
+        r.addEventListener("change", updateRockManagePct);
+      });
+
+      updateRockDetails();
+      updateRockManagePct();
+
+
         videoId: "cameraWideVideo",
         imageId: "cameraWideImage",
         hiddenId: "cameraWideData",
