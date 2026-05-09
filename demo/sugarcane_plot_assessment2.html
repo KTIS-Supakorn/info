@@ -4,28 +4,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>แบบฟอร์มบันทึกประเมินแปลงอ้อย</title>
+  <title>แบบฟอร์มบันทึกประเมินแปลงอ้อย — เวอร์ชัน 2 (ใหม่)</title>
   <style>
     * {
       box-sizing: border-box;
+    }
+
+    :root {
+      --page-bg: #f9f8f7;
+      --card-bg: #ffffff;
+      --card-border: #e0ddd8;
+      --primary-text: #2a2925;
+      --muted-text: #6b6b6b;
+      --focus-ring: #5a5a5a;
+      --smut-bg: #f5f5f5;
+      --smut-border: #5a5a5a;
+      --pest-main-bg: #f5f5f5;
+      --pest-main-border: #5a5a5a;
+      --disease-other-bg: #f5f5f5;
+      --disease-other-border: #5a5a5a;
+      --pest-other-bg: #f5f5f5;
+      --pest-other-border: #5a5a5a;
+      --weed-bg: #f5f5f5;
+      --weed-border: #5a5a5a;
     }
 
     body {
       margin: 0;
       padding: 24px;
       font-family: Tahoma, Arial, sans-serif;
-      background: #f5f7f2;
-      color: #222;
+      background: #ffffff;
+      color: var(--primary-text);
       line-height: 1.55;
     }
 
     .container {
       max-width: 1120px;
       margin: 0 auto;
-      background: #fff;
-      padding: 28px;
-      border-radius: 14px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      background: transparent;
+      padding: 28px 0;
+      border-radius: 0;
+      border: none;
+      box-shadow: none;
     }
 
     h1 {
@@ -37,15 +57,16 @@
 
     .subtitle {
       text-align: center;
-      color: #666;
+      color: var(--muted-text);
       margin-bottom: 24px;
     }
 
     h2 {
       margin: 30px 0 14px;
-      padding: 10px 14px;
-      background: #e7f3df;
+      padding: 11px 14px;
+      background: linear-gradient(90deg, #e7f3df 0%, #edf6e7 100%);
       border-left: 6px solid #4d9a34;
+      border-radius: 8px;
       font-size: 18px;
       color: #234b1b;
     }
@@ -98,12 +119,23 @@
     select,
     textarea {
       width: 100%;
-      padding: 9px 10px;
+      padding: 10px 11px;
       border: 1px solid #cfd8c8;
       border-radius: 7px;
       font-family: inherit;
-      font-size: 14px;
+      font-size: 15px;
       background: #fff;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="number"]:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--focus-ring);
+      box-shadow: 0 0 0 3px rgba(119, 169, 92, 0.2);
     }
 
     textarea {
@@ -122,10 +154,11 @@
       display: flex;
       gap: 8px;
       align-items: flex-start;
-      padding: 10px;
+      padding: 11px;
       border: 1px solid #dbe3d4;
       border-radius: 8px;
       background: #fbfdf9;
+      min-height: 44px;
     }
 
     .choice input {
@@ -135,6 +168,10 @@
 
     .full {
       grid-column: 1 / -1;
+    }
+
+    .hidden {
+      display: none !important;
     }
 
     .inline-fields {
@@ -186,10 +223,90 @@
       background: #fcfff9;
     }
 
+    .section-weed {
+      background: #f9fff6;
+      border-left: 6px solid #5f9b47;
+    }
+
+    .weed-alert {
+      background: var(--weed-bg);
+      border: 1px solid #efc3c3;
+      border-left: 6px solid var(--weed-border);
+      border-radius: 10px;
+      padding: 10px;
+      margin-top: 4px;
+    }
+
+    .weed-alert .choice {
+      background: transparent;
+      border: none;
+      padding: 0;
+      min-height: auto;
+    }
+
+    .weed-detail-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #efc3c3;
+      background: #fff8f8;
+    }
+
     .section-box legend {
       padding: 0 8px;
       font-weight: 700;
       color: #234b1b;
+    }
+
+    .inspect-heading {
+      margin-top: 20px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border-left: 6px solid transparent;
+    }
+
+    .section-smut {
+      background: #fcfff9;
+      border-left: 6px solid #5f9b47;
+    }
+
+    .heading-smut {
+      background: #e8f5e0;
+      border-left-color: #5f9b47;
+      color: var(--primary-text);
+    }
+
+    .section-pest-main {
+      background: #fcfff9;
+      border-left: 6px solid #5f9b47;
+    }
+
+    .heading-pest-main {
+      background: #e8f5e0;
+      border-left-color: #5f9b47;
+      color: var(--primary-text);
+    }
+
+    .section-disease-other {
+      background: #fcfff9;
+      border-left: 6px solid #5f9b47;
+    }
+
+    .heading-disease-other {
+      background: #e8f5e0;
+      border-left-color: #5f9b47;
+      color: var(--primary-text);
+    }
+
+    .section-pest-other {
+      background: #fcfff9;
+      border-left: 6px solid #5f9b47;
+    }
+
+    .heading-pest-other {
+      background: #e8f5e0;
+      border-left-color: #5f9b47;
+      color: var(--primary-text);
     }
 
     table {
@@ -225,6 +342,12 @@
       cursor: pointer;
       font-size: 15px;
       font-family: inherit;
+      transition: transform 0.15s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
 
     .btn-print {
@@ -237,18 +360,113 @@
       color: #222;
     }
 
+    .borer-note {
+      margin: 8px 0 0;
+      padding: 10px 12px;
+      border: 1px solid #d9e3d0;
+      border-left: 5px solid #5f9b47;
+      border-radius: 8px;
+      background: #f6fbf3;
+      font-size: 14px;
+      color: #2c4b26;
+    }
+
+    .camera-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .camera-card {
+      border: 1px solid #d9e3d0;
+      border-radius: 10px;
+      padding: 12px;
+      background: #fcfff9;
+    }
+
+    .camera-title {
+      margin: 0 0 10px;
+      font-weight: 700;
+      color: #234b1b;
+    }
+
+    .camera-preview {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border: 1px solid #cfd8c8;
+      border-radius: 8px;
+      background: #f1f5ed;
+      object-fit: cover;
+    }
+
+    .camera-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .camera-btn {
+      border: 1px solid #9db48f;
+      border-radius: 7px;
+      padding: 8px 10px;
+      font-size: 14px;
+      background: #fff;
+      color: #234b1b;
+      cursor: pointer;
+    }
+
+    .camera-status {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #4a6343;
+    }
+
     @media (max-width: 780px) {
       body {
         padding: 12px;
       }
 
       .container {
-        padding: 18px;
+        padding: 14px;
+        border-radius: 12px;
+      }
+
+      h3 {
+        font-size: 15px;
+      }
+
+      h2 {
+        font-size: 16px;
+        padding: 10px 12px;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="number"],
+      select,
+      textarea {
+        font-size: 16px;
+      }
+
+      .inspect-heading {
+        padding: 10px 12px;
+        border-left-width: 8px;
+      }
+
+      .section-box {
+        padding: 12px;
+      }
+
+      .choice {
+        padding: 10px;
       }
 
       .grid,
       .choice-group,
-      .criteria {
+      .criteria,
+      .camera-grid {
         grid-template-columns: 1fr;
       }
 
@@ -291,8 +509,16 @@
 
 <body>
   <div class="container">
-    <h1>แบบฟอร์มบันทึกประเมินแปลงอ้อย</h1>
-    <div class="subtitle">สำหรับบันทึกข้อมูลภาคสนาม ดิน วัชพืช โรคแมลง น้ำ ใบอ้อย และคาดการณ์ผลผลิต</div>
+    <div style="display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:8px;">
+      <div>
+        <h1 style="margin:0;">แบบฟอร์มบันทึกประเมินแปลงอ้อย</h1>
+        <div class="subtitle" style="margin-top:4px;">สำหรับบันทึกข้อมูลภาคสนาม ดิน วัชพืช โรคแมลง น้ำ ใบอ้อย และคาดการณ์ผลผลิต</div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:6px; flex-shrink:0;">
+        <span style="background:#166534; color:#fff; font-size:11px; font-weight:700; padding:3px 10px; border-radius:12px; letter-spacing:0.5px;">เวอร์ชัน 2 (ใหม่)</span>
+        <a href="sugarcane_plot_assessment_compare.html" style="font-size:12px; color:#1a56db; text-decoration:none; border:1px solid #1a56db; border-radius:6px; padding:3px 10px; white-space:nowrap;">⇄ เปรียบเทียบ v1 / v2</a>
+      </div>
+    </div>
 
     <form>
       <h2>ข้อมูลทั่วไป</h2>
@@ -347,7 +573,8 @@
           <img src="1485388.png" alt="">
         </div>
       </div>
-      <h3>ส่วนที่ 2: จุดสังเกตพิเศษในเนื้อดิน เลือกได้มากกว่า 1 ข้อ</h3>
+      <h3>ส่วนที่ 2: จุดสังเกตพิเศษในเนื้อดิน</h3>
+      <p style="font-size:13px; color:#6b7280; margin: 4px 0 12px; font-style:italic;">ข้อความด้านล่างเป็นคำอธิบายลักษณะดินแต่ละกลุ่ม (เพื่ออ่านประกอบ ไม่ใช่ตัวเลือก)</p>
       <div class="criteria">
         <div class="criteria-card">
           <strong>กลุ่มดินตื้นมีปูน</strong>
@@ -378,183 +605,111 @@
 
 
       <h2>3. ฟอร์มตรวจวัชพืช</h2>
-      <fieldset class="section-box">
+      <fieldset class="section-box section-weed">
         <legend>สภาพวัชพืช</legend>
         <div class="grid">
           <div class="field">
             <label for="CODETP26">สภาพวัชพืช [26]</label>
             <select name="CODETP26" id="CODETP26" style="background: #FFFFCC">
               <option value="">---Select---</option>
-              <option value="01" selected>01 : ไม่รก</option>
+              <option value="01">01 : ไม่รก</option>
               <option value="02">02 : เริ่มรก</option>
               <option value="03">03 : รกมาก</option>
             </select>
           </div>
           <div class="field">
             <label for="CODE26_DTE">วันที่</label>
-            <input type="date" name="CODE26_DTE" id="CODE26_DTE" value="2026-05-08" />
+            <input type="date" name="CODE26_DTE" id="CODE26_DTE" value="" />
           </div>
           <div class="field">
-            <label for="CANE_HIGH2">ความสูงวัชพืช / ซม. (RP)</label>
+            <label for="CANE_HIGH2">ความสูงวัชพืช / ซม.</label>
             <input type="number" step="any" name="CANE_HIGH2" id="CANE_HIGH2" value="0.00" />
+          </div>
+          <div class="field full weed-alert">
+            <label class="choice">
+              <input type="checkbox" id="weedSevereFlag" name="weedSevereFlag" data-toggle-target="weed-severe-details" />
+              มีวัชพืชร้ายแรงในแปลง
+            </label>
+          </div>
+          <div id="weed-severe-details" class="full hidden weed-detail-box">
+            <div class="grid">
+              <div class="field">
+                <label for="weedSevereType">ชนิดวัชพืชร้ายแรง</label>
+                <input type="text" id="weedSevereType" name="weedSevereType" placeholder="ระบุชนิดวัชพืช" />
+              </div>
+              <div class="field">
+                <label for="weedSevereCoverage">พื้นที่ระบาดโดยประมาณ (%)</label>
+                <input type="number" step="any" id="weedSevereCoverage" name="weedSevereCoverage" value="0.00" />
+              </div>
+              <div class="field">
+                <label for="weedSevereAction">แนวทางจัดการ</label>
+                <select id="weedSevereAction" name="weedSevereAction" style="background: #FFFFCC">
+                  <option value="">---Select---</option>
+                  <option value="01">01 : ถอน/ตัดทำลายเฉพาะจุด</option>
+                  <option value="02">02 : ฉีดพ่นสารกำจัดวัชพืช</option>
+                  <option value="03">03 : คลุมดิน/จัดการเขตกรรม</option>
+                  <option value="99">99 : อื่นๆ</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="weedSevereDate">วันที่ดำเนินการ</label>
+                <input type="date" id="weedSevereDate" name="weedSevereDate" />
+              </div>
+              <div class="field full">
+                <label for="weedSevereRemark">หมายเหตุวัชพืชร้ายแรง</label>
+                <textarea id="weedSevereRemark" name="weedSevereRemark"></textarea>
+              </div>
+            </div>
           </div>
         </div>
       </fieldset>
 
       <h2>4. การจัดการด้านโรคและแมลง</h2>
-      
-      <fieldset class="section-box">
-        <legend>แมลงศัตรูอ้อย</legend>
+      <h3 class="inspect-heading heading-smut">ส่วนที่ 1: โรคแส้ดำ</h3>
+      <fieldset class="section-box section-smut">
+        <legend>โรคแส้ดำ (Smut)</legend>
         <div class="grid">
-          <div class="field">
-            <label for="CODE12_IND">วันที่ตรวจพบ</label>
-            <input type="date" name="CODE12_IND" id="CODE12_IND" value="0000-00-00" />
-          </div>
-          <div class="field">
-            <label for="CODETP12">ชนิดแมลง [12]</label>
-            <select name="CODETP12" id="CODETP12" style="background: #FFFFCC">
-              <option value="">---Select---</option>
-              <option value="01">01 : หนอนกอสีขาว</option>
-              <option value="02">02 : หนอนกอลายจุดใหญ่</option>
-              <option value="03">03 : หนอนกอลายจุดเล็ก</option>
-              <option value="04">04 : หนอนกอลายแถบ</option>
-              <option value="05">05 : หนอนกอสีชมพู</option>
-              <option value="06">06 : แมลงหวี่ขาว</option>
-              <option value="07">07 : ไรแดง</option>
-              <option value="08">08 : ปลวก</option>
-              <option value="09">09 : ตั๊กแตน</option>
-              <option value="10">10 : เพลี้ยต่างๆ</option>
-              <option value="11">11 : แมลงนูนหลวง</option>
-              <option value="12">12 : ด้วงหนวดยาว</option>
-              <option value="13">13 : ด้วงงวงอ้อย</option>
-              <option value="14">14 : หนู</option>
-              <option value="15">15 : หนอนกอลายแถบแดง</option>
-              <option value="16">16 : แมลงค่อมทอง</option>
-              <option value="17">17 : หนอนกระทู้ควายพระอินทร์</option>
-              <option value="18">18 : เพลี้ยแป้งสีชมพู</option>
-              <option value="19">19 : หนอนกระทู้ข้าวโพดลายจุด</option>
-              <option value="20">20 : จักจั่นอ้อย</option>
-              <option value="99">99 : อื่นๆ</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="CODE12_DNG">ความรุนแรง %</label>
-            <input type="number" step="any" name="CODE12_DNG" id="CODE12_DNG" value="0.00" />
-          </div>
-          <div class="field">
-            <label for="CODE12_OUD">วันที่แก้ไข</label>
-            <input type="date" name="CODE12_OUD" id="CODE12_OUD" value="0000-00-00" />
-          </div>
-          <div class="field">
-            <label for="CODE15_12">การแก้ไข [15]</label>
-            <select name="CODE15_12" id="CODE15_12" style="background: #FFFFCC">
-              <option value="">---Select---</option>
-              <option value="01">01 : ไม่ทำอะไร</option>
-              <option value="02">02 : ปล่อยแตนเบียนไข่</option>
-              <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
-              <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
-              <option value="05">05 : ปล่อยไรตัวห้ำ</option>
-              <option value="06">06 : ปล่อยด้วงเต่า</option>
-              <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
-              <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
-              <option value="09">09 : ใช้ใส้เดือนฝอย</option>
-              <option value="10">10 : ใช้เชื้อไวรัส</option>
-              <option value="11">11 : ใช้เชื้อ B.T.</option>
-              <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
-              <option value="13">13 : ใช้วิธีกล</option>
-              <option value="14">14 : ใช้วิธีเขตกรรม</option>
-              <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
-              <option value="16">16 : ใช้สารเคมี</option>
-              <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
-              <option value="18">18 : รื้อทิ้ง</option>
-              <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
-              <option value="20">20 : ฉีดพ่น ยาดรากอน มูร่า</option>
-              <option value="99">99 : อื่นๆ</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="CODE152QTY">อัตรา</label>
-            <input type="number" step="any" name="CODE152QTY" id="CODE152QTY" value="0.00" />
-          </div>
-          <div class="field">
-            <label for="CODE16_12">ผลลัพธ์</label>
-            <select name="CODE16_12" id="CODE16_12">
-              <option value="">---Select---</option>
-              <option value="01">ได้ผล</option>
-              <option value="00">ไม่ได้ผล</option>
-            </select>
-          </div>
-        </div>
-      </fieldset>
-
-      <fieldset class="section-box">
-        <legend>โรคอ้อย</legend>
-        <div class="grid">
-          <div class="field">
-            <label for="CODE13_IND">วันที่ตรวจพบ</label>
-            <input type="date" name="CODE13_IND" id="CODE13_IND" value="2026-05-08" />
-          </div>
-          <div class="field">
-            <label for="CODETP13">ชนิดโรค [13]</label>
+          <div class="field full">
+            <label for="CODETP13">สถานะโรคแส้ดำ [13] (พบไหม)</label>
             <select name="CODETP13" id="CODETP13" style="background: #FFFFCC">
               <option value="">---Select---</option>
-              <option value="01" selected>01 : แส้ดำ(Smut)</option>
-              <option value="02">02 : ใบขาว</option>
-              <option value="03">03 : เหี่ยวเน่าแดง</option>
-              <option value="04">04 : กอตะไคร้</option>
-              <option value="05">05 : ตอแคระแกรน</option>
-              <option value="06">06 : ฟิจิ</option>
-              <option value="07">07 : เน่ากลิ่นสับปะรด/ลำต้นเน่า</option>
-              <option value="08">08 : ท่อนพันธุ์เน่า</option>
-              <option value="09">09 : ยอดบิด(Pokkak Boeng)</option>
-              <option value="10">10 : เน่าคออ้อย(แบคทีรีโอซีส)</option>
-              <option value="11">11 : ใบจุดเหลือง</option>
-              <option value="12">12 : ราสนิม(Rust)</option>
-              <option value="13">13 : โรคเหี่ยว(Acremonium)</option>
-              <option value="14">14 : โรครากเน่า(Pythium)</option>
-              <option value="15">15 : โรคใบลวก</option>
-              <option value="16">16 : โรคใบด่าง</option>
-              <option value="99">99 : อื่นๆ</option>
+              <option value="00">00 : ไม่พบ</option>
+              <option value="01">01 : พบเล็กน้อย</option>
+              <option value="02">02 : พบปานกลาง</option>
+              <option value="03">03 : พบรุนแรง</option>
             </select>
+          </div>
+          <div id="smut-details-container" class="full hidden">
+            <div class="grid">
+          <div class="field">
+            <label for="CODE13_IND">วันที่ตรวจพบ</label>
+            <input type="date" name="CODE13_IND" id="CODE13_IND" />
           </div>
           <div class="field">
             <label for="CODE13_DNG">ความรุนแรง %</label>
-            <input type="number" step="any" name="CODE13_DNG" id="CODE13_DNG" value="2.00" />
+            <input type="number" step="any" name="CODE13_DNG" id="CODE13_DNG" value="0.00" />
           </div>
           <div class="field">
             <label for="CODE13_OUD">วันที่แก้ไข</label>
-            <input type="date" name="CODE13_OUD" id="CODE13_OUD" value="2026-04-25" />
+            <input type="date" name="CODE13_OUD" id="CODE13_OUD" />
           </div>
           <div class="field">
             <label for="CODE15_13">การแก้ไข [15]</label>
             <select name="CODE15_13" id="CODE15_13" style="background: #FFFFCC">
               <option value="">---Select---</option>
-              <option value="01">01 : ไม่ทำอะไร</option>
-              <option value="02">02 : ปล่อยแตนเบียนไข่</option>
-              <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
-              <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
-              <option value="05">05 : ปล่อยไรตัวห้ำ</option>
-              <option value="06">06 : ปล่อยด้วงเต่า</option>
-              <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
-              <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
-              <option value="09">09 : ใช้ใส้เดือนฝอย</option>
-              <option value="10">10 : ใช้เชื้อไวรัส</option>
-              <option value="11">11 : ใช้เชื้อ B.T.</option>
-              <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
+              <option value="01">01 : ไม่ทำอะไรเลย</option>
               <option value="13">13 : ใช้วิธีกล</option>
               <option value="14">14 : ใช้วิธีเขตกรรม</option>
               <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
               <option value="16">16 : ใช้สารเคมี</option>
               <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
               <option value="18">18 : รื้อทิ้ง</option>
-              <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
-              <option value="20" selected>20 : ฉีดพ่น ยาดรากอน มูร่า</option>
-              <option value="99">99 : อื่นๆ</option>
+              <option value="20">20 : ฉีดพ่นยาดรากอนมูร่า</option>
             </select>
           </div>
           <div class="field">
             <label for="CODE153QTY">อัตรา</label>
-            <input type="number" step="any" name="CODE153QTY" id="CODE153QTY" value="6.00" />
+            <input type="number" step="any" name="CODE153QTY" id="CODE153QTY" value="0.00" />
           </div>
           <div class="field">
             <label for="CODE16_13">ผลลัพธ์</label>
@@ -564,19 +719,307 @@
               <option value="00">ไม่ได้ผล</option>
             </select>
           </div>
+          <div class="field full">
+            <label for="smutRemark">หมายเหตุ</label>
+            <textarea id="smutRemark" name="smutRemark"></textarea>
+          </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <h3 class="inspect-heading heading-pest-main">4.2 แมลงศัตรูอ้อย</h3>
+      <div class="borer-note">ข้อ 4.2 นี้ประเมินเฉพาะกลุ่มหนอนกอเท่านั้น</div>
+      <fieldset class="section-box section-pest-main">
+        <legend>แมลงศัตรูหลัก</legend>
+        <div class="grid">
+          <div class="field full">
+            <label for="CODETP12">ชนิดแมลง [12]</label>
+            <select name="CODETP12" id="CODETP12" style="background: #FFFFCC">
+              <option value="">---Select---</option>
+              <option value="01">01 : หนอนกอสีขาว</option>
+              <option value="02">02 : หนอนกอลายจุดใหญ่</option>
+              <option value="03">03 : หนอนกอลายจุดเล็ก</option>
+              <option value="04">04 : หนอนกอลายแถบ</option>
+              <option value="05">05 : หนอนกอสีชมพู</option>
+              <option value="15">15 : หนอนกอลายแถบแดง</option>
+            </select>
+          </div>
+          <div id="pest-details-container" class="full hidden">
+            <div class="grid">
+              <div class="field">
+                <label for="CODE12_IND">วันที่ตรวจพบ</label>
+                <input type="date" name="CODE12_IND" id="CODE12_IND" />
+              </div>
+              <div class="field">
+                <label for="CODE12_DNG">ความรุนแรง %</label>
+                <input type="number" step="any" name="CODE12_DNG" id="CODE12_DNG" value="0.00" />
+              </div>
+              <div class="field">
+                <label for="CODE12_OUD">วันที่แก้ไข</label>
+                <input type="date" name="CODE12_OUD" id="CODE12_OUD" />
+              </div>
+              <div class="field">
+                <label for="CODE15_12">การแก้ไข [15]</label>
+                <select name="CODE15_12" id="CODE15_12" style="background: #FFFFCC">
+                  <option value="">---Select---</option>
+                  <option value="01">01 : ไม่ทำอะไร</option>
+                  <option value="02">02 : ปล่อยแตนเบียนไข่</option>
+                  <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
+                  <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
+                  <option value="05">05 : ปล่อยไรตัวห้ำ</option>
+                  <option value="06">06 : ปล่อยด้วงเต่า</option>
+                  <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
+                  <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
+                  <option value="09">09 : ใช้ใส้เดือนฝอย</option>
+                  <option value="10">10 : ใช้เชื้อไวรัส</option>
+                  <option value="11">11 : ใช้เชื้อ B.T.</option>
+                  <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
+                  <option value="13">13 : ใช้วิธีกล</option>
+                  <option value="14">14 : ใช้วิธีเขตกรรม</option>
+                  <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
+                  <option value="16">16 : ใช้สารเคมี</option>
+                  <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
+                  <option value="18">18 : รื้อทิ้ง</option>
+                  <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
+                  <option value="20">20 : ฉีดพ่น ยาดรากอน มูร่า</option>
+                  <option value="99">99 : อื่นๆ</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="CODE152QTY">อัตรา</label>
+                <input type="number" step="any" name="CODE152QTY" id="CODE152QTY" value="0.00" />
+              </div>
+              <div class="field">
+                <label for="CODE16_12">ผลลัพธ์</label>
+                <select name="CODE16_12" id="CODE16_12">
+                  <option value="">---Select---</option>
+                  <option value="01">ได้ผล</option>
+                  <option value="00">ไม่ได้ผล</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label for="borerRemark">หมายเหตุ</label>
+                <textarea id="borerRemark" name="borerRemark"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <h3 class="inspect-heading heading-disease-other">4.3 โรคอื่นๆ (ถ้ามี)</h3>
+      <fieldset class="section-box section-disease-other">
+        <legend>โรคอื่นๆ</legend>
+        <div class="choice-group">
+          <label class="choice"><input type="radio" name="otherDiseaseStatus" value="0" data-toggle-target="other-disease-details" checked /> ไม่มี</label>
+          <label class="choice"><input type="radio" name="otherDiseaseStatus" value="1" data-toggle-target="other-disease-details" /> มี</label>
+        </div>
+        <div id="other-disease-details" class="hidden" style="margin-top: 12px;">
+          <div class="grid">
+            <div class="field">
+              <label for="otherDiseaseCode">ชนิดโรคอื่น [13]</label>
+              <select name="otherDiseaseCode" id="otherDiseaseCode" style="background: #FFFFCC">
+                <option value="">---Select---</option>
+                <option value="02">02 : ใบขาว</option>
+                <option value="03">03 : เหี่ยวเน่าแดง</option>
+                <option value="04">04 : กอตะไคร้</option>
+                <option value="05">05 : ตอแคระแกรน</option>
+                <option value="06">06 : ฟิจิ</option>
+                <option value="07">07 : เน่ากลิ่นสับปะรด/ลำต้นเน่า</option>
+                <option value="08">08 : ท่อนพันธุ์เน่า</option>
+                <option value="09">09 : ยอดบิด(Pokkak Boeng)</option>
+                <option value="10">10 : เน่าคออ้อย(แบคทีรีโอซีส)</option>
+                <option value="11">11 : ใบจุดเหลือง</option>
+                <option value="12">12 : ราสนิม(Rust)</option>
+                <option value="13">13 : โรคเหี่ยว(Acremonium)</option>
+                <option value="14">14 : โรครากเน่า(Pythium)</option>
+                <option value="15">15 : โรคใบลวก</option>
+                <option value="16">16 : โรคใบด่าง</option>
+                <option value="99">99 : อื่นๆ</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="otherDiseaseDate">วันที่ตรวจพบ</label>
+              <input type="date" name="otherDiseaseDate" id="otherDiseaseDate" />
+            </div>
+            <div class="field">
+              <label for="otherDiseaseSeverity">ความรุนแรง %</label>
+              <input type="number" step="any" name="otherDiseaseSeverity" id="otherDiseaseSeverity" value="0.00" />
+            </div>
+            <div class="field">
+              <label for="otherDiseaseFixDate">วันที่แก้ไข</label>
+              <input type="date" name="otherDiseaseFixDate" id="otherDiseaseFixDate" />
+            </div>
+            <div class="field">
+              <label for="otherDiseaseFix">การแก้ไข [15]</label>
+              <select name="otherDiseaseFix" id="otherDiseaseFix" style="background: #FFFFCC">
+                <option value="">---Select---</option>
+                <option value="01">01 : ไม่ทำอะไร</option>
+                <option value="02">02 : ปล่อยแตนเบียนไข่</option>
+                <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
+                <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
+                <option value="05">05 : ปล่อยไรตัวห้ำ</option>
+                <option value="06">06 : ปล่อยด้วงเต่า</option>
+                <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
+                <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
+                <option value="09">09 : ใช้ใส้เดือนฝอย</option>
+                <option value="10">10 : ใช้เชื้อไวรัส</option>
+                <option value="11">11 : ใช้เชื้อ B.T.</option>
+                <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
+                <option value="13">13 : ใช้วิธีกล</option>
+                <option value="14">14 : ใช้วิธีเขตกรรม</option>
+                <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
+                <option value="16">16 : ใช้สารเคมี</option>
+                <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
+                <option value="18">18 : รื้อทิ้ง</option>
+                <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
+                <option value="20">20 : ฉีดพ่น ยาดรากอน มูร่า</option>
+                <option value="99">99 : อื่นๆ</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="otherDiseaseRate">อัตรา</label>
+              <input type="number" step="any" name="otherDiseaseRate" id="otherDiseaseRate" value="0.00" />
+            </div>
+            <div class="field">
+              <label for="otherDiseaseResult">ผลลัพธ์</label>
+              <select name="otherDiseaseResult" id="otherDiseaseResult">
+                <option value="">---Select---</option>
+                <option value="01">ได้ผล</option>
+                <option value="00">ไม่ได้ผล</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="otherDiseaseRemark">หมายเหตุ</label>
+              <textarea id="otherDiseaseRemark" name="otherDiseaseRemark"></textarea>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <h3 class="inspect-heading heading-pest-other">4.4 แมลงอื่นๆ (ถ้ามี)</h3>
+      <fieldset class="section-box section-pest-other">
+        <legend>แมลงอื่นๆ</legend>
+        <div class="choice-group">
+          <label class="choice"><input type="radio" name="otherPestStatus" value="0" data-toggle-target="other-pest-details" checked /> ไม่มี</label>
+          <label class="choice"><input type="radio" name="otherPestStatus" value="1" data-toggle-target="other-pest-details" /> มี</label>
+        </div>
+        <div id="other-pest-details" class="hidden" style="margin-top: 12px;">
+          <div class="grid">
+            <div class="field">
+              <label for="otherPestCode">ชนิดแมลงอื่น [12]</label>
+              <select name="otherPestCode" id="otherPestCode" style="background: #FFFFCC">
+                <option value="">---Select---</option>
+                <option value="01">01 : หนอนกอสีขาว</option>
+                <option value="02">02 : หนอนกอลายจุดใหญ่</option>
+                <option value="03">03 : หนอนกอลายจุดเล็ก</option>
+                <option value="04">04 : หนอนกอลายแถบ</option>
+                <option value="05">05 : หนอนกอสีชมพู</option>
+                <option value="06">06 : แมลงหวี่ขาว</option>
+                <option value="07">07 : ไรแดง</option>
+                <option value="08">08 : ปลวก</option>
+                <option value="09">09 : ตั๊กแตน</option>
+                <option value="10">10 : เพลี้ยต่างๆ</option>
+                <option value="11">11 : แมลงนูนหลวง</option>
+                <option value="12">12 : ด้วงหนวดยาว</option>
+                <option value="13">13 : ด้วงงวงอ้อย</option>
+                <option value="14">14 : หนู</option>
+                <option value="15">15 : หนอนกอลายแถบแดง</option>
+                <option value="16">16 : แมลงค่อมทอง</option>
+                <option value="17">17 : หนอนกระทู้ควายพระอินทร์</option>
+                <option value="18">18 : เพลี้ยแป้งสีชมพู</option>
+                <option value="19">19 : หนอนกระทู้ข้าวโพดลายจุด</option>
+                <option value="20">20 : จักจั่นอ้อย</option>
+                <option value="99">99 : อื่นๆ</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="otherPestDate">วันที่ตรวจพบ</label>
+              <input type="date" name="otherPestDate" id="otherPestDate" />
+            </div>
+            <div class="field">
+              <label for="otherPestSeverity">ความรุนแรง %</label>
+              <input type="number" step="any" name="otherPestSeverity" id="otherPestSeverity" value="0.00" />
+            </div>
+            <div class="field">
+              <label for="otherPestFixDate">วันที่แก้ไข</label>
+              <input type="date" name="otherPestFixDate" id="otherPestFixDate" />
+            </div>
+            <div class="field">
+              <label for="otherPestFix">การแก้ไข [15]</label>
+              <select name="otherPestFix" id="otherPestFix" style="background: #FFFFCC">
+                <option value="">---Select---</option>
+                <option value="01">01 : ไม่ทำอะไร</option>
+                <option value="02">02 : ปล่อยแตนเบียนไข่</option>
+                <option value="03">03 : ปล่อยแตนเบียนหนอน</option>
+                <option value="04">04 : ปล่อยแมลงหางหนีบ</option>
+                <option value="05">05 : ปล่อยไรตัวห้ำ</option>
+                <option value="06">06 : ปล่อยด้วงเต่า</option>
+                <option value="07">07 : ปล่อยมวนพิฆาต,มวนเพชรฆาต</option>
+                <option value="08">08 : ใช้เชื้อรา Metarhizium</option>
+                <option value="09">09 : ใช้ใส้เดือนฝอย</option>
+                <option value="10">10 : ใช้เชื้อไวรัส</option>
+                <option value="11">11 : ใช้เชื้อ B.T.</option>
+                <option value="12">12 : ใช้ปิโตรเลี่ยม สเปร์ ออยส์</option>
+                <option value="13">13 : ใช้วิธีกล</option>
+                <option value="14">14 : ใช้วิธีเขตกรรม</option>
+                <option value="15">15 : ใช้สารสกัดชีวภาพ(น้ำหมัก)</option>
+                <option value="16">16 : ใช้สารเคมี</option>
+                <option value="17">17 : ใช้วิธีผสมผสาน(IPM)</option>
+                <option value="18">18 : รื้อทิ้ง</option>
+                <option value="19">19 : ใช้เชื้อรา(Beuvaria)</option>
+                <option value="20">20 : ฉีดพ่น ยาดรากอน มูร่า</option>
+                <option value="99">99 : อื่นๆ</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="otherPestRate">อัตรา</label>
+              <input type="number" step="any" name="otherPestRate" id="otherPestRate" value="0.00" />
+            </div>
+            <div class="field">
+              <label for="otherPestResult">ผลลัพธ์</label>
+              <select name="otherPestResult" id="otherPestResult">
+                <option value="">---Select---</option>
+                <option value="01">ได้ผล</option>
+                <option value="00">ไม่ได้ผล</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="otherPestRemark">หมายเหตุ</label>
+              <textarea id="otherPestRemark" name="otherPestRemark"></textarea>
+            </div>
+          </div>
         </div>
       </fieldset>
 
       <h2>5. ศักยภาพด้านการจัดการน้ำ</h2>
       <h3>ส่วนที่ 1: แหล่งน้ำ</h3>
       <div class="choice-group">
-        <label class="choice"><input type="checkbox" name="waterSource" /> สระน้ำ <input type="number"
-            placeholder="จำนวนสระ" style="margin-left:auto; max-width:120px;" /></label>
-        <label class="choice"><input type="checkbox" name="waterSource" /> บ่อบาดาล <input type="number"
-            placeholder="จำนวนบ่อ" style="margin-left:auto; max-width:120px;" /></label>
-        <label class="choice"><input type="checkbox" name="waterSource" /> อื่นๆ <input type="text" placeholder="ระบุ"
-            style="margin-left:auto; max-width:180px;" /></label>
-        <label class="choice"><input type="checkbox" name="waterSource" /> ไม่มีแหล่งน้ำ</label>
+        <label class="choice" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" name="waterSource" />
+            <span>สระน้ำ</span>
+          </div>
+          <input type="number" placeholder="จำนวนสระ" style="width: 100%;" />
+        </label>
+        <label class="choice" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" name="waterSource" />
+            <span>บ่อบาดาล</span>
+          </div>
+          <input type="number" placeholder="จำนวนบ่อ" style="width: 100%;" />
+        </label>
+        <label class="choice" style="flex-direction: column; align-items: flex-start; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <input type="checkbox" name="waterSource" />
+            <span>อื่นๆ</span>
+          </div>
+          <input type="text" placeholder="ระบุ" style="width: 100%;" />
+        </label>
+        <label class="choice">
+          <input type="checkbox" name="waterSource" />
+          <span>ไม่มีแหล่งน้ำ</span>
+        </label>
       </div>
 
       <h3>ส่วนที่ 2: ให้น้ำได้กี่ครั้ง</h3>
@@ -633,9 +1076,34 @@
         </div>
       </div>
 
-      <div class="note-box">
-        หมายเหตุ: แบบฟอร์มนี้จัดทำตามหัวข้อจากไฟล์ประเมินแปลงอ้อยที่แนบมา
-        และออกแบบให้ใช้กรอกข้อมูลภาคสนามหรือพิมพ์เป็นกระดาษได้
+      <h3>ภาพถ่ายแปลง (ถ่ายสดจากกล้อง)</h3>
+      <div class="note-box">กรุณาถ่ายภาพสดจากแปลง 2 รูป ได้แก่ มุมกว้าง และมุมแคบ</div>
+      <div class="camera-grid">
+        <div class="camera-card">
+          <p class="camera-title">รูปที่ 1 : มุมกว้าง</p>
+          <video id="cameraWideVideo" class="camera-preview" autoplay playsinline muted></video>
+          <img id="cameraWideImage" class="camera-preview hidden" alt="ภาพมุมกว้าง" />
+          <input type="hidden" id="cameraWideData" name="cameraWideData" />
+          <div class="camera-controls">
+            <button type="button" class="camera-btn" id="cameraWideStart">เปิดกล้อง</button>
+            <button type="button" class="camera-btn" id="cameraWideCapture">ถ่ายภาพ</button>
+            <button type="button" class="camera-btn" id="cameraWideReset">ถ่ายใหม่</button>
+          </div>
+          <div class="camera-status" id="cameraWideStatus">ยังไม่ได้ถ่ายภาพ</div>
+        </div>
+
+        <div class="camera-card">
+          <p class="camera-title">รูปที่ 2 : มุมแคบ</p>
+          <video id="cameraNarrowVideo" class="camera-preview" autoplay playsinline muted></video>
+          <img id="cameraNarrowImage" class="camera-preview hidden" alt="ภาพมุมแคบ" />
+          <input type="hidden" id="cameraNarrowData" name="cameraNarrowData" />
+          <div class="camera-controls">
+            <button type="button" class="camera-btn" id="cameraNarrowStart">เปิดกล้อง</button>
+            <button type="button" class="camera-btn" id="cameraNarrowCapture">ถ่ายภาพ</button>
+            <button type="button" class="camera-btn" id="cameraNarrowReset">ถ่ายใหม่</button>
+          </div>
+          <div class="camera-status" id="cameraNarrowStatus">ยังไม่ได้ถ่ายภาพ</div>
+        </div>
       </div>
 
       <div class="actions">
@@ -644,6 +1112,223 @@
       </div>
     </form>
   </div>
+
+  <script>
+    function resetContainerInputs(container) {
+      const inputs = container.querySelectorAll("input, select, textarea");
+      inputs.forEach(function (input) {
+        if (input.type === "radio" || input.type === "checkbox") {
+          input.checked = false;
+        } else if (input.tagName === "SELECT") {
+          input.selectedIndex = 0;
+        } else if (input.type === "number") {
+          input.value = "0.00";
+        } else {
+          input.value = "";
+        }
+      });
+    }
+
+    function togglePestDetails() {
+      const select = document.getElementById("CODETP12");
+      const container = document.getElementById("pest-details-container");
+      if (!select || !container) {
+        return;
+      }
+
+      const shouldShow = select.value !== "" && select.value !== "00";
+      container.classList.toggle("hidden", !shouldShow);
+
+      if (!shouldShow) {
+        resetContainerInputs(container);
+      }
+    }
+
+    function toggleSmutDetails() {
+      const select = document.getElementById("CODETP13");
+      const container = document.getElementById("smut-details-container");
+      if (!select || !container) {
+        return;
+      }
+
+      const shouldShow = select.value !== "" && select.value !== "00";
+      container.classList.toggle("hidden", !shouldShow);
+
+      if (!shouldShow) {
+        resetContainerInputs(container);
+      }
+    }
+
+    function updateDetailVisibility(targetId, shouldShow) {
+      const detail = document.getElementById(targetId);
+      if (!detail) {
+        return;
+      }
+
+      detail.classList.toggle("hidden", !shouldShow);
+      if (!shouldShow) {
+        resetContainerInputs(detail);
+      }
+    }
+
+    function refreshGroup(name) {
+      const checked = document.querySelector("input[name='" + name + "']:checked");
+      if (!checked || !checked.dataset.toggleTarget) {
+        return;
+      }
+
+      updateDetailVisibility(checked.dataset.toggleTarget, checked.value === "1");
+    }
+
+    function refreshCheckboxToggle(checkbox) {
+      if (!checkbox || !checkbox.dataset.toggleTarget) {
+        return;
+      }
+
+      updateDetailVisibility(checkbox.dataset.toggleTarget, checkbox.checked);
+    }
+
+    function setupLiveCamera(options) {
+      const video = document.getElementById(options.videoId);
+      const image = document.getElementById(options.imageId);
+      const hidden = document.getElementById(options.hiddenId);
+      const status = document.getElementById(options.statusId);
+      const startBtn = document.getElementById(options.startId);
+      const captureBtn = document.getElementById(options.captureId);
+      const resetBtn = document.getElementById(options.resetId);
+
+      if (!video || !image || !hidden || !status || !startBtn || !captureBtn || !resetBtn) {
+        return;
+      }
+
+      let stream = null;
+
+      function stopStream() {
+        if (!stream) {
+          return;
+        }
+
+        stream.getTracks().forEach(function (track) {
+          track.stop();
+        });
+        stream = null;
+        video.srcObject = null;
+      }
+
+      async function startCamera() {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          status.textContent = "อุปกรณ์นี้ไม่รองรับการเปิดกล้อง";
+          return;
+        }
+
+        try {
+          stopStream();
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: { ideal: "environment" } },
+            audio: false
+          });
+          video.srcObject = stream;
+          await video.play();
+          video.classList.remove("hidden");
+          image.classList.add("hidden");
+          status.textContent = "กล้องพร้อมถ่ายภาพ";
+        } catch (error) {
+          status.textContent = "ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตการใช้งานกล้อง";
+        }
+      }
+
+      function capturePhoto() {
+        if (!video.srcObject) {
+          status.textContent = "กรุณาเปิดกล้องก่อนถ่ายภาพ";
+          return;
+        }
+
+        const canvas = document.createElement("canvas");
+        const width = video.videoWidth || 1280;
+        const height = video.videoHeight || 960;
+        canvas.width = width;
+        canvas.height = height;
+
+        const context = canvas.getContext("2d");
+        context.drawImage(video, 0, 0, width, height);
+
+        const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
+        image.src = dataUrl;
+        hidden.value = dataUrl;
+        image.classList.remove("hidden");
+        video.classList.add("hidden");
+        status.textContent = "ถ่ายภาพเรียบร้อยแล้ว";
+        stopStream();
+      }
+
+      function resetPhoto() {
+        hidden.value = "";
+        image.src = "";
+        image.classList.add("hidden");
+        video.classList.remove("hidden");
+        status.textContent = "พร้อมถ่ายใหม่";
+        startCamera();
+      }
+
+      startBtn.addEventListener("click", startCamera);
+      captureBtn.addEventListener("click", capturePhoto);
+      resetBtn.addEventListener("click", resetPhoto);
+
+      window.addEventListener("beforeunload", stopStream);
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const smutSelect = document.getElementById("CODETP13");
+      if (smutSelect) {
+        smutSelect.addEventListener("change", toggleSmutDetails);
+        toggleSmutDetails();
+      }
+
+      const pestSelect = document.getElementById("CODETP12");
+      if (pestSelect) {
+        pestSelect.addEventListener("change", togglePestDetails);
+        togglePestDetails();
+      }
+
+      const toggleRadios = document.querySelectorAll("input[type='radio'][data-toggle-target]");
+      toggleRadios.forEach(function (radio) {
+        radio.addEventListener("change", function () {
+          refreshGroup(radio.name);
+        });
+      });
+
+      const toggleCheckboxes = document.querySelectorAll("input[type='checkbox'][data-toggle-target]");
+      toggleCheckboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("change", function () {
+          refreshCheckboxToggle(checkbox);
+        });
+        refreshCheckboxToggle(checkbox);
+      });
+
+      refreshGroup("otherDiseaseStatus");
+      refreshGroup("otherPestStatus");
+
+      setupLiveCamera({
+        videoId: "cameraWideVideo",
+        imageId: "cameraWideImage",
+        hiddenId: "cameraWideData",
+        statusId: "cameraWideStatus",
+        startId: "cameraWideStart",
+        captureId: "cameraWideCapture",
+        resetId: "cameraWideReset"
+      });
+
+      setupLiveCamera({
+        videoId: "cameraNarrowVideo",
+        imageId: "cameraNarrowImage",
+        hiddenId: "cameraNarrowData",
+        statusId: "cameraNarrowStatus",
+        startId: "cameraNarrowStart",
+        captureId: "cameraNarrowCapture",
+        resetId: "cameraNarrowReset"
+      });
+    });
+  </script>
 </body>
 
 </html>

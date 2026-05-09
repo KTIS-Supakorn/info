@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>เปรียบเทียบ แบบฟอร์มประเมินแปลงอ้อย v1 / v2</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f1f5f9;
+      color: #1e293b;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      background: #1e3a5f;
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar-title { font-size: 16px; font-weight: 700; letter-spacing: 0.3px; }
+    .topbar-sub { font-size: 12px; opacity: 0.75; margin-top: 2px; }
+
+    /* ── Mode toggle ── */
+    .mode-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .mode-btn {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.15s;
+    }
+    .mode-btn:hover { background: rgba(255,255,255,0.28); }
+    .mode-btn.active { background: #fff; color: #1e3a5f; font-weight: 700; border-color: #fff; }
+
+    /* ── Cards (launcher mode) ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      padding: 32px 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .version-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      border-top: 5px solid #cbd5e1;
+      transition: box-shadow 0.2s;
+    }
+    .version-card:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.14); }
+    .version-card.v1 { border-top-color: #6b7280; }
+    .version-card.v2 { border-top-color: #166534; }
+
+    .card-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 11px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+      width: fit-content;
+    }
+    .v1 .card-badge { background: #e5e7eb; color: #374151; }
+    .v2 .card-badge { background: #dcfce7; color: #166534; }
+
+    .card-title { font-size: 20px; font-weight: 700; }
+    .card-desc { font-size: 13.5px; color: #475569; line-height: 1.6; }
+
+    .diff-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .diff-list li { font-size: 13px; display: flex; gap: 8px; align-items: flex-start; color: #334155; }
+    .diff-list li::before { content: "•"; color: #94a3b8; flex-shrink: 0; margin-top: 1px; }
+    .v2 .diff-list li::before { color: #22c55e; }
+
+    .card-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+    .btn-open {
+      display: inline-block;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+      border: none;
+      transition: opacity 0.15s;
+      flex: 1;
+      min-width: 120px;
+    }
+    .btn-open:hover { opacity: 0.85; }
+    .v1 .btn-open-main { background: #6b7280; color: #fff; }
+    .v2 .btn-open-main { background: #166534; color: #fff; }
+    .btn-open-side {
+      background: transparent;
+      color: #1e3a5f;
+      border: 1.5px solid #94a3b8 !important;
+      border: none;
+    }
+    .btn-open-side:hover { background: #f1f5f9; }
+
+    /* ── Side-by-side mode ── */
+    .compare-wrap {
+      display: none;
+      flex: 1;
+      gap: 0;
+      overflow: hidden;
+      height: calc(100vh - 60px);
+    }
+    .compare-wrap.active { display: flex; }
+
+    .pane {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-right: 1px solid #cbd5e1;
+    }
+    .pane:last-child { border-right: none; }
+
+    .pane-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pane.v1 .pane-header { background: #e5e7eb; color: #374151; border-bottom: 3px solid #6b7280; }
+    .pane.v2 .pane-header { background: #dcfce7; color: #166534; border-bottom: 3px solid #166534; }
+
+    .pane-header a {
+      font-size: 11px;
+      font-weight: 400;
+      color: inherit;
+      opacity: 0.7;
+      text-decoration: none;
+    }
+    .pane-header a:hover { opacity: 1; text-decoration: underline; }
+
+    .pane iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── Stacked mode ── */
+    .stacked-wrap {
+      display: none;
+      flex-direction: column;
+      flex: 1;
+      overflow: hidden;
+      height: calc(100vh - 60px);
+    }
+    .stacked-wrap.active { display: flex; }
+
+    .stacked-wrap .pane {
+      flex: 1;
+      border-right: none;
+      border-bottom: 1px solid #cbd5e1;
+    }
+    .stacked-wrap .pane:last-child { border-bottom: none; }
+
+    /* ── Launcher visibility ── */
+    .launcher-wrap { display: block; }
+    .launcher-wrap.hidden { display: none; }
+    .compare-wrap, .stacked-wrap { display: none; }
+    .compare-wrap.active, .stacked-wrap.active { display: flex; }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .topbar { padding: 10px 14px; }
+      .topbar-title { font-size: 14px; }
+      .mode-btn { font-size: 12px; padding: 5px 10px; }
+      .card-grid { padding: 18px 14px; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">⇄ เปรียบเทียบแบบฟอร์มประเมินแปลงอ้อย</div>
+      <div class="topbar-sub">v1 (เก่า) เทียบกับ v2 (ใหม่)</div>
+    </div>
+    <div class="mode-switch">
+      <button class="mode-btn active" onclick="setMode('launcher')">หน้าหลัก</button>
+      <button class="mode-btn" onclick="setMode('sidebyside')">เคียงข้างกัน ↔</button>
+      <button class="mode-btn" onclick="setMode('stacked')">บนล่าง ↕</button>
+    </div>
+  </div>
+
+  <!-- ── Launcher (default) ── -->
+  <div class="launcher-wrap" id="launcherWrap">
+    <div class="card-grid">
+
+      <!-- V1 card -->
+      <div class="version-card v1">
+        <div>
+          <div class="card-badge">เวอร์ชัน 1 — เก่า</div>
+        </div>
+        <div class="card-title">แบบฟอร์มประเมินแปลงอ้อย<br><span style="font-size:15px; font-weight:400;">ต้นฉบับ</span></div>
+        <div class="card-desc">ฟอร์มประเมินดั้งเดิม ครอบคลุมข้อมูลทั่วไป ดิน วัชพืช โรค แมลง น้ำ และใบอ้อย</div>
+        <ul class="diff-list">
+          <li>เลย์เอาต์แบบดั้งเดิม</li>
+          <li>ระบบสีหลากสีแยกตามหัวข้อ</li>
+          <li>ยังไม่มีถ่ายรูปสดจากกล้อง</li>
+          <li>ตัวเลือกแมลงยังไม่ได้กรอง</li>
+        </ul>
+        <div class="card-actions">
+          <a class="btn-open btn-open-main" href="sugarcane_plot_assessment.html" target="_blank">เปิด v1</a>
+          <button class="btn-open btn-open-side" onclick="loadInPane('v1','sugarcane_plot_assessment.html'); setMode('sidebyside')">เปิดเปรียบเทียบ</button>
+        </div>
+      </div>
+
+      <!-- V2 card -->
+      <div class="version-card v2">
+        <div>
+          <div class="card-badge">เวอร์ชัน 2 — ใหม่ ✓</div>
+        </div>
+        <div class="card-title">แบบฟอร์มประเมินแปลงอ้อย<br><span style="font-size:15px; font-weight:400;">ปรับปรุงแล้ว</span></div>
+        <div class="card-desc">ปรับปรุงจาก v1 ให้ใช้งานได้ดีขึ้นบนมือถือและการทำงานภาคสนาม</div>
+        <ul class="diff-list">
+          <li>สีเรียบ ดูเป็นมืออาชีพ (ระบบ CSS custom properties)</li>
+          <li>กรองตัวเลือกแมลงเฉพาะหนอนกอ</li>
+          <li>ถ่ายรูปสดจากกล้อง 2 มุม (มุมกว้าง / มุมแคบ)</li>
+          <li>ส่วนแหล่งน้ำ: กรอกจำนวนได้แต่ละประเภท</li>
+          <li>ช่องกว้างเท่ากันทั้ง CODETP13 และ CODETP12</li>
+          <li>Responsive รองรับมือถือ (breakpoint 780px)</li>
+        </ul>
+        <div class="card-actions">
+          <a class="btn-open btn-open-main" href="sugarcane_plot_assessment2.html" target="_blank">เปิด v2</a>
+          <button class="btn-open btn-open-side" onclick="loadInPane('v2','sugarcane_plot_assessment2.html'); setMode('sidebyside')">เปิดเปรียบเทียบ</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick compare button -->
+    <div style="text-align:center; padding: 0 24px 40px;">
+      <button onclick="setMode('sidebyside')" style="background:#1e3a5f; color:#fff; border:none; border-radius:10px; padding:12px 32px; font-size:15px; font-weight:700; cursor:pointer; font-family:inherit; box-shadow:0 2px 10px rgba(0,0,0,0.15);">
+        ⇄ เปิดเปรียบเทียบแบบเคียงข้างกัน
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Side-by-side ── -->
+  <div class="compare-wrap" id="compareSideBySide">
+    <div class="pane v1">
+      <div class="pane-header">
+        เวอร์ชัน 1 (เก่า)
+        <a href="sugarcane_plot_assessment.html" target="_blank">เปิดแท็บใหม่ ↗</a>
+      </div>
+      <iframe id="iframeV1side" src="sugarcane_plot_assessment.html" title="Version 1"></iframe>
+    </div>
+    <div class="pane v2">
+      <div class="pane-header">
+        เวอร์ชัน 2 (ใหม่)
+        <a href="sugarcane_plot_assessment2.html" target="_blank">เปิดแท็บใหม่ ↗</a>
+      </div>
+      <iframe id="iframeV2side" src="sugarcane_plot_assessment2.html" title="Version 2"></iframe>
+    </div>
+  </div>
+
+  <!-- ── Stacked ── -->
+  <div class="stacked-wrap" id="compareStacked">
+    <div class="pane v1">
+      <div class="pane-header">
+        เวอร์ชัน 1 (เก่า)
+        <a href="sugarcane_plot_assessment.html" target="_blank">เปิดแท็บใหม่ ↗</a>
+      </div>
+      <iframe id="iframeV1stack" src="sugarcane_plot_assessment.html" title="Version 1"></iframe>
+    </div>
+    <div class="pane v2">
+      <div class="pane-header">
+        เวอร์ชัน 2 (ใหม่)
+        <a href="sugarcane_plot_assessment2.html" target="_blank">เปิดแท็บใหม่ ↗</a>
+      </div>
+      <iframe id="iframeV2stack" src="sugarcane_plot_assessment2.html" title="Version 2"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const MODES = ['launcher', 'sidebyside', 'stacked'];
+
+    function setMode(mode) {
+      // Buttons
+      document.querySelectorAll('.mode-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', MODES[i] === mode);
+      });
+
+      // Sections
+      document.getElementById('launcherWrap').classList.toggle('hidden', mode !== 'launcher');
+
+      const side = document.getElementById('compareSideBySide');
+      const stack = document.getElementById('compareStacked');
+      side.classList.toggle('active', mode === 'sidebyside');
+      stack.classList.toggle('active', mode === 'stacked');
+    }
+  </script>
+
+</body>
+</html>
