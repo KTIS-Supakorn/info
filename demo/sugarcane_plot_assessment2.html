@@ -522,33 +522,36 @@
 
     <form>
       <h2>ข้อมูลทั่วไป</h2>
+      <div class="note-box" style="margin-top: 0; margin-bottom: 12px;">
+        ข้อมูลส่วนนี้ดึงจากระบบอัตโนมัติ ผู้ใช้งานไม่ต้องกรอกเองและไม่สามารถแก้ไขได้
+      </div>
       <div class="grid">
         <div class="field">
           <label for="recordDate">วันที่ประเมิน</label>
-          <input type="date" id="recordDate" name="recordDate" />
+          <input type="date" id="recordDate" name="recordDate" disabled />
         </div>
         <div class="field">
           <label for="recorder">ผู้ประเมิน</label>
-          <input type="text" id="recorder" name="recorder" />
+          <input type="text" id="recorder" name="recorder" disabled />
         </div>
         <div class="field">
           <label for="plotCode">รหัส / ชื่อแปลง</label>
-          <input type="text" id="plotCode" name="plotCode" />
+          <input type="text" id="plotCode" name="plotCode" disabled />
         </div>
         <div class="field">
           <label for="farmerName">ชื่อเกษตรกร</label>
-          <input type="text" id="farmerName" name="farmerName" />
+          <input type="text" id="farmerName" name="farmerName" disabled />
         </div>
         <div class="field">
           <label for="areaRai">พื้นที่ประเมิน</label>
           <div class="inline-fields">
-            <input type="number" id="areaRai" name="areaRai" step="0.01" />
+            <input type="number" id="areaRai" name="areaRai" step="0.01" disabled />
             <span>ไร่</span>
           </div>
         </div>
         <div class="field">
           <label for="location">ที่ตั้งแปลง</label>
-          <input type="text" id="location" name="location" />
+          <input type="text" id="location" name="location" disabled />
         </div>
       </div>
 
@@ -1086,6 +1089,7 @@
           <input type="hidden" id="cameraWideData" name="cameraWideData" />
           <div class="camera-controls">
             <button type="button" class="camera-btn" id="cameraWideStart">เปิดกล้อง</button>
+            <button type="button" class="camera-btn" id="cameraWideSwitch">สลับกล้อง หน้า/หลัง</button>
             <button type="button" class="camera-btn" id="cameraWideCapture">ถ่ายภาพ</button>
             <button type="button" class="camera-btn" id="cameraWideReset">ถ่ายใหม่</button>
           </div>
@@ -1099,6 +1103,7 @@
           <input type="hidden" id="cameraNarrowData" name="cameraNarrowData" />
           <div class="camera-controls">
             <button type="button" class="camera-btn" id="cameraNarrowStart">เปิดกล้อง</button>
+            <button type="button" class="camera-btn" id="cameraNarrowSwitch">สลับกล้อง หน้า/หลัง</button>
             <button type="button" class="camera-btn" id="cameraNarrowCapture">ถ่ายภาพ</button>
             <button type="button" class="camera-btn" id="cameraNarrowReset">ถ่ายใหม่</button>
           </div>
@@ -1194,6 +1199,7 @@
       const hidden = document.getElementById(options.hiddenId);
       const status = document.getElementById(options.statusId);
       const startBtn = document.getElementById(options.startId);
+      const switchBtn = options.switchId ? document.getElementById(options.switchId) : null;
       const captureBtn = document.getElementById(options.captureId);
       const resetBtn = document.getElementById(options.resetId);
 
@@ -1202,6 +1208,7 @@
       }
 
       let stream = null;
+      let currentFacingMode = "environment";
 
       function stopStream() {
         if (!stream) {
@@ -1218,23 +1225,31 @@
       async function startCamera() {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
           status.textContent = "อุปกรณ์นี้ไม่รองรับการเปิดกล้อง";
+          if (switchBtn) {
+            switchBtn.disabled = true;
+          }
           return;
         }
 
         try {
           stopStream();
           stream = await navigator.mediaDevices.getUserMedia({
-            video: { facingMode: { ideal: "environment" } },
+            video: { facingMode: { ideal: currentFacingMode } },
             audio: false
           });
           video.srcObject = stream;
           await video.play();
           video.classList.remove("hidden");
           image.classList.add("hidden");
-          status.textContent = "กล้องพร้อมถ่ายภาพ";
+          status.textContent = currentFacingMode === "user" ? "กล้องหน้าพร้อมถ่ายภาพ" : "กล้องหลังพร้อมถ่ายภาพ";
         } catch (error) {
           status.textContent = "ไม่สามารถเปิดกล้องได้ กรุณาอนุญาตการใช้งานกล้อง";
         }
+      }
+
+      async function toggleCameraFacingMode() {
+        currentFacingMode = currentFacingMode === "environment" ? "user" : "environment";
+        await startCamera();
       }
 
       function capturePhoto() {
@@ -1271,6 +1286,11 @@
       }
 
       startBtn.addEventListener("click", startCamera);
+      if (switchBtn) {
+        switchBtn.addEventListener("click", function () {
+          toggleCameraFacingMode();
+        });
+      }
       captureBtn.addEventListener("click", capturePhoto);
       resetBtn.addEventListener("click", resetPhoto);
 
@@ -1314,6 +1334,7 @@
         hiddenId: "cameraWideData",
         statusId: "cameraWideStatus",
         startId: "cameraWideStart",
+        switchId: "cameraWideSwitch",
         captureId: "cameraWideCapture",
         resetId: "cameraWideReset"
       });
@@ -1324,6 +1345,7 @@
         hiddenId: "cameraNarrowData",
         statusId: "cameraNarrowStatus",
         startId: "cameraNarrowStart",
+        switchId: "cameraNarrowSwitch",
         captureId: "cameraNarrowCapture",
         resetId: "cameraNarrowReset"
       });
