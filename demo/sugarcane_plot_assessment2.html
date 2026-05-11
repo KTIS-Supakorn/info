@@ -763,21 +763,19 @@
       <h3 class="inspect-heading heading-pest-main">4.2 แมลงศัตรูอ้อย</h3>
       <div class="borer-note">ข้อ 4.2 นี้ประเมินเฉพาะกลุ่มหนอนกอเท่านั้น</div>
       <fieldset class="section-box section-pest-main">
-        <legend>แมลงศัตรูหลัก</legend>
+        <legend>แมลงศัตรูหลัก หนอนกอ</legend>
+        <div class="choice-group" style="margin-bottom:12px;">
+          <label class="choice"><input type="radio" name="borerStatus" value="0" id="borerNotFound" checked /> ไม่พบ</label>
+          <label class="choice"><input type="radio" name="borerStatus" value="1" id="borerFound" /> พบ</label>
+        </div>
+        <div id="borer-found-details" class="hidden">
         <div class="grid">
           <div class="field full">
-            <label for="CODETP12">ชนิดแมลง [12]</label>
-            <select name="CODETP12" id="CODETP12" style="background: #FFFFCC">
-              <option value="">---Select---</option>
-              <option value="01">01 : หนอนกอสีขาว</option>
-              <option value="02">02 : หนอนกอลายจุดใหญ่</option>
-              <option value="03">03 : หนอนกอลายจุดเล็ก</option>
-              <option value="04">04 : หนอนกอลายแถบ</option>
-              <option value="05">05 : หนอนกอสีชมพู</option>
-              <option value="15">15 : หนอนกอลายแถบแดง</option>
-            </select>
+            <label>ชนิดแมลง [12]</label>
+            <input type="hidden" name="CODETP12" id="CODETP12" value="21" />
+            <div style="padding: 8px 12px; background: #f0f4ec; border: 1px solid #dbe3d4; border-radius: 6px; font-weight: 600;">21 : หนอนกอ</div>
           </div>
-          <div id="pest-details-container" class="full hidden">
+          <div id="pest-details-container" class="full">
             <div class="grid">
               <div class="field">
                 <label for="CODE12_IND">วันที่ตรวจพบ</label>
@@ -836,6 +834,7 @@
               </div>
             </div>
           </div>
+        </div>
         </div>
       </fieldset>
 
@@ -1212,19 +1211,22 @@
     }
 
     function togglePestDetails() {
-      const select = document.getElementById("CODETP12");
-      const container = document.getElementById("pest-details-container");
-      if (!select || !container) {
-        return;
-      }
+      // pest-details-container is always visible inside borer-found-details
+    }
 
-      const shouldShow = select.value !== "" && select.value !== "00";
-      container.classList.toggle("hidden", !shouldShow);
-
-      if (!shouldShow) {
-        resetContainerInputs(container);
+    function toggleBorerFound() {
+      const found = document.getElementById("borerFound");
+      const details = document.getElementById("borer-found-details");
+      if (!found || !details) return;
+      const show = found.checked;
+      details.classList.toggle("hidden", !show);
+      if (!show) {
+        const container = document.getElementById("pest-details-container");
+        if (container) resetContainerInputs(container);
       }
     }
+
+    document.querySelectorAll('input[name="borerStatus"]').forEach(r => r.addEventListener("change", toggleBorerFound));
 
     function toggleSmutDetails() {
       const select = document.getElementById("CODETP13");
