@@ -166,6 +166,35 @@
       flex: 0 0 auto;
     }
 
+    .soil-feature-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 12px 8px;
+      gap: 10px;
+    }
+
+    .soil-feature-img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .soil-feature-body {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      text-align: left;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .soil-feature-body input {
+      margin-top: 2px;
+      flex: 0 0 auto;
+    }
+
     .full {
       grid-column: 1 / -1;
     }
@@ -578,14 +607,34 @@
       </div>
        <h3>ส่วนที่ 2: จุดสังเกตพิเศษในเนื้อดิน เลือกได้มากกว่า 1 ข้อ</h3>
       <div class="choice-group">
-        <label class="choice"><input type="checkbox" name="soilFeature" />
-          <img src="img/earth_1.png" alt=""> ขุดลงไป 30-50 ซม. เจอก้อนปูนสีขาว
-          หรือเศษหินปูนปะปน</label>
-        <label class="choice"><input type="checkbox" name="soilFeature" />
-          <img src="img/earth_2.png" alt=""> มองเห็นเม็ดทรายปนอยู่ในเนื้อดินค่อนข้างเยอะ</label>
-        <label class="choice"><input type="checkbox" name="soilFeature" /> <img src="img/earth_3.png" alt=""> มีจุดประสีแดง ส้ม หรือเหลือง
-          คล้ายสีสนิมเหล็ก</label>
-        <label class="choice"><input type="checkbox" name="soilFeature" /> <img src="img/earth_4.png" alt=""> เจอก้อนศิลาแลง เม็ดกลม สีดำ/แดง แข็ง</label>
+        <label class="choice soil-feature-card">
+          <img src="img/earth_1.png" alt="ก้อนปูนสีขาว" class="soil-feature-img">
+          <div class="soil-feature-body">
+            <input type="checkbox" name="soilFeature" />
+            <span>ขุดลงไป 30-50 ซม. เจอก้อนปูนสีขาว หรือเศษหินปูนปะปน</span>
+          </div>
+        </label>
+        <label class="choice soil-feature-card">
+          <img src="img/earth_2.png" alt="เม็ดทราย" class="soil-feature-img">
+          <div class="soil-feature-body">
+            <input type="checkbox" name="soilFeature" />
+            <span>มองเห็นเม็ดทรายปนอยู่ในเนื้อดินค่อนข้างเยอะ</span>
+          </div>
+        </label>
+        <label class="choice soil-feature-card">
+          <img src="img/earth_3.png" alt="จุดสีสนิม" class="soil-feature-img">
+          <div class="soil-feature-body">
+            <input type="checkbox" name="soilFeature" />
+            <span>มีจุดประสีแดง ส้ม หรือเหลือง คล้ายสีสนิมเหล็ก</span>
+          </div>
+        </label>
+        <label class="choice soil-feature-card">
+          <img src="img/earth_4.png" alt="ศิลาแลง" class="soil-feature-img">
+          <div class="soil-feature-body">
+            <input type="checkbox" name="soilFeature" />
+            <span>เจอก้อนศิลาแลง เม็ดกลม สีดำ/แดง แข็ง</span>
+          </div>
+        </label>
         <label class="choice full"><input type="checkbox" name="soilFeature" /> ไม่มีจุดสังเกตพิเศษใดๆ ด้านบน</label>
       </div>
 
@@ -620,10 +669,6 @@
           </div>
           <div id="weed-severe-details" class="full hidden weed-detail-box">
             <div class="grid">
-              <div class="field">
-                <label for="weedSevereType">ชนิดวัชพืชร้ายแรง</label>
-                <input type="text" id="weedSevereType" name="weedSevereType" placeholder="ระบุชนิดวัชพืช" />
-              </div>
               <div class="field">
                 <label for="weedSevereCoverage">พื้นที่ระบาดโดยประมาณ (%)</label>
                 <input type="number" step="any" id="weedSevereCoverage" name="weedSevereCoverage" value="0.00" />
@@ -1065,16 +1110,16 @@
 
       <div id="rock-details" class="hidden" style="margin-top:12px;">
 
-        <h3>ส่วนที่ 8.2: ในกรณีพบหิน</h3>
+        <h3>ในกรณีพบหิน</h3>
 
-        <h3 style="font-size:14px; margin:10px 0 6px;">ส่วนที่ 8.2.1: ประเภทของหินที่พบ</h3>
+        <h3 style="font-size:14px; margin:10px 0 6px;">ส่วนที่ 8.1.1: ประเภทของหินที่พบ</h3>
         <div class="choice-group">
           <label class="choice"><input type="radio" name="rockType" value="01" /> หินดาน</label>
           <label class="choice"><input type="radio" name="rockType" value="02" /> หินดาน+หินลอย</label>
           <label class="choice"><input type="radio" name="rockType" value="03" /> หินกรวดลอยก้อนเล็ก</label>
         </div>
 
-        <h3 style="font-size:14px; margin:14px 0 6px;">ส่วนที่ 8.2.2: สภาพหินที่พบ</h3>
+        <h3 style="font-size:14px; margin:14px 0 6px;">ส่วนที่ 8.1.2: สภาพหินที่พบ</h3>
         <div class="choice-group" style="flex-direction:column; gap:8px;">
           <label class="choice"><input type="radio" name="rockCondition" value="01" /> มีหินบางส่วนจัดการได้</label>
           <label class="choice" style="flex-direction:column; align-items:flex-start; gap:6px;">
@@ -1091,18 +1136,18 @@
           <label class="choice"><input type="radio" name="rockCondition" value="03" /> มีหินมาก ต้องใช้แรงงานคนเท่านั้น</label>
         </div>
 
-        <h3 style="font-size:14px; margin:14px 0 6px;">ส่วนที่ 8.2.3: สิ่งกีดขวางในแปลง</h3>
-        <div class="choice-group">
-          <label class="choice"><input type="checkbox" name="rockObstacle" value="00" /> ไม่มี</label>
-          <label class="choice"><input type="checkbox" name="rockObstacle" value="01" /> ชุดโซล่าเซลล์</label>
-          <label class="choice"><input type="checkbox" name="rockObstacle" value="02" /> ตอไม้</label>
-          <label class="choice" style="gap:6px;">
-            <input type="checkbox" name="rockObstacle" value="99" id="rockObstacleOther" />
-            <span>อื่นๆ</span>
-            <input type="text" id="rockObstacleOtherText" name="rockObstacleOtherText" placeholder="ระบุ..." style="border:none; border-bottom:1px solid #aaa; outline:none; flex:1; font-size:14px;" />
-          </label>
-        </div>
+      </div>
 
+      <h3>ส่วนที่ 8.2: สิ่งกีดขวางในแปลง</h3>
+      <div class="choice-group">
+        <label class="choice"><input type="checkbox" name="rockObstacle" value="00" /> ไม่มี</label>
+        <label class="choice"><input type="checkbox" name="rockObstacle" value="01" /> ชุดโซล่าเซลล์</label>
+        <label class="choice"><input type="checkbox" name="rockObstacle" value="02" /> ตอไม้</label>
+        <label class="choice" style="gap:6px;">
+          <input type="checkbox" name="rockObstacle" value="99" id="rockObstacleOther" />
+          <span>อื่นๆ</span>
+          <input type="text" id="rockObstacleOtherText" name="rockObstacleOtherText" placeholder="ระบุ..." style="border:none; border-bottom:1px solid #aaa; outline:none; flex:1; font-size:14px;" />
+        </label>
       </div>
 
       <h2>สรุปผลและข้อเสนอแนะ</h2>
