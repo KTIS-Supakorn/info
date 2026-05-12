@@ -76,9 +76,6 @@
       <div class="toolbar">
         <button type="button" class="secondary" onclick="loadSystemData()">ดึงข้อมูลจากระบบ</button>
         <button type="button" class="secondary" onclick="window.print()">พิมพ์ / บันทึก PDF</button>
-        <button type="button" onclick="exportCSV()">ส่งออก CSV</button>
-        <label class="file-label" for="csvFile">นำเข้า CSV</label>
-        <input id="csvFile" type="file" accept=".csv" onchange="importCSV(event)">
         <button type="button" class="danger" onclick="clearAll()">ล้างข้อมูลทั้งหมด</button>
       </div>
     </header>
@@ -97,7 +94,7 @@
         <input type="hidden" id="editIndex" value="">
         <div class="section-title">ค้นหาข้อมูลจากระบบ</div>
         <div class="grid">
-          <label>เลขสัญญา / ไอดีแปลง<input id="systemKey" type="text" placeholder="เช่น 006695 หรือไอดีแปลง แล้วกดดึงข้อมูล"></label>
+          <label>เลขสัญญา / ไอดีแปลง<input id="systemKey" type="text" placeholder="เช่น 006702 หรือไอดีแปลง แล้วกดดึงข้อมูล"></label>
           <label>แหล่งข้อมูล<input id="systemSource" type="text" value="ระบบกลาง / API" readonly></label>
           <label>เวลาอัปเดตล่าสุด<input id="systemUpdatedAt" type="text" readonly></label>
           <label style="justify-content:flex-end"><button type="button" onclick="loadSystemData()">ดึงข้อมูลจากระบบ</button></label>
@@ -118,10 +115,12 @@
           <label>ไอดีแปลง<input id="plotId" readonly type="text"></label>
           <label>พิกัด X<input id="coordX" readonly type="text"></label>
           <label>พิกัด Y<input id="coordY" readonly type="text"></label>
-          <label>ชนิดอ้อย<select id="caneType" disabled><option value="">-- เลือก --</option><option>ข้ามแล้ง</option><option>น้ำราด</option><option>ฝน</option><option>ตอ1</option><option>ตอ2</option><option>ตอ3</option><option>ตอ4</option></select></label>
+          <label>ชนิดอ้อย<select id="caneType" disabled><option value="">-- เลือก --</option><option>ข้ามแล้ง</option><option>น้ำราด</option><option>ฝน</option><option>ตอ1</option><option>ตอ2</option><option>อ้อยตอ 2</option><option>ตอ3</option><option>ตอ4</option></select></label>
           <label class="required">จำนวนไร่<input id="rai" readonly type="number" min="0" step="0.01" required></label>
-          <label>ตันต่อไร่ปี 68/69<input id="lastTonPerRai" readonly type="number" min="0" step="0.01"></label>
+          <label>ตัน/ไร่ปีที่ผ่านมา<input id="lastTonPerRai" readonly type="text"></label>
           <label>วันที่ปลูก/วันที่ตัด<input id="plantCutDate" readonly type="text" placeholder="เช่น 12/05/2569"></label>
+          <label>จำนวนแปลงทั้งหมด<input id="totalPlotCount" readonly type="text"></label>
+          <label>พื้นที่รวม<input id="totalArea" readonly type="text"></label>
         </div>
 
         <div class="section-title system">ข้อมูลปฏิบัติงานปี 2569/70 <span class="badge">ดึงจากระบบ</span></div>
@@ -279,7 +278,7 @@ const storageKey = 'auditYieldRecords.v1';
 const fields = [
   ['recordDate','วันที่บันทึก'],['promoter','นักส่งเสริม'],['contractNo','เลขสัญญาชาวไร่'],['farmerName','ชื่อชาวไร่'],
   ['plotId','ไอดีแปลง'],['coordX','พิกัด X'],['coordY','พิกัด Y'],
-  ['caneType','ชนิดอ้อย'],['rai','จำนวนไร่'],['lastTonPerRai','ตันต่อไร่ปี 68/69'],['plantCutDate','วันที่ปลูก/วันที่ตัด'],
+  ['caneType','ชนิดอ้อย'],['rai','พื้นที่แปลง (ไร่)'],['lastTonPerRai','ตัน/ไร่ปีที่ผ่านมา'],['plantCutDate','วันที่ปลูก/วันที่ตัด'],['totalPlotCount','จำนวนแปลงทั้งหมด'],['totalArea','พื้นที่รวม'],
   ['tillage','พรวน'],['fertilize','ใส่ปุ๋ย'],['water1','ให้น้ำ 1'],['water2','ให้น้ำ 2'],['water3','ให้น้ำ 3'],['weedControl','กำจัดวัชพืช'],['spray','ฉีดยาแส้ดำ'],
   ['caneCondition','สภาพอ้อย (%)'],['heightCm','ความสูง (Cm)'],['weedPercent','สภาพวัชพืชรก'],['weedSevere','วัชพืชร้ายแรง'],['weedSpray','ฉีดยาคุม-ฆ่า'],
   ['smut','โรคแส้ดำ'],['smutPercent','% โรคแส้ดำที่พบ'],['smutSpray','สถานะฉีดยาโรคแส้ดำ'],['otherDisease','โรคอื่น ๆ ที่พบ'],['otherDiseaseName','ชื่อโรคอื่น ๆ'],['otherDiseaseDamage','% เสียหายโรคอื่น ๆ'],['borer','สถานะหนอนกอ'],['borerSpray','สถานะฉีดยาหนอนกอ'],['borerDamage','% เสียหายจากหนอนกอ'],
@@ -326,8 +325,30 @@ async function loadSystemData(){
   // setSystemFields(data);
 
   // ข้อมูลตัวอย่างสำหรับทดสอบหน้าจอ เมื่อยังไม่ได้เชื่อม API จริง
-  // กรณีกรอกเลขสัญญา 006695 ระบบจะแสดงข้อมูลตัวอย่างด้านล่าง
+  // กรณีกรอกเลขสัญญา 006695 หรือ 006702 ระบบจะแสดงข้อมูลตัวอย่างด้านล่าง
   const demoByContract = {
+    '006702': {
+      recordDate: today(),
+      promoter: 'นายธนาวุฒิ ม่วงสิงห์(ทดลองงาน)',
+      contractNo: '006702',
+      farmerName: 'นาง จันทร์ แตงร่ม',
+      plotId: '0136969',
+      coordX: '',
+      coordY: '',
+      caneType: 'อ้อยตอ 2',
+      rai: '20',
+      lastTonPerRai: '-',
+      plantCutDate: '',
+      totalPlotCount: '2 แปลง',
+      totalArea: '31.00 ไร่',
+      tillage: 'ไม่พบข้อมูล',
+      fertilize: 'ไม่พบข้อมูล',
+      water1: 'ไม่พบข้อมูล',
+      water2: 'ไม่พบข้อมูล',
+      water3: 'ไม่พบข้อมูล',
+      weedControl: 'ไม่พบข้อมูล',
+      spray: 'ไม่พบข้อมูล'
+    },
     '006695': {
       recordDate: today(),
       promoter: 'ระบบส่งเสริมไร่อ้อย',
@@ -340,6 +361,8 @@ async function loadSystemData(){
       rai: '',
       lastTonPerRai: '',
       plantCutDate: '',
+      totalPlotCount: '',
+      totalArea: '',
       tillage: 'ไม่พบข้อมูล',
       fertilize: 'ไม่พบข้อมูล',
       water1: 'ไม่พบข้อมูล',
@@ -353,7 +376,7 @@ async function loadSystemData(){
   const demo = demoByContract[key] || {
     recordDate: today(), promoter: 'ระบบส่งเสริมไร่อ้อย', contractNo: key || 'CN-2569-0001', farmerName: 'ตัวอย่าง ชาวไร่',
     plotId: key && key.startsWith('P') ? key : 'P-2569-001', coordX: '15.123456', coordY: '100.123456',
-    caneType: 'ข้ามแล้ง', rai: '12.50', lastTonPerRai: '13.20', plantCutDate: '12/05/2569',
+    caneType: 'ข้ามแล้ง', rai: '12.50', lastTonPerRai: '13.20', plantCutDate: '12/05/2569', totalPlotCount: '', totalArea: '',
     tillage: 'ดำเนินการแล้ว', fertilize: 'ดำเนินการแล้ว', water1: 'ดำเนินการแล้ว', water2: 'ยังไม่ดำเนินการ', water3: 'ยังไม่ดำเนินการ',
     weedControl: 'ดำเนินการแล้ว', spray: 'ไม่พบข้อมูล'
   };
@@ -427,42 +450,6 @@ function deleteRow(i){ if(confirm('ยืนยันลบรายการน
 function clearAll(){ if(confirm('ยืนยันล้างข้อมูลทั้งหมด?')){ records=[]; save(); renderTable(); resetForm(); } }
 function escapeHtml(s){ return String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
 
-function exportCSV(){
-  const header = fields.map(f=>f[1]);
-  const rows = records.map(r => fields.map(([id]) => r[id] ?? ''));
-  const csv = [header, ...rows].map(row => row.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')).join('\n');
-  const blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8;'});
-  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'audit_yield_records.csv'; a.click(); URL.revokeObjectURL(a.href);
-}
-function parseCSV(text){
-  const rows=[]; let row=[], value='', inQuotes=false;
-  for(let i=0;i<text.length;i++){
-    const c=text[i], next=text[i+1];
-    if(c==='"' && inQuotes && next==='"'){ value+='"'; i++; }
-    else if(c==='"'){ inQuotes=!inQuotes; }
-    else if(c===',' && !inQuotes){ row.push(value); value=''; }
-    else if((c==='\n'||c==='\r') && !inQuotes){ if(value || row.length){ row.push(value); rows.push(row); row=[]; value=''; } if(c==='\r' && next==='\n') i++; }
-    else value+=c;
-  }
-  if(value || row.length){ row.push(value); rows.push(row); }
-  return rows;
-}
-function importCSV(event){
-  const file = event.target.files[0]; if(!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    const rows = parseCSV(reader.result.replace(/^\ufeff/,''));
-    if(rows.length < 2) return alert('ไม่พบข้อมูลในไฟล์ CSV');
-    const header = rows[0];
-    const imported = rows.slice(1).map(row => {
-      const rec={}; fields.forEach(([id,label]) => { const idx = header.indexOf(label); rec[id] = idx >= 0 ? (row[idx] || '') : ''; });
-      if(!rec.totalYield) rec.totalYield = (n(rec.rai)*n(rec.estimatedTonPerRai)).toFixed(2);
-      return rec;
-    });
-    records = records.concat(imported); save(); renderTable(); alert('นำเข้าข้อมูลสำเร็จ ' + imported.length + ' รายการ'); event.target.value='';
-  };
-  reader.readAsText(file, 'utf-8');
-}
 togglePestFields();
 renderTable();
 </script>
