@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>แบบฟอร์มบันทึกข้อมูลตรวจสอบแปลงยกระดับผลผลิต</title>
+  <style>
+    :root{
+      --bg:#f6f8fb;--card:#ffffff;--ink:#172033;--muted:#637083;--line:#d9e1ec;
+      --primary:#0f766e;--primary-dark:#0b5f59;--soft:#e8f5f3;--danger:#b42318;--warn:#a15c07;
+      --shadow:0 10px 30px rgba(20,35,60,.08);--radius:18px;--system:#eef6ff;--system-line:#b8d7ff;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:linear-gradient(180deg,#eef7f6 0%,var(--bg) 280px);font-family:Tahoma,"Noto Sans Thai",Arial,sans-serif;color:var(--ink)}
+    .wrap{max-width:1320px;margin:0 auto;padding:24px}
+    .hero{display:flex;gap:18px;justify-content:space-between;align-items:flex-start;margin-bottom:18px}
+    h1{font-size:28px;margin:0 0 8px;line-height:1.25;color:#0f2f2b}
+    .subtitle{margin:0;color:var(--muted);font-size:14px}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+    button,.file-label{border:0;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--primary);color:white;box-shadow:0 6px 16px rgba(15,118,110,.18)}
+    button:hover,.file-label:hover{background:var(--primary-dark)}
+    button.secondary{background:#eef2f7;color:#263447;box-shadow:none;border:1px solid var(--line)}
+    button.danger{background:#fff0ee;color:var(--danger);box-shadow:none;border:1px solid #ffd4cf}
+    input[type="file"]{display:none}
+    .cards{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:14px;margin:16px 0 20px}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+    .card .label{font-size:13px;color:var(--muted);margin-bottom:8px}.card .value{font-size:26px;font-weight:800;color:#102a27}
+    .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:18px}
+    .panel h2{font-size:18px;margin:0 0 14px;color:#123c37}.hint{font-size:13px;color:var(--muted);margin-top:-6px;margin-bottom:14px}
+    form{display:grid;gap:16px}.section-title{grid-column:1/-1;font-size:15px;font-weight:800;color:var(--primary);padding:12px 12px 8px;background:var(--soft);border-radius:12px}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px;grid-column:1/-1}
+    label{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:700;color:#263447}
+    input,select,textarea{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 11px;font:inherit;background:#fff;color:var(--ink);outline:none}
+    input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(15,118,110,.12)}
+    input[readonly], textarea[readonly], select:disabled{background:#f3f7fb;color:#46576b;border-color:#ccd8e6;cursor:not-allowed}
+    .section-title.system{background:var(--system);color:#175a9c;border:1px solid var(--system-line);display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .section-title .badge{font-size:12px;font-weight:700;background:#dbeeff;color:#175a9c;border:1px solid var(--system-line);border-radius:999px;padding:3px 8px}
+    .system-note{grid-column:1/-1;font-size:13px;color:#436074;background:#f7fbff;border:1px dashed var(--system-line);border-radius:12px;padding:10px 12px;margin-top:-6px}
+    textarea{min-height:44px;resize:vertical}.required::after{content:" *";color:var(--danger)}
+
+    .form-section{grid-column:1/-1;border:1px solid var(--line);border-radius:16px;padding:14px;background:#fbfdff}
+    .form-section h3{margin:0 0 12px;font-size:16px;color:#123c37}
+    .form-grid{display:grid;gap:12px}.form-grid.two{grid-template-columns:repeat(2,minmax(220px,1fr))}
+    .field{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:700;color:#263447}
+    .choice-label{font-size:13px;font-weight:800;color:#263447}.req{color:var(--danger)}
+    .choice-row{display:flex;gap:10px 16px;flex-wrap:wrap;align-items:center;border:1px solid var(--line);border-radius:12px;padding:10px 11px;background:#fff;min-height:42px}
+    .choice-row label{display:inline-flex;flex-direction:row;align-items:center;gap:6px;font-weight:600;margin:0;white-space:nowrap}
+    .choice-row input[type="radio"],.choice-row input[type="checkbox"]{width:auto;margin:0;box-shadow:none}
+    .form-actions{display:flex;gap:10px;flex-wrap:wrap;grid-column:1/-1;justify-content:flex-end;border-top:1px dashed var(--line);padding-top:14px}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:#fff}
+    table{width:100%;border-collapse:separate;border-spacing:0;min-width:1800px;font-size:13px}
+    th,td{border-bottom:1px solid var(--line);border-right:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top;white-space:nowrap}
+    th{position:sticky;top:0;background:#0f766e;color:white;z-index:2;font-size:12px}td:last-child,th:last-child{border-right:0}tr:last-child td{border-bottom:0}
+    tbody tr:nth-child(even){background:#fbfcfe}.pill{display:inline-block;padding:3px 8px;border-radius:999px;background:#edf7f5;color:#0f635c;font-weight:700}.empty{padding:24px;text-align:center;color:var(--muted)}
+    .row-actions{display:flex;gap:6px}.row-actions button{padding:7px 9px;border-radius:9px;font-size:12px}.searchbar{display:flex;gap:10px;align-items:center;margin-bottom:12px}.searchbar input{max-width:360px}
+    .notice{font-size:13px;color:var(--warn);background:#fff8eb;border:1px solid #ffdf9b;padding:10px 12px;border-radius:12px;margin-top:10px}
+    @media(max-width:980px){.hero{display:block}.toolbar{justify-content:flex-start;margin-top:14px}.cards{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){.wrap{padding:14px}h1{font-size:22px}.cards,.grid{grid-template-columns:1fr}.toolbar button,.file-label{width:100%;text-align:center}}
+    @media print{body{background:#fff}.toolbar,.panel.form-panel,.searchbar,.row-actions{display:none}.wrap{max-width:none;padding:0}.card,.panel{box-shadow:none;border-color:#aaa}th{position:static;background:#ddd;color:#000}table{min-width:0;font-size:10px}.table-wrap{overflow:visible}}
+  
+    .form-section.wide{grid-column:1/-1}
+    .pest-groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .pest-group{border:1px solid var(--line);border-radius:14px;padding:14px;background:#fff}
+    .pest-group.full-span{grid-column:1/-1}
+    .pest-group h4{margin:0 0 10px;color:var(--primary-dark)}
+    @media (max-width:800px){.pest-groups{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <h1>แบบฟอร์มบันทึกข้อมูลตรวจสอบแปลงยกระดับผลผลิต</h1>
+        <p class="subtitle">ข้อมูลทั่วไป / ข้อมูลแปลง / ข้อมูลปฏิบัติงานปี 2569/70 แสดงจากระบบ ส่วนผู้ตรวจกรอกเฉพาะผลตรวจและประเมินผลผลิต</p>
+      </div>
+      <div class="toolbar">
+        <button type="button" class="secondary" onclick="loadSystemData()">ดึงข้อมูลจากระบบ</button>
+        <button type="button" class="secondary" onclick="window.print()">พิมพ์ / บันทึก PDF</button>
+        <button type="button" onclick="exportCSV()">ส่งออก CSV</button>
+        <label class="file-label" for="csvFile">นำเข้า CSV</label>
+        <input id="csvFile" type="file" accept=".csv" onchange="importCSV(event)">
+        <button type="button" class="danger" onclick="clearAll()">ล้างข้อมูลทั้งหมด</button>
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card"><div class="label">จำนวนรายการ</div><div class="value" id="kpiCount">0</div></div>
+      <div class="card"><div class="label">จำนวนไร่รวม</div><div class="value" id="kpiRai">0.00</div></div>
+      <div class="card"><div class="label">ผลผลิตรวมโดยประมาณ</div><div class="value" id="kpiYield">0.00</div></div>
+      <div class="card"><div class="label">ผลผลิตเฉลี่ย/ไร่</div><div class="value" id="kpiAvg">0.00</div></div>
+    </section>
+
+    <section class="panel form-panel">
+      <h2 id="formTitle">กรอกข้อมูล</h2>
+      <p class="hint">ระบบจะเติมข้อมูลอ้างอิงให้อัตโนมัติ ผู้ตรวจกรอกเฉพาะส่วน “ตรวจพบสภาพแปลง / ประเมินผลผลิต”</p>
+      <form id="recordForm">
+        <input type="hidden" id="editIndex" value="">
+        <div class="section-title">ค้นหาข้อมูลจากระบบ</div>
+        <div class="grid">
+          <label>เลขสัญญา / ไอดีแปลง<input id="systemKey" type="text" placeholder="เช่น 006695 หรือไอดีแปลง แล้วกดดึงข้อมูล"></label>
+          <label>แหล่งข้อมูล<input id="systemSource" type="text" value="ระบบกลาง / API" readonly></label>
+          <label>เวลาอัปเดตล่าสุด<input id="systemUpdatedAt" type="text" readonly></label>
+          <label style="justify-content:flex-end"><button type="button" onclick="loadSystemData()">ดึงข้อมูลจากระบบ</button></label>
+        </div>
+
+        <div class="section-title system">ข้อมูลทั่วไป <span class="badge">ดึงจากระบบ</span></div>
+        <div class="system-note">ส่วนนี้เป็นข้อมูลอ้างอิงจากระบบ แสดงผลเพื่อให้ตรวจสอบความถูกต้อง ไม่เปิดให้แก้ไขในฟอร์มนี้</div>
+        <div class="grid">
+          <label class="required">วันที่บันทึก<input id="recordDate" readonly type="date" required></label>
+          <label>นักส่งเสริม<input id="promoter" readonly type="text" placeholder="ชื่อ-สกุล"></label>
+          <label class="required">เลขสัญญาชาวไร่<input id="contractNo" readonly type="text" required></label>
+          <label class="required">ชื่อชาวไร่<input id="farmerName" readonly type="text" required></label>
+        </div>
+
+        <div class="section-title system">ข้อมูลแปลง <span class="badge">ดึงจากระบบ</span></div>
+        <div class="system-note">ข้อมูลแปลง เช่น ไอดีแปลง พิกัด ชนิดอ้อย จำนวนไร่ และประวัติผลผลิต จะถูกเติมจากระบบตามเลขสัญญาหรือไอดีแปลง</div>
+        <div class="grid">
+          <label>ไอดีแปลง<input id="plotId" readonly type="text"></label>
+          <label>พิกัด X<input id="coordX" readonly type="text"></label>
+          <label>พิกัด Y<input id="coordY" readonly type="text"></label>
+          <label>ชนิดอ้อย<select id="caneType" disabled><option value="">-- เลือก --</option><option>ข้ามแล้ง</option><option>น้ำราด</option><option>ฝน</option><option>ตอ1</option><option>ตอ2</option><option>ตอ3</option><option>ตอ4</option></select></label>
+          <label class="required">จำนวนไร่<input id="rai" readonly type="number" min="0" step="0.01" required></label>
+          <label>ตันต่อไร่ปี 68/69<input id="lastTonPerRai" readonly type="number" min="0" step="0.01"></label>
+          <label>วันที่ปลูก/วันที่ตัด<input id="plantCutDate" readonly type="text" placeholder="เช่น 12/05/2569"></label>
+        </div>
+
+        <div class="section-title system">ข้อมูลปฏิบัติงานปี 2569/70 <span class="badge">ดึงจากระบบ</span></div>
+        <div class="system-note">สถานะงานปฏิบัติการแสดงจากระบบงาน ไม่แก้ไขจากหน้าตรวจแปลง</div>
+        <div class="grid">
+          <label>พรวน<select id="tillage" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+          <label>ใส่ปุ๋ย<select id="fertilize" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+          <label>ให้น้ำ 1<select id="water1" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+          <label>ให้น้ำ 2<select id="water2" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+          <label>ให้น้ำ 3<select id="water3" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+          <label>กำจัดวัชพืช<select id="weedControl" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+          <label>ฉีดยาแส้ดำ<select id="spray" disabled><option value="">-- เลือก --</option><option>ยังไม่ดำเนินการ</option><option>ดำเนินการแล้ว</option><option>ไม่พบข้อมูล</option><option>ไม่เกี่ยวข้อง</option></select></label>
+        </div>
+
+        <div class="section-title">ตรวจพบสภาพแปลง / ประเมินผลผลิต</div>
+        <div class="grid">
+          <label>สภาพอ้อย (%)<input id="caneCondition" type="number" min="0" max="100" step="0.01"></label>
+          <label>ความสูง (Cm)<input id="heightCm" type="number" min="0" step="0.01"></label>
+          <div class="form-section">
+            <h3>3) ศักยภาพด้านการจัดการวัชพืช</h3>
+            <div class="form-grid two">
+              <div class="field">
+                <span class="choice-label">สภาพวัชพืชรก <span class="req">*</span></span>
+                <div class="choice-row">
+                  <label><input name="weedPercent" type="radio" value="<10%" required checked> &lt; 10%</label>
+                  <label><input name="weedPercent" type="radio" value="10-20%"> 10-20%</label>
+                  <label><input name="weedPercent" type="radio" value=">20%"> &gt; 20%</label>
+                  <label><input name="weedSevere" type="checkbox" value="1"> วัชพืชร้ายแรง</label>
+                </div>
+              </div>
+              <div class="field">
+                <span class="choice-label">ฉีดยาคุม-ฆ่า <span class="req">*</span></span>
+                <div class="choice-row">
+                  <label><input name="weedSpray" type="radio" value="ฉีดแล้ว" required checked> √ ฉีดแล้ว</label>
+                  <label><input name="weedSpray" type="radio" value="ยังไม่ฉีด"> X ยังไม่ฉีด</label>
+                  <label><input name="weedSpray" type="radio" value="ไม่ทราบ"> ? ไม่ทราบ</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section wide">
+            <h3>4) การจัดการด้านโรคแมลง</h3>
+            <div class="pest-groups">
+              <div class="pest-group">
+                <h4>5.1 โรคแส้ดำ</h4>
+                <div class="field">
+                  <span class="choice-label">สถานะการพบโรค <span class="req">*</span></span>
+                  <div class="choice-row">
+                    <label><input name="smut" type="radio" value="ไม่พบโรค" required> ไม่พบโรค</label>
+                    <label><input name="smut" type="radio" value="มี" checked> มี</label>
+                  </div>
+                </div>
+                <div class="field" id="smutPercentField">
+                  <span class="choice-label">% โรคแส้ดำที่พบ <span id="smutPercentReq" class="req">*</span></span>
+                  <div class="choice-row">
+                    <label><input name="smutPercent" type="radio" value="<10%"> &lt; 10%</label>
+                    <label><input name="smutPercent" type="radio" value="10-20%" checked> 10-20%</label>
+                    <label><input name="smutPercent" type="radio" value=">20%"> &gt; 20%</label>
+                  </div>
+                </div>
+                <div class="field">
+                  <span class="choice-label">สถานะการฉีดยาโรคแส้ดำ <span class="req">*</span></span>
+                  <div class="choice-row">
+                    <label><input name="smutSpray" type="radio" value="ฉีดแล้ว" required> √ ฉีดแล้ว</label>
+                    <label><input name="smutSpray" type="radio" value="ยังไม่ฉีด"> X ยังไม่ฉีด</label>
+                    <label><input name="smutSpray" type="radio" value="ไม่ทราบ" checked> ? ไม่ทราบ</label>
+                  </div>
+                </div>
+              </div>
+              <div class="pest-group">
+                <h4>5.2 โรคอื่น ๆ</h4>
+                <div class="field">
+                  <span class="choice-label">โรคอื่น ๆ ที่พบ <span class="req">*</span></span>
+                  <div class="choice-row">
+                    <label><input name="otherDisease" type="radio" value="ไม่พบโรค" required checked> ไม่พบโรค</label>
+                    <label><input name="otherDisease" type="radio" value="มี"> มี</label>
+                  </div>
+                </div>
+                <div class="field" id="otherDiseaseNameField" style="display:none;">
+                  <label>ระบุโรคอื่น ๆ ที่พบ <span id="otherDiseaseNameReq" class="req" style="display:none;">*</span></label>
+                  <input id="otherDiseaseName" name="otherDiseaseName" type="text" value="">
+                </div>
+                <div class="field" id="otherDiseaseDamageField" style="display:none;">
+                  <span class="choice-label">% เสียหาย <span id="otherDiseaseDamageReq" class="req" style="display:none;">*</span></span>
+                  <div class="choice-row">
+                    <label><input name="otherDiseaseDamage" type="radio" value="<10%"> &lt; 10%</label>
+                    <label><input name="otherDiseaseDamage" type="radio" value="10-20%"> 10-20%</label>
+                    <label><input name="otherDiseaseDamage" type="radio" value=">20%"> &gt; 20%</label>
+                  </div>
+                </div>
+              </div>
+              <div class="pest-group full-span">
+                <h4>5.3 หนอนกอ</h4>
+                <div class="form-grid two">
+                  <div class="field">
+                    <span class="choice-label">สถานะการพบหนอนกอ <span class="req">*</span></span>
+                    <div class="choice-row">
+                      <label><input name="borer" type="radio" value="ไม่พบหนอนกอ" required> ไม่พบหนอนกอ</label>
+                      <label><input name="borer" type="radio" value="มี" checked> มี</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <span class="choice-label">สถานะการฉีดยาหนอนกอ <span class="req">*</span></span>
+                    <div class="choice-row">
+                      <label><input name="borerSpray" type="radio" value="ฉีดแล้ว" required> √ ฉีดแล้ว</label>
+                      <label><input name="borerSpray" type="radio" value="ยังไม่ฉีด"> X ยังไม่ฉีด</label>
+                      <label><input name="borerSpray" type="radio" value="ไม่ทราบ" checked> ? ไม่ทราบ</label>
+                    </div>
+                  </div>
+                  <div class="field" id="borerDamageField">
+                    <span class="choice-label">% เสียหายจากหนอนกอ <span id="borerDamageReq" class="req">*</span></span>
+                    <div class="choice-row">
+                      <label><input name="borerDamage" type="radio" value="<10%"> &lt; 10%</label>
+                      <label><input name="borerDamage" type="radio" value="10-20%" checked> 10-20%</label>
+                      <label><input name="borerDamage" type="radio" value=">20%"> &gt; 20%</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="sub-note">หมายเหตุ: หากเลือก “มี” ระบบจะบังคับกรอกรายละเอียดเพิ่มเติมของโรคนั้น ส่วนสถานะการฉีดยาโรคแส้ดำและหนอนกอต้องเลือกทุกกรณี</div>
+          </div>
+          <label>ข้อแนะนำ<select id="recommendation"><option value="">-- เลือก --</option><option>เร่งให้น้ำ</option><option>ใส่ปุ๋ยเพิ่ม</option><option>กำจัดวัชพืช</option><option>เฝ้าระวังโรค/แมลง</option><option>ติดตามซ้ำ</option><option>อื่นๆ</option></select></label>
+          <label class="required">ประเมินผลผลิต (ตัน/ไร่)<input id="estimatedTonPerRai" type="number" min="0" step="0.01" required></label>
+          <label>ผลผลิตรวม<input id="totalYield" type="number" readonly placeholder="คำนวณอัตโนมัติ"></label>
+          <label style="grid-column:span 2">หมายเหตุ<textarea id="note" placeholder="บันทึกเพิ่มเติม"></textarea></label>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="secondary" onclick="resetForm()">ล้างฟอร์ม</button>
+          <button type="submit">บันทึกข้อมูล</button>
+        </div>
+      </form>
+      <div class="notice">หมายเหตุ: ตัวอย่างนี้ใช้ Local Storage สำหรับบันทึกผลตรวจ ส่วนข้อมูลที่ระบุว่า “ดึงจากระบบ” สามารถเชื่อม API จริงได้ในฟังก์ชัน loadSystemData()</div>
+    </section>
+
+    <section class="panel">
+      <h2>รายการที่บันทึก</h2>
+      <div class="searchbar">
+        <input id="search" type="search" placeholder="ค้นหา ชื่อชาวไร่ / เลขสัญญา / ไอดีแปลง" oninput="renderTable()">
+        <button type="button" class="secondary" onclick="document.getElementById('search').value=''; renderTable();">ล้างค้นหา</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr id="tableHead"></tr></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+<script>
+const storageKey = 'auditYieldRecords.v1';
+const fields = [
+  ['recordDate','วันที่บันทึก'],['promoter','นักส่งเสริม'],['contractNo','เลขสัญญาชาวไร่'],['farmerName','ชื่อชาวไร่'],
+  ['plotId','ไอดีแปลง'],['coordX','พิกัด X'],['coordY','พิกัด Y'],
+  ['caneType','ชนิดอ้อย'],['rai','จำนวนไร่'],['lastTonPerRai','ตันต่อไร่ปี 68/69'],['plantCutDate','วันที่ปลูก/วันที่ตัด'],
+  ['tillage','พรวน'],['fertilize','ใส่ปุ๋ย'],['water1','ให้น้ำ 1'],['water2','ให้น้ำ 2'],['water3','ให้น้ำ 3'],['weedControl','กำจัดวัชพืช'],['spray','ฉีดยาแส้ดำ'],
+  ['caneCondition','สภาพอ้อย (%)'],['heightCm','ความสูง (Cm)'],['weedPercent','สภาพวัชพืชรก'],['weedSevere','วัชพืชร้ายแรง'],['weedSpray','ฉีดยาคุม-ฆ่า'],
+  ['smut','โรคแส้ดำ'],['smutPercent','% โรคแส้ดำที่พบ'],['smutSpray','สถานะฉีดยาโรคแส้ดำ'],['otherDisease','โรคอื่น ๆ ที่พบ'],['otherDiseaseName','ชื่อโรคอื่น ๆ'],['otherDiseaseDamage','% เสียหายโรคอื่น ๆ'],['borer','สถานะหนอนกอ'],['borerSpray','สถานะฉีดยาหนอนกอ'],['borerDamage','% เสียหายจากหนอนกอ'],
+  ['recommendation','ข้อแนะนำ'],['estimatedTonPerRai','ประเมินผลผลิต (ตัน/ไร่)'],['totalYield','ผลผลิตรวม'],['note','หมายเหตุ']
+];
+let records = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+function today(){ return new Date().toISOString().slice(0,10); }
+function n(v){ const x = parseFloat(v); return Number.isFinite(x) ? x : 0; }
+function fmt(v, digits=2){ return n(v).toLocaleString('th-TH',{minimumFractionDigits:digits,maximumFractionDigits:digits}); }
+function save(){ localStorage.setItem(storageKey, JSON.stringify(records)); updateKpis(); }
+function setValue(id, value){ const el = document.getElementById(id); if(el) el.value = value ?? ''; }
+function getFieldValue(id){
+  const el = document.getElementById(id);
+  if(el) return el.value.trim();
+  const group = document.querySelectorAll(`[name="${id}"]`);
+  if(!group.length) return '';
+  const type = group[0].type;
+  if(type === 'radio') return document.querySelector(`[name="${id}"]:checked`)?.value || '';
+  if(type === 'checkbox') return document.querySelector(`[name="${id}"]`)?.checked ? '1' : '';
+  return group[0].value?.trim?.() || '';
+}
+function setFieldValue(id, value){
+  const el = document.getElementById(id);
+  if(el){ el.value = value ?? ''; return; }
+  const group = document.querySelectorAll(`[name="${id}"]`);
+  if(!group.length) return;
+  const type = group[0].type;
+  if(type === 'radio') group.forEach(input => input.checked = input.value === value);
+  else if(type === 'checkbox') group.forEach(input => input.checked = value === '1' || value === true || value === input.value);
+  else group[0].value = value ?? '';
+}
+function clearChoiceFields(){ ['weedPercent','weedSevere','weedSpray','smut','smutPercent','smutSpray','otherDisease','otherDiseaseName','otherDiseaseDamage','borer','borerSpray','borerDamage'].forEach(id => setFieldValue(id, '')); }
+function setSystemFields(data){
+  Object.entries(data).forEach(([id,value]) => setValue(id, value));
+  setValue('systemUpdatedAt', new Date().toLocaleString('th-TH'));
+  calculate();
+}
+async function loadSystemData(){
+  const key = (document.getElementById('systemKey').value || '').trim();
+  // จุดเชื่อมต่อระบบจริง: เปลี่ยน URL ด้านล่างให้เป็น API ภายในองค์กร เช่น /api/plots?key=...
+  // const res = await fetch('/api/audit-yield/source-data?key=' + encodeURIComponent(key));
+  // const data = await res.json();
+  // setSystemFields(data);
+
+  // ข้อมูลตัวอย่างสำหรับทดสอบหน้าจอ เมื่อยังไม่ได้เชื่อม API จริง
+  // กรณีกรอกเลขสัญญา 006695 ระบบจะแสดงข้อมูลตัวอย่างด้านล่าง
+  const demoByContract = {
+    '006695': {
+      recordDate: today(),
+      promoter: 'ระบบส่งเสริมไร่อ้อย',
+      contractNo: '006695',
+      farmerName: 'นาง บุญตา เกษสาคร',
+      plotId: 'P-006695-001',
+      coordX: '',
+      coordY: '',
+      caneType: 'ข้ามแล้ง',
+      rai: '',
+      lastTonPerRai: '',
+      plantCutDate: '',
+      tillage: 'ไม่พบข้อมูล',
+      fertilize: 'ไม่พบข้อมูล',
+      water1: 'ไม่พบข้อมูล',
+      water2: 'ไม่พบข้อมูล',
+      water3: 'ไม่พบข้อมูล',
+      weedControl: 'ไม่พบข้อมูล',
+      spray: 'ไม่พบข้อมูล'
+    }
+  };
+
+  const demo = demoByContract[key] || {
+    recordDate: today(), promoter: 'ระบบส่งเสริมไร่อ้อย', contractNo: key || 'CN-2569-0001', farmerName: 'ตัวอย่าง ชาวไร่',
+    plotId: key && key.startsWith('P') ? key : 'P-2569-001', coordX: '15.123456', coordY: '100.123456',
+    caneType: 'ข้ามแล้ง', rai: '12.50', lastTonPerRai: '13.20', plantCutDate: '12/05/2569',
+    tillage: 'ดำเนินการแล้ว', fertilize: 'ดำเนินการแล้ว', water1: 'ดำเนินการแล้ว', water2: 'ยังไม่ดำเนินการ', water3: 'ยังไม่ดำเนินการ',
+    weedControl: 'ดำเนินการแล้ว', spray: 'ไม่พบข้อมูล'
+  };
+  setSystemFields(demo);
+}
+
+function calculate(){ document.getElementById('totalYield').value = (n(rai.value) * n(estimatedTonPerRai.value)).toFixed(2); }
+function setGroupRequired(name, required){ document.querySelectorAll(`[name="${name}"]`).forEach(input => input.required = required); }
+function togglePestFields(){
+  const smutFound = getFieldValue('smut') === 'มี';
+  document.getElementById('smutPercentField').style.display = smutFound ? '' : 'none';
+  document.getElementById('smutPercentReq').style.display = smutFound ? '' : 'none';
+  setGroupRequired('smutPercent', smutFound);
+  if(!smutFound) setFieldValue('smutPercent','');
+
+  const otherFound = getFieldValue('otherDisease') === 'มี';
+  document.getElementById('otherDiseaseNameField').style.display = otherFound ? '' : 'none';
+  document.getElementById('otherDiseaseDamageField').style.display = otherFound ? '' : 'none';
+  document.getElementById('otherDiseaseNameReq').style.display = otherFound ? '' : 'none';
+  document.getElementById('otherDiseaseDamageReq').style.display = otherFound ? '' : 'none';
+  document.getElementById('otherDiseaseName').required = otherFound;
+  setGroupRequired('otherDiseaseDamage', otherFound);
+  if(!otherFound){ setFieldValue('otherDiseaseName',''); setFieldValue('otherDiseaseDamage',''); }
+
+  const borerFound = getFieldValue('borer') === 'มี';
+  document.getElementById('borerDamageField').style.display = borerFound ? '' : 'none';
+  document.getElementById('borerDamageReq').style.display = borerFound ? '' : 'none';
+  setGroupRequired('borerDamage', borerFound);
+  if(!borerFound) setFieldValue('borerDamage','');
+}
+['smut','otherDisease','borer'].forEach(name => document.querySelectorAll(`[name="${name}"]`).forEach(input => input.addEventListener('change', togglePestFields)));
+
+['rai','estimatedTonPerRai'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
+document.getElementById('recordDate').value = today();
+
+recordForm.addEventListener('submit', (e) => {
+  e.preventDefault(); calculate();
+  const rec = {};
+  fields.forEach(([id]) => rec[id] = getFieldValue(id));
+  const editIndex = document.getElementById('editIndex').value;
+  if(editIndex === '') records.push(rec); else records[Number(editIndex)] = rec;
+  save(); resetForm(); renderTable();
+});
+
+function resetForm(){
+  recordForm.reset(); editIndex.value=''; formTitle.textContent='กรอกข้อมูล'; recordDate.value=today(); totalYield.value=''; togglePestFields();
+}
+function updateKpis(){
+  const count = records.length;
+  const totalRai = records.reduce((s,r)=>s+n(r.rai),0);
+  const totalYield = records.reduce((s,r)=>s+n(r.totalYield),0);
+  kpiCount.textContent = count.toLocaleString('th-TH');
+  kpiRai.textContent = fmt(totalRai);
+  kpiYield.textContent = fmt(totalYield);
+  kpiAvg.textContent = totalRai ? fmt(totalYield/totalRai) : '0.00';
+}
+function renderTable(){
+  tableHead.innerHTML = '<th>ลำดับ</th>' + fields.map(f=>`<th>${f[1]}</th>`).join('') + '<th>จัดการ</th>';
+  const q = search.value.trim().toLowerCase();
+  const filtered = records.map((r,i)=>({r,i})).filter(({r}) => !q || [r.farmerName,r.contractNo,r.plotId,r.promoter].join(' ').toLowerCase().includes(q));
+  if(!filtered.length){ tableBody.innerHTML = `<tr><td colspan="${fields.length+2}" class="empty">ยังไม่มีข้อมูลที่ตรงกับเงื่อนไข</td></tr>`; updateKpis(); return; }
+  tableBody.innerHTML = filtered.map(({r,i},idx)=>{
+    const cells = fields.map(([id])=>`<td>${escapeHtml(r[id] ?? '')}</td>`).join('');
+    return `<tr><td><span class="pill">${idx+1}</span></td>${cells}<td><div class="row-actions"><button type="button" onclick="editRow(${i})">แก้ไข</button><button type="button" class="danger" onclick="deleteRow(${i})">ลบ</button></div></td></tr>`;
+  }).join(''); updateKpis();
+}
+function editRow(i){
+  const r = records[i]; fields.forEach(([id]) => setFieldValue(id, r[id] ?? '')); editIndex.value = i; formTitle.textContent = 'แก้ไขข้อมูล'; calculate(); togglePestFields(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function deleteRow(i){ if(confirm('ยืนยันลบรายการนี้?')){ records.splice(i,1); save(); renderTable(); } }
+function clearAll(){ if(confirm('ยืนยันล้างข้อมูลทั้งหมด?')){ records=[]; save(); renderTable(); resetForm(); } }
+function escapeHtml(s){ return String(s).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+
+function exportCSV(){
+  const header = fields.map(f=>f[1]);
+  const rows = records.map(r => fields.map(([id]) => r[id] ?? ''));
+  const csv = [header, ...rows].map(row => row.map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')).join('\n');
+  const blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'audit_yield_records.csv'; a.click(); URL.revokeObjectURL(a.href);
+}
+function parseCSV(text){
+  const rows=[]; let row=[], value='', inQuotes=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i], next=text[i+1];
+    if(c==='"' && inQuotes && next==='"'){ value+='"'; i++; }
+    else if(c==='"'){ inQuotes=!inQuotes; }
+    else if(c===',' && !inQuotes){ row.push(value); value=''; }
+    else if((c==='\n'||c==='\r') && !inQuotes){ if(value || row.length){ row.push(value); rows.push(row); row=[]; value=''; } if(c==='\r' && next==='\n') i++; }
+    else value+=c;
+  }
+  if(value || row.length){ row.push(value); rows.push(row); }
+  return rows;
+}
+function importCSV(event){
+  const file = event.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    const rows = parseCSV(reader.result.replace(/^\ufeff/,''));
+    if(rows.length < 2) return alert('ไม่พบข้อมูลในไฟล์ CSV');
+    const header = rows[0];
+    const imported = rows.slice(1).map(row => {
+      const rec={}; fields.forEach(([id,label]) => { const idx = header.indexOf(label); rec[id] = idx >= 0 ? (row[idx] || '') : ''; });
+      if(!rec.totalYield) rec.totalYield = (n(rec.rai)*n(rec.estimatedTonPerRai)).toFixed(2);
+      return rec;
+    });
+    records = records.concat(imported); save(); renderTable(); alert('นำเข้าข้อมูลสำเร็จ ' + imported.length + ' รายการ'); event.target.value='';
+  };
+  reader.readAsText(file, 'utf-8');
+}
+togglePestFields();
+renderTable();
+</script>
+</body>
+</html>
