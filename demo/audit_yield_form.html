@@ -145,7 +145,7 @@
               <div class="field">
                 <span class="choice-label">สภาพวัชพืชรก <span class="req">*</span></span>
                 <div class="choice-row">
-                  <label><input name="weedPercent" type="radio" value="<10%" required checked> &lt; 10%</label>
+                  <label><input name="weedPercent" type="radio" value="<10%" required> &lt; 10%</label>
                   <label><input name="weedPercent" type="radio" value="10-20%"> 10-20%</label>
                   <label><input name="weedPercent" type="radio" value=">20%"> &gt; 20%</label>
                   <label><input name="weedSevere" type="checkbox" value="1"> วัชพืชร้ายแรง</label>
@@ -154,7 +154,7 @@
               <div class="field">
                 <span class="choice-label">ฉีดยาคุม-ฆ่า <span class="req">*</span></span>
                 <div class="choice-row">
-                  <label><input name="weedSpray" type="radio" value="ฉีดแล้ว" required checked> √ ฉีดแล้ว</label>
+                  <label><input name="weedSpray" type="radio" value="ฉีดแล้ว" required> √ ฉีดแล้ว</label>
                   <label><input name="weedSpray" type="radio" value="ยังไม่ฉีด"> X ยังไม่ฉีด</label>
                   <label><input name="weedSpray" type="radio" value="ไม่ทราบ"> ? ไม่ทราบ</label>
                 </div>
@@ -171,14 +171,14 @@
                   <span class="choice-label">สถานะการพบโรค <span class="req">*</span></span>
                   <div class="choice-row">
                     <label><input name="smut" type="radio" value="ไม่พบโรค" required> ไม่พบโรค</label>
-                    <label><input name="smut" type="radio" value="มี" checked> มี</label>
+                    <label><input name="smut" type="radio" value="มี"> มี</label>
                   </div>
                 </div>
                 <div class="field" id="smutPercentField">
                   <span class="choice-label">% โรคแส้ดำที่พบ <span id="smutPercentReq" class="req">*</span></span>
                   <div class="choice-row">
                     <label><input name="smutPercent" type="radio" value="<10%"> &lt; 10%</label>
-                    <label><input name="smutPercent" type="radio" value="10-20%" checked> 10-20%</label>
+                    <label><input name="smutPercent" type="radio" value="10-20%"> 10-20%</label>
                     <label><input name="smutPercent" type="radio" value=">20%"> &gt; 20%</label>
                   </div>
                 </div>
@@ -187,7 +187,7 @@
                   <div class="choice-row">
                     <label><input name="smutSpray" type="radio" value="ฉีดแล้ว" required> √ ฉีดแล้ว</label>
                     <label><input name="smutSpray" type="radio" value="ยังไม่ฉีด"> X ยังไม่ฉีด</label>
-                    <label><input name="smutSpray" type="radio" value="ไม่ทราบ" checked> ? ไม่ทราบ</label>
+                    <label><input name="smutSpray" type="radio" value="ไม่ทราบ"> ? ไม่ทราบ</label>
                   </div>
                 </div>
               </div>
@@ -196,7 +196,7 @@
                 <div class="field">
                   <span class="choice-label">โรคอื่น ๆ ที่พบ <span class="req">*</span></span>
                   <div class="choice-row">
-                    <label><input name="otherDisease" type="radio" value="ไม่พบโรค" required checked> ไม่พบโรค</label>
+                    <label><input name="otherDisease" type="radio" value="ไม่พบโรค" required> ไม่พบโรค</label>
                     <label><input name="otherDisease" type="radio" value="มี"> มี</label>
                   </div>
                 </div>
@@ -220,7 +220,7 @@
                     <span class="choice-label">สถานะการพบหนอนกอ <span class="req">*</span></span>
                     <div class="choice-row">
                       <label><input name="borer" type="radio" value="ไม่พบหนอนกอ" required> ไม่พบหนอนกอ</label>
-                      <label><input name="borer" type="radio" value="มี" checked> มี</label>
+                      <label><input name="borer" type="radio" value="มี"> มี</label>
                     </div>
                   </div>
                   <div class="field">
@@ -228,14 +228,14 @@
                     <div class="choice-row">
                       <label><input name="borerSpray" type="radio" value="ฉีดแล้ว" required> √ ฉีดแล้ว</label>
                       <label><input name="borerSpray" type="radio" value="ยังไม่ฉีด"> X ยังไม่ฉีด</label>
-                      <label><input name="borerSpray" type="radio" value="ไม่ทราบ" checked> ? ไม่ทราบ</label>
+                      <label><input name="borerSpray" type="radio" value="ไม่ทราบ"> ? ไม่ทราบ</label>
                     </div>
                   </div>
                   <div class="field" id="borerDamageField">
                     <span class="choice-label">% เสียหายจากหนอนกอ <span id="borerDamageReq" class="req">*</span></span>
                     <div class="choice-row">
                       <label><input name="borerDamage" type="radio" value="<10%"> &lt; 10%</label>
-                      <label><input name="borerDamage" type="radio" value="10-20%" checked> 10-20%</label>
+                      <label><input name="borerDamage" type="radio" value="10-20%"> 10-20%</label>
                       <label><input name="borerDamage" type="radio" value=">20%"> &gt; 20%</label>
                     </div>
                   </div>
@@ -410,7 +410,6 @@ function togglePestFields(){
 ['smut','otherDisease','borer'].forEach(name => document.querySelectorAll(`[name="${name}"]`).forEach(input => input.addEventListener('change', togglePestFields)));
 
 ['rai','estimatedTonPerRai'].forEach(id => document.getElementById(id).addEventListener('input', calculate));
-document.getElementById('recordDate').value = today();
 
 recordForm.addEventListener('submit', (e) => {
   e.preventDefault(); calculate();
@@ -422,7 +421,7 @@ recordForm.addEventListener('submit', (e) => {
 });
 
 function resetForm(){
-  recordForm.reset(); editIndex.value=''; formTitle.textContent='กรอกข้อมูล'; recordDate.value=today(); totalYield.value=''; togglePestFields();
+  recordForm.reset(); editIndex.value=''; formTitle.textContent='กรอกข้อมูล'; totalYield.value=''; togglePestFields();
 }
 function updateKpis(){
   const count = records.length;
