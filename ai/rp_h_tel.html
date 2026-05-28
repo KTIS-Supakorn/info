@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>รายชื่อผู้ใช้งาน RP</title>
+  <style>
+:root { --bg:#f4f7fb; --text:#1f2937; --muted:#6b7280; --primary:#0f766e; --primary-dark:#115e59; --line:#e5e7eb; --soft:#ecfeff; --shadow:0 18px 45px rgba(15,23,42,.10); }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Segoe UI", Tahoma, Arial, sans-serif; background:radial-gradient(circle at top left, rgba(20,184,166,.20), transparent 28rem), linear-gradient(135deg,#eef7ff 0%,var(--bg) 48%,#f8fafc 100%); color:var(--text); min-height:100vh; padding:28px; }
+.page { max-width:1280px; margin:0 auto; }
+.hero { display:grid; grid-template-columns:1.5fr 1fr; gap:18px; align-items:stretch; margin-bottom:22px; }
+.title-card,.stat-card,.table-card { background:rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.75); border-radius:24px; box-shadow:var(--shadow); backdrop-filter:blur(12px); }
+.title-card { padding:28px; overflow:hidden; position:relative; }
+.title-card::after { content:""; position:absolute; width:220px; height:220px; right:-70px; top:-90px; background:linear-gradient(135deg, rgba(20,184,166,.22), rgba(59,130,246,.18)); border-radius:999px; }
+.badge { display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:var(--soft); color:var(--primary-dark); font-weight:700; font-size:13px; margin-bottom:14px; }
+h1 { margin:0; font-size:clamp(28px,4vw,44px); line-height:1.1; letter-spacing:-.03em; }
+.subtitle { margin:12px 0 0; color:var(--muted); font-size:16px; max-width:680px; }
+.stats { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.stat-card { padding:22px; } .stat-label { color:var(--muted); font-size:13px; margin-bottom:7px; } .stat-value { font-size:30px; font-weight:800; color:var(--primary-dark); }
+.toolbar { display:flex; flex-wrap:wrap; gap:12px; margin-bottom:16px; }
+.search,.select { border:1px solid var(--line); background:#fff; border-radius:16px; padding:13px 15px; font-size:15px; outline:none; box-shadow:0 8px 22px rgba(15,23,42,.05); } .search { flex:1 1 320px; } .select { flex:0 1 240px; cursor:pointer; }
+.table-card { overflow:hidden; } .table-head { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:18px 22px; border-bottom:1px solid var(--line); } .table-head h2 { margin:0; font-size:19px; } .count { color:var(--muted); font-size:14px; }
+.table-wrap { overflow:auto; max-height:70vh; } table { width:100%; border-collapse:collapse; min-width:920px; }
+thead th { position:sticky; top:0; z-index:1; background:#f8fafc; color:#334155; text-align:left; font-size:13px; letter-spacing:.02em; padding:14px 16px; border-bottom:1px solid var(--line); white-space:nowrap; }
+tbody td { padding:13px 16px; border-bottom:1px solid #eef2f7; vertical-align:middle; font-size:14px; } tbody tr:hover { background:#f0fdfa; }
+.user-pill { display:inline-flex; align-items:center; padding:7px 10px; border-radius:999px; background:#ecfdf5; color:#047857; font-weight:700; font-family:Consolas, Monaco, monospace; font-size:13px; white-space:nowrap; }
+.phone { font-family:Consolas, Monaco, monospace; white-space:nowrap; } .position { display:inline-block; padding:6px 10px; border-radius:999px; background:#eff6ff; color:#1d4ed8; font-size:13px; font-weight:700; white-space:nowrap; }
+.empty { display:none; padding:38px; text-align:center; color:var(--muted); }
+@media (max-width:860px) { body { padding:16px; } .hero { grid-template-columns:1fr; } .stats { grid-template-columns:1fr 1fr; } .title-card,.stat-card { border-radius:20px; } }
+</style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="title-card">
+        <div class="badge">RP • User Directory</div>
+        <h1>ตารางรายชื่อผู้ใช้งาน RP</h1>
+        <p class="subtitle">ค้นหา กรองตามตำแหน่ง และดู User ที่สร้างจากชื่อภาษาอังกฤษตัวเล็ก + จุด + นามสกุล 3 ตัวแรก</p>
+      </div>
+      <div class="stats">
+        <div class="stat-card"><div class="stat-label">จำนวนทั้งหมด</div><div class="stat-value" id="totalCount">0</div></div>
+        <div class="stat-card"><div class="stat-label">ผลลัพธ์ที่แสดง</div><div class="stat-value" id="shownCount">0</div></div>
+      </div>
+    </section>
+    <section class="toolbar">
+      <input id="searchInput" class="search" type="search" placeholder="ค้นหาชื่อไทย / ชื่ออังกฤษ / User" />
+      <select id="positionFilter" class="select"><option value="">ทุกตำแหน่ง</option></select>
+    </section>
+    <section class="table-card">
+      <div class="table-head"><h2>ข้อมูลพนักงาน</h2><div class="count" id="resultText">กำลังโหลดข้อมูล...</div></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>ชื่อ-นามสกุล ไทย</th><th>ชื่อ-นามสกุล Eng</th><th>เบอร์โทร</th><th>ตำแหน่ง</th><th>User</th></tr></thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+        <div class="empty" id="emptyState">ไม่พบข้อมูลที่ค้นหา</div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const people = [{"thai":"นายอธิภัทร  เตียฮง","eng":"Athiphat Tiahong","phone":"0884282799","position":"ADMIN","user":"athiphat.tia"},{"thai":"น.ส.วิไลลักษณ์ ฤทธิ์มหันต์","eng":"Wilailak Ritmahan","phone":"0859221544","position":"ADMIN","user":"wilailak.rit"},{"thai":"นายกิตติศักดิ์ กุศลมา","eng":"Kittisak Kusonma","phone":"0623101748","position":"ADMIN","user":"kittisak.kus"},{"thai":"นางอรรถรวรินทร์ ขัณฑ์ชลา","eng":"Auttarawarin Khunchala","phone":"0629296916","position":"ธุรการเขต","user":"auttarawarin.khu"},{"thai":"น.ส.ปวริศรารินทร์ วราหไพฑูรย์","eng":"Pavarisrarin Warahapaitoon","phone":"0882835188","position":"ธุรการหน่วย","user":"pavarisrarin.war"},{"thai":"นางประไพศรี บุญประเสริฐ","eng":"Praphaisri Bunprassoet","phone":"0652235493","position":"ธุรการหน่วย","user":"praphaisri.bun"},{"thai":"นางสาวเจนจิรา พันธ์สูงเนิน","eng":"Jenjira Punsungnern","phone":"0862805635","position":"ธุรการหน่วย","user":"jenjira.pun"},{"thai":"น.ส.มลฤดี โกศลศรีวิวัฒน์","eng":"Molruedee Kosolsriwiwit","phone":"0829539892","position":"ธุรการหน่วย","user":"molruedee.kos"},{"thai":"นางเพียงฤทัย สุขศิริ","eng":"Piangluthai Suksirk","phone":"0848184563","position":"ธุรการหน่วย","user":"piangluthai.suk"},{"thai":"นางเพียงฤทัย สุขศิริ","eng":"Piangluthai Suksirk","phone":"0848184563","position":"ธุรการหน่วย","user":"piangluthai.suk"},{"thai":"นางทัศนีย์ ทองหยิบ","eng":"thasanee thongyib","phone":"0817272043","position":"ธุรการหน่วย","user":"thasanee.tho"},{"thai":"นางหทัยพร พรหมทัต","eng":"Hathaiporn Prommatat","phone":"0856053142","position":"ธุรการหน่วย","user":"hathaiporn.pro"},{"thai":"นางนวลจันทร์ วิจิตจันทร์","eng":"Nuanchan Wichitchan Nuanchan Wichitchan","phone":"0878407234","position":"ธุรการหน่วย","user":"nuanchan.wic"},{"thai":"นางนวลจันทร์ วิจิตจันทร์","eng":"Nuanchan Wichitchan","phone":"0878407234","position":"ธุรการหน่วย","user":"nuanchan.wic"},{"thai":"น.ส.ณัฐนันท์ เปลี่ยนดิษฐ์","eng":"Nutthanun pliandit","phone":"0871982174","position":"ธุรการหน่วย","user":"nutthanun.pli"},{"thai":"นางเรณู  วัฒนพันธ์","eng":"Ranu Wattanapan","phone":"0625619693","position":"ธุรการหน่วย","user":"ranu.wat"},{"thai":"น.ส.ชวัลรัตน์ เที่ยงธรรม","eng":"Chawanrat Theangtham","phone":"0957033552","position":"ธุรการหน่วย","user":"chawanrat.the"},{"thai":"น.ส.ขวัญใจ ชูศรี","eng":"Kwanjai Chusri","phone":"0989359911","position":"ธุรการหน่วย","user":"kwanjai.chu"},{"thai":"น.ส.ณัฐวรรณ คำวันศรี","eng":"Nuttawan Kamwansri","phone":"0845743357","position":"ธุรการหน่วย","user":"nuttawan.kam"},{"thai":"นายอาชวิณ แพงศรี","eng":"Archwynn pangsri","phone":"0623101784","position":"นักส่งเสริม","user":"archwynn.pan"},{"thai":"นายวันชัย ศรีวังราช","eng":"Wanchai Sriwangrat","phone":"0623101813","position":"นักส่งเสริม","user":"wanchai.sri"},{"thai":"นายธีระศักดิ์  วงษ์สาคร","eng":"Teerasak Wongsakorn","phone":"0623101754","position":"นักส่งเสริม","user":"teerasak.won"},{"thai":"นายสุริยา  กองแก้ว","eng":"suriya kongkaeo","phone":"0623101783","position":"นักส่งเสริม","user":"suriya.kon"},{"thai":"นายสิทธิโชคชัย  กรณีย์","eng":"sittichokchai koranee","phone":"0623101781","position":"นักส่งเสริม","user":"sittichokchai.kor"},{"thai":"นายอนุกูล สามเพชรเจริญ","eng":"Anukul Samphetcharoen","phone":"0623101782","position":"นักส่งเสริม","user":"anukul.sam"},{"thai":"นายสิทธิโชคชัย  กรณีย์","eng":"sittichokchai koranee","phone":"0623101781","position":"นักส่งเสริม","user":"sittichokchai.kor"},{"thai":"นายอนุกูล สามเพชรเจริญ","eng":"Anukul Samphetcharoen","phone":"0623101782","position":"นักส่งเสริม","user":"anukul.sam"},{"thai":"นายพิลม  วัฒนพันธ์","eng":"pilom wattamapan","phone":"0623101779","position":"นักส่งเสริม","user":"pilom.wat"},{"thai":"นายกฤษณะ  นิลจันทร์","eng":"KRISANA NINJUN","phone":"0623101776","position":"นักส่งเสริม","user":"krisana.nin"},{"thai":"นายอิสระ คำลา","eng":"Issara Khamla","phone":"0623101775","position":"นักส่งเสริม","user":"issara.kha"},{"thai":"นายพรชัย  บุญตา","eng":"Porncal Boonta","phone":"0623101774","position":"นักส่งเสริม","user":"porncal.boo"},{"thai":"นายสรวิศ สุขแก่น","eng":"Sorawit Sukkaen","phone":"0623101755","position":"นักส่งเสริม","user":"sorawit.suk"},{"thai":"นายอภิวัฒน์  วิจิตจันทร์","eng":"Apivat Vijitjan","phone":"0623101772","position":"นักส่งเสริม","user":"apivat.vij"},{"thai":"นายอำนาจ พึ่งดี","eng":"นายอำนาจ พึ่งดี Amnat Phrungdee","phone":"0611127698","position":"นักส่งเสริม","user":"amnat.phr"},{"thai":"นายอภินันท์ สมรอด","eng":"Apinan Somrod","phone":"0623101766","position":"นักส่งเสริม","user":"apinan.som"},{"thai":"นายสัมพันธ์   กลิ่นเจริญ","eng":"Samphan Krinjarean","phone":"0623101767","position":"นักส่งเสริม","user":"samphan.kri"},{"thai":"นายธวัช  เกี่ยวพันกำ","eng":"Thawat Keawpankam","phone":"0623101765","position":"นักส่งเสริม","user":"thawat.kea"},{"thai":"นายเจษฎา  ฤทธิ์ศิริ","eng":"Jetsada Ritsiri","phone":"0623101764","position":"นักส่งเสริม","user":"jetsada.rit"},{"thai":"นายฉัตรชัย  บุญยงค์","eng":"Chatchai Boonyong","phone":"0623101763","position":"นักส่งเสริม","user":"chatchai.boo"},{"thai":"นายเรียน ฤทธิ์ศิริ","eng":"Rean Ritsiri","phone":"0623101762","position":"นักส่งเสริม","user":"rean.rit"},{"thai":"นายอนันต์ บุญยงค์","eng":"อนันต์ บุญยงค์","phone":"0623101761","position":"นักส่งเสริม","user":""},{"thai":"นายกิตติพร  นิคมขำ","eng":"kittiporn nicomkum","phone":"0623101760","position":"นักส่งเสริม","user":"kittiporn.nic"},{"thai":"นายยงยุทธ  คุ้มครอง","eng":"Yongyutt Kumkronj","phone":"0623101758","position":"นักส่งเสริม","user":"yongyutt.kum"},{"thai":"นายเทเวทศ์ เกตุยิ้ม","eng":"Tewet Gatyim","phone":"0623101757","position":"นักส่งเสริม","user":"tewet.gat"},{"thai":"นายจรูญ  สอนสวน","eng":"Jaroon Sonsuan","phone":"0623101753","position":"นักส่งเสริม","user":"jaroon.son"},{"thai":"นายวงกต  แสนชา","eng":"wongkot Sancha","phone":"0623101752","position":"นักส่งเสริม","user":"wongkot.san"},{"thai":"นายคมสัน ทองประเทือง","eng":"Komsun Thongprathueang","phone":"0623101751","position":"นักส่งเสริม","user":"komsun.tho"},{"thai":"นายคุณากร  ขุมโมกข์","eng":"Kunakorn Khummok","phone":"0623101750","position":"นักส่งเสริม","user":"kunakorn.khu"},{"thai":"นายชัยวัฒน์ เกตุสอน","eng":"Chaiwat Getson","phone":"0623101785","position":"นักส่งเสริม","user":"chaiwat.get"},{"thai":"นายนพดล คงตา","eng":"NOPPADOL KHONGTA","phone":"0815148278","position":"นักส่งเสริม","user":"noppadol.kho"},{"thai":"นายณรงค์ สอนศรี","eng":"Narong Sornsri","phone":"0623101812","position":"นักส่งเสริม","user":"narong.sor"},{"thai":"นายวินัย กุลเกิด","eng":"Winai kulkerd","phone":"0623101805","position":"นักส่งเสริม","user":"winai.kul"},{"thai":"นายนพพร คำวันศรี","eng":"nopporn kumwansri","phone":"0623101803","position":"นักส่งเสริม","user":"nopporn.kum"},{"thai":"น.ส.ปริศนา กรรขำ","eng":"Prisana Kankam","phone":"0994399091","position":"นักส่งเสริม","user":"prisana.kan"},{"thai":"นายกฤษณะ นิลจันทร์","eng":"KRISANA NINJUN","phone":"0623101776","position":"นักส่งเสริม","user":"krisana.nin"},{"thai":"นายฐิติศักดิ์ คุ้มครอง","eng":"Thitisak Khomkhong","phone":"0623101804","position":"นักส่งเสริม","user":"thitisak.kho"},{"thai":"นายนพพร คำวันศรี","eng":"nopporn kumwansri","phone":"0848149156","position":"นักส่งเสริม","user":"nopporn.kum"},{"thai":"นายอนุชา บุญยงค์","eng":"Anucha Boonyong","phone":"0928760277","position":"นักส่งเสริม","user":"anucha.boo"},{"thai":"นายอภิเชษฐ  พวงแก้ว","eng":"Aphichet Phuangkaeo","phone":"0804966658","position":"นักส่งเสริม","user":"aphichet.phu"},{"thai":"นายชนะชัย สังข์เสือ","eng":"Chanachai Sungsua","phone":"0819727055","position":"ส่วนงานไร่บริษัทและวิชาการไร่","user":"chanachai.sun"},{"thai":"สิบเอกสมเพียร พันธ์สูงเนิน","eng":"Sgt.Sompian Punsungnern","phone":"0623101749","position":"หัวหน้าเขต","user":"sompian.pun"},{"thai":"นายทวีโชค เนียมณรงค์","eng":"Taweechok Niamnarong","phone":"0623101773","position":"หัวหน้าเขต","user":"taweechok.nia"},{"thai":"นายอำนวย  พรหมทัต","eng":"Amnuy Prommatat","phone":"0623101808","position":"หัวหน้าเขต","user":"amnuy.pro"},{"thai":"นายมานะ  สุขศิริ","eng":"Mana Suksiri","phone":"0623101806","position":"หัวหน้าเขต","user":"mana.suk"},{"thai":"นายนพพร  คำวันศรี","eng":"nopporn kumwansri","phone":"0623101803","position":"หัวหน้าเขต","user":"nopporn.kum"},{"thai":"นายเฉลิมพงษ์ ตึกขาว","eng":"Chalermpong. Tuekkhao","phone":"0823101795","position":"หัวหน้าเขต","user":"chalermpong.tue"},{"thai":"นายสัณห์ ขัณฑ์ชลา","eng":"San Khanchala","phone":"0819711644","position":"หัวหน้าเขต","user":"san.kha"},{"thai":"นายวิรัตน์ วิจิตจันทร์","eng":"Mr.Wirat wichitchan","phone":"0623101770","position":"หัวหน้าเขต","user":"wirat.wic"},{"thai":"นายประหยัด วงษ์วิชาวัฒนา","eng":"Surasak Karanee","phone":"0623101811","position":"หัวหน้าเขต","user":"surasak.kar"},{"thai":"น.ส.วิไลลักษณ์ ฤทธิ์มหันต์","eng":"Wilailak Ritmahan","phone":"0859221544","position":"หัวหน้าธุรการเขต","user":"wilailak.rit"},{"thai":"น.ส.ณัฐกานต์ ประกอบผล","eng":"Nuttakarn Prakobphon","phone":"0631093287","position":"","user":"nuttakarn.pra"}];
+    const tableBody = document.getElementById("tableBody");
+    const searchInput = document.getElementById("searchInput");
+    const positionFilter = document.getElementById("positionFilter");
+    const totalCount = document.getElementById("totalCount");
+    const shownCount = document.getElementById("shownCount");
+    const resultText = document.getElementById("resultText");
+    const emptyState = document.getElementById("emptyState");
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>'"]/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+      }[char]));
+    }
+
+
+    function maskPhone(phone) {
+      const value = String(phone || "").replace(/\D/g, "");
+      if (value.length <= 7) return escapeHtml(phone || "");
+      return `${value.slice(0, 3)}***${value.slice(-4)}`;
+    }
+
+    function setupPositions() {
+      const positions = [...new Set(people.map(item => item.position).filter(Boolean))].sort((a, b) => a.localeCompare(b, "th"));
+      positions.forEach(position => {
+        const option = document.createElement("option");
+        option.value = position;
+        option.textContent = position;
+        positionFilter.appendChild(option);
+      });
+    }
+
+    function render() {
+      const keyword = searchInput.value.trim().toLowerCase();
+      const selectedPosition = positionFilter.value;
+      const filtered = people.filter(item => {
+        const text = `${item.thai} ${item.eng} ${item.phone} ${item.position} ${item.user}`.toLowerCase();
+        return (!keyword || text.includes(keyword)) && (!selectedPosition || item.position === selectedPosition);
+      });
+
+      tableBody.innerHTML = filtered.map((item, index) => `
+        <tr>
+          <td>${index + 1}</td>
+          <td>${escapeHtml(item.thai)}</td>
+          <td>${escapeHtml(item.eng)}</td>
+          <td class="phone">${maskPhone(item.phone)}</td>
+          <td><span class="position">${escapeHtml(item.position || "-")}</span></td>
+          <td><span class="user-pill">${escapeHtml(item.user || "-")}</span></td>
+        </tr>`).join("");
+      totalCount.textContent = people.length.toLocaleString("th-TH");
+      shownCount.textContent = filtered.length.toLocaleString("th-TH");
+      resultText.textContent = `RP • แสดง ${filtered.length.toLocaleString("th-TH")} จาก ${people.length.toLocaleString("th-TH")} รายการ`;
+      emptyState.style.display = filtered.length ? "none" : "block";
+    }
+
+    searchInput.addEventListener("input", render);
+    positionFilter.addEventListener("change", render);
+    setupPositions();
+    render();
+  </script>
+</body>
+</html>
