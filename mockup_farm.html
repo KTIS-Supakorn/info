@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>ระบบบันทึกกิจกรรมแปลงอ้อยแบบใหม่</title>
+  <style>
+    body {
+      font-family: Tahoma, Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      color: #1f2937;
+    }
+
+    header {
+      background: #176b3a;
+      color: white;
+      padding: 18px 28px;
+    }
+
+    .container {
+      padding: 24px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    h2, h3 {
+      margin-top: 0;
+      color: #176b3a;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 9px;
+      margin-top: 5px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e7f6ec;
+      color: #176b3a;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: bold;
+      margin: 4px 4px 4px 0;
+    }
+
+    .old {
+      background: #fff7ed;
+      border-left: 5px solid #f97316;
+    }
+
+    .new {
+      background: #ecfdf5;
+      border-left: 5px solid #16a34a;
+    }
+
+    .warning {
+      background: #fef2f2;
+      border-left: 5px solid #dc2626;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #d1d5db;
+      padding: 8px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #e5e7eb;
+    }
+
+    button {
+      margin-top: 14px;
+      background: #176b3a;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button.secondary {
+      background: #64748b;
+    }
+
+    .module-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .auto-st {
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>ระบบบันทึกกิจกรรมแปลงอ้อยแบบใหม่</h1>
+  <p>แนวคิด: ผู้ใช้เลือก “กิจกรรม” ระบบกำหนด สท. ให้อัตโนมัติ</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>1. ข้อมูลแปลงอ้อย</h2>
+
+    <div class="grid">
+      <div>
+        <label>เลขที่แปลง</label>
+        <input value="0714419" />
+
+        <label>ชื่อชาวไร่</label>
+        <input value="นายตัวอย่าง ชาวไร่อ้อย" />
+
+        <label>พื้นที่แปลง (ไร่)</label>
+        <input value="10" />
+      </div>
+
+      <div>
+        <label>ฤดูผลิต</label>
+        <select>
+          <option>68/69</option>
+          <option>67/68</option>
+        </select>
+
+        <label>สถานะแปลง</label>
+        <select>
+          <option>อ้อยปลูกใหม่</option>
+          <option selected>อ้อยตอ 1</option>
+          <option>อ้อยตอ 2</option>
+          <option>อ้อยตอ 3</option>
+        </select>
+
+        <label>วันที่ตัดล่าสุด</label>
+        <input type="date" value="2024-12-25" />
+      </div>
+    </div>
+  </div>
+
+  <div class="card old">
+    <h2>2. วิธีเดิม: ผู้ใช้ต้องเลือก สท.</h2>
+    <p>ผู้ใช้ต้องตัดสินใจเองว่ากิจกรรมที่ทำควรอยู่ สท. ใด</p>
+
+    <span class="badge">ST01 จดแจ้งแปลง</span>
+    <span class="badge">ST02 วิธีการปลูก</span>
+    <span class="badge">ST03 บำรุงตอหลังตัด</span>
+    <span class="badge">ST04 บำรุงหลังฝน</span>
+    <span class="badge">ST05 สำรวจโรคแมลง</span>
+    <span class="badge">ST06 เก็บเกี่ยว</span>
+    <span class="badge">ST07 บำรุงผ่านแล้ง</span>
+  </div>
+
+  <div class="card new">
+    <h2>3. วิธีใหม่: เลือกกิจกรรม</h2>
+    <p>ผู้ใช้เลือกกิจกรรมที่เกิดขึ้นจริง ระบบจะกำหนด สท. จากบริบทแปลง ฤดูกาล และประเภทกิจกรรม</p>
+
+    <label>กิจกรรมที่ต้องการบันทึก</label>
+    <select>
+      <option selected>ใส่ปุ๋ย</option>
+      <option>ให้น้ำ</option>
+      <option>พ่นสารกำจัดวัชพืช</option>
+      <option>พ่นสารป้องกันแมลง</option>
+      <option>สำรวจโรคและแมลง</option>
+      <option>เก็บเกี่ยว</option>
+      <option>ปลูกอ้อย</option>
+    </select>
+
+    <label>ช่วงเวลาของกิจกรรม</label>
+    <select>
+      <option>หลังตัด</option>
+      <option selected>หลังฝน</option>
+      <option>ผ่านแล้ง</option>
+      <option>ช่วงปลูกใหม่</option>
+    </select>
+
+    <div style="margin-top:15px;">
+      <span class="auto-st">ระบบกำหนดอัตโนมัติ: ST04 บำรุงหลังฝน</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="module-title">
+      <h2>Module: การใส่ปุ๋ย</h2>
+      <span class="auto-st">ใช้แทนฟิลด์ซ้ำจาก ST02 / ST03 / ST04 / ST07</span>
+    </div>
+
+    <div class="grid">
+      <div>
+        <label>วันที่ใส่ปุ๋ย</label>
+        <input type="date" />
+
+        <label>วิธีการใส่ปุ๋ย</label>
+        <select>
+          <option>หว่าน</option>
+          <option>โรยข้างแถว</option>
+          <option>ฝังดิน</option>
+          <option>ผ่านระบบน้ำ</option>
+        </select>
+
+        <label>สูตรปุ๋ย</label>
+        <select>
+          <option>15-15-15</option>
+          <option>16-20-0</option>
+          <option>46-0-0</option>
+          <option>15-7-18</option>
+          <option>อื่น ๆ</option>
+        </select>
+      </div>
+
+      <div>
+        <label>อัตราการใช้ (กก./ไร่)</label>
+        <input type="number" />
+
+        <label>จำนวนรวม (กก.)</label>
+        <input type="number" />
+
+        <label>หมายเหตุ</label>
+        <textarea></textarea>
+      </div>
+    </div>
+
+    <button>เพิ่มสูตรปุ๋ยอีกชุด</button>
+  </div>
+
+  <div class="card">
+    <h2>Module: การให้น้ำ</h2>
+
+    <div class="grid">
+      <div>
+        <label>วันที่ให้น้ำ</label>
+        <input type="date" />
+
+        <label>วิธีการให้น้ำ</label>
+        <select>
+          <option>น้ำหยด</option>
+          <option>สปริงเกอร์</option>
+          <option>น้ำร่อง</option>
+          <option>Pivot</option>
+        </select>
+      </div>
+
+      <div>
+        <label>แหล่งน้ำ</label>
+        <select>
+          <option>คลองชลประทาน</option>
+          <option>สระน้ำ</option>
+          <option>บ่อบาดาล</option>
+          <option>แม่น้ำ</option>
+        </select>
+
+        <label>จำนวนชั่วโมงให้น้ำ</label>
+        <input type="number" />
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Module: สภาพวัชพืช</h2>
+
+    <div class="grid">
+      <div>
+        <label>วันที่สำรวจ</label>
+        <input type="date" />
+
+        <label>ระดับวัชพืช</label>
+        <select>
+          <option>ไม่มี</option>
+          <option>น้อย</option>
+          <option>ปานกลาง</option>
+          <option>มาก</option>
+          <option>รุนแรง</option>
+        </select>
+      </div>
+
+      <div>
+        <label>เปอร์เซ็นต์การปกคลุม (%)</label>
+        <input type="number" />
+
+        <label>หมายเหตุ</label>
+        <textarea></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Module: สารเคมีกำจัดวัชพืช</h2>
+
+    <div class="grid">
+      <div>
+        <label>วันที่พ่น</label>
+        <input type="date" />
+
+        <label>วิธีการพ่น</label>
+        <select>
+          <option>ก่อนงอก</option>
+          <option>หลังงอก</option>
+          <option>เฉพาะจุด</option>
+        </select>
+
+        <label>ชื่อสารเคมี</label>
+        <select>
+          <option>Ametryn</option>
+          <option>Diuron</option>
+          <option>2,4-D</option>
+          <option>อื่น ๆ</option>
+        </select>
+      </div>
+
+      <div>
+        <label>อัตราการใช้</label>
+        <input type="number" />
+
+        <label>หน่วย</label>
+        <select>
+          <option>ลิตร/ไร่</option>
+          <option>ซีซี/ไร่</option>
+          <option>กรัม/ไร่</option>
+        </select>
+
+        <label>ผลหลังดำเนินการ</label>
+        <select>
+          <option>ดีขึ้น</option>
+          <option>คงเดิม</option>
+          <option>ต้องติดตามซ้ำ</option>
+        </select>
+      </div>
+    </div>
+
+    <button>เพิ่มสารเคมีอีกตัว</button>
+  </div>
+
+  <div class="card">
+    <h2>Module: สารเคมีป้องกันแมลง</h2>
+
+    <div class="grid">
+      <div>
+        <label>ศัตรูพืชที่พบ</label>
+        <select>
+          <option>หนอนกอ</option>
+          <option>เพลี้ย</option>
+          <option>ด้วงหนวดยาว</option>
+          <option>อื่น ๆ</option>
+        </select>
+
+        <label>ชื่อสารเคมี</label>
+        <select>
+          <option>Fipronil</option>
+          <option>Chlorpyrifos</option>
+          <option>Imidacloprid</option>
+          <option>อื่น ๆ</option>
+        </select>
+      </div>
+
+      <div>
+        <label>อัตราการใช้</label>
+        <input type="number" />
+
+        <label>ผลหลังการพ่น</label>
+        <select>
+          <option>ดีขึ้น</option>
+          <option>คงเดิม</option>
+          <option>แย่ลง</option>
+          <option>ต้องสำรวจซ้ำ</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Module: สำรวจโรคและแมลง</h2>
+
+    <div class="grid">
+      <div>
+        <label>วันที่สำรวจ</label>
+        <input type="date" />
+
+        <label>ชนิดโรค</label>
+        <select>
+          <option>โรคใบขาว</option>
+          <option>โรคแส้ดำ</option>
+          <option>โรคเหี่ยวเน่าแดง</option>
+          <option>ไม่พบโรค</option>
+        </select>
+      </div>
+
+      <div>
+        <label>ความรุนแรง (%)</label>
+        <input type="number" />
+
+        <label>แนวทางแก้ไข</label>
+        <textarea></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Module: การเก็บเกี่ยว</h2>
+
+    <div class="grid">
+      <div>
+        <label>วันที่เริ่มตัด</label>
+        <input type="date" />
+
+        <label>วันที่ตัดเสร็จ</label>
+        <input type="date" />
+
+        <label>ประเภทการตัด</label>
+        <select>
+          <option>ตัดสด</option>
+          <option>อ้อยไฟไหม้</option>
+        </select>
+      </div>
+
+      <div>
+        <label>วิธีการตัด</label>
+        <select>
+          <option>แรงงาน</option>
+          <option>รถตัด</option>
+        </select>
+
+        <label>ผลผลิตประมาณการ (ตัน)</label>
+        <input type="number" />
+
+        <label>หมายเหตุ</label>
+        <textarea></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="card warning">
+    <h2>Field Mapping: ของเดิม → ของใหม่</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>สท. เดิม</th>
+          <th>ข้อมูลเดิม</th>
+          <th>หน้าจอใหม่ / Module ใหม่</th>
+          <th>สถานะข้อมูล</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>ST01 จดแจ้งแปลง</td>
+          <td>ข้อมูลแปลง ชาวไร่ พื้นที่ พันธุ์อ้อย</td>
+          <td>ข้อมูลแปลงอ้อย</td>
+          <td>คงไว้ ไม่หาย</td>
+        </tr>
+        <tr>
+          <td>ST02 วิธีการปลูก</td>
+          <td>ปลูกอ้อย ปุ๋ย น้ำ สารเคมี</td>
+          <td>ปลูกอ้อย + Module ปุ๋ย + น้ำ + สารเคมี</td>
+          <td>แยกเป็นโมดูลกลาง</td>
+        </tr>
+        <tr>
+          <td>ST03 บำรุงตอหลังตัด</td>
+          <td>ปุ๋ย น้ำ บำรุงตอ</td>
+          <td>Module ปุ๋ย + น้ำ + บำรุงตอ</td>
+          <td>ยุบฟิลด์ซ้ำ</td>
+        </tr>
+        <tr>
+          <td>ST04 บำรุงหลังฝน</td>
+          <td>ปุ๋ย น้ำ วัชพืช สารเคมี</td>
+          <td>Module ปุ๋ย + น้ำ + วัชพืช + สารเคมี</td>
+          <td>ยุบรวมตามกิจกรรม</td>
+        </tr>
+        <tr>
+          <td>ST05 สำรวจโรคแมลง</td>
+          <td>โรค แมลง ความรุนแรง แนวทางแก้ไข</td>
+          <td>Module สำรวจโรคและแมลง</td>
+          <td>คงไว้เป็นโมดูลเฉพาะ</td>
+        </tr>
+        <tr>
+          <td>ST06 เก็บเกี่ยว</td>
+          <td>วันที่ตัด วิธีตัด ประเภทอ้อย ผลผลิต</td>
+          <td>Module การเก็บเกี่ยว</td>
+          <td>คงไว้เป็นโมดูลเฉพาะ</td>
+        </tr>
+        <tr>
+          <td>ST07 บำรุงผ่านแล้ง</td>
+          <td>ปุ๋ย น้ำ วัชพืช สารเคมี</td>
+          <td>Module ปุ๋ย + น้ำ + วัชพืช + สารเคมี</td>
+          <td>ยุบฟิลด์ซ้ำกับ ST04</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Business Rule สำหรับกำหนด สท. อัตโนมัติ</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>เงื่อนไข</th>
+          <th>กิจกรรม</th>
+          <th>ระบบกำหนด สท.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>แปลงใหม่ / ยังไม่ปลูก</td>
+          <td>จดแจ้งข้อมูลแปลง</td>
+          <td>ST01</td>
+        </tr>
+        <tr>
+          <td>อ้อยปลูกใหม่</td>
+          <td>ปลูกอ้อย</td>
+          <td>ST02</td>
+        </tr>
+        <tr>
+          <td>อ้อยตอ หลังการเก็บเกี่ยว</td>
+          <td>บำรุงตอ / ใส่ปุ๋ย / ให้น้ำ</td>
+          <td>ST03</td>
+        </tr>
+        <tr>
+          <td>ช่วงหลังฝน</td>
+          <td>ใส่ปุ๋ย / ให้น้ำ / จัดการวัชพืช</td>
+          <td>ST04</td>
+        </tr>
+        <tr>
+          <td>พบโรคหรือแมลง</td>
+          <td>สำรวจโรคและแมลง</td>
+          <td>ST05</td>
+        </tr>
+        <tr>
+          <td>สิ้นสุดรอบผลิต</td>
+          <td>เก็บเกี่ยว</td>
+          <td>ST06</td>
+        </tr>
+        <tr>
+          <td>ช่วงแล้ง</td>
+          <td>บำรุงผ่านแล้ง / ให้น้ำ / ใส่ปุ๋ย</td>
+          <td>ST07</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
